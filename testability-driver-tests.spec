@@ -48,8 +48,8 @@ rm -rf %{buildroot}
 %{_bindir}/matti_multitouchapp
 %{_bindir}/calculator
 %{_bindir}/calculator_runner.sh
-/usr/share/matti-tests/*
-/usr/share/matti-unit-tests/*
+/usr/share/testability-driver-tests/*
+/usr/share/testability-driver-unit-tests/*
 %{_sysconfdir}/matti/*
 
 
