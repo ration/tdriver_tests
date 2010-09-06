@@ -1,0 +1,26 @@
+diff --git a/lib/matti/base/lib/behaviour_generator.rb b/lib/matti/base/lib/behaviour_generator.rb
+index e1def1e..bab1d4c 100644
+--- a/lib/matti/base/lib/behaviour_generator.rb
++++ b/lib/matti/base/lib/behaviour_generator.rb
+@@ -158,7 +158,7 @@ class BehaviourGenerator
+     Kernel::raise ArgumentError.new("The file path argument was empty.") if file_path.empty?
+     
+     if file_path =~ /\[MATTI_HOME\]/i
+-      matti_folder = File.expand_path("~/matti/")
++      matti_folder = File.expand_path("/etc/matti/")
+       matti_folder = "c:/matti/" if RUBY_PLATFORM =~ /mswin/i
+       file_path.gsub!(/\[MATTI_HOME\]/i, matti_folder)
+     end
+diff --git a/lib/matti/util/lib/parameter.rb b/lib/matti/util/lib/parameter.rb
+index 4d25934..828ad37 100644
+--- a/lib/matti/util/lib/parameter.rb
++++ b/lib/matti/util/lib/parameter.rb
+@@ -118,7 +118,7 @@ module MobyUtil
+     # Private helper function to set matti_home directory depending on os
+     # Known possible issue: javaruby or similar, will not return correctly
+     def get_matti_home_path_depending_on_os
+-      return RUBY_PLATFORM =~ /mswin/i ? "c:/matti" : File.expand_path("~/matti") 
++      return RUBY_PLATFORM =~ /mswin/i ? "c:/matti" : File.expand_path("/etc/matti") 
+     end
+ 
+     # Method to load templates xml file

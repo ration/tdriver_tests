@@ -1,0 +1,84 @@
+testability-driver-tests (0.9.1-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Tue, 10 Aug 2010 14:31:27 +0300
+
+matti-tests (0.9.0-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Fri, 06 Aug 2010 09:08:37 +0300
+
+matti-tests (0.8.4-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Tue, 22 Jun 2010 14:24:06 +0300
+
+matti-tests (0.8.3-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Thu, 03 Jun 2010 10:42:47 +0300
+
+matti-tests (0.8.2-5) unstable; urgency=low
+
+  * new release tag
+
+ -- Petri Kiiskinen <ext-petri.ak.kiiskinen@nokia.com>  Wed, 16 Jun 2010 07:34:33 +0300
+
+matti-tests (0.8.2-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Wed, 26 May 2010 12:39:37 +0300
+
+matti-tests (0.8.1-2) unstable; urgency=low
+
+  * new release tag
+
+ -- Petri Kiiskinen <ext-petri.ak.kiiskinen@nokia.com>  Mon, 30 May 2010 17:22:33 +0300
+
+matti-tests (0.8.1-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Mon, 10 May 2010 13:35:33 +0300
+
+matti-tests (0.8.0-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Thu, 15 Apr 2010 17:09:38 +0300
+
+matti-tests (0.7.3-1) unstable; urgency=low
+
+  * new release tag
+
+ -- Ville Kankainen <ext-ville.kankainen@nokia.com>  Wed, 24 Mar 2010 15:35:44 +0200
+
+matti-tests (0.7.2-1) unstable; urgency=low
+
+  * Trying to get the test run in Cita
+
+ -- Tatu Lahtela <ext-tatu.lahtela@nokia.com>  Thu, 25 Feb 2010 11:30:33 +0200
+
+matti-tests (0.7.1-1) unstable; urgency=low
+
+  * Initial packaging for all test package components
+
+ -- Tatu Lahtela <ext-tatu.lahtela@nokia.com>  Thu, 25 Feb 2010 11:30:33 +0200
+
+matti-tests (0.1-1) unstable; urgency=low
+
+  * Initial packaging for all test package components
+
+ -- Tatu Lahtela <ext-tatu.lahtela@nokia.com>  Tue, 16 Feb 2010 12:40:33 +0200
+
+matti-tests (0.1) unstable; urgency=low
+
+  * First version of tests 
+
+ -- Tatu Lahtela <ext-tatu.lahtela@nokia.com>  Mon,  15 Feb 2010 14:16:23 +0200
+
