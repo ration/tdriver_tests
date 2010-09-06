@@ -10,6 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  pkgconfig(x11)
 BuildRequires: pkgconfig(QtCore)
+BuildRequires:  pkgconfig(QtWebKit)
 Requires: rubygem-cucumber
 Requires: rubygem-rmagick
 Requires: rubygem-testability-driver
