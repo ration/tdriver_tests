@@ -8,8 +8,8 @@ URL: https://code.nokia.com/
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: PackageKit-qt-devel libXtst-devel libqtwebkit-devel libX11-devel libXext-devel libXi-devel
-Requires: PackageKit-qt
+BuildRequires:  pkgconfig(x11)
+BuildRequires: pkgconfig(QtCore)
 Requires: rubygem-cucumber
 Requires: rubygem-rmagick
 Requires: rubygem-testability-driver
