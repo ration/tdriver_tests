@@ -1,4 +1,4 @@
-matti@trdhcp204102:~/work/tests$ TDRIVER_DEFAULT_SUT=sut_qt cucumber features/tap.feature -r features/
+matti@trdhcp204102:~/work/tests$ TDRIVER_DEFAULT_SUT=sut_qt cucumber features/tap.feature -r features/ --tags ~@nodoc
 
 Feature: TestObject::tap
 	As a test scripter writer
