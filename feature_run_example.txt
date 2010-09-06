@@ -1,0 +1,29 @@
+matti@trdhcp204102:~/work/tests$ TDRIVER_DEFAULT_SUT=sut_qt cucumber features/tap.feature -r features/
+
+Feature: TestObject::tap
+	As a test scripter writer
+	I want to use tap method to tap objects in applications
+	so that I can test the application behaviour
+
+  Scenario: Tap in the middle of an object                 # features/tap.feature:8
+    Given I launch application "calculator"                # features/step_definitions/feature_common.rb:52
+    When I execute "@app.Button(:name => 'oneButton').tap" # features/step_definitions/feature_common.rb:78
+    Then The calculator display says "1"                   # features/step_definitions/feature_common.rb:86
+
+  @nodoc
+  Scenario: Tap in the middle of an object                  # features/tap.feature:14
+    Given I launch application "calculator" as "@app2"      # features/step_definitions/feature_common.rb:62
+    When I execute "@app2.Button(:name => 'oneButton').tap" # features/step_definitions/feature_common.rb:78
+    Then The calculator display says "1"                    # features/step_definitions/feature_common.rb:86
+
+  @nodoc
+  Scenario: Tap in the middle of an object                             # features/tap.feature:20
+    Given I launch application "calculator" as "@app3" on sut "sut_qt" # features/step_definitions/feature_common.rb:70
+    When I execute "@app3.Button(:name => 'oneButton').tap"            # features/step_definitions/feature_common.rb:78
+    Then The calculator display says "1"                               # features/step_definitions/feature_common.rb:86
+
+3 scenarios (3 passed)
+9 steps (9 passed)
+0m3.463s
+matti@trdhcp204102:~/work/tests$ 
+

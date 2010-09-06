@@ -1,0 +1,20 @@
+
+
+tap
+	As a test scripter writer
+	I want to use tap method to tap objects in applications
+	so that I can test the application behaviour
+
+
+<contents of the method comment
+
+signature: arguments, exceptions
+
+>
+
+
+Example: Tap in the middle of an object
+@app.Button(:name => 'oneButton').tap
+
+
+Example:
