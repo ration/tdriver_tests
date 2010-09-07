@@ -1,0 +1,27 @@
+
+Linux
+ |
+ --> TestObject
+
+
+tap (=feature name without the namespace, namespace visible in the hieararchy links)
+	As a test scripter writer
+	I want to use tap method to tap objects in applications
+	so that I can test the application behaviour
+
+
+<contents of the method comment in the ruby file - use rdoc tags
+
+signature: arguments, exceptions
+
+>
+
+
+Example: Tap in the middle of an object (=scenario name as a header for the example)
+@app.Button(:name => 'oneButton').tap (=execute string as a code block for the example)
+
+Example: Tap in the middle of an object (=scenario name as a header for the example)
+@app.Button(:name => 'oneButton').tap (=execute string as a code block for the example)
+
+Example: Tap in the middle of an object (=scenario name as a header for the example)
+@app.Button(:name => 'oneButton').tap (=execute string as a code block for the example)
