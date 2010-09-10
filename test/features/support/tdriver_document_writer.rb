@@ -2,13 +2,19 @@
 # and open the template in the editor.
 
 module TDriver_Document_Writer
-  
+
   def start_feature(keyword,name, feature_file)
     p "Starting feature: #{keyword} #{name} #{feature_file}"
-    @feature_xml_file="#{File.basename(feature_file)}.xml"        
-    @feature_element_description = "#{name}"
+    @xml_folder="feature_xml"
+    if File::directory?(@xml_folder)==false
+          FileUtils.mkdir_p @xml_folder
+    end
+    @feature_xml_file="#{@xml_folder}/#{File.basename(feature_file)}.xml"
+    @feature_element_name = "#{name.split("\n").first}"
+    @feature_element_description = "#{name[@feature_element_name.length..name.length]}"
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.feature{
+        xml.description @feature_element_name
         xml.description @feature_element_description
         xml.scenarios{
 
@@ -30,7 +36,7 @@ module TDriver_Document_Writer
       scenario_name.content = name
       @scenario.add_child(scenario_name)
       node.add_child(@scenario)
-    end    
+    end
     File.open(@feature_xml_file, 'w') {|f| f.write(xml_data.to_xml) }
   end
 
@@ -38,9 +44,14 @@ module TDriver_Document_Writer
     p "Updating scenario: #{details}"
     io = File.open(@feature_xml_file, 'r')
     xml_data = Nokogiri::XML(io){ |config| config.options = Nokogiri::XML::ParseOptions::STRICT }
-    xml_data.root.xpath("//feature/scenarios/scenario").each do |node|  
+    xml_data.root.xpath("//feature/scenarios/scenario").each do |node|
       if node.child.text == @scenario_name
-        scenario_step = Nokogiri::XML::Node.new("step",node)
+        if details.index("I execute")==0
+          scenario_step = Nokogiri::XML::Node.new("example_step",node)
+        else
+          scenario_step = Nokogiri::XML::Node.new("step",node)
+        end
+
         scenario_step.content = details
         node.add_child(scenario_step)
       end
@@ -50,7 +61,6 @@ module TDriver_Document_Writer
 
   def update_scenario_exception(exception)
     p "Updating scenario: #{exception}"
-
     io = File.open(@feature_xml_file, 'r')
     xml_data = Nokogiri::XML(io){ |config| config.options = Nokogiri::XML::ParseOptions::STRICT }
     xml_data.root.xpath("//feature/scenarios/scenario").each do |node|
@@ -70,8 +80,8 @@ module TDriver_Document_Writer
 
   def end_feature(current_feature,feature_status)
     p "Ending feature: #{current_feature} #{feature_status}"
-    
+
   end
 
-      
+
 end
