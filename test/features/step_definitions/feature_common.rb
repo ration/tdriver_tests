@@ -85,8 +85,16 @@ When /^I execute "([^\"]*)"$/ do |script|
 end
 
 Then /^The calculator display says "([^\"]*)"$/ do |result|
-
     raise @__exception if @__exception != nil
     verify_equal(result.to_s, 10, 'Calculator displays wrong value') { @__current_app.child(:name => 'display').attribute('text').to_s }
 end
 
+Then /^object named "([^\"]*)" is visible on screen$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify {@__current_app.child(:name => arg1.to_s, :visibleOnScreen => true) }
+end
+
+Then /^object named "([^\"]*)" is not visible on screen$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify {@__current_app.child(:name => arg1.to_s, :visibleOnScreen => false) }
+end
