@@ -4,7 +4,7 @@
 ## All rights reserved. 
 ## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ## 
-## This file is part of MATTI. 
+## This file is part of TDriver. 
 ## 
 ## If you have questions regarding the use of this file, please contact 
 ## Nokia at testabilitydriver@nokia.com . 
@@ -25,7 +25,7 @@
 
 
 require 'tdriver'
-include MattiVerify
+include TDriverVerify
 
 Before do
 	$ErrorMessage=""
@@ -34,6 +34,7 @@ Before do
     @__ret_val = nil
     @__exception = nil
     sut = ENV['TDRIVER_DEFAULT_SUT']
+    sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
     @__sut = TDriver.sut(sut.to_sym) if sut != nil
 end
 

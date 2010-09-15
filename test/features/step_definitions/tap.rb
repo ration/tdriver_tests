@@ -4,7 +4,7 @@
 ## All rights reserved. 
 ## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ## 
-## This file is part of MATTI. 
+## This file is part of TDriver. 
 ## 
 ## If you have questions regarding the use of this file, please contact 
 ## Nokia at testabilitydriver@nokia.com . 
@@ -19,15 +19,15 @@
 
 
 # The calculator application example must be compiled and in PATH for this test to work
-# sut_qt1, sut_qt2, sut_qt3 and sut_qt4 suts must be defined in matti_parameters.xml
-# /matti/Tutorials/QT/application_examples/calculator/release
+# sut_qt1, sut_qt2, sut_qt3 and sut_qt4 suts must be defined in tdriver_parameters.xml
+# /tdriver/Tutorials/QT/application_examples/calculator/release
 # Author: Mika Leiman
 # Date: 15.5.2009
-# Purpose: Tests MATTI Qt methods
+# Purpose: Tests TDriver Qt methods
 
 
-require 'matti'
-include MattiVerify
+require 'tdriver'
+include TDriverVerify
 
 Before do
 	$ErrorMessage=""

@@ -4,7 +4,7 @@
 ## All rights reserved. 
 ## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ## 
-## This file is part of MATTI. 
+## This file is part of TDriver. 
 ## 
 ## If you have questions regarding the use of this file, please contact 
 ## Nokia at testabilitydriver@nokia.com . 
@@ -34,7 +34,7 @@ module Test #:nodoc:all
       module Console
         class TestRunner
           def create_mediator(suite)
-            # swap in MATTI custom mediator
+            # swap in TDriver custom mediator
             return TDriverReport::TestUnit.new(suite)
           end
         end
@@ -340,7 +340,7 @@ Test::Unit::UI::Console::TestRunner.run(TS_Testapp)
 #       module Console
 #         class TestRunner
 #           def create_mediator(suite)
-#             # swap in MATTI custom mediator
+#             # swap in TDriver custom mediator
 #             return TDriverReport::TestUnit.new(suite)
 #           end
 #         end
