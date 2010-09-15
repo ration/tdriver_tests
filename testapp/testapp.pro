@@ -82,7 +82,7 @@ unix:{
    DESTDIR = bin
    target.path = $$TAS_TARGET_BIN
    testdata.files = testdata/*
-   testdata.path = /etc/matti/testdata
+   testdata.path = /etc/tdriver/testdata
    testrunner.files = testrunner/calculator_runner.sh
    testrunner.path = /usr/bin
 }

@@ -1,6 +1,6 @@
-Feature: MATTI test application UI size is relative to screen
-        As a MATTI developer
-        I want MATTI test application to have relative UI size to screen size
+Feature: TDriver test application UI size is relative to screen
+        As a TDriver developer
+        I want TDriver test application to have relative UI size to screen size
         so that application can be used in any OS and device
 
     Scenario: The application ui starts relative to screen mode

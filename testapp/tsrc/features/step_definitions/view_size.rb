@@ -19,13 +19,13 @@
 
 
 # The test application must be in path for this to work.
-require 'matti'
-#require File.join( File.expand_path( ENV['MATTI_HOME'] ), 'matti.rb' )
-#require File.join( File.dirname( __FILE__ ), '../../../../matti/lib/matti.rb' )
+require 'tdriver'
+#require File.join( File.expand_path( ENV['TDRIVER_HOME'] ), 'tdriver.rb' )
+#require File.join( File.dirname( __FILE__ ), '../../../../tdriver/lib/tdriver.rb' )
 
 require 'spec/expectations'
 
-include MattiVerify
+include TDriverVerify
 
 Then("\"$app_name\" width no more than $width height no more than $height") do |app_name, width, height| 
   @test_app = @sut.application   

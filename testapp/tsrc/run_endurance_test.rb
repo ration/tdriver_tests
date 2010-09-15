@@ -27,7 +27,7 @@ output.flush
 while iter < 200
   iter = iter + 1
   start_time = Time.now
-  failure = system("cucumber features -f MattiReport::CucumberListener")
+  failure = system("cucumber features -f TDriverReport::CucumberListener")
   #failure = system("cucumber features")
   if(failure != true or $? != 0)
 	puts "FAIL"

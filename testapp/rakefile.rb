@@ -80,11 +80,11 @@ task :pack_testapp do
 
   if /win/ =~ RUBY_PLATFORM
 
-		cmd = "git archive --format=zip HEAD > /qttas/export/MATTI_testapp_#{@__tas_revision}.zip"    		
+		cmd = "git archive --format=zip HEAD > /qttas/export/TDriver_testapp_#{@__tas_revision}.zip"    		
     system(cmd)   
   else
   
-    cmd = "git archive --format=zip HEAD > /qttas/export/MATTI_testapp_#{@__tas_revision}.gz"    
+    cmd = "git archive --format=zip HEAD > /qttas/export/TDriver_testapp_#{@__tas_revision}.gz"    
     system(cmd)
   end
 	
@@ -101,7 +101,7 @@ task :run_feature_tests do
   puts "#########################################################"
 
 	Dir.chdir('tsrc')
-  cmd = "cucumber features -f MattiReport::CucumberFormatter"
+  cmd = "cucumber features -f TDriverReport::CucumberFormatter"
   failure = system(cmd)
   raise "feature tests failed" if (failure != true) or ($? != 0)
 	Dir.chdir(orig_dir)

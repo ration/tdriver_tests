@@ -1,7 +1,7 @@
 
-Feature: MATTI test application controls scramble
-	As a MATTI developer
-	I want MATTI test application to have scramble button
+Feature: TDriver test application controls scramble
+	As a TDriver developer
+	I want TDriver test application to have scramble button
 	so that test application canvas can be scrambled
 	
 	Scenario: Button scramble

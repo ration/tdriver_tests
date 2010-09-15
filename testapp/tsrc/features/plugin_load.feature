@@ -1,6 +1,6 @@
-Feature: MATTI test application loads testability plugin
-	As a MATTI developer
-	I want MATTI test application to load testability plugin
+Feature: TDriver test application loads testability plugin
+	As a TDriver developer
+	I want TDriver test application to load testability plugin
 	so that application can be used without changes to Qt
 	
   Scenario: Application start

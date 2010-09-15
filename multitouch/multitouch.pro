@@ -54,7 +54,7 @@ macx:{
 win32:{
 	target.path = \qttas\bin
 	testdata.files = testdata\*
-	testdata.path = \Matti\testdata
+	testdata.path = \tdriver\testdata
 }
 
 INSTALLS += target 

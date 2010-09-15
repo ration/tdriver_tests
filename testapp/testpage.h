@@ -22,7 +22,7 @@
 #define TESTPAGE_HTML
 
 #ifdef Q_OS_LINUX
-static const QString TESTPAGE("file:///etc/matti/testdata/testpage.html");
+static const QString TESTPAGE("file:///etc/tdriver/testdata/testpage.html");
 #else
 static const QString TESTPAGE("C:/tdriver/testdata/testpage.html");
 #endif

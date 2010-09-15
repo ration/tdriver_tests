@@ -1,7 +1,7 @@
-	Feature: MATTI test application controls node
-	As a MATTI developer
-	I want MATTI test application to have node controls	
-	so that application can be used for testing MATTI
+	Feature: TDriver test application controls node
+	As a TDriver developer
+	I want TDriver test application to have node controls	
+	so that application can be used for testing TDriver
 	
 	Scenario: Button New node
 		Given the "testapp" is running

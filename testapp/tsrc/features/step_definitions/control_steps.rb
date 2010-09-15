@@ -19,12 +19,12 @@
 
 
 # The test application must be in path for this to work.
-require 'matti'
-#require File.join( File.expand_path( ENV['MATTI_HOME'] ), 'matti.rb' )
-#require File.join( File.dirname( __FILE__ ), '../../../../matti/lib/matti.rb' )
+require 'tdriver'
+#require File.join( File.expand_path( ENV['TDRIVER_HOME'] ), 'tdriver.rb' )
+#require File.join( File.dirname( __FILE__ ), '../../../../tdriver/lib/tdriver.rb' )
 
 require 'spec/expectations'
-include MattiVerify
+include TDriverVerify
 
 And("debugger") do
   debugger

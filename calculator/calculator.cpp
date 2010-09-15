@@ -87,7 +87,7 @@ if (plugin) {
     display->setAlignment(Qt::AlignRight);
     display->setMaxLength(15);
 	
-	// MATTI test scripts can be made simpler and easier to understand by setting object names like this.
+	// TDriver test scripts can be made simpler and easier to understand by setting object names like this.
 	display->setObjectName(tr("display"));
 
     QFont font = display->font();
@@ -102,7 +102,7 @@ if (plugin) {
     Button *pointButton = createButton(tr("."), SLOT(pointClicked()), tr("pointButton"));
     Button *changeSignButton = createButton(tr("\261"), SLOT(changeSignClicked()), tr("changeSignButton"));
 
-	// Some objects may not have a defined object name. MATTI scripts must refer to such objects using other attributes, such as the displayed text.
+	// Some objects may not have a defined object name. TDriver scripts must refer to such objects using other attributes, such as the displayed text.
     Button *backspaceButton = createButton(tr("Backspace"), SLOT(backspaceClicked()));
     Button *clearButton = createButton(tr("Clear"), SLOT(clear()));
     Button *clearAllButton = createButton(tr("Clear All"), SLOT(clearAll()), tr("clearAllButton"));

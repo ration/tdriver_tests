@@ -51,7 +51,7 @@ rm -rf %{buildroot}
 %{_bindir}/calculator_runner.sh
 /usr/share/testability-driver-tests/*
 /usr/share/testability-driver-unit-tests/*
-%{_sysconfdir}/matti/*
+%{_sysconfdir}/tdriver/*
 
 
 

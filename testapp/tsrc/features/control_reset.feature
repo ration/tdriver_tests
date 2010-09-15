@@ -1,6 +1,6 @@
-Feature: MATTI test application controls reset
-	As a MATTI developer
-	I want MATTI test application to have reset button
+Feature: TDriver test application controls reset
+	As a TDriver developer
+	I want TDriver test application to have reset button
 	so that test application canvas can be reseted
 	
 	Scenario: Button reset
