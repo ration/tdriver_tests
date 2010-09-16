@@ -35,7 +35,8 @@ Before do
     @__exception = nil
     @__example_given = false
     sut = ENV['TDRIVER_DEFAULT_SUT']
-    sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
+    #sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
+    sut = "default_sut" if !sut or sut.empty?
     @__sut = TDriver.sut(sut.to_sym) if sut != nil
 end
 
