@@ -33,6 +33,7 @@ Before do
     @__apps = {}
     @__ret_val = nil
     @__exception = nil
+    @__example_given = false
     sut = ENV['TDRIVER_DEFAULT_SUT']
     sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
     @__sut = TDriver.sut(sut.to_sym) if sut != nil
@@ -77,6 +78,8 @@ Given /^I launch application "([^\"]*)" as "([^\"]*)" on sut "([^\"]*)"$/ do |ap
 end
 
 When /^I execute "([^\"]*)"$/ do |script|
+    raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
+    @__example_given = true
     begin
         @__ret_val = eval(script)
     rescue Exception => e
