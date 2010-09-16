@@ -1,4 +1,4 @@
-@linux, @windows, @symbian, @meego
+@qt_linux, @qt_windows, @qt_symbian, @qt_meego
 
 Feature: SUT::agent_mem_usage should return positive integer
 	As a test scripter writer
