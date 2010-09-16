@@ -102,3 +102,7 @@ Then /^object named "([^\"]*)" is not visible on screen$/ do |arg1|
   raise @__exception if @__exception != nil
   verify {@__current_app.child(:name => arg1.to_s, :visibleOnScreen => false) }
 end
+
+Then /^exception is thrown$/ do
+  verify_false(0, "Exception has not been raised") { @__exception.nil? }
+end
