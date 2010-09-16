@@ -18,11 +18,10 @@
 ############################################################################
 
 
-# The testapp application example must be compiled and in PATH for this test to work
 # default_sut parameter must be defined in tdriver_parameters.xml, or
 # TDRIVER_DEFAULT_SUT environment variable must be set
 # Author: Ari Hyttinen
-# Date: 15.09.2010
+# Date: 16.09.2010
 # Purpose: Tests TDriver
 
 
@@ -31,4 +30,14 @@ include TDriverVerify
 
 Before do
 	$ErrorMessage=""
+end
+
+
+Then /^mem usage result is a positive integer$/ do
+  verify_true(0, "SUT::agent_mem_usage should return class Fixnum, but it returned class #{@sut_agent_mem_usage.class}") {
+    @sut_agent_mem_usage.class == Fixnum
+  }
+  verify_true(0, "SUT::agent_mem_usage should return positive value, but it returned #{@sut_agent_mem_usage}") {
+    @sut_agent_mem_usage > 0
+  }
 end
