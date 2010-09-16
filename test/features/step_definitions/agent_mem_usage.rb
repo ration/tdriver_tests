@@ -18,12 +18,11 @@
 ############################################################################
 
 
-# The testapp application example must be compiled and in PATH for this test to work
-# sut_qt1, sut_qt2, sut_qt3 and sut_qt4 suts must be defined in tdriver_parameters.xml
-# /tdriver/Tutorials/QT/application_examples/calculator/release
+# default_sut parameter must be defined in tdriver_parameters.xml, or
+# TDRIVER_DEFAULT_SUT environment variable must be set
 # Author: Ari Hyttinen
 # Date: 16.09.2010
-# Purpose: Tests TDriver Qt methods
+# Purpose: Tests TDriver
 
 
 require 'tdriver'
