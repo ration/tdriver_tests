@@ -54,10 +54,11 @@ public:
 
 public slots:
 	void quit();
+    void emitPerfMeasurement(const QString& id);
 
 signals:
     void applicationReady();
-
+    void perfMeasurement(const QString&);
 };
 
 #endif

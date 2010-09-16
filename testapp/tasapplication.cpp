@@ -37,7 +37,8 @@
 */
 
 #include "tasapplication.h"
-
+#include <QTime>
+#include <QtDebug>
 
 TasApplication::TasApplication(int & argc, char ** argv)
     :QApplication(argc, argv)
@@ -50,6 +51,12 @@ int TasApplication::launch()
 {
     emit applicationReady();
     return QApplication::exec();
+}
+
+void TasApplication::emitPerfMeasurement(const QString& id)
+{
+    qDebug() << id;
+    emit perfMeasurement(id);
 }
 
 void TasApplication::quit()

@@ -138,7 +138,12 @@ void MainWindow::determineSize()
 
 void MainWindow::flickScreen(const GestureDirection& direction)
 {
-    
+    QTime myTimer;
+    myTimer.start();
+    QMetaObject::invokeMethod(qobject_cast<QObject*>(qApp), "emitPerfMeasurement", Qt::DirectConnection, Q_ARG(QString, "flick start"));
+    int nMilliseconds = myTimer.elapsed();
+    qDebug("invokeMethod took %d milliseconds", nMilliseconds);
+
     // TasLogger::logger()->debug("MainWindow::flickScreen");
     switch(direction)
     {
@@ -163,6 +168,7 @@ void MainWindow::flickScreen(const GestureDirection& direction)
         break;
     }
     mainView->centerOn(currentView->boundingRect().center());
+    QMetaObject::invokeMethod(qApp, "emitPerfMeasurement", Qt::DirectConnection, Q_ARG(QString, "flick end"));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
