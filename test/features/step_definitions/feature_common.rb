@@ -78,6 +78,10 @@ Given /^I launch application "([^\"]*)" as "([^\"]*)" on sut "([^\"]*)"$/ do |ap
     @__current_app = @__apps[app_ref] 
 end
 
+Given /^I show FloatingMenu of the testapp$/ do
+  @__current_app.ControlTab( :name => 'ControlTab').drag(:Up, 10)
+end
+
 When /^I execute "([^\"]*)"$/ do |script|
     raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
     @__example_given = true
@@ -86,6 +90,43 @@ When /^I execute "([^\"]*)"$/ do |script|
     rescue Exception => e
         @__exception = e
     end
+end
+
+Then /^application "([^\"]*)" is no longer running$/ do |arg1|
+  
+end
+
+Then /^application "([^\"]*)" is running$/ do |arg1|
+  if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
+    ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+    (@os_name == "")
+    if RUBY_PLATFORM.downcase.include?("mswin")
+      verify_equal(arg1 + '.exe', 30, "Application name should match."){ 
+        @app.executable_name
+      }
+    else
+      verify_equal(arg1.to_s, 30, "Application name should match."){ 
+        @app.executable_name 
+      }
+    end
+  end
+end
+
+
+Then /^application "([^\"]*)" is not running$/ do |arg1|
+  if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
+    ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+    (@os_name == "")
+    if RUBY_PLATFORM.downcase.include?("mswin")
+      verify_false(30, 'application should not be running') {
+        @sut.application.name == arg1 + '.exe'
+      }
+    else
+      verify_false(30, 'application should not be running') {
+        @sut.application.name == arg1 
+      }
+    end
+  end
 end
 
 Then /^The calculator display says "([^\"]*)"$/ do |result|
