@@ -1,23 +1,23 @@
-/*************************************************************************** 
-** 
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-** All rights reserved. 
-** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-** 
-** This file is part of TDriver. 
-** 
-** If you have questions regarding the use of this file, please contact 
-** Nokia at testabilitydriver@nokia.com . 
-** 
-** This library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU Lesser General Public 
-** License version 2.1 as published by the Free Software Foundation 
-** and appearing in the file LICENSE.LGPL included in the packaging 
-** of this file. 
-** 
-****************************************************************************/ 
- 
- 
+/***************************************************************************
+**
+** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (testabilitydriver@nokia.com)
+**
+** This file is part of TDriver.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at testabilitydriver@nokia.com .
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
+
 /*
 *  ===========================================================================
 *  Name        : controlview.h
@@ -47,22 +47,25 @@
 
 static const int CONTROL_SIZE = 100;
 
-class Control : public QGraphicsWidget 
+class Control : public QGraphicsWidget
 {
     Q_OBJECT
-	Q_PROPERTY(QString text READ getText)
+    Q_PROPERTY(QString text READ getText)
 
-public:  
+public:
     Control(QGraphicsItem* parent=0);
 
     QRectF boundingRect() const;
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-	void setText(const QString& text);
-	QString getText();
+    void setText(const QString& text);
+    QString getText();
 
 signals:
     void clicked();
+
+public slots:
+    void click(void);
 
 protected:
 
@@ -70,7 +73,7 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-	QString mText;
+    QString mText;
 };
 
 #endif
