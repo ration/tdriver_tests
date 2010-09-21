@@ -1,4 +1,4 @@
-Feature: TestObject::frozen (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#frozen
   As a test scripter writer
   I want to use frozen attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

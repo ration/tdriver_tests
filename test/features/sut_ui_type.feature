@@ -1,4 +1,4 @@
-Feature: TestObject::ui_type (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#ui_type
   As a test scripter writer
   I want to use ui_type attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

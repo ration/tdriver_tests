@@ -1,4 +1,4 @@
-Feature: TestObject::xml_data_crc (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#xml_data_crc
   As a test scripter writer
   I want to use xml_data_crc attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

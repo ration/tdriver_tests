@@ -1,4 +1,4 @@
-Feature: TestObject::deactivate (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObject#deactivate
   As a test scripter writer
   I want to use deactivate method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObject behaviour

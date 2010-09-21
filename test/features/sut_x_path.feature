@@ -1,4 +1,4 @@
-Feature: TestObject::x_path (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#x_path
   As a test scripter writer
   I want to use x_path attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

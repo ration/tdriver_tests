@@ -1,4 +1,4 @@
-Feature: TestObject::reset (Rename this to be more descriptive)
+Feature: MobyBehaviour::SwitchboxBehaviour#reset
   As a test scripter writer
   I want to use reset method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SwitchboxBehaviour behaviour

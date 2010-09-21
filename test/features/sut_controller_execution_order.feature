@@ -1,4 +1,4 @@
-Feature: TestObject::execution_order (Rename this to be more descriptive)
+Feature: MobyBehaviour::SutController#execution_order
   As a test scripter writer
   I want to use execution_order method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SutController behaviour

@@ -1,4 +1,4 @@
-Feature: TestObject::force_refresh (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObject#force_refresh
   As a test scripter writer
   I want to use force_refresh method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObject behaviour

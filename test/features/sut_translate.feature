@@ -1,4 +1,4 @@
-Feature: TestObject::translate (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#translate
   As a test scripter writer
   I want to use translate method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

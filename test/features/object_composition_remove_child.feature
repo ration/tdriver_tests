@@ -1,4 +1,4 @@
-Feature: TestObject::remove_child (Rename this to be more descriptive)
+Feature: MobyBehaviour::ObjectComposition#remove_child
   As a test scripter writer
   I want to use remove_child method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::ObjectComposition behaviour

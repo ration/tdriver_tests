@@ -1,4 +1,4 @@
-Feature: TestObject::current_application_id (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#current_application_id=
   As a test scripter writer
   I want to use current_application_id attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

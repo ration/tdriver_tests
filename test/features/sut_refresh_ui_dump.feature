@@ -1,4 +1,4 @@
-Feature: TestObject::refresh_ui_dump (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#refresh_ui_dump
   As a test scripter writer
   I want to use refresh_ui_dump method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

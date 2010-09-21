@@ -1,4 +1,4 @@
-Feature: TestObject::flash_images (Rename this to be more descriptive)
+Feature: MobyBehaviour::FlaxiBehaviour#flash_images
   As a test scripter writer
   I want to use flash_images method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::FlaxiBehaviour behaviour

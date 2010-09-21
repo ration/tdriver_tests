@@ -1,4 +1,4 @@
-Feature: TestObject::wait_child (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObjectSynchronization#wait_child
   As a test scripter writer
   I want to use wait_child method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObjectSynchronization behaviour

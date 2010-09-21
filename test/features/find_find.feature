@@ -1,4 +1,4 @@
-Feature: TestObject::find (Rename this to be more descriptive)
+Feature: MobyBehaviour::Find#find
   As a test scripter writer
   I want to use find method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::Find behaviour

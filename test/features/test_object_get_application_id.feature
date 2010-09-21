@@ -1,4 +1,4 @@
-Feature: TestObject::get_application_id (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObject#get_application_id
   As a test scripter writer
   I want to use get_application_id method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObject behaviour

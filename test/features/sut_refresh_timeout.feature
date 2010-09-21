@@ -1,4 +1,4 @@
-Feature: TestObject::refresh_timeout (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#refresh_timeout=
   As a test scripter writer
   I want to use refresh_timeout attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

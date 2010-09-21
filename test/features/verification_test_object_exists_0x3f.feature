@@ -1,4 +1,4 @@
-Feature: TestObject::test_object_exists? (Rename this to be more descriptive)
+Feature: MobyBehaviour::Verification#test_object_exists?
   As a test scripter writer
   I want to use test_object_exists? method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::Verification behaviour

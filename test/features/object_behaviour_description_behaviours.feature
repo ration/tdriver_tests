@@ -1,4 +1,4 @@
-Feature: TestObject::behaviours (Rename this to be more descriptive)
+Feature: MobyBehaviour::ObjectBehaviourDescription#behaviours
   As a test scripter writer
   I want to use behaviours method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::ObjectBehaviourDescription behaviour
