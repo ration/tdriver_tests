@@ -1,0 +1,85 @@
+
+
+<monkeydata>
+	<definitions>
+		<definition name = "directions" replace = "false" >
+			<item value = ":Left"/>
+			<item value = ":Right"/>
+			<item value = ":Up"/>
+			<item value = ":Down"/>
+		</definition>
+		<definition name = "mouse_buttons" replace = "false" >
+			<item value = ":Left"/>
+			<item value = ":Right"/>
+			<item value = ":Middle"/>
+			<item value = ":NoButton"/>
+		</definition>		
+	</definitions>
+	
+	<targets>		
+		<target name = "ControlTab" replace = "false" >
+			<actions>			
+				<action name = "drag">
+					<argument value = '":Up, 10, :Left"'/>
+					<argument value = '":Down, 10, :Left"'/>
+				</action>
+				<include name = "Qt_basics" />				
+			</actions>
+			<blocking-attributes>			
+				<set>
+					<attribute name = "visibleOnScreen" value = "False" />							
+				</set>
+			</blocking-attributes>
+		</target>
+		<target name = "Node" replace = "false" >
+			<actions>							
+				<include name = "Qt_basics" />				
+			</actions>
+			<blocking-attributes>
+				<set>
+					<attribute name = "Text" value = "Quit" />							
+				</set>
+				<set>
+					<attribute name = "visibleOnScreen" value = "False" />							
+				</set>
+			</blocking-attributes>
+		</target>
+		<target name = "Control" replace = "false" >
+			<actions>							
+				<include name = "Qt_basics" />				
+			</actions>
+			<blocking-attributes>				
+				<set>
+					<attribute name = "visibleOnScreen" value = "False" />							
+				</set>
+			</blocking-attributes>
+		</target>
+	</targets>
+	
+	<action-templates>
+		<template name = "Qt_basics">
+			<action name = "tap">
+				<argument value = "nil"/>
+				<argument value = '"#{rand(10) + 1}, #{definition(:mouse_buttons).random_element}"'/>
+			</action>
+			<action name = "drag">				
+				<argument value = '"#{rand(361)}, #{rand(300)}, #{definition("mouse_buttons").random_element}"'/>
+			</action>
+			<action name = "flick">				
+				<argument value = '"#{definition(:directions).rnd}, #{definition("mouse_buttons").rnd}"'/>
+			</action>
+			<action name = "gesture">				
+				<argument value = '"#{definition(:directions).rnd}, #{rand(5)+1}, #{rand(300)+1}, { :button => #{definition("mouse_buttons").rnd} }"'/>
+			</action>
+		</template>
+	</action-templates>
+	
+	<controls>
+		<control name = "tap_object" replace = "false">
+			<argument value = '"#{rand(@_app_height).to_s}, #{rand(@_app_width).to_s}"' />
+		</control>
+	</controls>
+	
+</monkeydata>
+
+ 
