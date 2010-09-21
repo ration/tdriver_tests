@@ -1,4 +1,4 @@
-Feature: TestObject::load_gpu_log (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_gpu_log
   As a test scripter writer
   I want to use load_gpu_log method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::InfoLoggerBehaviour behaviour

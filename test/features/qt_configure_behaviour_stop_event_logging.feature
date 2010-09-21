@@ -1,4 +1,4 @@
-Feature: TestObject::stop_event_logging (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ConfigureBehaviour#stop_event_logging
   As a test scripter writer
   I want to use stop_event_logging method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour

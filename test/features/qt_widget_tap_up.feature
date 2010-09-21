@@ -1,4 +1,4 @@
-Feature: TestObject::tap_up (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Widget#tap_up
   As a test scripter writer
   I want to use tap_up method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Widget behaviour

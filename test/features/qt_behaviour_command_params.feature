@@ -1,4 +1,4 @@
-Feature: TestObject::command_params (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Behaviour#command_params
   As a test scripter writer
   I want to use command_params method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Behaviour behaviour

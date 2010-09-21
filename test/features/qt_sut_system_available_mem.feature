@@ -1,4 +1,4 @@
-Feature: TestObject::system_available_mem (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#system_available_mem
   As a test scripter writer
   I want to use system_available_mem method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

@@ -1,4 +1,4 @@
-Feature: TestObject::set_log_level (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_level
   As a test scripter writer
   I want to use set_log_level method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour

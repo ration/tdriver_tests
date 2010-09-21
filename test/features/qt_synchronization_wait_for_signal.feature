@@ -1,4 +1,4 @@
-Feature: TestObject::wait_for_signal (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Synchronization#wait_for_signal
   As a test scripter writer
   I want to use wait_for_signal method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Synchronization behaviour

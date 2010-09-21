@@ -1,4 +1,4 @@
-Feature: TestObject::drag_to_object (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Gesture#drag_to_object
   As a test scripter writer
   I want to use drag_to_object method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Gesture behaviour

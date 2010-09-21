@@ -1,4 +1,4 @@
-Feature: TestObject::enable_logger (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ConfigureBehaviour#enable_logger
   As a test scripter writer
   I want to use enable_logger method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour

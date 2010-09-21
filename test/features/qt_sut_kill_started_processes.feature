@@ -1,4 +1,4 @@
-Feature: TestObject::kill_started_processes (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#kill_started_processes
   As a test scripter writer
   I want to use kill_started_processes method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

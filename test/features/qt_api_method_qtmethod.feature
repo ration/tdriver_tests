@@ -1,4 +1,4 @@
-Feature: TestObject::QtMethod (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ApiMethod#QtMethod
   As a test scripter writer
   I want to use QtMethod method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ApiMethod behaviour

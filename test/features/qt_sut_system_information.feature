@@ -1,4 +1,4 @@
-Feature: TestObject::system_information (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#system_information
   As a test scripter writer
   I want to use system_information method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

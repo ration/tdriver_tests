@@ -1,4 +1,4 @@
-Feature: TestObject::hover (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Action#hover
   As a test scripter writer
   I want to use hover method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Action behaviour

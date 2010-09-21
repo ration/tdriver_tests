@@ -1,4 +1,4 @@
-Feature: TestObject::screen_contains? (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ScreenCapture#screen_contains?
   As a test scripter writer
   I want to use screen_contains? method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ScreenCapture behaviour

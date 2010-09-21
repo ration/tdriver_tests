@@ -1,4 +1,4 @@
-Feature: TestObject::type_text (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::TypeText#type_text
   As a test scripter writer
   I want to use type_text method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::TypeText behaviour

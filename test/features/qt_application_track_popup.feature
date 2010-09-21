@@ -1,4 +1,4 @@
-Feature: TestObject::track_popup (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Application#track_popup
   As a test scripter writer
   I want to use track_popup method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Application behaviour

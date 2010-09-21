@@ -1,4 +1,4 @@
-Feature: TestObject::capture_screen (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
   As a test scripter writer
   I want to use capture_screen method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ScreenCapture behaviour

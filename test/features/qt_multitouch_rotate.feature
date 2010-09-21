@@ -1,4 +1,4 @@
-Feature: TestObject::rotate (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Multitouch#rotate
   As a test scripter writer
   I want to use rotate method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Multitouch behaviour

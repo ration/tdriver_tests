@@ -1,4 +1,4 @@
-Feature: TestObject::list_apps (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#list_apps
   As a test scripter writer
   I want to use list_apps method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

@@ -1,4 +1,4 @@
-Feature: TestObject::start_recording (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Events#start_recording
   As a test scripter writer
   I want to use start_recording method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Events behaviour

@@ -1,4 +1,4 @@
-Feature: TestObject::print_recordings (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Events#print_recordings
   As a test scripter writer
   I want to use print_recordings method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Events behaviour

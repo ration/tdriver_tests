@@ -1,4 +1,4 @@
-Feature: TestObject::fixture (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Fixture#fixture
   As a test scripter writer
   I want to use fixture method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Fixture behaviour

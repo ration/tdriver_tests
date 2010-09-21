@@ -1,4 +1,4 @@
-Feature: TestObject::move (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Gesture#move
   As a test scripter writer
   I want to use move method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Gesture behaviour

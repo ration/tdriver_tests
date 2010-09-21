@@ -1,4 +1,4 @@
-Feature: TestObject::long_press (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Widget#long_press
   As a test scripter writer
   I want to use long_press method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Widget behaviour

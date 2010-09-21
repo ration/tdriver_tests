@@ -1,4 +1,4 @@
-Feature: TestObject::hold (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Widget#hold
   As a test scripter writer
   I want to use hold method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Widget behaviour

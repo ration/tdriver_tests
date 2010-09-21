@@ -1,4 +1,4 @@
-Feature: TestObject::execute_javascript (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Webkit#execute_javascript
   As a test scripter writer
   I want to use execute_javascript method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Webkit behaviour

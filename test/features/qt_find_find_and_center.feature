@@ -1,4 +1,4 @@
-Feature: TestObject::find_and_center (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Find#find_and_center
   As a test scripter writer
   I want to use find_and_center method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Find behaviour

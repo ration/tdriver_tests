@@ -1,4 +1,4 @@
-Feature: TestObject::two_point_rotate (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Multitouch#two_point_rotate
   As a test scripter writer
   I want to use two_point_rotate method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Multitouch behaviour

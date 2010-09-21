@@ -1,4 +1,4 @@
-Feature: TestObject::plugin_command (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Behaviour#plugin_command
   As a test scripter writer
   I want to use plugin_command method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Behaviour behaviour

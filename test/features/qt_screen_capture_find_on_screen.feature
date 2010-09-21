@@ -1,4 +1,4 @@
-Feature: TestObject::find_on_screen (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
   As a test scripter writer
   I want to use find_on_screen method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ScreenCapture behaviour

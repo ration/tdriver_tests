@@ -1,4 +1,4 @@
-Feature: TestObject::pinch_zoom (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Multitouch#pinch_zoom
   As a test scripter writer
   I want to use pinch_zoom method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Multitouch behaviour

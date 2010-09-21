@@ -1,4 +1,4 @@
-Feature: TestObject::press_enter (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Os#press_enter
   As a test scripter writer
   I want to use press_enter method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Os behaviour

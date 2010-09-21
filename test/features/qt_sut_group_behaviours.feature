@@ -1,4 +1,4 @@
-Feature: TestObject::group_behaviours (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#group_behaviours
   As a test scripter writer
   I want to use group_behaviours method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

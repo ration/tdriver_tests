@@ -1,4 +1,4 @@
-Feature: TestObject::disable_logger (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ConfigureBehaviour#disable_logger
   As a test scripter writer
   I want to use disable_logger method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour

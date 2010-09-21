@@ -1,4 +1,4 @@
-Feature: TestObject::stop_recording (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Events#stop_recording
   As a test scripter writer
   I want to use stop_recording method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Events behaviour
