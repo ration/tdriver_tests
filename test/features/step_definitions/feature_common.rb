@@ -52,6 +52,12 @@ After do
     end
 end
 
+
+Given /^I have default sut$/ do
+  @sut = @__sut
+end
+
+
 Given /^I launch application "([^\"]*)"$/ do |app_name|
 
     app_ref = "@app"
@@ -124,11 +130,18 @@ When /^I execute "([^\"]*)"$/ do |script|
     end
 end
 
-Then /^application "([^\"]*)" is no longer running$/ do |arg1|
-  
+
+When /^I test code "([^\"]*)"$/ do |script|
+    begin
+        @__ret_val = eval(script)
+    rescue Exception => e
+        @__exception = e
+    end
 end
 
+
 Then /^application "([^\"]*)" is running$/ do |arg1|
+  raise @__exception if @__exception != nil
   if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
     ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
     (@os_name == "")
@@ -146,6 +159,7 @@ end
 
 
 Then /^application "([^\"]*)" is not running$/ do |arg1|
+  raise @__exception if @__exception != nil
   if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
     ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
     (@os_name == "")
@@ -178,6 +192,12 @@ end
 
 Then /^exception is thrown$/ do
   verify_false(0, "Exception has not been raised") { @__exception.nil? }
+end
+
+Then /^exception matching "([^\"]*)" is thrown$/ do |arg1|
+  verify_false(0, "No exception has not been raised") { @__exception.nil? }
+  re = Regexp.new(arg1.to_s)
+  verify_false(0, "Exception '#{@__exception.to_s}' does not match given regexp #{re.inspect}") { (re =~ @__exception.to_s).nil? }
 end
 
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |
