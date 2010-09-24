@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego @dev
+@qt_linux @qt_windows @qt_symbian @qt_meego
 
 Feature: TDriver::suts should list defined suts
   As a test script writer
