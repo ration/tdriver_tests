@@ -1,4 +1,4 @@
-Feature: TestObject::select (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ViewItem#select
   As a test scripter writer
   I want to use select method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ViewItem behaviour

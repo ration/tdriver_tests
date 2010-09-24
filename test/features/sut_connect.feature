@@ -1,4 +1,4 @@
-Feature: TestObject::connect (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#connect
   As a test scripter writer
   I want to use connect method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

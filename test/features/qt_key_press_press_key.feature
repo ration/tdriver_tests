@@ -1,4 +1,4 @@
-Feature: TestObject::press_key (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::KeyPress#press_key
   As a test scripter writer
   I want to use press_key method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::KeyPress behaviour

@@ -1,4 +1,4 @@
-Feature: TestObject::scroll (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Webkit#scroll
   As a test scripter writer
   I want to use scroll method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Webkit behaviour

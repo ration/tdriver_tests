@@ -1,4 +1,4 @@
-Feature: TestObject::shell_command (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#shell_command
   As a test scripter writer
   I want to use shell_command method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

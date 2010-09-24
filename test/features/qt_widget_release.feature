@@ -1,4 +1,4 @@
-Feature: TestObject::release (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Widget#release
   As a test scripter writer
   I want to use release method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Widget behaviour

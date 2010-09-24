@@ -1,4 +1,4 @@
-Feature: TestObject::get_events (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Events#get_events
   As a test scripter writer
   I want to use get_events method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Events behaviour

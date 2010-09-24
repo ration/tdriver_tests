@@ -1,4 +1,4 @@
-Feature: TestObject::add_parent (Rename this to be more descriptive)
+Feature: MobyBehaviour::ObjectComposition#add_parent
   As a test scripter writer
   I want to use add_parent method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::ObjectComposition behaviour

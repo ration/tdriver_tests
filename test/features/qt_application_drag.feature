@@ -1,4 +1,4 @@
-Feature: TestObject::drag (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Application#drag
   As a test scripter writer
   I want to use drag method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Application behaviour

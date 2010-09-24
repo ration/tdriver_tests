@@ -1,4 +1,4 @@
-Feature: TestObject::verify_blocks (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#verify_blocks
   As a test scripter writer
   I want to use verify_blocks attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

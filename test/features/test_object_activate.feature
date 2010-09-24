@@ -1,4 +1,4 @@
-Feature: TestObject::activate (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObject#activate
   As a test scripter writer
   I want to use activate method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObject behaviour

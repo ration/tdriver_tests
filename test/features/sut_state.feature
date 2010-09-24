@@ -1,4 +1,4 @@
-Feature: TestObject::state (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#state
   As a test scripter writer
   I want to use state method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

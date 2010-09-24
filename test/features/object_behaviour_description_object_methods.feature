@@ -1,4 +1,4 @@
-Feature: TestObject::object_methods (Rename this to be more descriptive)
+Feature: MobyBehaviour::ObjectBehaviourDescription#object_methods
   As a test scripter writer
   I want to use object_methods method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::ObjectBehaviourDescription behaviour

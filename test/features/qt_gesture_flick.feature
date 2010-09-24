@@ -1,4 +1,4 @@
-Feature: TestObject::flick (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Gesture#flick
   As a test scripter writer
   I want to use flick method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Gesture behaviour

@@ -1,4 +1,4 @@
-Feature: TestObject::clear_log (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::ConfigureBehaviour#clear_log
   As a test scripter writer
   I want to use clear_log method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour

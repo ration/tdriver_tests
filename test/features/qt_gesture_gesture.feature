@@ -1,4 +1,4 @@
-Feature: TestObject::gesture (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Gesture#gesture
   As a test scripter writer
   I want to use gesture method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Gesture behaviour

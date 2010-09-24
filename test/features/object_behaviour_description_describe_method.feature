@@ -1,4 +1,4 @@
-Feature: TestObject::describe_method (Rename this to be more descriptive)
+Feature: MobyBehaviour::ObjectBehaviourDescription#describe_method
   As a test scripter writer
   I want to use describe_method method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::ObjectBehaviourDescription behaviour

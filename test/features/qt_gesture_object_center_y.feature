@@ -1,4 +1,4 @@
-Feature: TestObject::object_center_y (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Gesture#object_center_y
   As a test scripter writer
   I want to use object_center_y method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Gesture behaviour

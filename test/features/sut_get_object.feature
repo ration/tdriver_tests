@@ -1,4 +1,4 @@
-Feature: TestObject::get_object (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#get_object
   As a test scripter writer
   I want to use get_object method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

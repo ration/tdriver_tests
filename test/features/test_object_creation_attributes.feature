@@ -1,4 +1,4 @@
-Feature: TestObject::creation_attributes (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObject#creation_attributes=
   As a test scripter writer
   I want to use creation_attributes attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObject behaviour

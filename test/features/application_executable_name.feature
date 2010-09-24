@@ -1,4 +1,4 @@
-Feature: TestObject::executable_name (Rename this to be more descriptive)
+Feature: MobyBehaviour::Application#executable_name
   As a test scripter writer
   I want to use executable_name method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::Application behaviour

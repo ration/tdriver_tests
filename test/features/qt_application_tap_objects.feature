@@ -1,4 +1,4 @@
-Feature: TestObject::tap_objects (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Application#tap_objects
   As a test scripter writer
   I want to use tap_objects method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Application behaviour

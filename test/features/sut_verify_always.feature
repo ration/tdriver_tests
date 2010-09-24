@@ -1,4 +1,4 @@
-Feature: TestObject::verify_always (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#verify_always
   As a test scripter writer
   I want to use verify_always method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

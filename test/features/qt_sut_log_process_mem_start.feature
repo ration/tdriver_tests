@@ -1,4 +1,4 @@
-Feature: TestObject::log_process_mem_start (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#log_process_mem_start
   As a test scripter writer
   I want to use log_process_mem_start method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

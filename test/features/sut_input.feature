@@ -1,4 +1,4 @@
-Feature: TestObject::input (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#input=
   As a test scripter writer
   I want to use input attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

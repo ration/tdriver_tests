@@ -1,4 +1,4 @@
-Feature: TestObject::async_fixture (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Fixture#async_fixture
   As a test scripter writer
   I want to use async_fixture method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Fixture behaviour

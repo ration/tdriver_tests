@@ -1,4 +1,4 @@
-Feature: TestObject::log_process_mem_stop (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::SUT#log_process_mem_stop
   As a test scripter writer
   I want to use log_process_mem_stop method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::SUT behaviour

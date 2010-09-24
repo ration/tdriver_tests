@@ -1,4 +1,4 @@
-Feature: TestObject::application (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#application
   As a test scripter writer
   I want to use application method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

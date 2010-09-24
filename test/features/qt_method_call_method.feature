@@ -1,4 +1,4 @@
-Feature: TestObject::call_method (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Method#call_method
   As a test scripter writer
   I want to use call_method method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Method behaviour

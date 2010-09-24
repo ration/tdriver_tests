@@ -1,4 +1,4 @@
-Feature: TestObject::close (Rename this to be more descriptive)
+Feature: MobyBehaviour::Application#close
   As a test scripter writer
   I want to use close method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::Application behaviour

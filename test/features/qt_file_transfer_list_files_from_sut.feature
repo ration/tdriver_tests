@@ -1,4 +1,4 @@
-Feature: TestObject::list_files_from_sut (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::FileTransfer#list_files_from_sut
   As a test scripter writer
   I want to use list_files_from_sut method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::FileTransfer behaviour

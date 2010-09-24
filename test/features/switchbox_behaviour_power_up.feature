@@ -1,4 +1,4 @@
-Feature: TestObject::power_up (Rename this to be more descriptive)
+Feature: MobyBehaviour::SwitchboxBehaviour#power_up
   As a test scripter writer
   I want to use power_up method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SwitchboxBehaviour behaviour

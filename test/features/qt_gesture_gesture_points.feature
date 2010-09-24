@@ -1,4 +1,4 @@
-Feature: TestObject::gesture_points (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Gesture#gesture_points
   As a test scripter writer
   I want to use gesture_points method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Gesture behaviour

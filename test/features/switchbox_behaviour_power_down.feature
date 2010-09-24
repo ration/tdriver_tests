@@ -1,4 +1,4 @@
-Feature: TestObject::power_down (Rename this to be more descriptive)
+Feature: MobyBehaviour::SwitchboxBehaviour#power_down
   As a test scripter writer
   I want to use power_down method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SwitchboxBehaviour behaviour

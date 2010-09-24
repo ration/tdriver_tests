@@ -1,4 +1,4 @@
-Feature: TestObject::bring_to_foreground (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Application#bring_to_foreground
   As a test scripter writer
   I want to use bring_to_foreground method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Application behaviour

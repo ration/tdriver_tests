@@ -1,4 +1,4 @@
-Feature: TestObject::set_attribute (Rename this to be more descriptive)
+Feature: MobyBehaviour::QT::Attribute#set_attribute
   As a test scripter writer
   I want to use set_attribute method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::QT::Attribute behaviour

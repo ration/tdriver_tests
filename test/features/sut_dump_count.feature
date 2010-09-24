@@ -1,4 +1,4 @@
-Feature: TestObject::dump_count (Rename this to be more descriptive)
+Feature: MobyBehaviour::SUT#dump_count=
   As a test scripter writer
   I want to use dump_count attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour

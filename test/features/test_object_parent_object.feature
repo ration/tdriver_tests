@@ -1,4 +1,4 @@
-Feature: TestObject::parent_object (Rename this to be more descriptive)
+Feature: MobyBehaviour::TestObject#parent_object
   As a test scripter writer
   I want to use parent_object method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::TestObject behaviour

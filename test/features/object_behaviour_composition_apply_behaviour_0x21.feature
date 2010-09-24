@@ -1,4 +1,4 @@
-Feature: TestObject::apply_behaviour! (Rename this to be more descriptive)
+Feature: MobyBehaviour::ObjectBehaviourComposition#apply_behaviour!
   As a test scripter writer
   I want to use apply_behaviour! method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::ObjectBehaviourComposition behaviour
