@@ -222,6 +222,28 @@ Then "the $target_type has moved $expected_direction" do | target_type, expected
   end
   
 end
+Then "the $target_type has not moved" do | target_type |
+
+  verify_true(30, "The #{target_type} did move") do
+
+	temp_obj = @__current_app.child( :type => target_type )
+    
+	( temp_obj.attribute( "x" ).to_i == @initial_x ) and ( temp_obj.attribute( "y" ).to_i == @initial_y )
+		  
+  end
+  
+end
+
+Then "the $target_type has the $expected_attribute attribute with value $expected_value" do | target_type, expected_attribute, expected_value |
+
+  verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
+    	
+	temp_obj = @__current_app.child( :type => target_type )
+	temp_obj.attribute( expected_attribute )
+	
+  end
+
+end
 
 Then "the $target_type with $id_type $id_value has the attribute $expected_attribute with the value $expected_value" do | target_type, target_attribute, target_value, expected_attribute, expected_value |
 
