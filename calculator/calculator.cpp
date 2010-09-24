@@ -1,23 +1,22 @@
-/*************************************************************************** 
-** 
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-** All rights reserved. 
-** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-** 
-** This file is part of TDriver. 
-** 
-** If you have questions regarding the use of this file, please contact 
-** Nokia at testabilitydriver@nokia.com . 
-** 
-** This library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU Lesser General Public 
-** License version 2.1 as published by the Free Software Foundation 
-** and appearing in the file LICENSE.LGPL included in the packaging 
-** of this file. 
-** 
-****************************************************************************/ 
- 
- 
+/*************************************************************************
+** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (testabilitydriver@nokia.com)
+**
+** This file is part of TDriver.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at testabilitydriver@nokia.com .
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
+
 
 
 #include <QtGui>
@@ -27,58 +26,62 @@
 #include "button.h"
 #include "calculator.h"
 /*Add following libraries to enable testabilityloading and testailiby if not already included */
-#include <QtPlugin> 
+#include <QtPlugin>
 #include <QPluginLoader>
 #include <QLibraryInfo>
 #include "testabilityinterface.h" //this file needs to be copied to inc folder from qttas package
 /*Endof adding files */
 
+
+
 Calculator::Calculator(QWidget *parent)
     : QDialog(parent)
 {
 
-/* In beginning of main file: activate testailiby plugin if available */
-QString testabilityPlugin = "testability/testability";
-QString testabilityPluginPostfix = ".dll";
+    /* In beginning of main file: activate testailiby plugin if available */
+    QString testabilityPlugin = "testability/testability";
+    QString testabilityPluginPostfix = ".dll";
 
 #ifdef Q_OS_LINUX
-testabilityPluginPostfix = ".so";
-testabilityPlugin = "testability/libtestability";
+    testabilityPluginPostfix = ".so";
+    testabilityPlugin = "testability/libtestability";
 #endif
 
-#ifdef Q_WS_MAC	
-testabilityPluginPostfix = ".dylib";
-testabilityPlugin = "testability/libtestability";
+#ifdef Q_WS_MAC
+    testabilityPluginPostfix = ".dylib";
+    testabilityPlugin = "testability/libtestability";
 #endif
 
-testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath) + QObject::tr("/") + testabilityPlugin + testabilityPluginPostfix;
-QPluginLoader loader(testabilityPlugin.toLatin1().data());
-	
-QObject *plugin = loader.instance();
-if (plugin) {
-	qDebug("Testability plugin loaded successfully!");
-	testabilityInterface = qobject_cast<TestabilityInterface *>(plugin);
+    testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath)
+                        + QObject::tr("/") + testabilityPlugin + testabilityPluginPostfix;
+    QPluginLoader loader(testabilityPlugin.toLatin1().data());
 
-	if (testabilityInterface) {
-		qDebug("Testability interface obtained!");
-		testabilityInterface->Initialize();
-	} else {
-		qDebug("Failed to get testability interface!");
-	}
-} else {
-	qDebug("Testability plugin %s load failed with error:%s", testabilityPlugin.toLatin1().data(), loader.errorString().toLatin1().data());
-}
+    QObject *plugin = loader.instance();
+    if (plugin) {
+        qDebug("Testability plugin loaded successfully!");
+        testabilityInterface = qobject_cast<TestabilityInterface *>(plugin);
 
-/* Endof activate testailiby plugin if available */
+        if (testabilityInterface) {
+            qDebug("Testability interface obtained!");
+            testabilityInterface->Initialize();
+        } else {
+            qDebug("Failed to get testability interface!");
+        }
+    } else {
+        qDebug("Testability plugin %s load failed with error:%s",
+               testabilityPlugin.toLatin1().data(), loader.errorString().toLatin1().data());
+    }
+
+    /* Endof activate testailiby plugin if available */
 
 #ifdef Q_OS_SYMBIAN
-    QRect rect = qApp->desktop()->screenGeometry();    
+    QRect rect = qApp->desktop()->screenGeometry();
     setMinimumSize(rect.size());
     setMaximumSize(rect.size());
     showFullScreen();
 #endif
 
-	sumInMemory = 0.0;
+    sumInMemory = 0.0;
     sumSoFar = 0.0;
     factorSoFar = 0.0;
     waitingForOperand = true;
@@ -86,23 +89,25 @@ if (plugin) {
     display->setReadOnly(true);
     display->setAlignment(Qt::AlignRight);
     display->setMaxLength(15);
-	
-	// TDriver test scripts can be made simpler and easier to understand by setting object names like this.
-	display->setObjectName(tr("display"));
+
+    // TDriver test scripts can be made simpler and easier to understand by setting object names like this.
+    display->setObjectName(tr("display"));
 
     QFont font = display->font();
     font.setPointSize(font.pointSize() + 8);
     display->setFont(font);
 
-	buttonNames << tr("zeroButton") << tr("oneButton") << tr("twoButton") << tr("threeButton") << tr("fourButton") << tr("fiveButton") << tr("sixButton") << tr("sevenButton") << tr("eightButton") << tr("nineButton");
+    buttonNames << tr("zeroButton") << tr("oneButton") << tr("twoButton") << tr("threeButton") << tr("fourButton")
+            << tr("fiveButton") << tr("sixButton") << tr("sevenButton") << tr("eightButton") << tr("nineButton");
     for (int i = 0; i < NumDigitButtons; ++i) {
-	digitButtons[i] = createButton(QString::number(i), SLOT(digitClicked()), buttonNames[i]);
+        digitButtons[i] = createButton(QString::number(i), SLOT(digitClicked()), buttonNames[i]);
     }
 
     Button *pointButton = createButton(tr("."), SLOT(pointClicked()), tr("pointButton"));
     Button *changeSignButton = createButton(tr("\261"), SLOT(changeSignClicked()), tr("changeSignButton"));
 
-	// Some objects may not have a defined object name. TDriver scripts must refer to such objects using other attributes, such as the displayed text.
+    // Some objects may not have a defined object name.
+    // TDriver scripts must refer to such objects using other attributes, such as the displayed text.
     Button *backspaceButton = createButton(tr("Backspace"), SLOT(backspaceClicked()));
     Button *clearButton = createButton(tr("Clear"), SLOT(clear()));
     Button *clearAllButton = createButton(tr("Clear All"), SLOT(clearAll()), tr("clearAllButton"));
@@ -124,7 +129,21 @@ if (plugin) {
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
-    mainLayout->addWidget(display, 0, 0, 1, 6);
+    Button *menuButton = createButton(tr("Menu"), NULL, tr("menuButton"));
+    menuButton->setPopupMode(QToolButton::InstantPopup);
+    menuButton->setMenu(new QMenu(menuButton));
+    QAction *clearAllAction= new QAction(tr("Clear &All"), menuButton->menu());
+    QAction *exitAction  = new QAction(tr("&Exit"), menuButton->menu());
+
+    connect(clearAllAction, SIGNAL(triggered()), this, SLOT(clearAll()));
+    connect(exitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+
+    menuButton->menu()->addAction(clearAllAction);
+    menuButton->menu()->addSeparator();
+    menuButton->menu()->addAction(exitAction);
+
+    mainLayout->addWidget(menuButton, 0, 0, 1, 1);
+    mainLayout->addWidget(display, 0, 1, 1, 6);
     mainLayout->addWidget(backspaceButton, 1, 0, 1, 2);
     mainLayout->addWidget(clearButton, 1, 2, 1, 2);
     mainLayout->addWidget(clearAllButton, 1, 4, 1, 2);
@@ -154,8 +173,8 @@ if (plugin) {
     mainLayout->addWidget(reciprocalButton, 4, 5);
     mainLayout->addWidget(equalButton, 5, 5);
     setLayout(mainLayout);
-    setWindowTitle(tr("Calculator"));	
-	installEventFilter( this );
+    setWindowTitle(tr("Calculator"));
+    installEventFilter( this );
 }
 
 void Calculator::resizeEvent(QResizeEvent * event)
@@ -163,7 +182,7 @@ void Calculator::resizeEvent(QResizeEvent * event)
 
     Q_UNUSED(event);
 #ifdef Q_OS_SYMBIAN
-    QRect rect = qApp->desktop()->screenGeometry();    
+    QRect rect = qApp->desktop()->screenGeometry();
     setMinimumSize(rect.size());
     setMaximumSize(rect.size());
     showFullScreen();
@@ -179,7 +198,7 @@ void Calculator::digitClicked()
 
     if (waitingForOperand) {
         display->clear();
-	waitingForOperand = false;
+        waitingForOperand = false;
     }
     display->setText(display->text() + QString::number(digitValue));
 }
@@ -201,8 +220,8 @@ void Calculator::unaryOperatorClicked()
         result = pow(operand, 2.0);
     } else if (clickedOperator == tr("1/x")) {
         if (operand == 0.0) {
-	    abortOperation();
-	    return;
+            abortOperation();
+            return;
         }
         result = 1.0 / operand;
     }
@@ -219,7 +238,7 @@ void Calculator::additiveOperatorClicked()
     if (!pendingMultiplicativeOperator.isEmpty()) {
         if (!calculate(operand, pendingMultiplicativeOperator)) {
             abortOperation();
-	    return;
+            return;
         }
         display->setText(QString::number(factorSoFar));
         operand = factorSoFar;
@@ -230,7 +249,7 @@ void Calculator::additiveOperatorClicked()
     if (!pendingAdditiveOperator.isEmpty()) {
         if (!calculate(operand, pendingAdditiveOperator)) {
             abortOperation();
-	    return;
+            return;
         }
         display->setText(QString::number(sumSoFar));
     } else {
@@ -250,7 +269,7 @@ void Calculator::multiplicativeOperatorClicked()
     if (!pendingMultiplicativeOperator.isEmpty()) {
         if (!calculate(operand, pendingMultiplicativeOperator)) {
             abortOperation();
-	    return;
+            return;
         }
         display->setText(QString::number(factorSoFar));
     } else {
@@ -268,7 +287,7 @@ void Calculator::equalClicked()
     if (!pendingMultiplicativeOperator.isEmpty()) {
         if (!calculate(operand, pendingMultiplicativeOperator)) {
             abortOperation();
-	    return;
+            return;
         }
         operand = factorSoFar;
         factorSoFar = 0.0;
@@ -277,7 +296,7 @@ void Calculator::equalClicked()
     if (!pendingAdditiveOperator.isEmpty()) {
         if (!calculate(operand, pendingAdditiveOperator)) {
             abortOperation();
-	    return;
+            return;
         }
         pendingAdditiveOperator.clear();
     } else {
@@ -336,19 +355,15 @@ void Calculator::clear()
 
 void Calculator::clearAll()
 {
-   if ((sumSoFar == 0.0) && (factorSoFar == 0.0) && display->text() == "0" &&
+    if ((sumSoFar == 0.0) && (factorSoFar == 0.0) && display->text() == "0" &&
         pendingAdditiveOperator.isEmpty() && pendingMultiplicativeOperator.isEmpty())
     {
-        char tempPos[10];
         Button *clickedButton = qobject_cast<Button *>(sender());
-        QPoint mousePos = clickedButton->mousePosition;
-		sprintf(tempPos, "%d", mousePos.x()); 
-        QString text = tempPos;
-        text += ",";
-		sprintf(tempPos, "%d", mousePos.y()); 
-        text += tempPos;
-        display->setText(text);
-        return;
+        if (clickedButton) {
+            QPoint mousePos = clickedButton->mousePosition;
+            display->setText(QString("%1,%2").arg(mousePos.x()).arg(mousePos.y()));
+            return;
+        }
     }
     sumSoFar = 0.0;
     factorSoFar = 0.0;
@@ -384,7 +399,8 @@ void Calculator::addToMemory()
 Button *Calculator::createButton(const QString &text, const char *member, const QString &name)
 {
     Button *button = new Button(text, name);
-    connect(button, SIGNAL(clicked()), this, member);
+    if (member)
+        connect(button, SIGNAL(clicked()), this, member);
     return button;
 }
 
@@ -403,40 +419,40 @@ bool Calculator::calculate(double rightOperand, const QString &pendingOperator)
     } else if (pendingOperator == tr("\327")) {
         factorSoFar *= rightOperand;
     } else if (pendingOperator == tr("\367")) {
-	if (rightOperand == 0.0)
-	    return false;
-	factorSoFar /= rightOperand;
+        if (rightOperand == 0.0)
+            return false;
+        factorSoFar /= rightOperand;
     }
     return true;
 }
 
-bool Calculator::eventFilter(QObject * object, QEvent *event) {  
-	
-	Q_UNUSED( object );
+bool Calculator::eventFilter(QObject * object, QEvent *event) {
 
-	if (event->type() == QEvent::KeyPress) {
+    Q_UNUSED( object );
 
-		QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+    if (event->type() == QEvent::KeyPress) {
 
-		if (ke->key() == Qt::Key_D && (ke->modifiers() & Qt::AltModifier) != 0 ) {
-		
-		   display->setText(tr("0"));
-		   return true;
-		   
-		} else if (ke->key() == Qt::Key_I && (ke->modifiers() & Qt::ControlModifier) != 0 ) {
-		
-		   display->setText(tr("0"));
-		   return true;
-		   
-		} else {
-		  return QObject::eventFilter(object, event);
-		}
-		
-	}
-	else {
-         // standard event processing
-         return QObject::eventFilter(object, event);
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+
+        if (ke->key() == Qt::Key_D && (ke->modifiers() & Qt::AltModifier) != 0 ) {
+
+            display->setText(tr("0"));
+            return true;
+
+        } else if (ke->key() == Qt::Key_I && (ke->modifiers() & Qt::ControlModifier) != 0 ) {
+
+            display->setText(tr("0"));
+            return true;
+
+        } else {
+            return QObject::eventFilter(object, event);
+        }
+
     }
-	
-	return false;
+    else {
+        // standard event processing
+        return QObject::eventFilter(object, event);
+    }
+
+    return false;
 }
