@@ -275,3 +275,13 @@ Then "the $target_type with $id_type $id_value has the attribute $expected_attri
 
 
 end
+
+Then "the new location of the $target_type is $expected_x, $expected_y" do | target_type, expected_x, expected_y | 
+
+  verify(30, "The #{target_type} was not at location #{expected_x}, #{expected_y}") do
+    	
+	temp_obj = @__current_app.child( :type => target_type, :x => expected_x, :y => expected_y )
+	
+  end
+
+end
