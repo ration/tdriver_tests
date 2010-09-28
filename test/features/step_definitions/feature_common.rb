@@ -258,6 +258,10 @@ Then "the $target_type has the $expected_attribute attribute with value $expecte
 
 end
 
+Then /^nothing to verify$/ do
+  raise @__exception if @__exception != nil
+end
+
 Then "the $target_type with $id_type $id_value has the attribute $expected_attribute with the value $expected_value" do | target_type, target_attribute, target_value, expected_attribute, expected_value |
 
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
