@@ -241,7 +241,7 @@ Then "the $target_type has not moved" do | target_type |
 
 	temp_obj = @__current_app.child( :type => target_type )
     
-	( temp_obj.attribute( "x" ).to_i == @initial_x ) and ( temp_obj.attribute( "y" ).to_i == @initial_y )
+	( temp_obj.attribute( "x" ) == @initial_x ) and ( temp_obj.attribute( "y" ) == @initial_y )
 		  
   end
   
