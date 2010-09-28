@@ -98,6 +98,13 @@ Given "I know the $target_type initial location" do | target_type |
 
 end
 
+Given "the $target_type is at location $x, $y" do | object_type, x, y |
+
+  temp_object = @__current_app.child( :type => object_type )
+  temp_object.set_attribute("x", x)  
+  temp_object.set_attribute("y", y)
+
+end
 
 Given "there is only $article $target_type on the testapp screen" do | article, target_type |
 
@@ -120,13 +127,19 @@ Given "there is only $article $target_type on the testapp screen" do | article, 
     
 end
 
+Given "the $target_type is assigned to the $new_object object" do | target_type, new_object |
+
+  eval("#{new_object} = @__current_app.child( :type => '#{target_type}' )")
+
+end
+
 When /^I execute "([^\"]*)"$/ do |script|
     raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
     @__example_given = true
     begin
         @__ret_val = eval(script)
     rescue Exception => e
-        @__exception = e
+        @__exception = e		
     end
 end
 
