@@ -1,20 +1,20 @@
 ############################################################################
-## 
-## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-## All rights reserved. 
-## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-## 
-## This file is part of TDriver. 
-## 
-## If you have questions regarding the use of this file, please contact 
-## Nokia at testabilitydriver@nokia.com . 
-## 
-## This library is free software; you can redistribute it and/or 
-## modify it under the terms of the GNU Lesser General Public 
-## License version 2.1 as published by the Free Software Foundation 
-## and appearing in the file LICENSE.LGPL included in the packaging 
-## of this file. 
-## 
+##
+## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+## All rights reserved.
+## Contact: Nokia Corporation (testabilitydriver@nokia.com)
+##
+## This file is part of TDriver.
+##
+## If you have questions regarding the use of this file, please contact
+## Nokia at testabilitydriver@nokia.com .
+##
+## This library is free software; you can redistribute it and/or
+## modify it under the terms of the GNU Lesser General Public
+## License version 2.1 as published by the Free Software Foundation
+## and appearing in the file LICENSE.LGPL included in the packaging
+## of this file.
+##
 ############################################################################
 
 
@@ -28,7 +28,7 @@ require 'tdriver'
 include TDriverVerify
 
 Before do
-	$ErrorMessage=""
+        $ErrorMessage=""
     @__current_app = nil
     @__apps = {}
     @__ret_val = nil
@@ -41,7 +41,7 @@ Before do
 end
 
 After do
-	
+
     @__apps.each_key do |app|
 
         begin
@@ -64,16 +64,16 @@ Given /^I launch application "([^\"]*)"$/ do |app_name|
     raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
     @__apps[app_ref] = @__sut.run( :name => app_name.to_s )
     eval(app_ref + " = @__apps[app_ref]")
-    @__current_app = @__apps[app_ref] 
+    @__current_app = @__apps[app_ref]
 end
 
 
 Given /^I launch application "([^\"]*)" as "([^\"]*)"$/ do |app_name, app_ref|
-    
+
     raise "No default sut given! Please set env variable TDRIVER_SUT!" if @__sut == nil
     @__apps[app_ref] = @__sut.run( :name => app_name.to_s )
     eval(app_ref + " = @__apps[app_ref]")
-    @__current_app = @__apps[app_ref] 
+    @__current_app = @__apps[app_ref]
 end
 
 Given /^I launch application "([^\"]*)" as "([^\"]*)" on sut "([^\"]*)"$/ do |app_name, app_ref, sut_id|
@@ -81,7 +81,7 @@ Given /^I launch application "([^\"]*)" as "([^\"]*)" on sut "([^\"]*)"$/ do |ap
     tmp_app = TDriver.sut(sut_id.to_sym).run( :name => app_name.to_s )
     eval(app_ref + " = tmp_app")
     @__apps[app_ref] = tmp_app
-    @__current_app = @__apps[app_ref] 
+    @__current_app = @__apps[app_ref]
 end
 
 Given /^I show FloatingMenu of the testapp$/ do
@@ -91,7 +91,7 @@ end
 Given "I know the $target_type initial location" do | target_type |
 
   temp_obj = @__current_app.child( :type => target_type )
-  
+
   @initial_x = temp_obj.attribute( "x" )
   @initial_y = temp_obj.attribute( "y" )
 
@@ -101,30 +101,39 @@ end
 Given "the $target_type is at location $x, $y" do | object_type, x, y |
 
   temp_object = @__current_app.child( :type => object_type )
-  temp_object.set_attribute("x", x)  
+  temp_object.set_attribute("x", x)
   temp_object.set_attribute("y", y)
+end
 
+Given "I $method $object_type named \"$object_name\"" do | method, object_type, object_name |
+
+  eval "@app.#{object_type}( :name => '#{object_name}' ).#{method}"
+end
+
+Given "I $method $object_type named \"$object_name\"" do | method, object_type, object_name |
+
+  eval "@app.#{object_type}( :name => '#{object_name}' ).#{method}"
 end
 
 Given "there is only $article $target_type on the testapp screen" do | article, target_type |
 
   @__current_app.ControlTab( :name => 'ControlTab').drag(:Up, 10)
-   
+
   @__current_app.Control( :name => "Reset" ).tap
   case target_type
     when "Node"
-	  @__current_app.Control( :name => "AddNode" ).tap  
-	when "Rectangle"
-	  @__current_app.Control( :name => "AddRectangle" ).tap  	
+          @__current_app.Control( :name => "AddNode" ).tap
+        when "Rectangle"
+          @__current_app.Control( :name => "AddRectangle" ).tap
   end
-  
+
   temp_obj = @__current_app.child( :type => target_type )
-  
+
   @initial_x = temp_obj.attribute( "x" )
   @initial_y = temp_obj.attribute( "y" )
-  
+
   @__current_app.ControlTab( :name => 'ControlTab').drag(:Down, 10)
-    
+
 end
 
 Given "the $target_type is assigned to the $new_object object" do | target_type, new_object |
@@ -133,13 +142,14 @@ Given "the $target_type is assigned to the $new_object object" do | target_type,
 
 end
 
+
 When /^I execute "([^\"]*)"$/ do |script|
     raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
     @__example_given = true
     begin
         @__ret_val = eval(script)
     rescue Exception => e
-        @__exception = e		
+        @__exception = e
     end
 end
 
@@ -159,12 +169,12 @@ Then /^application "([^\"]*)" is running$/ do |arg1|
     ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
     (@os_name == "")
     if RUBY_PLATFORM.downcase.include?("mswin")
-      verify_equal(arg1 + '.exe', 30, "Application name should match."){ 
+      verify_equal(arg1 + '.exe', 30, "Application name should match."){
         @app.executable_name
       }
     else
-      verify_equal(arg1.to_s, 30, "Application name should match."){ 
-        @app.executable_name 
+      verify_equal(arg1.to_s, 30, "Application name should match."){
+        @app.executable_name
       }
     end
   end
@@ -182,7 +192,7 @@ Then /^application "([^\"]*)" is not running$/ do |arg1|
       }
     else
       verify_false(30, 'application should not be running') {
-        @sut.application.name == arg1 
+        @sut.application.name == arg1
       }
     end
   end
@@ -216,44 +226,45 @@ end
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |
 
   verify_true(30, "The #{target_type} did not move #{expected_direction}") do
-    
-	result = false
-	temp_obj = @__current_app.child( :type => target_type )
+
+        result = false
+        temp_obj = @__current_app.child( :type => target_type )
     case expected_direction
       when "left"
-	    result = temp_obj.attribute( "x" ) < @initial_x
-	  when "right"
-	    result = temp_obj.attribute( "x" ) > @initial_x
+            result = temp_obj.attribute( "x" ) < @initial_x
+          when "right"
+            result = temp_obj.attribute( "x" ) > @initial_x
       when "down"
-	    result = temp_obj.attribute( "y" ) > @initial_y
-	  when "up"
-	    result = temp_obj.attribute( "y" ) < @initial_y
-    end  
-	
-	result
-  
+            result = temp_obj.attribute( "y" ) > @initial_y
+          when "up"
+            result = temp_obj.attribute( "y" ) < @initial_y
+    end
+
+        result
+
   end
-  
+
 end
+
 Then "the $target_type has not moved" do | target_type |
 
   verify_true(30, "The #{target_type} did move") do
 
-	temp_obj = @__current_app.child( :type => target_type )
-    
-	( temp_obj.attribute( "x" ) == @initial_x ) and ( temp_obj.attribute( "y" ) == @initial_y )
-		  
+        temp_obj = @__current_app.child( :type => target_type )
+
+        ( temp_obj.attribute( "x" ) == @initial_x ) and ( temp_obj.attribute( "y" ) == @initial_y )
+
   end
-  
+
 end
 
 Then "the $target_type has the $expected_attribute attribute with value $expected_value" do | target_type, expected_attribute, expected_value |
 
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
-    	
-	temp_obj = @__current_app.child( :type => target_type )
-	temp_obj.attribute( expected_attribute )
-	
+
+        temp_obj = @__current_app.child( :type => target_type )
+        temp_obj.attribute( expected_attribute )
+
   end
 
 end
@@ -265,23 +276,23 @@ end
 Then "the $target_type with $id_type $id_value has the attribute $expected_attribute with the value $expected_value" do | target_type, target_attribute, target_value, expected_attribute, expected_value |
 
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
-    
-	result = false
-	temp_obj = @__current_app.child( :type => target_type, target_attribute.to_sym => target_value )
-    
-	temp_obj.attribute( expected_attribute )
-	
+
+        result = false
+        temp_obj = @__current_app.child( :type => target_type, target_attribute.to_sym => target_value )
+
+        temp_obj.attribute( expected_attribute )
+
   end
 
 
 end
 
-Then "the new location of the $target_type is $expected_x, $expected_y" do | target_type, expected_x, expected_y | 
+Then "the new location of the $target_type is $expected_x, $expected_y" do | target_type, expected_x, expected_y |
 
   verify(30, "The #{target_type} was not at location #{expected_x}, #{expected_y}") do
-    	
-	temp_obj = @__current_app.child( :type => target_type, :x => expected_x, :y => expected_y )
-	
+
+        temp_obj = @__current_app.child( :type => target_type, :x => expected_x, :y => expected_y )
+
   end
 
 end

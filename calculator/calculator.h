@@ -48,7 +48,7 @@ public:
     Calculator(QWidget *parent = 0);
 
 protected:
-        void resizeEvent(QResizeEvent * event);
+    void resizeEvent(QResizeEvent * event);
 
 private slots:
     void digitClicked();
@@ -69,7 +69,6 @@ private slots:
     void evade();
 
 private:
-
     Button *createButton(const QString &text, const char *member, const QString &name = "");
     void abortOperation();
     bool calculate(double rightOperand, const QString &pendingOperator);

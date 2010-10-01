@@ -133,7 +133,9 @@ Calculator::Calculator(QWidget *parent)
     menuBar = new QMenuBar;
     menuBar->setObjectName("menuBar");
     QMenu *mainMenu = menuBar->addMenu(tr("&Menu"));
+    mainMenu->menuAction()->setObjectName("mainMenuAction");
     mainMenu->setObjectName("mainMenu");
+    menuBar->addMenu(tr("Empty"))->menuAction()->setObjectName("mainEmptyAction");
 
     toolBar = new QToolBar;
     toolBar->setObjectName("toolBar");
@@ -202,7 +204,6 @@ Calculator::Calculator(QWidget *parent)
 
 void Calculator::resizeEvent(QResizeEvent * event)
 {
-
     Q_UNUSED(event);
 #ifdef Q_OS_SYMBIAN
     QRect rect = qApp->desktop()->screenGeometry();
