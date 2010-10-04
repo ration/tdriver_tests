@@ -95,7 +95,6 @@ Given "I know the $target_type initial location" do | target_type |
   @initial_x = temp_obj.attribute( "x" )
   @initial_y = temp_obj.attribute( "y" )
 
-
 end
 
 Given "the $target_type is at location $x, $y" do | object_type, x, y |
@@ -105,10 +104,6 @@ Given "the $target_type is at location $x, $y" do | object_type, x, y |
   temp_object.set_attribute("y", y)
 end
 
-Given "I $method $object_type named \"$object_name\"" do | method, object_type, object_name |
-
-  eval "@app.#{object_type}( :name => '#{object_name}' ).#{method}"
-end
 
 Given "I $method $object_type named \"$object_name\"" do | method, object_type, object_name |
 
@@ -140,6 +135,10 @@ Given "the $target_type is assigned to the $new_object object" do | target_type,
 
   eval("#{new_object} = @__current_app.child( :type => '#{target_type}' )")
 
+end
+
+Given /^I trigger "([^\"]*)" from "([^\"]*)"$/ do |action_name, parent_name|
+  @__current_app.child(:name => parent_name.to_s).QAction( :name => action_name.to_s).trigger
 end
 
 
@@ -213,6 +212,16 @@ Then /^object named "([^\"]*)" is not visible on screen$/ do |arg1|
   verify {@__current_app.child(:name => arg1.to_s, :visibleOnScreen => false) }
 end
 
+Then /^object named "([^\"]*)" is visible$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify {@__current_app.child(:name => arg1.to_s, :visible => true) }
+end
+
+Then /^object named "([^\"]*)" is not visible$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify {@__current_app.child(:name => arg1.to_s, :visible => false) }
+end
+
 Then /^exception is thrown$/ do
   verify_false(0, "Exception has not been raised") { @__exception.nil? }
 end
@@ -225,6 +234,7 @@ end
 
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |
 
+  raise @__exception if @__exception != nil
   verify_true(30, "The #{target_type} did not move #{expected_direction}") do
 
         result = false
@@ -248,6 +258,7 @@ end
 
 Then "the $target_type has not moved" do | target_type |
 
+  raise @__exception if @__exception != nil
   verify_true(30, "The #{target_type} did move") do
 
         temp_obj = @__current_app.child( :type => target_type )
@@ -260,6 +271,7 @@ end
 
 Then "the $target_type has the $expected_attribute attribute with value $expected_value" do | target_type, expected_attribute, expected_value |
 
+  raise @__exception if @__exception != nil
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
 
         temp_obj = @__current_app.child( :type => target_type )
@@ -275,6 +287,7 @@ end
 
 Then "the $target_type with $id_type $id_value has the attribute $expected_attribute with the value $expected_value" do | target_type, target_attribute, target_value, expected_attribute, expected_value |
 
+  raise @__exception if @__exception != nil
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
 
         result = false
@@ -289,6 +302,7 @@ end
 
 Then "the new location of the $target_type is $expected_x, $expected_y" do | target_type, expected_x, expected_y |
 
+  raise @__exception if @__exception != nil
   verify(30, "The #{target_type} was not at location #{expected_x}, #{expected_y}") do
 
         temp_obj = @__current_app.child( :type => target_type, :x => expected_x, :y => expected_y )
@@ -296,3 +310,4 @@ Then "the new location of the $target_type is $expected_x, $expected_y" do | tar
   end
 
 end
+
