@@ -25,13 +25,6 @@
 # Purpose: Tests TDriver
 
 
-require 'tdriver'
-include TDriverVerify
-
-Before do
-	$ErrorMessage=""
-end
-
 
 Then /^mem usage result is a positive integer$/ do
   verify_true(0, "SUT::agent_mem_usage should return class Fixnum, but it returned class #{@sut_agent_mem_usage.class}") {

@@ -26,11 +26,7 @@
 # Purpose: Tests TDriver
 
 
-require 'tdriver'
-include TDriverVerify
-
 Before do
-	$ErrorMessage=""
 	@testobj = nil
 end
 
