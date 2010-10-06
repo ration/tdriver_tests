@@ -36,7 +36,7 @@ Feature: MobyBehaviour::QT::Action#trigger
 @nodoc
   Scenario: Testing trigger method opening a menu from menubar with refresh
     Given I launch application "calculator"
-    When I execute "@app.QMenuBar( :name => 'menuBar' ).QAction( :name => 'mainMenuAction' ).trigger(1)"
+    When I execute "@app.QMenuBar( :name => 'menuBar' ).QAction( :name => 'mainMenuAction' ).trigger( true )"
     Then object named "mainMenu" is visible
 
 @nodoc
@@ -44,7 +44,7 @@ Feature: MobyBehaviour::QT::Action#trigger
     Given I launch application "calculator"
     And I tap Button named "fourButton"
     Then The calculator display says "4"
-    When I execute "@app.QToolBar( :name => 'toolBar' ).QToolButton( :text => 'Clear' ).QAction( :name => 'clearAction' ).trigger(1)"
+    When I execute "@app.QToolBar( :name => 'toolBar' ).QToolButton( :text => 'Clear' ).QAction( :name => 'clearAction' ).trigger( true )"
     Then The calculator display says "0"
 
 @nodoc
@@ -54,7 +54,7 @@ Feature: MobyBehaviour::QT::Action#trigger
     Then The calculator display says "4"
     Given I trigger "mainMenuAction" from "menuBar"
     Then object named "mainMenu" is visible
-    When I execute "@app.QMenu( :name => 'mainMenu' ).QAction( :name => 'clearAction' ).trigger(1)"
+    When I execute "@app.QMenu( :name => 'mainMenu' ).QAction( :name => 'clearAction' ).trigger( true )"
     Then The calculator display says "0"
 
 @nodoc
@@ -62,5 +62,5 @@ Feature: MobyBehaviour::QT::Action#trigger
     Given I launch application "calculator"
     And I tap Button named "fourButton"
     Then The calculator display says "4"
-    When I execute "@app.QToolBar( :name => 'toolBar' ).QAction( :name => 'clearAction' ).trigger(1)"
+    When I execute "@app.QToolBar( :name => 'toolBar' ).QAction( :name => 'clearAction' ).trigger( true )"
     Then The calculator display says "0"
