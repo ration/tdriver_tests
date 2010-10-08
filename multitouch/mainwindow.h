@@ -4,7 +4,7 @@
 ** All rights reserved. 
 ** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ** 
-** This file is part of TDriver. 
+** This file is part of MATTI. 
 ** 
 ** If you have questions regarding the use of this file, please contact 
 ** Nokia at testabilitydriver@nokia.com . 
@@ -53,7 +53,6 @@ private:
 private:	
 	QGraphicsScene* scene;
 	QGraphicsView* mainView;
-	QSizeF mViewSize;	
 	bool mFullScreen;
 	QQueue<MattiView*> mViews;
 	qreal currentStepScaleFactor;
@@ -68,6 +67,7 @@ public:
   virtual void showView(){show();}
   virtual void hideView(){hide();}
   virtual bool gestureOccured(QGestureEvent* event);
+  virtual bool supportPinch() = 0;
 };
 
 class ZoomView : public MattiView
@@ -80,6 +80,7 @@ public:
     QRectF boundingRect() const;
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);
+	virtual bool supportPinch(){return true;}
 
  private:
 	QRectF mSceneRect;
@@ -95,6 +96,7 @@ class RotateView : public MattiView
     QRectF boundingRect() const;
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);
+	virtual bool supportPinch(){return true;}
 
 protected:
 	bool gestureOccured(QGestureEvent* event);
@@ -116,6 +118,8 @@ class MultiTapView : public MattiView
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);
 	bool gestureOccured(QGestureEvent* event);
+	virtual bool supportPinch(){return false;}
+
  private:
 	QRectF mSceneRect;
 	Handle* mHandle;
@@ -156,12 +160,55 @@ protected:
     bool sceneEvent(QEvent *event);
 	void mouseReleaseEvent( QGraphicsSceneMouseEvent * event );
 	void mousePressEvent( QGraphicsSceneMouseEvent * event );
+	bool primaryPoint(QTouchEvent* event);
 
 private:
 	QRectF mRect;
 	Qt::GlobalColor mColor;
 	bool mPressed;
 	int mCounter;
+};
+
+
+class MultiGestureView : public MattiView
+{
+    Q_OBJECT
+ public:
+    MultiGestureView(const QRectF& rect, QGraphicsItem* parent=0);
+    ~MultiGestureView();
+
+    QRectF boundingRect() const;
+    QPainterPath shape() const;
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);
+	virtual bool supportPinch(){return false;}
+
+protected:
+    bool sceneEvent(QEvent *event);
+
+private:
+	QRectF mSceneRect;
+    QList<QColor> myPenColors;
+    QImage *image;
+	QHash<int, int> gestureIds;
+	int mCounter;
+};
+
+class Point : public QGraphicsObject
+{
+    Q_OBJECT
+	Q_PROPERTY(QString color READ color)
+
+public:
+    Point(Qt::TouchPointState type, QColor color, QRectF rect, int id, QGraphicsItem* parent=0);
+    ~Point(){};
+
+    QRectF boundingRect() const;
+    QPainterPath shape() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);	
+	QString color(){return mColor.name();}
+private:
+	QColor mColor;
+	QRectF mRect;
 };
 
 
