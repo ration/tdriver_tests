@@ -23,10 +23,6 @@
 # Purpose: Test TDriver methods
 
 
-Then /^the application executable name should be "([^\"]*)"$/ do |executable_name|
-  if RUBY_PLATFORM=='i386-mswin32'
-   verify_true(10, "Failed to get executable name.") { $executable_name==executable_name+'.exe'}
-  else     
-    verify_true(10, "Failed to get executable name.") { $executable_name==executable_name }
-  end  
+Then /^the uid is retrieved$/ do
+  verify_true(10, "Failed to get uid.") { $uid!=""}
 end
