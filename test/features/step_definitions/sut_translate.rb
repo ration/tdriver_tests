@@ -22,14 +22,7 @@
 # Date: 05.10.2010
 # Purpose: Test TDriver methods
 
-When /^I set localisation parameters for mysql test environment$/ do
-	MobyUtil::Parameter[ :user_data_db_type ] = "mysql"
-	MobyUtil::Parameter[ :user_data_server_ip ] = "trmatti1.nmp.nokia.com" 
-	MobyUtil::Parameter[ :user_data_server_username ] = "locale"
-	MobyUtil::Parameter[ :user_data_server_password ] = "password"
-	MobyUtil::Parameter[ :user_data_server_database_name ] = "matti_locale"
-	MobyUtil::Parameter[ :user_data_server_database_tablename ] = "matti_testing_do_not_touch"
-	
+When /^I set localisation parameters for mysql test environment$/ do	
 	MobyUtil::Parameter[ :localisation_db_type ] = "mysql"
 	MobyUtil::Parameter[ :localisation_server_ip ] = "trmatti1.nmp.nokia.com" 
 	MobyUtil::Parameter[ :localisation_server_username ] = "locale"
@@ -37,6 +30,21 @@ When /^I set localisation parameters for mysql test environment$/ do
 	MobyUtil::Parameter[ :localisation_server_database_name ] = "matti_locale"
 	MobyUtil::Parameter[ @sut.id ][ :language ] = "English-GB"
 	MobyUtil::Parameter[ @sut.id  ][ :localisation_server_database_tablename ] = "matti_testing_do_not_touch"
+	
+	MobyUtil::Parameter[ :user_data_db_type ] = "mysql"
+	MobyUtil::Parameter[ :user_data_server_ip ] = "trmatti1.nmp.nokia.com" 
+	MobyUtil::Parameter[ :user_data_server_username ] = "locale"
+	MobyUtil::Parameter[ :user_data_server_password ] = "password"
+	MobyUtil::Parameter[ :user_data_server_database_name ] = "matti_locale"
+	MobyUtil::Parameter[ @sut.id  ][ :user_data_server_database_tablename ] = "matti_testing_do_not_touch"
+	
+	MobyUtil::Parameter[ :operator_data_db_type ] = "mysql"
+	MobyUtil::Parameter[ :operator_data_server_ip ] = "trmatti1.nmp.nokia.com" 
+	MobyUtil::Parameter[ :operator_data_server_username ] = "locale"
+	MobyUtil::Parameter[ :operator_data_server_password ] = "password"
+	MobyUtil::Parameter[ :operator_data_server_database_name ] = "matti_locale"
+	MobyUtil::Parameter[ @sut.id  ][ :operator_data_server_database_tablename ] = "operator_testing_do_not_touch"
+	MobyUtil::Parameter[ @sut.id  ][ :operator_selected ] = "Orange"
 end
 
 When /^I set localisation parameters for sqlite test environment$/ do
@@ -53,10 +61,20 @@ When /^I set localisation parameters for sqlite test environment$/ do
 	MobyUtil::Parameter[ :user_data_server_username ] = ""
 	MobyUtil::Parameter[ :user_data_server_password ] = ""
 	MobyUtil::Parameter[ :user_data_server_database_name ] = "./test_data/localization_data.sqlite"	
-	MobyUtil::Parameter[ :user_data_server_database_tablename ] = "localization"
+	MobyUtil::Parameter[ @sut.id  ][ :user_data_server_database_tablename ] = "localization"
+	
+	MobyUtil::Parameter[ :operator_data_db_type ] = "sqlite"
+	MobyUtil::Parameter[ :operator_data_server_ip ] = ""
+	MobyUtil::Parameter[ :operator_data_server_username ] = ""
+	MobyUtil::Parameter[ :operator_data_server_password ] = ""
+	MobyUtil::Parameter[ :operator_data_server_database_name ] = "./test_data/operator_data.sqlite"	
+	MobyUtil::Parameter[ @sut.id  ][ :operator_data_server_database_tablename ] = "operator_data"
+	MobyUtil::Parameter[ @sut.id  ][ :operator_selected ] = "Orange"
 end
 
 Then /^I get the translation "([^\"]*)"$/ do |translation|
+  puts @__exception
+  puts @__ret_val
   verify_true(10, "Failed to get translation.") { $translation == translation }
 end
 
