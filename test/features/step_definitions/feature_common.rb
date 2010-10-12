@@ -88,9 +88,6 @@ Given /^I show FloatingMenu of the testapp$/ do
   @__current_app.ControlTab( :name => 'ControlTab').drag(:Up, 10)
 end
 
-Given /^I have default sut$/ do
-  @sut=@__sut
-end
 
 Given "I know the $target_type initial location" do | target_type |
 
