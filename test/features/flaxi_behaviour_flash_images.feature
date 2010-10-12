@@ -1,15 +1,17 @@
 Feature: MobyBehaviour::FlaxiBehaviour#flash_images
   As a test scripter writer
-  I want to use flash_images method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use flash_images method to control device software update
   so that I can test the MobyBehaviour::FlaxiBehaviour behaviour
 
-  Scenario: Testing flash_images method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].flash_images()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: When I set the following TDriver parameters for sut I can use the flash_images method without arguments
+    Given I have default sut
+    When I set he mandatory flaxi flash parameters for sut
+    Then I execute "@sut.flash_images"
+    And exception is not thrown
 
-  Scenario: Testing flash_images method with optional argument 'flash_files' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].flash_images(flash_files)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: When I set the following TDriver parameters for sut I can use the flash_images method with arguments
+    Given I have default sut
+    When I set he mandatory flaxi flash parameters for sut
+    Then I execute "@sut.flash_images('/img/sw_image.img')"
+    And exception is not thrown
 

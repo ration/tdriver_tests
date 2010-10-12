@@ -1,10 +1,12 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego @dev
 Feature: MobyBehaviour::FlaxiBehaviour#flash
   As a test scripter writer
-  I want to use flash method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use flash method to control device software update
   so that I can test the MobyBehaviour::FlaxiBehaviour behaviour
 
-  Scenario: Testing flash method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].flash()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: When I set the following TDriver parameters for sut I can use the flash method
+    Given I have default sut
+    When I set he mandatory flaxi flash parameters for sut
+    Then I execute "@sut.flash"
+    And exception is not thrown
 
