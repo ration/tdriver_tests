@@ -30,7 +30,7 @@ Feature: MobyBehaviour::QT::Action#trigger
     Given I launch application "calculator"
     And I tap Button named "fourButton"
     Then The calculator display says "4"
-    When I execute "@app.QToolBar( :name => 'toolBar' ).QAction( :name => 'clearAction' ).trigger"
+    When I execute "@app.QToolBar( :name => 'toolBar' ).QAction( :name => 'clearAction', :__index => 0 ).trigger"
     Then The calculator display says "0"
 
 @nodoc
@@ -62,5 +62,5 @@ Feature: MobyBehaviour::QT::Action#trigger
     Given I launch application "calculator"
     And I tap Button named "fourButton"
     Then The calculator display says "4"
-    When I execute "@app.QToolBar( :name => 'toolBar' ).QAction( :name => 'clearAction' ).trigger( true )"
+    When I execute "@app.QToolBar( :name => 'toolBar' ).QAction( :name => 'clearAction', :__index => 0 ).trigger( true )"
     Then The calculator display says "0"

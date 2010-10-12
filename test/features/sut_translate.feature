@@ -57,7 +57,21 @@ Feature: MobyBehaviour::SUT#translate
     Given I have default sut
     And I set localisation parameters for sqlite test environment
 	When I execute "$translation = @sut.translate(:uif_first_name)"
-	Then I get the translation "Ivan"	
+	Then I get the translation "Ivan"
+
+  @mysql
+  Scenario: Open a application and retrieve a translation for Operator Data on mysql
+    Given I have default sut
+    And I set localisation parameters for mysql test environment
+	When I execute "$translation = @sut.translate(:operator_welcome_message)"
+	Then I get the translation "Welcome to Orange"
+
+  @sqlite
+  Scenario: Open a application and retrieve a translation for Operator Data on sqlite
+    Given I have default sut
+    And I set localisation parameters for sqlite test environment
+	When I execute "$translation = @sut.translate(:operator_welcome_message)"
+	Then I get the translation "Welcome to Orange"		
 
   @mysql
   Scenario: Testing translate method when multiple translations are returned on mysql 

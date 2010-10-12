@@ -1,15 +1,28 @@
 Feature: MobyBehaviour::Application#close
   As a test scripter writer
-  I want to use close method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use close method to close calculator
   so that I can test the MobyBehaviour::Application behaviour
 
-  Scenario: Testing close method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].close()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+@pass
+  Scenario: Testing close method with default arguments
+    Given I launch application "calculator"
+    When I execute "@app.close()"
+    Then application "calculator" is not running
 
-  Scenario: Testing close method with optional argument 'options_hash' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].close(options_hash)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+@pass
+  Scenario: Testing close method with optional argument force_close set to false
+    Given I launch application "calculator"
+    When I execute "@app.close( :force_close => false )"
+    Then application "calculator" is not running
+		
+@pass
+	Scenario: Testing close method with optional argument force_close set to true
+    Given I launch application "calculator"
+    When I execute "@app.close( :force_close => true )"
+    Then application "calculator" is not running
 
+@pass
+	Scenario: Testing close method with optional argument check_process set to false
+    Given I launch application "calculator"
+    When I execute "@app.close( :check_process => false )"
+    Then application "calculator" is not running

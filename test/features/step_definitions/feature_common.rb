@@ -88,6 +88,7 @@ Given /^I show FloatingMenu of the testapp$/ do
   @__current_app.ControlTab( :name => 'ControlTab').drag(:Up, 10)
 end
 
+
 Given "I know the $target_type initial location" do | target_type |
 
   temp_obj = @__current_app.child( :type => target_type )
@@ -224,6 +225,15 @@ end
 
 Then /^exception is thrown$/ do
   verify_false(0, "Exception has not been raised") { @__exception.nil? }
+end
+
+
+Then /^exception is not thrown$/ do
+  begin
+    verify_true(0, "Exception has been raised") { @__exception.nil? }
+  rescue
+    raise @__exception
+  end
 end
 
 Then /^exception matching "([^\"]*)" is thrown$/ do |arg1|
