@@ -18,19 +18,15 @@
 ############################################################################
 
 
-# default_sut parameter must be defined in tdriver_parameters.xml, or
-# TDRIVER_DEFAULT_SUT environment variable must be set
-# Author: Ari Hyttinen
-# Date: 16.09.2010
-# Purpose: Tests TDriver
+# Author: Bilkis Gargadia
+# Date: 11.10.2010
+# Purpose: Test TDriver methods
 
 
-
-Then /^mem usage result is a positive integer$/ do
-  verify_true(0, "SUT::agent_mem_usage should return class Fixnum, but it returned class #{@sut_agent_mem_usage.class}") {
-    @sut_agent_mem_usage.class == Fixnum
-  }
-  verify_true(0, "SUT::agent_mem_usage should return positive value, but it returned #{@sut_agent_mem_usage}") {
-    @sut_agent_mem_usage > 0
-  }
+Then /^the application executable name should be "([^\"]*)"$/ do |executable_name|
+  if RUBY_PLATFORM=='i386-mswin32'
+   verify_true(10, "Failed to get executable name.") { $executable_name==executable_name+'.exe'}
+  else     
+    verify_true(10, "Failed to get executable name.") { $executable_name==executable_name }
+  end  
 end

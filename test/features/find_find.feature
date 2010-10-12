@@ -1,15 +1,43 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::Find#find
   As a test scripter writer
-  I want to use find method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use find method to find test objects in target application based on any attributes,
   so that I can test the MobyBehaviour::Find behaviour
 
-  Scenario: Testing find method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].find()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+@nodoc
+  Scenario: Testing find method with no arguments
+    Given I have default sut
+    And I launch application "testapp"
+    When I test code "@testobj = @__sut.find"
+    Then exception matching "Input parameter not of Type" is thrown
 
-  Scenario: Testing find method with optional argument 'find_hash' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].find(find_hash)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+  #Scenario: Testing find method on non-existing object
+  #  Given I have default sut
+  #  And I launch application "testapp"
+  #  When I test code "@testobj = @__sut.find( :name => 'Node0' )"
+  #  Then exception matching "Cannot find object with rule" is thrown
 
+@nodoc
+  Scenario: Testing find method with one ambiguous argument
+    Given I have default sut
+    And I launch application "testapp"
+    When I test code "@testobj = @__sut.find( :type => 'Control' )"
+    Then exception matching "Multiple test objects found with rule" is thrown
+
+  Scenario: Testing find method with one unambiguous attribute argument
+    Given I have default sut
+    And I launch application "testapp"
+    When I execute "@testobj = @__sut.find( :name => 'Node1' )"
+    Then a test object is found by find
+
+  Scenario: Testing find method with one unambiguous special argument
+    Given I launch application "testapp"
+    When I execute "@testobj = @__sut.find( :type => 'Node' )"
+    Then a test object is found by find
+
+  Scenario: Testing find method with two unambiguous arguments
+    Given I launch application "testapp"
+    When I execute "@testobj = @__sut.find( :type => 'Control', :name => 'AddNode' )"
+    Then a test object is found by find

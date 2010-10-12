@@ -1,20 +1,23 @@
 Feature: MobyBehaviour::QT::Gesture#flick
-  As a test scripter writer
-  I want to use flick method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  As a test script writer
+  I want to use flick method to move objects in testapp
   so that I can test the MobyBehaviour::QT::Gesture behaviour
 
-  Scenario: Testing flick method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].flick(direction)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing flick method with required argument
+    Given I launch application "testapp" as "@app"
+	And I know the Node initial location
+    When I execute "@app.Node.flick( :Left )"
+    Then the Node has moved left
 
-  Scenario: Testing flick method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].flick(direction, button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing flick method with optional argument 'button'
+    Given I launch application "testapp" as "@app"
+	And I know the Node initial location
+    When I execute "@app.Node.flick( :Right, :Left )"
+    Then the Node has moved right
 
-  Scenario: Testing flick method with optional argument 'optional_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].flick(direction, button, optional_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
+  Scenario: Testing flick method with optional argument 'optional_params' 
+    Given I launch application "testapp" as "@app"
+	And I know the Node initial location
+    When I execute "@app.Node.flick( :Up, :Left, { :use_tap_screen => true } )"
+    Then the Node has moved up
+	
