@@ -19,15 +19,11 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 11.10.2010
+# Date: 12.10.2010
 # Purpose: Test TDriver methods
 
 
-Then /^the application executable name should be "([^\"]*)"$/ do |executable_name|
+Then "the attributes are retrieved" do
 	raise @__exception if @__exception != nil
-  if RUBY_PLATFORM=='i386-mswin32'
-   verify_true(10, "Failed to get executable name.") { $executable_name==executable_name+'.exe'}
-  else     
-    verify_true(10, "Failed to get executable name.") { $executable_name==executable_name }
-  end  
+	verify_true(30, "Attributes hash was not retrieved successfully") {$attributes!=nil && !$attributes.empty? }
 end
