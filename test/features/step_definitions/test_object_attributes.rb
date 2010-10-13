@@ -23,7 +23,7 @@
 # Purpose: Test TDriver methods
 
 
-Then "the attributes are retrieved" do
-	raise @__exception if @__exception != nil
-	verify_true(30, "Attributes hash was not retrieved successfully") {$attributes!=nil && !$attributes.empty? }
+Then ("the attributes are retrieved") do
+  raise @__exception if @__exception != nil
+  verify_true(30, "Attributes hash was not retrieved successfully") {$attributes!=nil && !$attributes.empty? }
 end
