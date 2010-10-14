@@ -60,7 +60,7 @@ module TDriverDocument
       end
       if status == :undefined
         step_name = step_match.format_args(lambda{|param| "#{param}"})
-        update_scenario("#{step_name} NOT RUN")
+        update_scenario("#{step_name} NOT_RUN")
         @tc_status='not run'
       end
     end
