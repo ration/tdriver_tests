@@ -27,20 +27,20 @@
 require 'tdriver'
 include TDriverVerify
 
-Then "I set he mandatory flaxi flash parameters for sut" do
-  @sut.parameter[:flaxi_flash_attempts]='1'
+Then "I set he mandatory flash parameters for sut" do
+  @sut.parameter[:flash_attempts]='1'
   @sut.parameter[:timeout_between_command_sequence]='1'
   @sut.parameter[:switchbox_commands_before_flash]=''
-  @sut.parameter[:flaxi_commands_before_flash]=''
-  @sut.parameter[:flaxi_flash_command]='cucumber --help'
+  @sut.parameter[:commands_before_flash]=''
+  @sut.parameter[:flash_command]='cucumber --help'
   @sut.parameter[:timeout_before_executing_commands_during_flash]=''
   @sut.parameter[:switchbox_commands_during_flash]=''
-  @sut.parameter[:flaxi_optional_parameters_after_flashing]=''
-  @sut.parameter[:flaxi_flash_images]=''
-  @sut.parameter[:flaxi_sleep_time_after_flash_command]='1'
-  @sut.parameter[:flaxi_command_after_flash]=''
+  @sut.parameter[:optional_parameters_after_flashing]=''
+  @sut.parameter[:flash_images]=''
+  @sut.parameter[:sleep_time_after_flash_command]='1'
+  @sut.parameter[:command_after_flash]=''
   @sut.parameter[:switchbox_commands_after_failed_flash]=''
-  @sut.parameter[:flaxi_commands_after_failed_flash]=''
-  @sut.parameter[:flaxi_flash_command_success_string]=''
+  @sut.parameter[:commands_after_failed_flash]=''
+  @sut.parameter[:flash_command_success_string]=''
   @sut.parameter[:switchbox_commands_after_flash]=''
 end

@@ -5,13 +5,13 @@ Feature: MobyBehaviour::FlaxiBehaviour#flash_images
 
   Scenario: When I set the following TDriver parameters for sut I can use the flash_images method without arguments
     Given I have default sut
-    When I set he mandatory flaxi flash parameters for sut
+    When I set he mandatory flash parameters for sut
     Then I execute "@sut.flash_images"
     And exception is not thrown
 
   Scenario: When I set the following TDriver parameters for sut I can use the flash_images method with arguments
     Given I have default sut
-    When I set he mandatory flaxi flash parameters for sut
+    When I set he mandatory flash parameters for sut
     Then I execute "@sut.flash_images('/img/sw_image.img')"
     And exception is not thrown
 
