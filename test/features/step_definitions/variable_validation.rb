@@ -19,15 +19,16 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 11.10.2010
+# Date: 12.10.2010
 # Purpose: Test TDriver methods
 
-
-Then /^the application executable name should be "([^\"]*)"$/ do |executable_name|
-	raise @__exception if @__exception != nil
-  if RUBY_PLATFORM=='i386-mswin32'
-   verify_true(10, "Failed to get executable name.") { $executable_name==executable_name+'.exe'}
-  else     
-    verify_true(10, "Failed to get executable name.") { $executable_name==executable_name }
-  end  
+Then ("\"$variable_name\" is set to string \"$value\"") do |$variable_name, $value|
+  raise @__exception if @__exception != nil
+  verify_true(30, "#{$variable_name} does not equal #{$value}, as expected") {eval($variable_name=$value)}
 end
+
+Then ("\"$variable_name\" is set to true") do |$variable_name|
+  raise @__exception if @__exception != nil
+  verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==true")
+end
+

@@ -4,7 +4,7 @@
 ## All rights reserved. 
 ## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ## 
-## This file is part of TDriver. 
+## This file is part of MATTI. 
 ## 
 ## If you have questions regarding the use of this file, please contact 
 ## Nokia at testabilitydriver@nokia.com . 

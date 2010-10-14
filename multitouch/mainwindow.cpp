@@ -4,7 +4,7 @@
 ** All rights reserved. 
 ** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ** 
-** This file is part of TDriver. 
+** This file is part of MATTI. 
 ** 
 ** If you have questions regarding the use of this file, please contact 
 ** Nokia at testabilitydriver@nokia.com . 
@@ -28,7 +28,6 @@
 #include <QGraphicsGridLayout>
 #include <QTimer>
 #include <QToolBar>
-#include "popupmenu.h"
 #include <QGesture>
 #include <QTapAndHoldGesture>
 
@@ -47,7 +46,6 @@ MainWindow::MainWindow(QWidget* parent)
     scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     mFullScreen = false;
-    determineSize();
 
     mainView = new QGraphicsView(scene);
     mainView->setObjectName("GraphicsView");
@@ -74,6 +72,8 @@ MainWindow::MainWindow(QWidget* parent)
     setCentralWidget(mainView);    
     setObjectName("MainWindow");
 
+    determineSize();
+
     int width = minimumSize().width();
     int height = minimumSize().height()-toolBar->height();
     ZoomView* zoomView = new ZoomView(QRectF(0, 0, width, height));
@@ -88,10 +88,15 @@ MainWindow::MainWindow(QWidget* parent)
     tapView->setObjectName("tapView");
     scene->addItem(tapView);
 
+    MultiGestureView* gestureView = new MultiGestureView(QRectF(0, 0, width, height));
+    gestureView->setObjectName("gestureView");
+    scene->addItem(gestureView);
+
 
     mViews.enqueue(zoomView);
     mViews.enqueue(rotateView);
     mViews.enqueue(tapView);
+    mViews.enqueue(gestureView);
     /*
     foreach(MattiView* view, mViews){
         connect(view, SIGNAL(centerMe(const MattiView&)), this, SLOT(centerView(const MattiView&)));
@@ -120,22 +125,25 @@ bool MainWindow::event(QEvent *event)
 
 void MainWindow::pinchTriggered(QPinchGesture *gesture)
 {
-    QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
-    if (changeFlags & QPinchGesture::ScaleFactorChanged) {
-        qreal value = gesture->property("scaleFactor").toReal();
-        currentStepScaleFactor = value;
-    }
-    if (gesture->state() == Qt::GestureFinished) {
-        scaleFactor *= currentStepScaleFactor;
-        currentStepScaleFactor = 1;
-    }
-    if((currentStepScaleFactor * scaleFactor) < 1){
-        currentStepScaleFactor = 1;
-        scaleFactor = 1;
-        mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
-    }
-    else{
-        mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
+    if(mViews.head()->supportPinch()){
+        QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
+        if (changeFlags & QPinchGesture::ScaleFactorChanged) {
+            qreal value = gesture->property("scaleFactor").toReal();
+            currentStepScaleFactor = value;
+        }
+        if (gesture->state() == Qt::GestureFinished) {
+            scaleFactor *= currentStepScaleFactor;
+            currentStepScaleFactor = 1;
+        }
+        if((currentStepScaleFactor * scaleFactor) < 1){
+            currentStepScaleFactor = 1;
+            scaleFactor = 1;
+            mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
+        }
+        else{
+            mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
+        }
+        mainView->centerOn(mViews.head());
     }
 }
 
@@ -401,26 +409,43 @@ bool Square::sceneEvent(QEvent *event)
 {
     qDebug() << objectName() << "Square::sceneEvent: " << QString::number(event->type());
     if ( event->type() == QEvent::TouchBegin ){
-        qDebug() << objectName() << "Square::sceneEvent touchBegin";
-        mPressed = true;
-        update();
-        return true;
+        qDebug() << objectName() << "Square::sceneEvent touchBegin";        
+        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);        
+        if(!primaryPoint(touchEvent)){
+            mPressed = true;
+            update();
+            return true;
+        }
+        else{
+            return QGraphicsWidget::sceneEvent(event);
+        }
     }
     else if (event->type() == QEvent::TouchUpdate){
         QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
         qDebug() << objectName() << "Square::sceneEvent touchUpdate";
-        if (touchEvent->touchPointStates() & Qt::TouchPointReleased) {
-            mPressed = false;
-            update();
+        if(!primaryPoint(touchEvent)){
+            if (touchEvent->touchPointStates() & Qt::TouchPointReleased) {
+                mPressed = false;
+                update();
+                return true;
+            }
         }
-        return true;
+        else{
+            return QGraphicsWidget::sceneEvent(event);
+        }
     }
     else if ( event->type() == QEvent::TouchEnd){
         qDebug() << objectName() << "Square::sceneEvent touch end";
-        mPressed = false;
-        mCounter++;
-        update();
-        return true;
+        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+        if(!primaryPoint(touchEvent)){
+            mPressed = false;
+            mCounter++;
+            update();
+            return true;
+        }
+        else{
+            return QGraphicsWidget::sceneEvent(event);
+        }
     }
     else if( event->type() == QEvent::Gesture){
         qDebug() << objectName() << "Square::sceneEvent gesture";
@@ -440,19 +465,167 @@ bool Square::sceneEvent(QEvent *event)
         }
         return QGraphicsWidget::sceneEvent(event);
     }
-    else{
-        return QGraphicsWidget::sceneEvent(event);
+    return QGraphicsWidget::sceneEvent(event);
+}
+
+bool Square::primaryPoint(QTouchEvent* event)
+{
+    foreach(QTouchEvent::TouchPoint point, event->touchPoints()){
+        if(point.isPrimary()){
+            return true;
+        }
     }
+    return false;
 }
 
 void Square::mouseReleaseEvent( QGraphicsSceneMouseEvent * event )
 {
+    qDebug() << objectName() << "Square::mouseReleaseEvent";        
     mCounter++;
     mPressed = false;
     update();
 }
+
 void Square::mousePressEvent( QGraphicsSceneMouseEvent * event )
 {
+    qDebug() << objectName() << "Square::mousePressEvent";        
     mPressed = true;
     update();
 }
+
+
+MultiGestureView::MultiGestureView(const QRectF& rect, QGraphicsItem* parent)
+    :MattiView(parent)
+{
+    setAcceptTouchEvents(true);
+    myPenColors
+            << QColor("green")
+            << QColor("purple")
+            << QColor("red")
+            << QColor("blue")
+            << QColor("yellow")
+            << QColor("pink")
+            << QColor("orange")
+            << QColor("brown")
+            << QColor("grey")
+            << QColor("black");
+
+    mSceneRect = rect;
+
+    image = new QImage(mSceneRect.size().toSize(), QImage::Format_RGB32);
+    image->fill(qRgb(255, 255, 255));
+
+    mCounter = 0;
+    hide();
+}
+
+MultiGestureView::~MultiGestureView()
+{
+   delete image;
+}
+
+QRectF MultiGestureView::boundingRect() const
+{
+    return mSceneRect;
+}
+
+QPainterPath MultiGestureView::shape() const
+{
+    QPainterPath path;
+    path.addRect(mSceneRect);
+    return path;
+}
+
+void MultiGestureView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
+{
+    const QRectF rect = boundingRect();
+    painter->drawImage(rect.topLeft(), *image, rect);
+}
+
+bool MultiGestureView::sceneEvent(QEvent *event)
+{
+    switch (event->type()) {
+    case QEvent::TouchBegin:        
+    case QEvent::TouchUpdate:
+    case QEvent::TouchEnd:
+    {
+        QList<QTouchEvent::TouchPoint> touchPoints = static_cast<QTouchEvent *>(event)->touchPoints();
+        foreach (const QTouchEvent::TouchPoint &touchPoint, touchPoints) {
+            QRectF rect = touchPoint.rect();
+            if (rect.isEmpty()) {
+                qreal diameter = qreal(20) * touchPoint.pressure();
+                rect.setSize(QSizeF(diameter, diameter));
+            }            
+
+            switch (touchPoint.state()) {
+            case Qt::TouchPointStationary:
+                // don't do anything if this touch point hasn't moved
+                continue;
+            case Qt::TouchPointMoved:
+                {
+                    QPainter painter(image);
+                    painter.setPen(Qt::NoPen);
+                    painter.setBrush(myPenColors.at(touchPoint.id() % myPenColors.count()));
+                    painter.drawEllipse(rect);
+                    painter.end();
+                    int rad = 2;
+                    update(rect.toRect().adjusted(-rad,-rad, +rad, +rad));               
+                    break;
+                }
+            default:
+                {
+                    if(!gestureIds.contains(touchPoint.id())){
+                        mCounter++;
+                        gestureIds.insert(touchPoint.id(), mCounter);
+                    }
+                    new Point(touchPoint.state(), myPenColors.at(touchPoint.id() % myPenColors.count()), rect, 
+                              gestureIds.value(touchPoint.id()), this);
+                    break;
+                }
+            }
+        }
+        break;
+    }
+    default:
+        return QGraphicsWidget::sceneEvent(event);
+    }
+    return true;
+}
+
+Point::Point(Qt::TouchPointState type, QColor color, QRectF rect, int id, QGraphicsItem* parent)
+    :QGraphicsObject(parent), mColor(color), mRect(rect)
+{    
+    QPointF center = rect.center();
+    mRect.setWidth(50);
+    mRect.setHeight(50);
+    mRect.moveCenter(center);
+    switch (type) {
+    case Qt::TouchPointPressed:
+        setObjectName("StartPoint"+QString::number(id));
+        break;        
+    case Qt::TouchPointReleased:
+        setObjectName("EndPoint"+QString::number(id));
+        break;
+    default:
+        break;
+    }
+}
+
+QRectF Point::boundingRect() const
+{
+    return mRect;
+}
+QPainterPath Point::shape() const
+{
+    QPainterPath path;
+    path.addRect(boundingRect());
+    return path;
+}
+
+void Point::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
+{
+    painter->setBrush(mColor);
+    painter->setPen(QPen(mColor, 0));
+    painter->drawEllipse(boundingRect());
+}
+

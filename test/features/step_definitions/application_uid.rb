@@ -24,5 +24,6 @@
 
 
 Then /^the uid is retrieved$/ do
-  verify_true(10, "Failed to get uid.") { $uid!=""}
+	raise @__exception if @__exception != nil
+  verify_true(10, "Failed to get uid.") { $uid!="" && $uid!=nil}
 end

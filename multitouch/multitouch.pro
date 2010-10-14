@@ -1,20 +1,20 @@
 ############################################################################
-##
-## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
-## All rights reserved.
-## Contact: Nokia Corporation (testabilitydriver@nokia.com)
-##
-## This file is part of TDriver.
-##
-## If you have questions regarding the use of this file, please contact
-## Nokia at testabilitydriver@nokia.com .
-##
-## This library is free software; you can redistribute it and/or
-## modify it under the terms of the GNU Lesser General Public
-## License version 2.1 as published by the Free Software Foundation
-## and appearing in the file LICENSE.LGPL included in the packaging
-## of this file.
-##
+## 
+## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
+## All rights reserved. 
+## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
+## 
+## This file is part of MATTI. 
+## 
+## If you have questions regarding the use of this file, please contact 
+## Nokia at testabilitydriver@nokia.com . 
+## 
+## This library is free software; you can redistribute it and/or 
+## modify it under the terms of the GNU Lesser General Public 
+## License version 2.1 as published by the Free Software Foundation 
+## and appearing in the file LICENSE.LGPL included in the packaging 
+## of this file. 
+## 
 ############################################################################
 
 
@@ -29,16 +29,16 @@ mac {
 
 symbian {
     TARGET.CAPABILITY=CAP_APPLICATION
+	TARGET.VID = VID_DEFAULT
+  	TARGET.EPOCALLOWDLLDATA = 1 
 }
 
 HEADERS += \
-            popupmenu.h \
-            mainwindow.h
+	    mainwindow.h 
 
 SOURCES += \
         main.cpp \
-        popupmenu.cpp \
-        mainwindow.cpp
+        mainwindow.cpp 
 
 
 # install
@@ -48,15 +48,15 @@ unix:{
 }
 
 macx:{
-        target.path = /usr/local/bin
+	target.path = /usr/local/bin
 }
 
 win32:{
-        target.path = /qttas/bin
-        testdata.files = testdata/*
-        testdata.path = /tdriver/testdata
+	target.path = /qttas/bin
+	testdata.files = testdata/*
+	testdata.path = /Matti/testdata
 }
 
-INSTALLS += target
+INSTALLS += target 
 
 #QMAKE_CXXFLAGS=

@@ -1,10 +1,10 @@
 Feature: MobyBehaviour::TestObject#attributes
   As a test scripter writer
-  I want to use attributes method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use attributes method to retrieve all test object attributes
   so that I can test the MobyBehaviour::TestObject behaviour
 
-  Scenario: Testing attributes method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].attributes()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing attributes method
+    Given I launch application "testapp" as "@app"
+    When I execute "$attributes = @app.Triangle( :name => 'Triangle1' ).attributes()"
+    Then the attributes are retrieved
 

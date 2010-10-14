@@ -5,6 +5,6 @@ Feature: MobyBehaviour::Application#uid
 
 @pass
   Scenario: Testing uid method
-    Given I launch application "calculator"
+    Given I launch application "calculator" as "@app"
     When I execute "$uid=@app.uid()"
     Then the uid is retrieved
