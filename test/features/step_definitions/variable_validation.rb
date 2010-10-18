@@ -24,7 +24,7 @@
 
 Then ("\"$variable_name\" is set to string \"$value\"") do |$variable_name, $value|
   raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} does not equal #{$value}, as expected") {eval($variable_name=$value)}
+  verify_true(30, "#{$variable_name} does not equal #{$value}, as expected") {eval("#{$variable_name}==#{"$value"}")}
 end
 
 Then ("\"$variable_name\" is set to true") do |$variable_name|
