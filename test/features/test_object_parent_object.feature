@@ -1,10 +1,16 @@
 Feature: MobyBehaviour::TestObject#parent_object
   As a test scripter writer
-  I want to use parent_object method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use parent_object method to get the  object that was used as parent when the test object was created in calculator
   so that I can test the MobyBehaviour::TestObject behaviour
 
-  Scenario: Testing parent_object method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].parent_object()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+@pass
+  Scenario: Testing parent_object method for an application object
+    Given I launch application "calculator" as "@app"
+    When I execute "@__sut.application( :name => 'calculator' ).parent"
+    Then the parent object is the sut
 
+@pass
+  Scenario: Testing parent_object for a Test Object
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.Button( :text => '1' ).parent"
+    Then the parent object is the app
