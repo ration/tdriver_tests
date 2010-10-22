@@ -1,10 +1,9 @@
 Feature: MobyBehaviour::SUT#ui_version
   As a test scripter writer
-  I want to use ui_version attribute to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use ui_version attribute to get ui_version attribute of a sut
   so that I can test the MobyBehaviour::SUT behaviour
 
-  Scenario: Testing ui_version attribute (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].ui_version"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
+  Scenario: Testing ui_version attribute
+    Given I create sut object "sut_qt"
+    When I execute "@my_ui_version = @sut.ui_version"
+    Then verify "@my_ui_version.to_i >= 200701"
