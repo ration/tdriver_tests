@@ -19,10 +19,17 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 20.10.2010
+# Date: 25.10.2010
 # Purpose: Test TDriver methods
 
-Then "I get the static state object for the application" do
+Then "a test object is found by child" do
   raise @__exception if @__exception != nil
-  verify_true(30, "Failed to get the state object.") { ($app_state!= nil) && ( $app_state.class==MobyBase::StateObject)  }
+  verify_true(0, 'Test object was not found by child method' ) { | | $testobj.class == MobyBase::TestObject }
 end
+
+Then "another test object with the same rule should be equal" do
+  raise @__exception if @__exception != nil
+  verify_equal($testobj ,30, "Two child objects with the same rule should be equal") {@app.child(:text => 'MC')}
+end
+
+  

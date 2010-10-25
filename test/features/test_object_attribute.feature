@@ -4,7 +4,7 @@ Feature: MobyBehaviour::TestObject#attribute
   so that I can test the MobyBehaviour::TestObject behaviour
 
 @pass
-  Scenario: Testing attribute method with attribute name
+  Scenario: Testing attribute method with required argument
     Given I launch application "testapp" as "@app"
     When I execute "$color=@app.Triangle( :name => 'Triangle1' ).attribute('color')"
     Then "$color" is set to string "magenta"
