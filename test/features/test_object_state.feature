@@ -1,10 +1,11 @@
 Feature: MobyBehaviour::TestObject#state
   As a test scripter writer
-  I want to use state method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use state method to get the static state object in testapp
   so that I can test the MobyBehaviour::TestObject behaviour
 
-  Scenario: Testing state method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].state()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+@pass
+  Scenario: Testing state method 
+    Given I launch application "testapp" as "@app"
+    When I execute "$app_state=@app.state()"
+    Then I get the static state object for the application
 

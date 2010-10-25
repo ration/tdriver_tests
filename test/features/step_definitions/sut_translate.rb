@@ -73,8 +73,6 @@ When /^I set localisation parameters for sqlite test environment$/ do
 end
 
 Then /^I get the translation "([^\"]*)"$/ do |translation|
-  puts @__exception
-  puts @__ret_val
   verify_true(10, "Failed to get translation.") { $translation == translation }
 end
 

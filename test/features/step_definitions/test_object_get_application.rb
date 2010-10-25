@@ -19,16 +19,15 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 12.10.2010
+# Date: 18.10.2010
 # Purpose: Test TDriver methods
 
-Then ("\"$variable_name\" is set to string \"$value\"") do |$variable_name, $value|
+And "I get the application for \"$test_object\"" do |$test_object|
   raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} does not equal #{$value}, as expected") {eval("#{$variable_name}==#{"$value"}")}
+  $app_parent=eval("#{$test_object}.get_application()")
 end
 
-Then ("\"$variable_name\" is set to true") do |$variable_name|
-  raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==true")}
+Then "the test object returned is \"$test_object\"" do |$test_object|
+  verify_true(30, "Application test object was not retrieved successfully") {eval("$app_parent==#{$test_object}")}	
 end
 

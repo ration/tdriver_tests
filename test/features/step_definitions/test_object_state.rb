@@ -19,16 +19,10 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 12.10.2010
+# Date: 20.10.2010
 # Purpose: Test TDriver methods
 
-Then ("\"$variable_name\" is set to string \"$value\"") do |$variable_name, $value|
-  raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} does not equal #{$value}, as expected") {eval("#{$variable_name}==#{"$value"}")}
+Then "I get the static state object for the application" do
+	raise @__exception if @__exception != nil
+	verify_true(30, "Failed to get the state object.") { ($app_state!= nil) && ($app_state == @__sut.state.application(:name => "testapp") )  }
 end
-
-Then ("\"$variable_name\" is set to true") do |$variable_name|
-  raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==true")}
-end
-

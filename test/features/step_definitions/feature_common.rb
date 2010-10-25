@@ -57,6 +57,9 @@ Given /^I have default sut$/ do
   @sut = @__sut
 end
 
+Given /^I create sut object "([^\"]*)"$/ do |arg1|
+  @sut = TDriver.sut( :Id => arg1.to_s)
+end
 
 Given /^I launch application "([^\"]*)"$/ do |app_name|
 
@@ -290,6 +293,13 @@ Then "the $target_type has the $expected_attribute attribute with value $expecte
   end
 
 end
+
+Then /^verify "([^\"]*)"$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify_true(1, "statement '#{arg1.to_s}' should evaluate to true" ) { eval(arg1.to_s) }
+
+end
+
 
 Then /^nothing to verify$/ do
   raise @__exception if @__exception != nil

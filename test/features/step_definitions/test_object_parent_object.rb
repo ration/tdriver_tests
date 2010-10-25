@@ -19,16 +19,15 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 12.10.2010
+# Date: 18.10.2010
 # Purpose: Test TDriver methods
 
-Then ("\"$variable_name\" is set to string \"$value\"") do |$variable_name, $value|
+Then "the parent object is the sut" do
   raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} does not equal #{$value}, as expected") {eval("#{$variable_name}==#{"$value"}")}
+  verify_true(30, "Parent test object was not retrieved successfully") {	@__ret_val==@__sut}	
 end
 
-Then ("\"$variable_name\" is set to true") do |$variable_name|
+Then "the parent object is the app" do
   raise @__exception if @__exception != nil
-  verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==true")}
+  verify_true(30, "Parent test object was not retrieved successfully") {	@__ret_val==@app}	
 end
-
