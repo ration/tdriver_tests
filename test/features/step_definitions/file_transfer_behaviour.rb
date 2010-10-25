@@ -53,3 +53,11 @@ end
 Then "I can delete the test files" do
   FileUtils::remove_entry_secure('test_files', :force => true)
 end
+
+Then "the files are listed from \"$location\"" do |location|
+    
+  for i in (1..10)
+    verify_true(0,"The file test_file_#{i}.txt is listed "){@file_list.include?("#{location.gsub("\\",'/')}test_file_#{i}.txt")}
+  end
+
+end
