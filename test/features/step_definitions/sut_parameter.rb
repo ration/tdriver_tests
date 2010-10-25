@@ -23,7 +23,6 @@
 
 Then "I get a Hash containing all sut parameters" do
 	raise @__exception if @__exception != nil
-	puts $parameter_hash.class.to_s
   verify_true(30, "Parameter hash was not retreived successfully") { | | $parameter_hash.class==MobyUtil::ParameterHash}
 end
 
