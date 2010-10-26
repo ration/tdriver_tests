@@ -35,3 +35,4 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_to_sut
     And I can delete the file "test_file_1.txt" from "/usr/share/temp" in sut
     Then the file "test_file_1.txt" is not found from "/usr/share/temp" in sut
     And I can delete the test files
+
