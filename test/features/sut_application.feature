@@ -1,15 +1,16 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#application
   As a test scripter writer
-  I want to use application method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use application method to get the foreground application in sut
   so that I can test the MobyBehaviour::SUT behaviour
 
-  Scenario: Testing application method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].application()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing application method
+    Given I launch application "testapp" as "@app"
+    When I execute "$app=@__sut.application()"
+    Then test objects "$app" and "@app" are equal
 
-  Scenario: Testing application method with optional argument 'attributes' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].application(attributes)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
+  Scenario: Testing application method with optional argument 'attributes'
+    Given I launch application "testapp" as "@app"
+    When I execute "$app=@__sut.application( :name => 'testapp' )"
+    Then test objects "$app" and "@app" are equal
