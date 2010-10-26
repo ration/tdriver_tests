@@ -1,7 +1,8 @@
-# Work started by AH
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::TypeText#type_text
   As a test scripter writer
-  I want to use type_text method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use type_text method to type text to a widget that accepts typed text
   so that I can test the MobyBehaviour::QT::TypeText behaviour
 
   Scenario: Testing type_text method with required argument(s) (Rename this to be more descriptive)
