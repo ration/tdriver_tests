@@ -7,4 +7,7 @@ Feature: MobyBehaviour::QT::Application#kill
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].kill()"
     Then [ADD_YOUR_VERIFICATION_HERE]
+    
+    
+# David implementing.
 

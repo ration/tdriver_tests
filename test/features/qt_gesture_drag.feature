@@ -1,4 +1,5 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Gesture#drag
   As a test script writer
   I want to use drag method to simulate effect of user doing drag operation,

@@ -33,12 +33,12 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_from_sut
   Scenario: Copy file from sut with copy_from_sut method
     Given I have default sut
     And I generate test files
-    And I test code "@sut.copy_to_sut(:file => 'test_files\\test_file_1.txt', :to => '/usr/share/temp/test_copy')"
+    And I test code "@sut.copy_to_sut(:file => 'test_files\\test_file_1.txt', :to => '/tmp/test_copy')"
     And exception is not thrown
     And I can delete the test files
-    When I execute "@sut.copy_from_sut(:from => '/usr/share/temp/test_copy', :file => 'test_file_1.txt', :to => '/usr/share/temp/copy')"
+    When I execute "@sut.copy_from_sut(:from => '/tmp/test_copy/', :file => 'test_file_1.txt', :to => '/tmp/copy/')"
     Then exception is not thrown
-    And the file "test_file_1.txt" is found from "/usr/share/temp/copy" in sut
-    And I test code "@sut.delete_from_sut(:dir => '/usr/share/temp/copy' )"
-    And I test code "@sut.delete_from_sut(:dir => '/usr/share/temp/test_copy' )"
+    And the file "test_file_1.txt" is found from "/tmp/copy/" in sut
+    And I test code "@sut.delete_from_sut(:dir => '/tmp/copy/' )"
+    And I test code "@sut.delete_from_sut(:dir => '/tmp/test_copy/' )"
 

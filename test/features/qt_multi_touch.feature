@@ -1,4 +1,5 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Application#multi_touch
   As a test script writer
   I want to use multi_touch method to perform multiple ui operation at the same time
