@@ -145,6 +145,9 @@ Given /^I trigger "([^\"]*)" from "([^\"]*)"$/ do |action_name, parent_name|
   @__current_app.child(:name => parent_name.to_s).QAction( :name => action_name.to_s).trigger
 end
 
+Given /^I set child "([^\"]*)" attribute "([^\"]*)" to "([^\"]*)"$/ do |name, attribute, value|
+  @__current_app.child(:name => name).set_attribute(attribute, value)
+end
 
 When /^I execute "([^\"]*)"$/ do |script|
     raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
