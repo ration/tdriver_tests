@@ -1,4 +1,5 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Multitouch#pinch_zoom_in
   As a test script writer
   I want to use pinch zoom method to simulate effect of user doing a pinch zoom operation,

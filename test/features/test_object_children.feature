@@ -1,15 +1,17 @@
 Feature: MobyBehaviour::TestObject#children
   As a test scripter writer
-  I want to use children method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use children method to retrieve all children test objects that meet the given criteriain in calculator
   so that I can test the MobyBehaviour::TestObject behaviour
-
-  Scenario: Testing children method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].children(attributes)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
-  Scenario: Testing children method with optional argument 'find_all_children' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].children(attributes, find_all_children)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
+		
+@pass
+  Scenario: Testing children method with required argument
+    Given I launch application "calculator" as "@app"
+    When I execute "$test_objs = @app.children(:toolButtonStyle => 'ToolButtonIconOnly')"
+    Then an array of test objects of size "27" is returned
+  
+@pass
+  Scenario: Testing children method with optional argument 'find_all_children' false
+    Given I launch application "calculator" as "@app"
+    When I execute "$test_objs = @app.children({}, false)"
+    Then an array of test objects of size "1" is returned
+  

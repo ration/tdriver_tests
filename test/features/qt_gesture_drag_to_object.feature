@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Gesture#drag_to_object
   As a test script writer
   I want to use drag_to_object method to move an object to another in testapp

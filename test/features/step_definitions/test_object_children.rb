@@ -19,10 +19,10 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 20.10.2010
+# Date: 25.10.2010
 # Purpose: Test TDriver methods
 
-Then "I get the static state object for the application" do
+Then ("an array of test objects of size \"$size\" is returned" ) do |$size|
   raise @__exception if @__exception != nil
-  verify_true(30, "Failed to get the state object.") { ($app_state!= nil) && ( $app_state.class==MobyBase::StateObject)  }
+  verify_true(0, 'Test objects were not found by children method' ) { $test_objs.class == Array && $test_objs.size==$size.to_i && $test_objs[0].class == MobyBase::TestObject}
 end

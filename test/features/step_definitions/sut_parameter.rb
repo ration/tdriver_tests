@@ -1,4 +1,3 @@
-############################################################################
 ## 
 ## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
 ## All rights reserved. 
@@ -19,10 +18,11 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 20.10.2010
+# Date: 25.10.2010
 # Purpose: Test TDriver methods
 
-Then "I get the static state object for the application" do
-  raise @__exception if @__exception != nil
-  verify_true(30, "Failed to get the state object.") { ($app_state!= nil) && ( $app_state.class==MobyBase::StateObject)  }
+Then "I get a Hash containing all sut parameters" do
+	raise @__exception if @__exception != nil
+  verify_true(30, "Parameter hash was not retreived successfully") { | | $parameter_hash.class==MobyUtil::ParameterHash}
 end
+

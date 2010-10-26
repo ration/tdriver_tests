@@ -19,7 +19,7 @@
 
 
 # Author: Bilkis Gargadia
-# Date: 12.10.2010
+# Date: 25.10.2010
 # Purpose: Test TDriver methods
 
 Then ("\"$variable_name\" is set to string \"$value\"") do |$variable_name, $value|
@@ -32,3 +32,7 @@ Then ("\"$variable_name\" is set to true") do |$variable_name|
   verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==true")}
 end
 
+Then ("\"$variable_name\" is set to false") do |$variable_name|
+  raise @__exception if @__exception != nil
+  verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==false")}
+end
