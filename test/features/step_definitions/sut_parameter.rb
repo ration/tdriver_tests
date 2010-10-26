@@ -22,7 +22,12 @@
 # Purpose: Test TDriver methods
 
 Then "I get a Hash containing all sut parameters" do
-	raise @__exception if @__exception != nil
+  raise @__exception if @__exception != nil
   verify_true(30, "Parameter hash was not retreived successfully") { | | $parameter_hash.class==MobyUtil::ParameterHash}
+end
+
+And "I set new sut parameter \"$parameter\" to \"$value\"" do |$parameter, $value|
+  raise @__exception if @__exception != nil
+  eval("@sut.parameter[\"#{$parameter}\"]=\"#{$value}\"")
 end
 
