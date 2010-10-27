@@ -1,4 +1,4 @@
-Feature: MobyBehaviour::QT::ConfigureBehaviour#log_folder
+Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_folder
   As a test script writer
   I want to enable set the log folder in the target
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour
