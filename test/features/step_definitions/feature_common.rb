@@ -356,3 +356,7 @@ Then ("I move to webkit screen") do
   @app.NodeView.flick(:Left)
   @app.EditView.flick(:Left)
 end
+
+Then /^the code "([^\"]*)" returns true$/ do |code|
+  eval(code) == true
+end
