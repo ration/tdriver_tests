@@ -18,12 +18,26 @@
 ############################################################################
 
 
-# Author: Bilkis Gargadia
-# Date: 12.10.2010
-# Purpose: Test TDriver methods
+# Common step definitions to be used in feature testing of TDriver
+# Author: Mika Leiman
+# Date: 26.10.2010
+# Purpose: Steps used to test file transfer behaviour
 
 
-Then ("the attributes are retrieved") do
-  raise @__exception if @__exception != nil
-  verify_true(30, "Attributes hash was not retrieved successfully") {$attributes!=nil && $attributes.class==Hash && !$attributes.empty? }
+require 'tdriver'
+include TDriverVerify
+
+Then "I can read the cpu log data" do
+  count = @cpu_log_data.logData.attribute('entryCount').to_i
+  verify_true(0,"cpu log data retrieved"){count>0}  
+end
+
+Then "I can read the gpu log data" do 
+  count = @gpu_log_data.logData.attribute('entryCount').to_i
+  verify_true(0,"gpu log data retrieved"){count>0}
+end
+
+Then "I can read the mem log data" do
+  count = @mem_log_data.logData.attribute('entryCount').to_i
+  verify_true(0,"gpu log data retrieved"){count>0}
 end

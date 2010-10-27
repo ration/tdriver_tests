@@ -22,7 +22,7 @@
 # Date: 20.10.2010
 # Purpose: Test TDriver methods
 
-Then "I get the static state object for the application" do
+Then "\"$state_object\" is a static state object" do |$state_object|
   raise @__exception if @__exception != nil
-  verify_true(30, "Failed to get the state object.") { ($app_state!= nil) && ( $app_state.class==MobyBase::StateObject)  }
+  verify_true(30, "Failed to get the state object.") { eval("#{$state_object}!=nil && #{$state_object}.class==MobyBase::StateObject")}
 end

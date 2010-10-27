@@ -1,13 +1,10 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
 Feature: MobyBehaviour::QT::Application#kill
   As a test scripter writer
-  I want to use kill method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use kill method to kill the calculator application
   so that I can test the MobyBehaviour::QT::Application behaviour
 
-  Scenario: Testing kill method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].kill()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-    
-    
-# David implementing.
-
+Scenario: Testing kill method with calculator application
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.kill()"
+    Then application "calculator" is not running

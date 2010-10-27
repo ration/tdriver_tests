@@ -36,3 +36,8 @@ Then ("\"$variable_name\" is set to false") do |$variable_name|
   raise @__exception if @__exception != nil
   verify_true(30, "#{$variable_name} exepected to be true") {eval("#{$variable_name}==false")}
 end
+
+Then ("test objects \"$test_object1\" and \"$test_object2\" are equal") do |$test_object1,$test_object2|
+  raise @__exception if @__exception != nil
+  verify_equal(eval($test_object1),30, "equal") {eval($test_object2)}
+end
