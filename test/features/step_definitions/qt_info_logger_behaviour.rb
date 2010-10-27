@@ -21,7 +21,7 @@
 # Common step definitions to be used in feature testing of TDriver
 # Author: Mika Leiman
 # Date: 26.10.2010
-# Purpose: Steps used to test file transfer behaviour
+# Purpose: Steps used to test info logger behaviour
 
 
 require 'tdriver'

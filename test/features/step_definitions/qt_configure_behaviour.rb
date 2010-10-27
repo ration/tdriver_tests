@@ -43,10 +43,6 @@ Then("I clear the log file for the sut") do
   @sut.clear_log
 end
 
-Then("I delete file $name") do |name|
-  File.delete(name) if File.exist?(name)
-end
-
 Then("I get current application") do 
   @sut.application
 end
