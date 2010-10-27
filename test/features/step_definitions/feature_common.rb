@@ -334,3 +334,8 @@ Then "the new location of the $target_type is $expected_x, $expected_y" do | tar
 
 end
 
+
+Then /^I find and delete the file "([^\"]*)"$/ do |file|
+  File.delete(file)
+end
+
