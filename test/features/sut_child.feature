@@ -2,7 +2,7 @@
 
 Feature: MobyBehaviour::SUT#child
   As a test scripter writer
-  I want to use child method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use child method to find a child test object in testapp
   so that I can test the MobyBehaviour::SUT behaviour
 
   Scenario: Testing child method with required argument(s) (Rename this to be more descriptive)
