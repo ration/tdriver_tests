@@ -334,8 +334,25 @@ Then "the new location of the $target_type is $expected_x, $expected_y" do | tar
 
 end
 
-
 Then /^I find and delete the file "([^\"]*)"$/ do |file|
   File.delete(file)
 end
 
+When("I hide the triangle") do
+  @app.Triangle(:name => "Triangle1").set_attribute("visible", false)
+end
+
+When("I hide the node") do
+  @app.Node(:name => "Node1").set_attribute("visible", false)
+end
+
+Then("I flick the screen $screen_object $direction") do |$screen_object, $direction|
+  @app.send($screen_object.to_sym).flick($direction.to_sym)
+end
+
+Then ("I move to webkit screen") do
+  @app.Triangle(:name => "Triangle1").set_attribute("visible", false)
+  @app.Node(:name => "Node1").set_attribute("visible", false)
+  @app.NodeView.flick(:Left)
+  @app.EditView.flick(:Left)
+end
