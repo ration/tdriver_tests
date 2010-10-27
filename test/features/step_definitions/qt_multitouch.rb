@@ -29,7 +29,11 @@ When("I zoom in with params $speed, $distance, $direction") do |speed, distance,
 end
 
 When("I press the next $count times") do |count|
-  @app.QToolButton( :text => 'NEXT' ).tap(count.to_i)
+  count = count.to_i
+  while count > 0
+    @app.QToolButton( :text => 'NEXT' ).tap
+    count-=1
+  end
 end
 
 When("I press all squares down") do 
