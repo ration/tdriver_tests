@@ -4,29 +4,26 @@ Feature: MobyBehaviour::SUT#parameter
   so that I can test the MobyBehaviour::SUT behaviour
 
 @pass
-  Scenario: Testing parameter method with no arguments
+  Scenario: Pring all parameters (Hash) of current SUT
     Given I have default sut
-    When I execute "$parameter_hash=@sut.parameter"
+    When I execute "$parameter_hash = @sut.parameter"
     Then I get a Hash containing all sut parameters
 
 @pass
-  Scenario: Testing parameter method with optional argument parameter name
+  Scenario: Retrieve a parameter value from current SUT
     Given I have default sut
-    When I execute "$sut_plugin=@sut.parameter[:sut_plugin]"
+    When I execute "$sut_plugin = @sut.parameter[:sut_plugin]"
     Then "$sut_plugin" is set to string "testability-driver-qt-sut-plugin"
     
 @pass
-  Scenario: Testing parameter method with optional parameter name that does not exist
+  Scenario: Retrieve a parameter value from current SUT, return default value (second argument) if not found
     Given I have default sut
-    When I execute "$product=@sut.parameter['my_parameter', 'default']"
+    When I execute "$product = @sut.parameter['my_parameter', 'default']"
     Then "$product" is set to string "default"
     
 @pass
-  Scenario: Testing parameter method to set value for parameter
+  Scenario: Set parameter value in current SUT
     Given I have default sut
-    And I set new sut parameter "my_parameter_another" to "my_value"
-    When I execute "$my_parameter=@sut.parameter['my_parameter_another']"
-    Then "$my_parameter" is set to string "my_value"
-    
-    
+    When I execute "@sut.parameter['my_parameter_another']='my_value'"
+    Then parameter "my_parameter_another" should have value "my_value"
 

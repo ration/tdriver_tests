@@ -8,7 +8,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','C:/temp/clear_all_button_image.PNG',true)"
     And exception is not thrown
-    When I execute "@clear_all_button_coordinates=@app.find_on_screen('C:/temp/clear_all_button_image.PNG')"
+    When I execute "@clear_all_button_coordinates = @app.find_on_screen('C:/temp/clear_all_button_image.PNG')"
     And exception is not thrown
     Then the coordinates of clear all button are found
     And I can delete file "C:/temp/clear_all_button_image.PNG"
@@ -18,7 +18,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','C:/temp/clear_all_button_image.PNG',true)"
     And exception is not thrown
-    When I execute "@clear_all_button_coordinates=@app.find_on_screen('C:/temp/clear_all_button_image.PNG',20)"
+    When I execute "@clear_all_button_coordinates = @app.find_on_screen('C:/temp/clear_all_button_image.PNG',20)"
     And exception is not thrown
     Then the coordinates of clear all button are found
     And I can delete file "C:/temp/clear_all_button_image.PNG"
@@ -28,7 +28,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
     And exception is not thrown
-    When I execute "@clear_all_button_coordinates=@app.find_on_screen('/tmp/clear_all_button_image.PNG')"
+    When I execute "@clear_all_button_coordinates = @app.find_on_screen('/tmp/clear_all_button_image.PNG')"
     And exception is not thrown
     Then the coordinates of clear all button are found
     And I can delete file "/tmp/clear_all_button_image.PNG"
@@ -38,7 +38,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
     And exception is not thrown
-    When I execute "@clear_all_button_coordinates=@app.find_on_screen('/tmp/clear_all_button_image.PNG',20)"
+    When I execute "@clear_all_button_coordinates = @app.find_on_screen('/tmp/clear_all_button_image.PNG',20)"
     And exception is not thrown
     Then the coordinates of clear all button are found
     And I can delete file "/tmp/clear_all_button_image.PNG"
