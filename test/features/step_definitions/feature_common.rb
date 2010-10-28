@@ -362,6 +362,10 @@ Then ("I move to webkit screen") do
   @app.EditView.flick(:Left)
 end
 
+Then ("I verify evaluate string \"$evaluate_string\"") do |$evaluate_string|
+  verify(3){eval($evaluate_string)}
+end
+
 Then /^the code "([^\"]*)" returns true$/ do |code|
   eval(code) == true
 end
