@@ -43,6 +43,10 @@ Then("I clear the log file for the sut") do
   @sut.clear_log
 end
 
+Then("I delete file $name") do |name|
+  File.delete(name) if File.exist?(name)
+end
+
 Then("I get current application") do 
   @sut.application
 end
@@ -71,6 +75,8 @@ Then("file $name should not exist") do |name|
   verify_equal(false,5){File.exist?(name)}
 end
 
+
+
 Then("log file $file should not contain $level messages") do |file, level|
   File.open(file).each_line do |line|
 	line.to_s.include?(level).should == false
@@ -78,6 +84,7 @@ Then("log file $file should not contain $level messages") do |file, level|
 end
 
 Then("change sut log folder $name") do |name|
+  name=name.gsub('/','\\')
   @sut.set_log_folder(name)
   @sut.set_log_size(100000)
 end

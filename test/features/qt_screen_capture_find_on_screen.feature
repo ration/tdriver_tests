@@ -11,7 +11,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     When I execute "@clear_all_button_coordinates=@app.find_on_screen('C:/temp/clear_all_button_image.PNG')"
     And exception is not thrown
     Then the coordinates of clear all button are found
-    And I delete file "C:/temp/clear_all_button_image.PNG"
+    And I can delete file "C:/temp/clear_all_button_image.PNG"
 
 @qt_windows
   Scenario: Find image from sut screen using tolerance 20
@@ -21,7 +21,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     When I execute "@clear_all_button_coordinates=@app.find_on_screen('C:/temp/clear_all_button_image.PNG',20)"
     And exception is not thrown
     Then the coordinates of clear all button are found
-    And I delete file "C:/temp/clear_all_button_image.PNG"
+    And I can delete file "C:/temp/clear_all_button_image.PNG"
 
 @qt_linux
   Scenario: Find image from sut screen
@@ -31,7 +31,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     When I execute "@clear_all_button_coordinates=@app.find_on_screen('/tmp/clear_all_button_image.PNG')"
     And exception is not thrown
     Then the coordinates of clear all button are found
-    And I delete file "/tmp/clear_all_button_image.PNG"
+    And I can delete file "/tmp/clear_all_button_image.PNG"
 
 @qt_linux
   Scenario: Find image from sut screen using tolerance 20
@@ -41,4 +41,4 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     When I execute "@clear_all_button_coordinates=@app.find_on_screen('/tmp/clear_all_button_image.PNG',20)"
     And exception is not thrown
     Then the coordinates of clear all button are found
-    And I delete file "/tmp/clear_all_button_image.PNG"
+    And I can delete file "/tmp/clear_all_button_image.PNG"
