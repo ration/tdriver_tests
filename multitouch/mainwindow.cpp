@@ -110,6 +110,11 @@ MainWindow::~MainWindow()
 {
 }
 
+QString MainWindow::currentViewName()
+{
+    return mViews.head()->objectName();
+}
+
 bool MainWindow::event(QEvent *event)
 {
     if (event->type() == QEvent::Gesture)
