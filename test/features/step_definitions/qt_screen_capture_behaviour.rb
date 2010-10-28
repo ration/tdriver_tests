@@ -37,11 +37,11 @@ Then "I can use the image data and write it to a file \"$file\"" do |file|
   
 end
 
-Then "the coordinates of clear all button are found" do
+Then "the coordinates of clear all button are found" do  
   tdriver_report_log("Calculator clear all button x coordinate is #{@clear_all_button_coordinates[0]}")
   tdriver_report_log("Calculator clear all button y coordinate is #{@clear_all_button_coordinates[1]}")
-  verify_true(0,"Clear all x coordinate should be 191"){@clear_all_button_coordinates[0]==191}
-  verify_true(0,"Clear all y coordinate should be 103"){@clear_all_button_coordinates[1]==103}
+  verify_true(0,"Clear all x coordinate should be greater than 0"){@clear_all_button_coordinates[0]>0}
+  verify_true(0,"Clear all y coordinate should be greater than 0"){@clear_all_button_coordinates[1]>0}
 end
 
 Then "clear all button image is found" do
