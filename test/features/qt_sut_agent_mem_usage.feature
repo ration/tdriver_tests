@@ -5,5 +5,6 @@ Feature: MobyBehaviour::QT::SUT#agent_mem_usage
   so that I can test the MobyBehaviour::QT::SUT behaviour
 
   Scenario: Query mem usage of TDriver agent should return positive integer
-    When I execute "@sut_agent_mem_usage = @__sut.agent_mem_usage"
+    Given I have default sut
+    When I execute "@sut_agent_mem_usage = @sut.agent_mem_usage"
     Then mem usage result is a positive integer
