@@ -1,3 +1,5 @@
+require 'fileutils'
+
 task :default do
 
   abort("Supported tasks: doc_linux, doc_windows")
@@ -6,12 +8,27 @@ end
 
 def run_tests( name, command_line )
 
-  puts "Executing documentation #{ name } feature tests...\n"
-
   begin
 
     Dir.chdir("test")
 
+    puts "Removing old test results...\n"
+
+    Dir.glob( "feature_xml/*.xml" ){ | file |  
+
+      begin
+
+        FileUtils.rm( file ) 
+
+      rescue Exception => exception
+
+        puts "Error while removing file %s (%s: %s)" % [ file, exception.class, exception.message ]
+
+      end
+
+    }
+
+    puts "Executing documentation #{ name } feature tests...\n"
     system( command_line )
 
   ensure
