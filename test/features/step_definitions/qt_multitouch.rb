@@ -31,7 +31,9 @@ end
 When("I press the next $count times") do |count|
   count = count.to_i
   while count > 0
+	current_view = @app.MainWindow.attribute('currentView')
     @app.QToolButton( :text => 'NEXT' ).tap
+	verify_true(5){@app.MainWindow.attribute('currentView') != current_view}
     count-=1
   end
 end

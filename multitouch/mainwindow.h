@@ -34,10 +34,13 @@ class Handle;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+	Q_PROPERTY(QString currentView READ currentViewName)
 
 public:  
     MainWindow(QWidget* parent = 0);
     ~MainWindow();
+
+	QString currentViewName();
 
 protected:
 	bool event(QEvent *event);
