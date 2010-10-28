@@ -4,15 +4,15 @@ task :default do
 
 end
 
-task :doc do 
+task :doc_linux do 
 
-  puts "Executing documentation feature tests...\n"
+  puts "Executing documentation linux feature tests...\n"
 
   begin
 
     Dir.chdir("test")
 
-    system("cucumber features -f TDriverDocument::CucumberReport")
+    system("cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags ~@qt_windows,~@qt_symbian ")
 
   ensure
 
@@ -21,4 +21,24 @@ task :doc do
   end
 
 end
+
+task :doc_windows do 
+
+  puts "Executing documentation windows feature tests...\n"
+
+  begin
+
+    Dir.chdir("test")
+
+    system("cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags ~@qt_linux,~@qt_symbian ")
+
+  ensure
+
+    Dir.chdir("..")
+
+  end
+
+end
+
+
 
