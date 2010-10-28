@@ -84,7 +84,6 @@ Then("log file $file should not contain $level messages") do |file, level|
 end
 
 Then("change sut log folder $name") do |name|
-  name=name.gsub('/','\\')
   @sut.set_log_folder(name)
   @sut.set_log_size(100000)
 end
