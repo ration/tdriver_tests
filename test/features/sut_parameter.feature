@@ -20,8 +20,8 @@ Feature: MobyBehaviour::SUT#parameter
 @pass
   Scenario: Retrieve a parameter value from current SUT, return default value (second argument) if not found
     Given I have default sut
-    When I execute "@product = @sut.parameter[ 'my_parameter', 'default' ]"
-    Then "@product" is set to string "default"
+    When I execute "@result = @sut.parameter[ 'my_parameter', 'default' ]"
+    Then "@result" is set to string "default"
     
 @pass
   Scenario: Set parameter value in current SUT
