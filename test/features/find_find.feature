@@ -9,35 +9,37 @@ Feature: MobyBehaviour::Find#find
   Scenario: Testing find method with no arguments
     Given I have default sut
     And I launch application "testapp"
-    When I test code "@testobj = @__sut.find"
+    When I test code "@testobj = @sut.find"
     Then exception matching "Input parameter not of Type" is thrown
 
 #@nodoc
   #Scenario: Testing find method on non-existing object
   #  Given I have default sut
   #  And I launch application "testapp"
-  #  When I test code "@testobj = @__sut.find( :name => 'Node0' )"
+  #  When I test code "@testobj = @sut.find( :name => 'Node0' )"
   #  Then exception matching "Cannot find object with rule" is thrown
 
 @nodoc
   Scenario: Testing find method with one ambiguous argument
     Given I have default sut
     And I launch application "testapp"
-    When I test code "@testobj = @__sut.find( :type => 'Control' )"
+    When I test code "@testobj = @sut.find( :type => 'Control' )"
     Then exception matching "Multiple test objects found with rule" is thrown
 
   Scenario: Testing find method with one unambiguous attribute argument
     Given I have default sut
     And I launch application "testapp"
-    When I execute "@testobj = @__sut.find( :name => 'Node1' )"
+    When I execute "@testobj = @sut.find( :name => 'Node1' )"
     Then a test object is found by find
 
   Scenario: Testing find method with one unambiguous special argument
-    Given I launch application "testapp"
-    When I execute "@testobj = @__sut.find( :type => 'Node' )"
+    Given I have default sut
+    And I launch application "testapp"
+    When I execute "@testobj = @sut.find( :type => 'Node' )"
     Then a test object is found by find
 
   Scenario: Testing find method with two unambiguous arguments
-    Given I launch application "testapp"
-    When I execute "@testobj = @__sut.find( :type => 'Control', :name => 'AddNode' )"
+    Given I have default sut
+    And I launch application "testapp"
+    When I execute "@testobj = @sut.find( :type => 'Control', :name => 'AddNode' )"
     Then a test object is found by find

@@ -1,3 +1,6 @@
+@nodoc
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#ui_type
   As a test scripter writer
   I want to use ui_type attribute to get ui_type attribute of a sut

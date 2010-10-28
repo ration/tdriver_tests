@@ -1,3 +1,6 @@
+@nodoc
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#ui_version
   As a test scripter writer
   I want to use ui_version attribute to get ui_version attribute of a sut
