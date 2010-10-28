@@ -28,9 +28,9 @@
 
 
 Then /^testapp nonModalPopup button is not visible on screen$/ do
-  verify_false(20, "nonModalPopup button should not be visible") { @app.Control( :name => 'nonModalPopup' ).attribute('visibleOnScreen') }
+  verify_equal("false", 2, "nonModalPopup button should not be visible") { @app.Control( :name => 'nonModalPopup' ).attribute('visibleOnScreen') }
 end
 
 Then /^testapp nonModalPopup button is visible on screen$/ do
-  verify_true(20, "nonModalPopup button should be visible") { @app.Control( :name => 'nonModalPopup' ).attribute('visibleOnScreen') }
+  verify_equal("true", 2, "nonModalPopup button should be visible") { @app.Control( :name => 'nonModalPopup' ).attribute('visibleOnScreen') }
 end

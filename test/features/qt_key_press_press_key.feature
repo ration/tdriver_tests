@@ -5,9 +5,8 @@ Feature: MobyBehaviour::QT::KeyPress#press_key
   I want to use press_key method to send a key press to the application
   so that I can test the MobyBehaviour::QT::KeyPress behaviour
 
-  Scenario: Testing press_key method with required argument(s) (Rename this to be more descriptive)
+  Scenario: Using press_key with a Ruby symbol argument
     Given I launch application "testapp"
     Then testapp nonModalPopup button is not visible on screen
     When I execute "@app.NodeView.press_key(:kRight)"
     Then testapp nonModalPopup button is visible on screen
-
