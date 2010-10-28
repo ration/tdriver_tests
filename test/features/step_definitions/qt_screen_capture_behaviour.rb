@@ -31,11 +31,9 @@ include TDriverReportAPI
 Then "I can use the image data and write it to a file \"$file\"" do |file|    
 
   verify_true(0,"Screen capture data received"){@screen_capture_data.class==String}
-  verify_true(0,"Screen capture data contains image data"){@screen_capture_data.size>5000}
+  verify_true(0,"Screen capture data contains image data"){@screen_capture_data.size>1000}
   
-  File.open(file, 'wb:binary') do |f2|
-      f2.puts @screen_capture_data
-  end
+  File.open(file, 'wb:binary') {|f2| f2.puts @screen_capture_data}
   
 end
 
