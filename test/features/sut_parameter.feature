@@ -1,3 +1,4 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
 Feature: MobyBehaviour::SUT#parameter
   As a test scripter writer
   I want to use parameter method to access sut specific parameters
