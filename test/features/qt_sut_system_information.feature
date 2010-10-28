@@ -1,3 +1,6 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+# under work by AH
+
 Feature: MobyBehaviour::QT::SUT#system_information
   As a test scripter writer
   I want to use system_information method to [DO_SOMETHING] in [TARGET_APPLICATION]
