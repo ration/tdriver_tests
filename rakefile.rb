@@ -12,7 +12,7 @@ task :doc_linux do
 
     Dir.chdir("test")
 
-    system("cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags ~@qt_windows,~@qt_symbian ")
+    system("cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux ")
 
   ensure
 
@@ -30,7 +30,7 @@ task :doc_windows do
 
     Dir.chdir("test")
 
-    system("cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags ~@qt_linux,~@qt_symbian ")
+    system("cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows ")
 
   ensure
 
