@@ -1,10 +1,12 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::SUT#system_total_mem
   As a test scripter writer
-  I want to use system_total_mem method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use system_total_mem method to query total system memory
   so that I can test the MobyBehaviour::QT::SUT behaviour
 
-  Scenario: Testing system_total_mem method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].system_total_mem()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Query system total memory
+    Given I have default sut
+    When I execute "@sut_system_total_mem = @sut.system_total_mem"
+    Then verify "@sut_system_total_mem > 0"
 
