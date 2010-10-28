@@ -8,7 +8,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
     Given I launch application "calculator"
     When I execute "@screen_capture_data=@app.capture_screen"
     And exception is not thrown
-    Then I can use the image data and write it to a file "C:/temp/screen.PNG"
+    Then I can use the image data and write it to a file "C:/temp/screen.png"
     And I can delete file "C:/temp/screen.png"
 
 @qt_windows
@@ -16,27 +16,27 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
     Given I launch application "calculator"
     When I execute "@screen_capture_data=@app.capture_screen('PNG')"
     And exception is not thrown
-    Then I can use the image data and write it to a file "C:/temp/screen.PNG"
+    Then I can use the image data and write it to a file "C:/temp/screen.png"
     And I can delete file "C:/temp/screen.png"
 
 @qt_windows
   Scenario: Capture screen from the test application with argument 'file_name'
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','C:/temp/screen.PNG')"
+    When I execute "@app.capture_screen('PNG','C:/temp/screen.png')"
     And exception is not thrown
     Then I can delete file "C:/temp/screen.png"
 
 @qt_windows
   Scenario: Capture screen from the test application with argument 'draw' set to true
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','C:/temp/screen.PNG',true)"
+    When I execute "@app.capture_screen('PNG','C:/temp/screen.png',true)"
     And exception is not thrown
     Then I can delete file "C:/temp/screen.png"
 
 @qt_windows
   Scenario: Capture screen from the test application with argument 'draw' set to false
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','C:/temp/screen.PNG',true)"
+    When I execute "@app.capture_screen('PNG','C:/temp/screen.png',true)"
     And exception is not thrown
     Then I can delete file "C:/temp/screen.png"
 
@@ -45,7 +45,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
     Given I launch application "calculator"
     When I execute "@screen_capture_data=@app.capture_screen"
     And exception is not thrown
-    Then I can use the image data and write it to a file "/tmp/screen.PNG"
+    Then I can use the image data and write it to a file "/tmp/screen.png"
     And I can delete file "/tmp/screen.png"
 
 @qt_linux
@@ -53,27 +53,27 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
     Given I launch application "calculator"
     When I execute "@screen_capture_data=@app.capture_screen('PNG')"
     And exception is not thrown
-    Then I can use the image data and write it to a file "/tmp/screen.PNG"
+    Then I can use the image data and write it to a file "/tmp/screen.png"
     And I can delete file "/tmp/screen.png"
 
 @qt_linux
   Scenario: Capture screen from the test application with argument 'file_name'
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','/tmp/screen.PNG')"
+    When I execute "@app.capture_screen('PNG','/tmp/screen.png')"
     And exception is not thrown
     Then I can delete file "/tmp/screen.png"
 
 @qt_linux
   Scenario: Capture screen from the test application with argument 'draw' set to true
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','/tmp/screen.PNG',true)"
+    When I execute "@app.capture_screen('PNG','/tmp/screen.png',true)"
     And exception is not thrown
     Then I can delete file "/tmp/screen.png"
 
 @qt_linux
   Scenario: Capture screen from the test application with argument 'draw' set to false
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','/tmp/screen.PNG',true)"
+    When I execute "@app.capture_screen('PNG','/tmp/screen.png',true)"
     And exception is not thrown
     Then I can delete file "/tmp/screen.png"
 
