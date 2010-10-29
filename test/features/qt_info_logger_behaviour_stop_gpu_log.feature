@@ -15,7 +15,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_gpu_log
     And I execute "@app.stop_gpu_log"
     And exception is not thrown
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Stop logging the gpu memory usage of the started application
     Given I launch application "testapp"
     And I test code "@app.log_gpu_mem({:interval => 1, :filePath => '/tmp/'})"

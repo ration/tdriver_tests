@@ -1,4 +1,5 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::ObjectBehaviourDescription#object_methods
   As a test scripter writer
   I want to use object_methods method to [DO_SOMETHING] in [TARGET_APPLICATION]

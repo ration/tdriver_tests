@@ -1,4 +1,5 @@
 @qt_symbian
+
 Feature: MobyBehaviour::QT::Application#bring_to_foreground
   As a test scripter writer
   I want to use bring_to_foreground method to brind the calculator app to the foreground

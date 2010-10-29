@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Application#track_popup
   As a test scripter writer
   I want to use track_popup method to track that popup items are shown

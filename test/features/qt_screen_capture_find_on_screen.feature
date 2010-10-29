@@ -23,7 +23,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Then the coordinates of clear all button are found
     And I can delete file "C:/temp/clear_all_button_image.PNG"
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Find image from sut screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
@@ -33,7 +33,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Then the coordinates of clear all button are found
     And I can delete file "/tmp/clear_all_button_image.PNG"
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Find image from sut screen using tolerance 20
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"

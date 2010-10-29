@@ -1,4 +1,4 @@
-@qt_linux @qt_windows
+@qt_linux @qt_windows @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_level
   As a test script writer

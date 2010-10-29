@@ -15,7 +15,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#log_cpu
     And I test code "@app.stop_cpu_log"
     And exception is not thrown
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Start logging the cpu usage of the started application
     Given I launch application "testapp"
     When I execute "@app.log_cpu({:interval => 1, :filePath => '/tmp/'})"

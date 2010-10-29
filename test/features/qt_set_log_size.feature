@@ -1,4 +1,5 @@
-@qt_windows @qt_linux
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_size
   As a test script writer
   I want to set the log size in the target

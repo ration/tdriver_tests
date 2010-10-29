@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::TestObject#activate
   As a test scripter writer
   I want to use activate method to activate a Test Object in testapp

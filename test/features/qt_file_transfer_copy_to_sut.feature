@@ -25,7 +25,7 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_to_sut
     Then the file "test_file_1.txt" is not found from "E:\temp\" in sut
     And I can delete the test files
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Copy file to sut with copy_to_sut method
     Given I have default sut
     And I generate test files

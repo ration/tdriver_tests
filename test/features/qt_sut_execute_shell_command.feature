@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::SUT#execute_shell_command
   As a test scripter writer
   I want to use execute_shell_command method to [DO_SOMETHING] in [TARGET_APPLICATION]

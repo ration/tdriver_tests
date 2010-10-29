@@ -1,4 +1,5 @@
-@no_doc @nodoc
+@qt_linux @qt_windows @qt_symbian @qt_meego @nodoc
+
 Feature: MobyBehaviour::QT::Webkit#execute_javascript_query
   As a test scripter writer
   I want to use execute_javascript_query method to [DO_SOMETHING] in [TARGET_APPLICATION]

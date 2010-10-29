@@ -5,7 +5,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#clear_log
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour
 
 
-@qt_windows
+@qt_windows @qt_symbian
   Scenario: Clear the log file for sut
     Given I have default sut
     And I delete file C:/logs/testability/temp/qttasserver.log
@@ -20,7 +20,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#clear_log
     And I delete file C:/logs/testability/temp/qttasserver.log
 
 
-@qt_linux
+@qt_linux @qt_symbian
   Scenario: Clear the log file for sut
     Given I have default sut
     And I delete file /logs/testability/temp/qttasserver.log
