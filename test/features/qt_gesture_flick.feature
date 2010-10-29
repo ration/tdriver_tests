@@ -5,19 +5,19 @@ Feature: MobyBehaviour::QT::Gesture#flick
   I want to use flick method to move objects in testapp
   so that I can test the MobyBehaviour::QT::Gesture behaviour
 
-  Scenario: Testing flick method with required argument
+  Scenario: The flick method can be used by defining a direction to flick
     Given I launch application "testapp" as "@app"
 	And I know the Node initial location
     When I execute "@app.Node.flick( :Left )"
     Then the Node has moved left
 
-  Scenario: Testing flick method with optional argument 'button'
+  Scenario: The used button can be defined
     Given I launch application "testapp" as "@app"
 	And I know the Node initial location
     When I execute "@app.Node.flick( :Right, :Left )"
     Then the Node has moved right
 
-  Scenario: Testing flick method with optional argument 'optional_params' 
+  Scenario: The 'optional_params' argument can be used to set :use_tap_screen
     Given I launch application "testapp" as "@app"
 	And I know the Node initial location
     When I execute "@app.Node.flick( :Up, :Left, { :use_tap_screen => true } )"
