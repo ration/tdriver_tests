@@ -6,22 +6,22 @@ Feature: MobyBehaviour::QT::Widget#tap_object
   so that I can test the MobyBehaviour::QT::Widget behaviour
 
   Scenario: Testing tap_object method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [ ] as @app
-    When I execute "@app.[ ].tap_object(x, y)"
-    Then [ ]
-
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text=>'1').tap_object(5, 5)"
+    Then exception is not thrown
+    
   Scenario: Testing tap_object method with optional argument 'tap_count' (Rename this to be more descriptive)
-    Given I launch application [ ] as @app
-    When I execute "@app.[ ].tap_object(x, y, tap_count)"
-    Then [ ]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1)"
+    Then exception is not thrown
 
   Scenario: Testing tap_object method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [ ] as @app
-    When I execute "@app.[ ].tap_object(x, y, tap_count, button)"
-    Then [ ]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1, :Left )"
+    Then exception is not thrown
 
   Scenario: Testing tap_object method with optional argument 'tap_params' (Rename this to be more descriptive)
-    Given I launch application [ ] as @app
-    When I execute "@app.[ ].tap_object(x, y, tap_count, button, tap_params)"
-    Then [ ]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1, :Left, {:use_tap_screen => 'true'})"
+    Then exception is not thrown
 
