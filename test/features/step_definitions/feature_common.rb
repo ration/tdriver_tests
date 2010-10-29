@@ -50,6 +50,7 @@ After do
             # nothing
         end
     end
+  @__sut.clear_verify_blocks
 end
 
 
