@@ -1,10 +1,14 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
 Feature: MobyBehaviour::QT::Events#get_events
   As a test scripter writer
-  I want to use get_events method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use get_events method to get the events that were listened
   so that I can test the MobyBehaviour::QT::Events behaviour
 
-  Scenario: Testing get_events method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].get_events()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Get the events that were collected with enable_events
+	Given I launch application "calculator"
+	And I start listening to events on button sevenButton
+	And Tap button sevenButton
+    When I execute " @app.Button(:name => 'sevenButton').get_events()"
+    Then the results of sevenButton should contain MouseButtonPress,MouseButtonRelease events
+
 
