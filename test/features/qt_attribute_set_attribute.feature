@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Attribute#set_attribute
   As a test scripter writer
   I want to use set_attribute method to set object attributes in testapp

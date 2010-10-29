@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Record#print_recordings
   As a test scripter writer
   I want to use print_recordings method to [DO_SOMETHING] in [TARGET_APPLICATION]

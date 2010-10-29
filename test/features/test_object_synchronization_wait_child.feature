@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::TestObjectSynchronization#wait_child
   As a test scripter writer
   I want to use wait_child method to [DO_SOMETHING] in [TARGET_APPLICATION]

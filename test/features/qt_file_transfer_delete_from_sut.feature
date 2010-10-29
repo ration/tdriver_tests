@@ -28,7 +28,7 @@ Feature: MobyBehaviour::QT::FileTransfer#delete_from_sut
     Then the file "test_file_1.txt" is not found from "C:\\temp\\test_copy\\" in sut
     Then the file "test_file_10.txt" is not found from "C:\\temp\\test_copy\\" in sut
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Delete file from sut with delete_from_sut method
     Given I have default sut
     And I generate test files
@@ -39,7 +39,7 @@ Feature: MobyBehaviour::QT::FileTransfer#delete_from_sut
     When I execute "@sut.delete_from_sut(:file => '/tmp/test_copy/test_file_1.txt')"
     Then the file "test_file_1.txt" is not found from "/tmp/test_copy/" in sut
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Delete files from sut with delete_from_sut method
     Given I have default sut
     And I generate test files

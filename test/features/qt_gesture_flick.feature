@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Gesture#flick
   As a test script writer
   I want to use flick method to move objects in testapp

@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_folder
   As a test script writer
   I want to enable set the log folder in the target
@@ -13,7 +15,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_folder
     And I disable logging on the application
     And I delete file /logs/testability/temp/calculator.log
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Set log new log folder to application
     Given I have default sut
     And I launch application "calculator"

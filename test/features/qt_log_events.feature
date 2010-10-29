@@ -1,10 +1,9 @@
-
 Feature: MobyBehaviour::QT::ConfigureBehaviour#log_events
   As a test script writer
   I want to log events into the logs in the application 
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour
 
-@qt_windows
+@qt_windows @qt_symbian
   Scenario: Clear the log file for sut
     Given I have default sut
     And I launch application "calculator"
@@ -14,7 +13,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#log_events
 	And I perform some taps on the app
 	And I make sure MouseRelease events are in the log C:/logs/testability/calculator.log
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Clear the log file for sut
     Given I have default sut
     And I launch application "calculator"

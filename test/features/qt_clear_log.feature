@@ -20,7 +20,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#clear_log
     And I delete file C:/logs/testability/temp/qttasserver.log
 
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Clear the log file for sut
     Given I have default sut
     And I delete file /logs/testability/temp/qttasserver.log
