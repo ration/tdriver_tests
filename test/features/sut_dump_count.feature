@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::SUT#dump_count=
   As a test scripter writer
   I want to use dump_count attribute to [DO_SOMETHING] in [TARGET_APPLICATION]

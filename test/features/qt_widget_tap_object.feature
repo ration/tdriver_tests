@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Widget#tap_object
   As a test scripter writer RESERVED FOR AH
   I want to use tap_object method to tap objects at cetain coordinates in testapp application

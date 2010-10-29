@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::SUT#get_application_id
   As a test scripter writer
   I want to use get_application_id method to [DO_SOMETHING] in [TARGET_APPLICATION]

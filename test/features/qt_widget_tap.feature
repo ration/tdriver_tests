@@ -1,5 +1,4 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Widget#tap
   As a test script writer RESERVED FOR AH
   I want to use tap method to simulate user tapping or clicking an object,

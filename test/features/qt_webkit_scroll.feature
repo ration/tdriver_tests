@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Webkit#scroll
   As a test scripter writer
   I want to use scroll method to scroll webview to bring object wisible in testapp

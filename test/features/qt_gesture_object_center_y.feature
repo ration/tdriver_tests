@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Gesture#object_center_y
   As a test scripter writer
   I want to use object_center_y method to [DO_SOMETHING] in [TARGET_APPLICATION]

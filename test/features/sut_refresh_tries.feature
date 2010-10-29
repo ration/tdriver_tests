@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::SUT#refresh_tries=
   As a test scripter writer
   I want to use refresh_tries attribute to [DO_SOMETHING] in [TARGET_APPLICATION]

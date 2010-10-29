@@ -1,5 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
+@qt_windows @qt_linux
 Feature: MobyBehaviour::QT::ConfigureBehaviour#log_qdebug
   As a test script writer
   I want to log qDebug messages to the targets tdriver logs

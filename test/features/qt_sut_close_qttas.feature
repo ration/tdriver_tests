@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::SUT#close_qttas
   As a test scripter writer
   I want to use close_qttas method to [DO_SOMETHING] in [TARGET_APPLICATION]

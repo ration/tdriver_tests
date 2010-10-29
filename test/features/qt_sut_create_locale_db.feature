@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
   As a test scripter writer
   I want to use create_locale_db method to [DO_SOMETHING] in [TARGET_APPLICATION]

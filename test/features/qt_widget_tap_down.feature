@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Widget#tap_down
   As a test scripter writer RESERVED FOR AH
   I want to use tap_down method to [DO_SOMETHING] in [TARGET_APPLICATION]

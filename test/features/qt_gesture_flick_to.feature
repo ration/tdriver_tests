@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Gesture#flick_to
   As a test scripter writer
   I want to use flick_to method to [DO_SOMETHING] in [TARGET_APPLICATION]

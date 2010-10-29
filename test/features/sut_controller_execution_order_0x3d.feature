@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::SutController#execution_order=
   As a test scripter writer
   I want to use execution_order= method to [DO_SOMETHING] in [TARGET_APPLICATION]

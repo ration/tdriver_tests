@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::ObjectBehaviourDescription#describe_method
   As a test scripter writer
   I want to use describe_method method to [DO_SOMETHING] in [TARGET_APPLICATION]

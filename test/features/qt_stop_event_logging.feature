@@ -1,5 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
+@qt_windows @qt_linux
 Feature: MobyBehaviour::QT::ConfigureBehaviour#stop_event_logging
   As a test script writer
   I want to log stop loggin events into the logs in the application 

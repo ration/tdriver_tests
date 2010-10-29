@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::TestObject#deactivate
   As a test scripter writer
   I want to use deactivate method to [DO_SOMETHING] in [TARGET_APPLICATION]

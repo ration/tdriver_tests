@@ -18,7 +18,7 @@ Feature: MobyBehaviour::QT::FileTransfer#list_files_from_sut
     Then the file "test_file_1.txt" is not found from "C:\\temp\\test_copy\\" in sut
     Then the file "test_file_10.txt" is not found from "C:\\temp\\test_copy\\" in sut
 
-@qt_linux @qt_meego
+@qt_linux
   Scenario: List files from sut with list_files_from_sut method
     Given I have default sut
     And I generate test files
