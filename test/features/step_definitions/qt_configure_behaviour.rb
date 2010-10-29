@@ -90,7 +90,6 @@ end
 
 Then("I make sure the file size of $name is smaller than stored file size") do |name|
   @sut.freeze
-  puts File.size(name).to_s
   verify_true(2, "File must be smaller than " + @size.to_s){File.size(name) < @size.to_i}
   @sut.unfreeze
 end
