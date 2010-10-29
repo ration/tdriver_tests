@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Application#verify_popup
   As a test scripter writer
   I want to use verify_popup method to [DO_SOMETHING] in [TARGET_APPLICATION]

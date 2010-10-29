@@ -3,7 +3,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_gpu_log
   I want to use load_gpu_log method to load the gpu log without stopping the logging
   so that I can test the MobyBehaviour::QT::InfoLoggerBehaviour behaviour
 
-@qt_windows
+@qt_windows @qt_symbian
   Scenario: Load the gpu log without stopping the logging
     Given I launch application "testapp"
     And I test code "@app.log_gpu_mem({:interval => 1, :filePath => 'C:\temp'})"
@@ -16,7 +16,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_gpu_log
     And I test code "@app.stop_gpu_log"
     And exception is not thrown
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Load the gpu log without stopping the logging
     Given I launch application "testapp"
     And I test code "@app.log_gpu_mem({:interval => 1, :filePath => '/tmp/'})"

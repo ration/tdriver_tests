@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Widget#hold
   As a test scripter writer
   I want to use hold method to [DO_SOMETHING] in [TARGET_APPLICATION]

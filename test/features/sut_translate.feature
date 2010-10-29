@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#translate
   As a test scripter writer
   I want to use translate method to get localised translations in testapp

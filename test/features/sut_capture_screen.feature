@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#capture_screen
   As a test scripter writer
   I want to use capture_screen method to capture screen in calculator

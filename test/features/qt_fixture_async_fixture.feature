@@ -1,4 +1,5 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Fixture#async_fixture
   As a test scripter writer
   I want to use async_fixture method to perform specific commands on the target

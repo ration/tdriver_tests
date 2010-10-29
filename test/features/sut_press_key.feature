@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#press_key
   As a test scripter writer
   I want to use press_key method to press a key in the calculator application

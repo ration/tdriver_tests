@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#verify_blocks
   As a test scripter writer
   I want to use verify_blocks attribute to get the current blocks in the sut

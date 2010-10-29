@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#verify_always
   As a test scripter writer
   I want to use verify_always method to add a verification block in the sut

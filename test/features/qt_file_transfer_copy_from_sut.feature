@@ -29,7 +29,7 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_from_sut
     And I test code "@sut.delete_from_sut(:dir => 'E:\\temp\\copy\\' )"
     And I test code "@sut.delete_from_sut(:dir => 'E:\\temp\\test_copy\\' )"
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Copy file from sut with copy_from_sut method
     Given I have default sut
     And I generate test files

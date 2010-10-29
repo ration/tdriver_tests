@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#current_application_id=
   As a test scripter writer
   I want to use current_application_id attribute to [DO_SOMETHING] in [TARGET_APPLICATION]

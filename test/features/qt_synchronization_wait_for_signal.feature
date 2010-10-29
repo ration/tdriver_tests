@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Synchronization#wait_for_signal
   As a test scripter writer
   I want to use wait_for_signal method to [DO_SOMETHING] in [TARGET_APPLICATION]

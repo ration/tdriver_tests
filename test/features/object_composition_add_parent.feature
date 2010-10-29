@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::ObjectComposition#add_parent
   As a test scripter writer
   I want to use add_parent method to [DO_SOMETHING] in [TARGET_APPLICATION]

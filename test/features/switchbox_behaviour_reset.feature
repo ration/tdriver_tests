@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SwitchboxBehaviour#reset
   As a test scripter writer
   I want to use reset method to [DO_SOMETHING] in [TARGET_APPLICATION]
