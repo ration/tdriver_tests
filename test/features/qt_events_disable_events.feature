@@ -4,7 +4,7 @@ Feature: MobyBehaviour::QT::Events#disable_events
   I want to use disable_events method stop listening to events
   so that I can test the MobyBehaviour::QT::Events behaviour
 
-  Scenario: Stop listening to mouse events
+  Scenario: Stop listening to events sent to the button
 	Given I launch application "calculator"
     When I execute "@app.Button(:name => 'sevenButton').disable_events()"
     Then I cannot get events for sevenButton
