@@ -156,6 +156,12 @@ Given /^I set child "([^\"]*)" attribute "([^\"]*)" to "([^\"]*)"$/ do |name, at
   @__current_app.child(:name => name).set_attribute(attribute, value)
 end
 
+
+Given /^I tap down on Triangle(\d+)$/ do |arg1|
+  @app.Triangle(:name => 'Triangle'+arg1.to_s).tap_down
+end
+
+
 When /^I execute "([^\"]*)"$/ do |script|
     raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
     @__example_given = true
@@ -249,6 +255,11 @@ end
 Then /^object named "([^\"]*)" is not visible$/ do |arg1|
   raise @__exception if @__exception != nil
   verify {@__current_app.child(:name => arg1.to_s, :visible => false) }
+end
+
+Then /^object named "([^"]*)" does not exist$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify_not {@__current_app.child(:name => arg1.to_s) }
 end
 
 Then /^exception is thrown$/ do
@@ -403,4 +414,9 @@ Then "the new absolute location of the $target_type is $expected_x, $expected_y"
 	
   end
 
+end
+
+Then /^color of Triangle(\d+) is "([^"]*)"$/ do |arg1, arg2|
+  raise @__exception if @__exception != nil
+  verify_equal(arg2, 2, "Expeting color #{arg2}") { @app.Triangle(:name => "Triangle"+arg1.to_s).attribute('color') }
 end
