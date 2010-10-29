@@ -1,3 +1,4 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
 Feature: MobyBehaviour::QT::Events#enable_events
   As a test scripter writer
   I want to use enable_events method to listen to events on the device

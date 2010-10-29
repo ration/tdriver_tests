@@ -1,3 +1,4 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
 Feature: MobyBehaviour::QT::Events#get_events
   As a test scripter writer
   I want to use get_events method to get the events that were listened
