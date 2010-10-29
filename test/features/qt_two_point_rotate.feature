@@ -1,5 +1,4 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Multitouch#two_point_rotate
   As a test script writer
   I want to use rotate method to simulate effect of user doing a rotation operation,

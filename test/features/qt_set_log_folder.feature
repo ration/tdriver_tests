@@ -1,5 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_folder
   As a test script writer
   I want to enable set the log folder in the target

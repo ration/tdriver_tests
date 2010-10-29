@@ -1,5 +1,4 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Application#tap_down_objects
   As a test script writer
   I want to use tap_down_objects method to tap down multiple objects at the same time

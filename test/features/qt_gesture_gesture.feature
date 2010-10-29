@@ -11,7 +11,7 @@ Feature: MobyBehaviour::QT::Gesture#gesture
     When I execute "@app.Node.gesture( :Left, 2, 100)"
     Then the Node has moved left
 	
-Scenario: Testing gesture method with required arguments 2
+  Scenario: Testing gesture method with required arguments 2
     Given I launch application "testapp" as "@app"
 	And I know the Node initial location
     When I execute "@app.Node.gesture( :Right, 2, 100)"

@@ -1,5 +1,4 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Fixture#fixture
   As a test scripter writer
   I want to use fixture method to perform specific commands on the target

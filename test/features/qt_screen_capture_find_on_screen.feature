@@ -3,7 +3,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
   I want to use find_on_screen method to search the SUT screen for the given image and get the top left coordinates
   so that I can test the MobyBehaviour::QT::ScreenCapture behaviour
 
-@qt_windows @qt_symbian
+@qt_windows
   Scenario: Find image from sut screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','C:/temp/clear_all_button_image.PNG',true)"
@@ -13,7 +13,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Then the coordinates of clear all button are found
     And I can delete file "C:/temp/clear_all_button_image.PNG"
 
-@qt_windows @qt_symbian
+@qt_windows
   Scenario: Find image from sut screen using tolerance 20
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','C:/temp/clear_all_button_image.PNG',true)"
@@ -23,7 +23,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#find_on_screen
     Then the coordinates of clear all button are found
     And I can delete file "C:/temp/clear_all_button_image.PNG"
 
-@qt_linux  @qt_meego
+@qt_linux @qt_meego
   Scenario: Find image from sut screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
