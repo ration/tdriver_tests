@@ -1,4 +1,5 @@
-# Under construction by AH
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#connect
   As a test scripter writer
   I want to use connect method to [DO_SOMETHING] in [TARGET_APPLICATION]

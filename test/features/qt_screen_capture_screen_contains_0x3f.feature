@@ -23,7 +23,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#screen_contains?
     Then clear all button image is found
     And I can delete file "C:/temp/clear_all_button_image.PNG"
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Check that image is found from screen
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
@@ -33,7 +33,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#screen_contains?
     Then clear all button image is found
     And I can delete file "/tmp/clear_all_button_image.PNG"
 
-@qt_linux
+@qt_linux @qt_meego
   Scenario: Check that image is found from screen using tolerance 20
     Given I launch application "calculator"
     And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"

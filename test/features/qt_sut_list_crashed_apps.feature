@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::SUT#list_crashed_apps
   As a test scripter writer
   I want to use list_crashed_apps method to [DO_SOMETHING] in [TARGET_APPLICATION]

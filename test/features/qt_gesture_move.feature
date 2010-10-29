@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Gesture#move
   As a test scripter writer
   I want to use move method to [DO_SOMETHING] in [TARGET_APPLICATION]

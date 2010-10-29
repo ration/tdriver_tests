@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::TreeWidgetItemColumn#check_state
   As a test scripter writer
   I want to use check_state method to [DO_SOMETHING] in [TARGET_APPLICATION]

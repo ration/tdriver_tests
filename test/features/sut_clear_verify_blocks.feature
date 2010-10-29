@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::SUT#clear_verify_blocks
   As a test scripter writer
   I want to use clear_verify_blocks method to clear all verify_always blocs in the sut

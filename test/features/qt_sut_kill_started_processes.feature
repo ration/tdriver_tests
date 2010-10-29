@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::SUT#kill_started_processes
   As a test scripter writer
   I want to use kill_started_processes method to [DO_SOMETHING] in [TARGET_APPLICATION]

@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::ObjectComposition#add_child
   As a test scripter writer
   I want to use add_child method to [DO_SOMETHING] in [TARGET_APPLICATION]

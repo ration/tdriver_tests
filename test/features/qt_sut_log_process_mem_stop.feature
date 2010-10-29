@@ -1,3 +1,5 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::SUT#log_process_mem_stop
   As a test scripter writer
   I want to use log_process_mem_stop method to [DO_SOMETHING] in [TARGET_APPLICATION]
