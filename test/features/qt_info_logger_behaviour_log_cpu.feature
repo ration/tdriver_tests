@@ -6,7 +6,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#log_cpu
 @qt_windows
   Scenario: Start logging the cpu usage of the started application
     Given I launch application "testapp"
-    When I execute "@app.log_cpu({:interval => 1, :filePath => 'C:\temp'})"
+    When I execute "@app.log_cpu( :interval => 1, :filePath => 'C:\temp' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
     When I test code "@cpu_log_data = MobyBase::StateObject.new(@app.load_cpu_log)"
@@ -18,7 +18,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#log_cpu
 @qt_linux @qt_meego
   Scenario: Start logging the cpu usage of the started application
     Given I launch application "testapp"
-    When I execute "@app.log_cpu({:interval => 1, :filePath => '/tmp/'})"
+    When I execute "@app.log_cpu( :interval => 1, :filePath => '/tmp/' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
     When I test code "@cpu_log_data = MobyBase::StateObject.new(@app.load_cpu_log)"
