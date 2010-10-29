@@ -4,7 +4,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#enable_logger
   I want to enable logger in the application 
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour
 
-@qt_windows @qt_symbian
+@qt_windows
   Scenario: Enable logger on the application
     Given I have default sut
     And I launch application "calculator"
@@ -15,7 +15,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#enable_logger
     And I get current application
     And file C:/logs/testability/calculator.log should exist
 
-@qt_windows @qt_symbian
+@qt_windows
   Scenario: Enable logger on the sut
     Given I have default sut
     And I disable logging on the sut
