@@ -4,7 +4,8 @@ Feature: MobyBehaviour::SUT#press_key
   so that I can test the MobyBehaviour::SUT behaviour
 
   Scenario: Testing press_key method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application "calculaotr" as @app
-    When I execute "@sut.press_key('1')"
+    Given I have default sut
+    And I launch application "calculator"
+    When I execute "@sut.press_key(:k1)"
     Then exception is not thrown
 

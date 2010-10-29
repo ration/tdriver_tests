@@ -24,8 +24,8 @@
 
 require 'tdriver'
 
-Then ("I should see \"$webelem\" having \"$attrib\" with value \"$value\"") do |$webelem, $attrib, $value|
-  elem = @app.send($webelem.to_sym, {$attrib=>$value})
+Then ("I should see \"$webelem\" having \"$attrib\" with value \"$value\"") do |webelem, attrib, value|
+  elem = @app.send(webelem.to_sym, {attrib=>value})
   elem_l = elem.attribute("x").to_i 
   elem_r = elem_l + elem.attribute("width").to_i
   elem_u = elem.attribute("y").to_i 
@@ -37,14 +37,14 @@ Then ("I should see \"$webelem\" having \"$attrib\" with value \"$value\"") do |
   frame_u = frame.attribute("y").to_i 
   frame_d = frame_u + frame.attribute("height").to_i
 
-  verify_true(5) {  (elem_r <= frame_r) &&
+  verify_true(1) {  (elem_r <= frame_r) &&
                     (elem_l >= frame_l) &&
                     (elem_u >= frame_u) &&
                     (elem_d <= frame_d)}
 end
 
-Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") do |$webelem, $attrib, $value|
-  elem = @app.send($webelem.to_sym, {$attrib=>$value})
+Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") do |webelem, attrib, value|
+  elem = @app.send(webelem.to_sym, {attrib=>value})
   
   elem_l = elem.attribute("x").to_i 
   elem_r = elem_l + elem.attribute("width").to_i
@@ -57,8 +57,12 @@ Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") 
   frame_u = frame.attribute("y").to_i 
   frame_d = frame_u + frame.attribute("height").to_i
 
-  verify_true(5) { (elem_r < frame_l) ||
+  verify_true(1) { (elem_r < frame_l) ||
                    (elem_l > frame_r) ||
                    (elem_u > frame_d) ||
                    (elem_d < frame_u)}
+end
+
+Then ("I verify that \"$webelem\" is having \"$attrib\" with value \"$value\"") do |webelem, attrib, value|
+  @app.send(webelem.to_sym, {attrib=>value}).name
 end

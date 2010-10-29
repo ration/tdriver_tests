@@ -32,7 +32,7 @@ Feature: MobyBehaviour::QT::FileTransfer#delete_from_sut
   Scenario: Delete file from sut with delete_from_sut method
     Given I have default sut
     And I generate test files
-    And I test code "@sut.copy_to_sut(:file => 'test_files\\test_file_1.txt', :to => '/tmp/test_copy/')"
+    And I test code "@sut.copy_to_sut(:file => 'test_files/test_file_1.txt', :to => '/tmp/test_copy/')"
     And exception is not thrown
     And I can delete the test files
     And the file "test_file_1.txt" is found from "/tmp/test_copy/" in sut

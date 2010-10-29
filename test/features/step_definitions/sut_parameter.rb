@@ -23,11 +23,22 @@
 
 Then "I get a Hash containing all sut parameters" do
   raise @__exception if @__exception != nil
-  verify_true(30, "Parameter hash was not retreived successfully") { | | $parameter_hash.class==MobyUtil::ParameterHash}
+  verify_true(0, "Parameter hash was not retreived successfully") { $parameter_hash.class == MobyUtil::ParameterHash }
 end
+
+Then "return value \"$variable\" is kind of \"$type\"" do | $variable, $type |
+  raise @__exception if @__exception != nil
+  verify_true(0, "Parameter hash was not retreived successfully") { eval("#{ $variable }.class.to_s == '#{ $type }'") }
+end
+
 
 And "I set new sut parameter \"$parameter\" to \"$value\"" do |$parameter, $value|
   raise @__exception if @__exception != nil
   eval("@sut.parameter[\"#{$parameter}\"]=\"#{$value}\"")
+end
+
+Then "parameter \"$parameter\" should have value \"$value\"" do |$parameter, $value|
+  raise @__exception if @__exception != nil
+  verify_true(0, "Parameter hash was not set successfully") { MobyUtil::Parameter[ @sut.id ][ $parameter ] == $value }
 end
 

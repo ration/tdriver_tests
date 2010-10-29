@@ -6,7 +6,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
 @qt_windows
   Scenario: Capture screen from the test application
     Given I launch application "calculator"
-    When I execute "@screen_capture_data=@app.capture_screen"
+    When I execute "@screen_capture_data = @app.capture_screen"
     And exception is not thrown
     Then I can use the image data and write it to a file "C:/temp/screen.png"
     And I can delete file "C:/temp/screen.png"
@@ -14,7 +14,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
 @qt_windows
   Scenario: Capture screen from the test application with argument 'format'
     Given I launch application "calculator"
-    When I execute "@screen_capture_data=@app.capture_screen('PNG')"
+    When I execute "@screen_capture_data = @app.capture_screen('PNG')"
     And exception is not thrown
     Then I can use the image data and write it to a file "C:/temp/screen.png"
     And I can delete file "C:/temp/screen.png"
@@ -43,7 +43,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
 @qt_linux
   Scenario: Capture screen from the test application
     Given I launch application "calculator"
-    When I execute "@screen_capture_data=@app.capture_screen"
+    When I execute "@screen_capture_data = @app.capture_screen"
     And exception is not thrown
     Then I can use the image data and write it to a file "/tmp/screen.png"
     And I can delete file "/tmp/screen.png"
@@ -51,7 +51,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
 @qt_linux
   Scenario: Capture screen from the test application with argument 'format'
     Given I launch application "calculator"
-    When I execute "@screen_capture_data=@app.capture_screen('PNG')"
+    When I execute "@screen_capture_data = @app.capture_screen('PNG')"
     And exception is not thrown
     Then I can use the image data and write it to a file "/tmp/screen.png"
     And I can delete file "/tmp/screen.png"

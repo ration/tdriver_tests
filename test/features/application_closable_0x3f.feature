@@ -8,6 +8,6 @@ Feature: MobyBehaviour::Application#closable?
 
   Scenario: Testing closable? method
     Given I launch application "calculator" as "@app"
-    When I execute "$closable=@app.closable?()"
+    When I execute "$closable = @app.closable?()"
     Then "$closable" is set to true
 
