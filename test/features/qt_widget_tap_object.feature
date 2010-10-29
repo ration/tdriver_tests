@@ -16,25 +16,11 @@ Feature: MobyBehaviour::QT::Widget#tap_object
       """
     Then object named "Node2" is visible
 
-@nodoc
-  Scenario: Testing tap_object method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application "calculator"
-    When I execute "@app.Button(:text=>'1').tap_object(5, 5)"
-    Then exception is not thrown
-
-@nodoc    
-  Scenario: Testing tap_object method with optional argument 'tap_count' (Rename this to be more descriptive)
-    Given I launch application "calculator"
-    When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1)"
-    Then exception is not thrown
-
-@nodoc
   Scenario: Testing tap_object method with optional argument 'button' (Rename this to be more descriptive)
     Given I launch application "calculator"
     When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1, :Left )"
     Then exception is not thrown
 
-@nodoc
   Scenario: Testing tap_object method with optional argument 'tap_params' (Rename this to be more descriptive)
     Given I launch application "calculator"
     When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1, :Left, {:use_tap_screen => 'true'})"
