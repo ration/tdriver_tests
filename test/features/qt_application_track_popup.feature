@@ -1,15 +1,24 @@
+@qt_linux @qt_windows @qt_symbian @qt_meego
 Feature: MobyBehaviour::QT::Application#track_popup
   As a test scripter writer
-  I want to use track_popup method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use track_popup method to track that popup items are shown
   so that I can test the MobyBehaviour::QT::Application behaviour
 
-  Scenario: Testing track_popup method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].track_popup(class_name)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Track a modal dialog using the track popup behaviour
+	Given I launch application "testapp"
+    And I hide the triangle
+    And I hide the node
+    And I go to popup view
+    When I execute "@app.track_popup('PopupItem')"
+	And I tap "modalPopup" control button
+	Then I verify that the popup was shown
 
-  Scenario: Testing track_popup method with optional argument 'wait_time' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].track_popup(class_name, wait_time)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Track a non modal dialog using the track popup behaviour (no difference to modal)
+	Given I launch application "testapp"
+    And I hide the triangle
+    And I hide the node
+	And I go to popup view
+    When I execute "@app.track_popup('PopupItem')"
+	And I tap "nonModalPopup" control button
+	Then I verify that the popup was shown
 
