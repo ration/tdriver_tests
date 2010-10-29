@@ -11,11 +11,13 @@ Feature: MobyBehaviour::QT::Gesture#flick_to
     When I execute "@app.Node.flick_to( 350, 400 )"    
 	Then the new absolute location of the Node is 350, 400
 			
+@nodoc
   Scenario: The button used when flicking can be defined
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].flick_to(x, y, button)"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
+@nodoc
   Scenario: The 'optional_params' argument can be used to set :use_tap_screen
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].flick_to(x, y, button, optional_params)"

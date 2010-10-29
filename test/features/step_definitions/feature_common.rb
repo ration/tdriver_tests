@@ -290,13 +290,13 @@ Then "the $target_type has moved $expected_direction" do | target_type, expected
         temp_obj = @__current_app.child( :type => target_type )
     case expected_direction
       when "left"
-            result = temp_obj.attribute( "x" ) < @initial_x
+            result = temp_obj.attribute( "x" ).to_i < @initial_x.to_i
           when "right"
-            result = temp_obj.attribute( "x" ) > @initial_x
+            result = temp_obj.attribute( "x" ).to_i > @initial_x.to_i
       when "down"
-            result = temp_obj.attribute( "y" ) > @initial_y
+            result = temp_obj.attribute( "y" ).to_i > @initial_y.to_i
           when "up"
-            result = temp_obj.attribute( "y" ) < @initial_y
+            result = temp_obj.attribute( "y" ).to_i < @initial_y.to_i
     end
 
         result
@@ -312,7 +312,7 @@ Then "the $target_type has not moved" do | target_type |
 
         temp_obj = @__current_app.child( :type => target_type )
 
-        ( temp_obj.attribute( "x" ) == @initial_x ) and ( temp_obj.attribute( "y" ) == @initial_y )
+        ( temp_obj.attribute( "x" ).to_i == @initial_x.to_i ) and ( temp_obj.attribute( "y" ).to_i == @initial_y.to_i )
 
   end
 
