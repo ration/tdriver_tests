@@ -108,6 +108,12 @@ Given "the $target_type is at location $x, $y" do | object_type, x, y |
   temp_object.set_attribute("y", y)
 end
 
+Given "the $target_type is at absolute location $x, $y" do | object_type, x, y |
+
+  temp_object = @__current_app.child( :type => object_type )
+  temp_object.set_attribute('pos', "#{x},#{y}", 'QPoint')  
+  
+end
 
 Given "I $method $object_type named \"$object_name\"" do | method, object_type, object_name |
 
@@ -364,4 +370,26 @@ end
 
 Then /^the code "([^\"]*)" returns true$/ do |code|
   eval(code) == true
+end
+
+Then "the new absolute location of the $target_type is $expected_x, $expected_y" do | target_type, expected_x, expected_y | 
+
+  verify_equal(expected_x.to_i, 30, "The #{target_type} was not at absolute location #{expected_x}, #{expected_y}") do
+    
+    temp_obj = @__current_app.child( :type => target_type )
+    obj_height = temp_obj.attribute( :height ).to_i
+      
+    obj_height/2 + temp_obj.attribute("x_absolute").to_i	
+    
+  end
+  
+  verify_equal(expected_y.to_i, 30, "The #{target_type} was not at absolute location #{expected_x}, #{expected_y}") do
+    
+    temp_obj = @__current_app.child( :type => target_type )
+    obj_width = temp_obj.attribute( :width ).to_i
+      
+    obj_width/2 + temp_obj.attribute("y_absolute").to_i	
+	
+  end
+
 end
