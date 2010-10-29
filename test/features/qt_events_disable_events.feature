@@ -1,10 +1,10 @@
 Feature: MobyBehaviour::QT::Events#disable_events
   As a test scripter writer
-  I want to use disable_events method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use disable_events method stop listening to events
   so that I can test the MobyBehaviour::QT::Events behaviour
 
-  Scenario: Testing disable_events method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].disable_events()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Stop listening to mouse events
+	Given I launch application "calculator"
+    When I execute "@app.Button(:name => 'sevenButton').disable_events()"
+    Then I cannot get events for sevenButton
 
