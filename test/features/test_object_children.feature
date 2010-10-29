@@ -8,7 +8,7 @@ Feature: MobyBehaviour::TestObject#children
   Scenario: Testing children method with required argument
     Given I launch application "calculator" as "@app"
     When I execute "$test_objs = @app.children(:toolButtonStyle => 'ToolButtonIconOnly')"
-    Then an array of test objects of size "27" is returned
+    Then an array of test objects of size "31" is returned
   
   Scenario: Testing children method with optional argument 'find_all_children' false
     Given I launch application "calculator" as "@app"

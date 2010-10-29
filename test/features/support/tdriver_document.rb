@@ -16,12 +16,13 @@
 ## of this file.
 ##
 ############################################################################
-
+require 'cucumber/formatter/console'
 require File.expand_path( File.join( File.dirname( __FILE__ ), 'tdriver_document_writer' ) )
 module TDriverDocument
   #Class for formatting cucumber report
   class CucumberReport
     include TDriver_Document_Writer
+	
     #This method initializes new test run
     #
     # === params
@@ -32,7 +33,9 @@ module TDriverDocument
       @options = options
       @current_feature_element = nil
       @current_feature = nil
-      @tc_status=nil      
+      @tc_status=nil
+      @py_string=nil
+      @step_name=nil
     end
     
     def after_features(features)
@@ -44,6 +47,7 @@ module TDriverDocument
     # === returns
     # === raises
     def step_name(keyword, step_match, status, source_indent, background)
+      @step_name=step_match.format_args(lambda{|param| "#{param}"})
       if status == :passed
         step_name = step_match.format_args(lambda{|param| "#{param}"})
         update_scenario("#{step_name} PASSED")
@@ -63,7 +67,7 @@ module TDriverDocument
         update_scenario("#{step_name} NOT_RUN")
         @tc_status='not run'
       end
-    end
+    end		
     #This method visits the exception caused by a failed step
     #and updates the result in to TDriver report
     #
@@ -153,6 +157,8 @@ module TDriverDocument
     def examples_name(keyword, name)
     end
     def py_string(string)
+	    details="#{@step_name} \"#{string}\" #{@tc_status.upcase}"
+      update_scenario(details)
     end
     def before_feature(feature)
       @feature_file=feature.file

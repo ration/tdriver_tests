@@ -156,7 +156,23 @@ Given /^I set child "([^\"]*)" attribute "([^\"]*)" to "([^\"]*)"$/ do |name, at
   @__current_app.child(:name => name).set_attribute(attribute, value)
 end
 
+
+Given /^I tap down on Triangle(\d+)$/ do |arg1|
+  @app.Triangle(:name => 'Triangle'+arg1.to_s).tap_down
+end
+
+
 When /^I execute "([^\"]*)"$/ do |script|
+    raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
+    @__example_given = true
+    begin
+        @__ret_val = eval(script)
+    rescue Exception => e
+        @__exception = e
+    end
+end
+
+When "I execute" do |script|
     raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
     @__example_given = true
     begin
@@ -241,6 +257,11 @@ Then /^object named "([^\"]*)" is not visible$/ do |arg1|
   verify {@__current_app.child(:name => arg1.to_s, :visible => false) }
 end
 
+Then /^object named "([^"]*)" does not exist$/ do |arg1|
+  raise @__exception if @__exception != nil
+  verify_not {@__current_app.child(:name => arg1.to_s) }
+end
+
 Then /^exception is thrown$/ do
   verify_false(0, "Exception has not been raised") { @__exception.nil? }
 end
@@ -269,13 +290,13 @@ Then "the $target_type has moved $expected_direction" do | target_type, expected
         temp_obj = @__current_app.child( :type => target_type )
     case expected_direction
       when "left"
-            result = temp_obj.attribute( "x" ) < @initial_x
+            result = temp_obj.attribute( "x" ).to_i < @initial_x.to_i
           when "right"
-            result = temp_obj.attribute( "x" ) > @initial_x
+            result = temp_obj.attribute( "x" ).to_i > @initial_x.to_i
       when "down"
-            result = temp_obj.attribute( "y" ) > @initial_y
+            result = temp_obj.attribute( "y" ).to_i > @initial_y.to_i
           when "up"
-            result = temp_obj.attribute( "y" ) < @initial_y
+            result = temp_obj.attribute( "y" ).to_i < @initial_y.to_i
     end
 
         result
@@ -291,7 +312,7 @@ Then "the $target_type has not moved" do | target_type |
 
         temp_obj = @__current_app.child( :type => target_type )
 
-        ( temp_obj.attribute( "x" ) == @initial_x ) and ( temp_obj.attribute( "y" ) == @initial_y )
+        ( temp_obj.attribute( "x" ).to_i == @initial_x.to_i ) and ( temp_obj.attribute( "y" ).to_i == @initial_y.to_i )
 
   end
 
@@ -393,4 +414,9 @@ Then "the new absolute location of the $target_type is $expected_x, $expected_y"
 	
   end
 
+end
+
+Then /^color of Triangle(\d+) is "([^"]*)"$/ do |arg1, arg2|
+  raise @__exception if @__exception != nil
+  verify_equal(arg2, 2, "Expeting color #{arg2}") { @app.Triangle(:name => "Triangle"+arg1.to_s).attribute('color') }
 end

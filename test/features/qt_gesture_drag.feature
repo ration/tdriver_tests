@@ -23,6 +23,7 @@ Feature: MobyBehaviour::QT::Gesture#drag
     When I execute "@app.ControlTab( :name => 'ControlTab').drag(:Up, 10, :Right)"
     Then object named "Scramble" is not visible on screen
 
+@nodoc
   Scenario: Testing drag method with optional argument 'optional_params' (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].drag(direction, distance, button, optional_params)"

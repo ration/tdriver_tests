@@ -19,21 +19,25 @@ Feature: MobyBehaviour::QT::Gesture#gesture_points
     Then the Node has the x attribute with value 80
 	And the Node has the y attribute with value 180
 
+@nodoc
   Scenario: Testing gesture_points method with optional argument 'press' (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].gesture_points(points, duration, mouse_details, press)"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
+@nodoc
   Scenario: Testing gesture_points method with optional argument 'release' (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].gesture_points(points, duration, mouse_details, press, release)"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
+@nodoc
   Scenario: Testing gesture_points method with optional argument 'button' (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].gesture_points(points, duration, mouse_details, press, release, button)"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
+@nodoc
   Scenario: Testing gesture_points method with optional argument 'isDrag' (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
     When I execute "@app.[SOME_OBJECT].gesture_points(points, duration, mouse_details, press, release, button, isDrag)"
