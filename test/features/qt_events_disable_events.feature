@@ -1,5 +1,4 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
-
 Feature: MobyBehaviour::QT::Events#disable_events
   As a test scripter writer
   I want to use disable_events method stop listening to events
