@@ -159,6 +159,16 @@ When /^I execute "([^\"]*)"$/ do |script|
     end
 end
 
+When "I execute" do |script|
+    raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
+    @__example_given = true
+    begin
+        @__ret_val = eval(script)
+    rescue Exception => e
+        @__exception = e
+    end
+end
+
 
 When /^I test code "([^\"]*)"$/ do |script|
     begin
