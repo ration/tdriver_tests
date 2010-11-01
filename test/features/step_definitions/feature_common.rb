@@ -257,7 +257,7 @@ Then /^object named "([^\"]*)" is not visible$/ do |arg1|
   verify {@__current_app.child(:name => arg1.to_s, :visible => false) }
 end
 
-Then /^object named "([^"]*)" does not exist$/ do |arg1|
+Then /^object named "([^\"]*)" does not exist$/ do |arg1|
   raise @__exception if @__exception != nil
   verify_not {@__current_app.child(:name => arg1.to_s) }
 end
