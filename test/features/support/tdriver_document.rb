@@ -48,23 +48,24 @@ module TDriverDocument
     # === raises
     def step_name(keyword, step_match, status, source_indent, background)
       @step_name=step_match.format_args(lambda{|param| "#{param}"})
+      
       if status == :passed
         step_name = step_match.format_args(lambda{|param| "#{param}"})
-        update_scenario("#{step_name} PASSED")
+        update_scenario("#{step_name} PASSED") if @step_name!='I execute'
         @tc_status='passed'
       end
       if status == :failed
         step_name = step_match.format_args(lambda{|param| "#{param}"})
-        update_scenario("#{step_name} FAILED")
+        update_scenario("#{step_name} FAILED") if @step_name!='I execute'
         @tc_status='failed'
       end
       if status == :skipped
         step_name = step_match.format_args(lambda{|param| "#{param}"})
-        update_scenario("#{step_name} SKIPPED")
+        update_scenario("#{step_name} SKIPPED") if @step_name!='I execute'
       end
       if status == :undefined
         step_name = step_match.format_args(lambda{|param| "#{param}"})
-        update_scenario("#{step_name} NOT_RUN")
+        update_scenario("#{step_name} NOT_RUN") if @step_name!='I execute'
         @tc_status='not run'
       end
     end		
