@@ -34,6 +34,11 @@ mac {
 symbian {
     TARGET.CAPABILITY=CAP_APPLICATION
     TARGET.EPOCHEAPSIZE = 0x100000 0x2000000 # Min 128kb, Max 16Mb
+    BLD_INF_RULES.prj_exports += "testdata/matti.png      /epoc32/winscw/c/qt_testability/matti.png"
+    BLD_INF_RULES.prj_exports += "testdata/js_test.html   /epoc32/winscw/c/qt_testability/js_test.html"
+    BLD_INF_RULES.prj_exports += "testdata/testpage.html  /epoc32/winscw/c/qt_testability/testpage.html"
+    BLD_INF_RULES.prj_exports += "testdata/test2.html     /epoc32/winscw/c/qt_testability/test2.html"
+    BLD_INF_RULES.prj_exports += "testdata/page1.html     /epoc32/winscw/c/qt_testability/page1.html"
 }
 
 HEADERS += \

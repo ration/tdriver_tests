@@ -23,6 +23,8 @@
 
 #ifdef Q_OS_LINUX
 static const QString TESTPAGE("file:///etc/tdriver/testdata/testpage.html");
+#elif defined(Q_OS_SYMBIAN)
+static const QString TESTPAGE("Z:/qt_testability/testpage.html");
 #else
 static const QString TESTPAGE("C:/tdriver/testdata/testpage.html");
 #endif
