@@ -6,22 +6,22 @@ Feature: MobyBehaviour::QT::Widget#long_tap_object
   so that I can test the MobyBehaviour::QT::Widget behaviour
 
   Scenario: Testing long_tap_object method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].long_tap_object(x, y)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text => '9').long_tap_object(1,2)"
+    Then exception is not thrown
 
   Scenario: Testing long_tap_object method with optional argument 'time' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].long_tap_object(x, y, time)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text => '9').long_tap_object(1,2,2)"
+    Then exception is not thrown
 
   Scenario: Testing long_tap_object method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].long_tap_object(x, y, time, button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text => '9').long_tap_object(1,2,2,:Left)"
+    Then exception is not thrown
 
   Scenario: Testing long_tap_object method with optional argument 'tap_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].long_tap_object(x, y, time, button, tap_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I launch application "calculator"
+    When I execute "@app.Button(:text => '9').long_tap_object(1,2,2,:Left, {:use_tap_screen => false})"
+    Then exception is not thrown
 
