@@ -7,7 +7,10 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_to_sut
   Scenario: Copy file to sut with copy_to_sut method
     Given I have default sut
     And I generate test files
-    When I execute "@sut.copy_to_sut(:file => 'test_files\\test_file_1.txt', :to => 'C:\\temp\\')"
+    When I execute 
+    """
+    @sut.copy_to_sut(:file => 'test_files\\test_file_1.txt', :to => 'C:\\temp\\')    
+    """
     Then exception is not thrown
     And the file "test_file_1.txt" is found from "C:\temp\" in sut
     And I can delete the file "test_file_1.txt" from "C:\temp\" in sut

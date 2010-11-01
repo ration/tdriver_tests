@@ -1,11 +1,9 @@
-
 Feature: MobyBehaviour::QT::ConfigureBehaviour#clear_log
   As a test script writer
   I want to enable logger in the application 
   so that I can test the MobyBehaviour::QT::ConfigureBehaviour behaviour
 
-
-@qt_windows @qt_symbian
+@qt_windows
   Scenario: Clear the log file for sut
     Given I have default sut
     And I delete file C:/logs/testability/temp/qttasserver.log
@@ -19,8 +17,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#clear_log
 	And change sut log folder C:/logs/testability
     And I delete file C:/logs/testability/temp/qttasserver.log
 
-
-@qt_linux @qt_symbian
+@qt_linux 
   Scenario: Clear the log file for sut
     Given I have default sut
     And I delete file /logs/testability/temp/qttasserver.log

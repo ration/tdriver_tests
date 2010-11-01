@@ -6,7 +6,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_gpu_log
 @qt_windows
   Scenario: Load the gpu log without stopping the logging
     Given I launch application "testapp"
-    And I test code "@app.log_gpu_mem({:interval => 1, :filePath => 'C:\temp'})"
+    And I test code "@app.log_gpu_mem( :interval => 1, :filePath => 'C:\temp' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
     And exception is not thrown
@@ -19,7 +19,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_gpu_log
 @qt_linux @qt_meego
   Scenario: Load the gpu log without stopping the logging
     Given I launch application "testapp"
-    And I test code "@app.log_gpu_mem({:interval => 1, :filePath => '/tmp/'})"
+    And I test code "@app.log_gpu_mem( :interval => 1, :filePath => '/tmp/' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
     And exception is not thrown

@@ -46,7 +46,9 @@ onclick="setText('Radio 2 selected', 'statusbox')" value="2" checked /> Checkbox
 </fieldset>
 <div>
 	<label for="f1">Single-line text input field: 
-	<input id="textfield" type="text" name="text" size="20" ></label>
+	<input id="textfield" type="text" name="text" size="20" ></label><br/>
+	<label for="f7">File input field: 
+			<input id="filefield" type="file" name="file" size="20" ></label><br/>
 
 <button id="but" type="button" name="submitbutton" value="submit"
 onclick="setText('Input text: ' + document.getElementById('textfield').value, 'statusbox')">Send</button>

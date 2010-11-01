@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows
 
 Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
   As a test scripter writer

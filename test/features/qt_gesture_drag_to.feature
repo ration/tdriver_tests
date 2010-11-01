@@ -1,22 +1,25 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::QT::Gesture#drag_to
-  As a test scripter writer
-  I want to use drag_to method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  As a test script writer
+  I want to use drag_to method to drag an object to an absolute location in testapp
   so that I can test the MobyBehaviour::QT::Gesture behaviour
 
-  Scenario: Testing drag_to method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].drag_to(x, y)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Basic drag_to usage with required arguments
+    Given I launch application "testapp" as "@app"
+	And the MainWindow is at absolute location 100, 100"
+    When I execute "@app.Node.drag_to(300, 350)"
+    Then the new absolute location of the Node is 300, 350
 
-  Scenario: Testing drag_to method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].drag_to(x, y, button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: The used button can be defined
+    Given I launch application "testapp" as "@app"
+	And the MainWindow is at absolute location 100, 100"
+    When I execute "@app.Node.drag_to(250, 200, :Left)"
+    Then the new absolute location of the Node is 250, 200
 
-  Scenario: Testing drag_to method with optional argument 'optional_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].drag_to(x, y, button, optional_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: The 'optional_params' argument can be used to set :use_tap_screen
+    Given I launch application "testapp" as "@app"
+	And the MainWindow is at absolute location 100, 100"
+    When I execute "@app.Node.drag_to(250, 200, :Left, { :use_tap_screen => true })"
+    Then the new absolute location of the Node is 250, 200
 
