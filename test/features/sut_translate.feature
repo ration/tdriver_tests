@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows
 
 Feature: MobyBehaviour::SUT#translate
   As a test scripter writer

@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows
 
 Feature: MobyBehaviour::QT::ConfigureBehaviour#stop_event_logging
   As a test script writer

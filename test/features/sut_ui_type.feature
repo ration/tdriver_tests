@@ -1,4 +1,4 @@
-@nodoc @qt_linux @qt_windows @qt_symbian @qt_meego
+@nodoc @qt_linux @qt_windows @qt_meego
 
 Feature: MobyBehaviour::SUT#ui_type
   As a test scripter writer

@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows @qt_meego
 
 Feature: MobyBehaviour::QT::KeyPress#press_key
   As a test scripter writer

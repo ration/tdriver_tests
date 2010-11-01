@@ -23,11 +23,13 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_from_sut
     And I test code "@sut.copy_to_sut(:file => 'test_files\\test_file_1.txt', :to => 'E:\\temp\\test_copy\\')"
     And exception is not thrown
     And I can delete the test files
-    When I execute "@sut.copy_from_sut(:from => 'E:\\temp\\test_copy\\', :file => 'test_file_1.txt', :to => 'E:\\temp\\copy\\')"
+    When I execute "@sut.copy_from_sut(:from => 'E:\\temp\\test_copy\\', :file => 'test_file_1.txt', :to => 'C:\\temp\\copy\\')"
     Then exception is not thrown
-    And the file "test_file_1.txt" is found from "E:\\temp\\copy\\" in sut
+    #And the file "test_file_1.txt" is found from "E:\\temp\\copy\\" in sut
+	And file C:\temp\copy\test_file_1.txt should exist
     And I test code "@sut.delete_from_sut(:dir => 'E:\\temp\\copy\\' )"
     And I test code "@sut.delete_from_sut(:dir => 'E:\\temp\\test_copy\\' )"
+	And I delete file C:\temp\copy\test_file_1.txt
 
 @qt_linux @qt_meego
   Scenario: Copy file from sut with copy_from_sut method
