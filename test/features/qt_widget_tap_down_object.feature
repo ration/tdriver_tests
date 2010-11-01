@@ -10,8 +10,11 @@ Feature: MobyBehaviour::QT::Widget#tap_down_object
     Then color of Triangle1 is "magenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
-        @app.NodeView.tap_down_object( pos[0], pos[1] )
+      # retrieve position
+      pos = @app.child( :name => 'Triangle1' ).attribute( 'pos' ).split( ',' ).map { | str | str.to_i + 5 }
+       
+      # perform tap down object
+      @app.NodeView.tap_down_object( pos[ 0 ], pos[ 1 ] )
       """
     Then color of Triangle1 is "darkMagenta"
 
