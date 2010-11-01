@@ -107,8 +107,8 @@ module MobyBase
       
       if !target_app.nil?
         write_log( "TDMonkey target application: " << target_app ) 
-        @sut.run :name => target_app
-        write_script( "@sut.run(:name => '#{target_app}')")
+        @sut.run( :name => target_app, :arguments => '-testability' )
+        write_script( "@sut.run(:name => '#{target_app}', :arguments => '-testability')")
       end
       
       @sut.refresh
@@ -153,14 +153,35 @@ module MobyBase
       
       puts( "Target: " + target.type + " Action: " + action ) if @_verbose
       
+      t_name = nil
+      begin
+        t_name = target.attribute("objectName")
+      rescue
+      end
+      
+      t_text = nil
+      begin
+        t_text = target.attribute("text")
+      rescue
+      end
+            
       write_log( "Action performed. Target: #{target.type} Action: #{action}" )
+      
+      script_id = "(:id => '#{target.id}')"
+      if t_text != nil and t_text.to_s != ""
+        script_id = "(:text => '#{t_text}')"
+      end
+      
+      if t_name != nil and t_name.to_s != ""
+        script_id = "(:objectName => '#{t_name}')"
+      end
       
       begin
         target.instance_eval(action)
-        write_script( "@sut.application.#{target.type}(:id => '#{target.id}').#{action}" )
+        write_script( "@sut.application.#{target.type}#{script_id}.#{action}" )
       rescue Exception => e
         write_log( "Encountered chimp error: " << e.class.to_s )
-        write_script( "@sut.application.#{target.type}(:id => '#{target.id}').#{action} # This action failed due to a #{e.class.to_s}" )
+        write_script( "@sut.application.#{target.type}#{script_id}.#{action} # This action failed due to a #{e.class.to_s}" )
         raise e
       end
         
@@ -407,8 +428,8 @@ module MobyBase
           
           begin
             write_log( "Restarting target application: " << @_app )
-            write_script( "@sut.run(:name => '#{@_app}')" )
-            @sut.run(:name => @_app)
+            write_script( "@sut.run(:name => '#{@_app}', :arguments => '-testability')" )
+            @sut.run(:name => @_app, :arguments => '-testability')
           rescue
               write_log( "Failed to restart target application." )
               raise TDMonkeyNoApplicationError.new("Failed to start application #{@_app}.")
@@ -962,6 +983,7 @@ module MobyBase
       @_add_invalid_targets = { 
                             "Control" => [ 
                               { "text" => "Quit" },
+                              { "text" => "Crash" },
                               { "visibleOnScreen" => "false" }
                              ]
                            }
