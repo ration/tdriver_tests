@@ -2,11 +2,14 @@
 
 Feature: MobyBehaviour::QT::SUT#kill_started_processes
   As a test scripter writer
-  I want to use kill_started_processes method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use kill_started_processes method to kill the processes I started
   so that I can test the MobyBehaviour::QT::SUT behaviour
 
-  Scenario: Testing kill_started_processes method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].kill_started_processes()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing kill_started_processes method
+    Given I have default sut
+    And I launch application "calculator" as "@calcApp"
+    And  I launch application "testApp" as "@testApp"
+    When I execute "@sut.kill_started_processes()"
+    Then application "calculator" is not running
+    And application "testapp" is not running
 
