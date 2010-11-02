@@ -14,4 +14,3 @@ Feature: MobyBehaviour::QT::Application#drag
     Given I launch application "testapp"
     When I execute "@app.drag( ix = @app.Node(:name => 'Node1').attribute("x").to_i, iy = @app.Node(:name => 'Node1').attribute("y").to_i, ix - 10, iy - 10, 2000)"
     Then exception is not thrown
-
