@@ -7,10 +7,10 @@ Feature: MobyBehaviour::SUT#application
 
   Scenario: Testing application method
     Given I launch application "testapp" as "@app"
-    When I execute "$app = @__sut.application()"
-    Then test objects "$app" and "@app" are equal
+    When I execute "$app2=@__sut.application()"
+    Then verify "$app2==@app"
 
   Scenario: Testing application method with optional argument 'attributes'
     Given I launch application "testapp" as "@app"
-    When I execute "$app = @__sut.application( :name => 'testapp' )"
-    Then test objects "$app" and "@app" are equal
+    When I execute "$app2=@__sut.application( :name => 'testapp' )"
+    Then verify "$app2==@app"

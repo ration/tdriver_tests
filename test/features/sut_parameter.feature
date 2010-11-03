@@ -14,12 +14,12 @@ Feature: MobyBehaviour::SUT#parameter
     Given I have default sut
     And I set new sut parameter "value_name" to "result_value"
     When I execute "@result = @sut.parameter[ 'value_name' ]"
-    Then "@result" is set to string "result_value"
+    Then verify "@result=='result_value'"
     
   Scenario: Retrieve a parameter value from current SUT, return default value (second argument) if not found
     Given I have default sut
     When I execute "@result = @sut.parameter[ 'my_parameter', 'default' ]"
-    Then "@result" is set to string "default"
+    Then verify "@result=='default'"
     
   Scenario: Set parameter value in current SUT
     Given I have default sut

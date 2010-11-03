@@ -8,14 +8,14 @@ Feature: MobyBehaviour::Verification#test_object_exists?
   Scenario: Testing test_object_exists? method with required arguments
     Given I launch application "calculator" as "@app"
     When I execute "$obj_exists = @app.test_object_exists?('Button')"
-    Then "$obj_exists" is set to true
+    Then verify "$obj_exists==true"
 
   Scenario: Testing test_object_exists? method with optional argument 'attributes'
     Given I launch application "calculator" as "@app"
     When I execute "$obj_exists = @app.test_object_exists?('Button',{:text => '+',:objectName => 'plusButton'})"
-    Then "$obj_exists" is set to true
+    Then verify "$obj_exists==true"
 
   Scenario: Testing test_object_exists? method with attributes for a test object that does not exists
     Given I launch application "calculator" as "@app"
     When I execute "$obj_exists = @app.test_object_exists?('Button',{:text => '+',:objectName => 'plusButtonns'})"
-    Then "$obj_exists" is set to false
+    Then verify "$obj_exists==false"

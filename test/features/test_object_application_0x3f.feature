@@ -8,10 +8,10 @@ Feature: MobyBehaviour::TestObject#application?
   Scenario: Testing application? method
     Given I launch application "testapp" as "@app"
     When I execute "$isApp = @app.application?()"
-    Then "$isApp" is set to true
+    Then verify "$isApp==true"
 
   Scenario: Testing application? method for testobject that is not an application
     Given I launch application "testapp" as "@app"
     When I execute "$isApp = @app.Triangle( :name => 'Triangle1' ).application?()"
-    Then "$isApp" is set to false
+    Then verify "$isApp==false"
 

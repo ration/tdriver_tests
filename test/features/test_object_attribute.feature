@@ -8,7 +8,7 @@ Feature: MobyBehaviour::TestObject#attribute
   Scenario: Testing attribute method with required argument
     Given I launch application "testapp" as "@app"
     When I execute "$color = @app.Triangle( :name => 'Triangle1' ).attribute('color')"
-    Then "$color" is set to string "magenta"
+    Then verify "$color=='magenta'"
 
 	Scenario: Testing attribute method with attribute name that does not exist
     Given I launch application "testapp" as "@app"

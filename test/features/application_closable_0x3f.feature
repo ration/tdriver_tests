@@ -5,9 +5,8 @@ Feature: MobyBehaviour::Application#closable?
   I want to use closable? method to test if calculator is closable
   so that I can test the MobyBehaviour::Application behaviour
 
-
   Scenario: Testing closable? method
     Given I launch application "calculator" as "@app"
     When I execute "$closable = @app.closable?()"
-    Then "$closable" is set to true
+    Then verify "$closable==true"
 
