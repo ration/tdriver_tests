@@ -1,7 +1,7 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::SUT#run
-  As a test scripter writer
+  As a test scripter writer UNDER WORK BY ML
   I want to use run method to [DO_SOMETHING] in [TARGET_APPLICATION]
   so that I can test the MobyBehaviour::SUT behaviour
 
