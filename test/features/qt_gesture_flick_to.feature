@@ -1,3 +1,5 @@
+@qt_symbian @qt_meego
+
 Feature: MobyBehaviour::QT::Gesture#flick_to
   As a test script writer
   I want to use flick_to method to move an object to a location in testapp
