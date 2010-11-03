@@ -1,6 +1,6 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego @dev
 
-Feature: MobyBehaviour::FlaxiBehaviour#flash_images
+Feature: MobyBehaviour::FlashBehaviour#flash_images
   As a test scripter writer
   I want to use flash_images method to control device software update
   so that I can test the MobyBehaviour::FlashBehaviour behaviour
