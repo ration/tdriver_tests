@@ -36,3 +36,29 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#disable_logger
     And I delete file /logs/testability/qttasserver.log
     And I get current application
     And file /logs/testability/qttasserver.log should not exist
+
+@qt_symbian
+  Scenario: Disable logger on the application
+    Given I have default sut
+    And I launch application "calculator"
+    Then I execute "@app.disable_logger"
+	And exception is not thrown
+
+@qt_symbian
+  Scenario: Disable logger on the sut
+    Given I have default sut
+    Then I execute "@sut.disable_logger"
+	And exception is not thrown
+
+@qt_meego
+  Scenario: Disable logger on the application
+    Given I have default sut
+    And I launch application "calculator"
+    Then I execute "@app.disable_logger"
+	And exception is not thrown
+
+@qt_meego
+  Scenario: Disable logger on the sut
+    Given I have default sut
+    Then I execute "@sut.disable_logger"
+	And exception is not thrown

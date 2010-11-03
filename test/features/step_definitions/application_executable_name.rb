@@ -31,3 +31,7 @@ Then /^the application executable name should be "([^\"]*)"$/ do |executable_nam
     verify_true(10, "Failed to get executable name.") { $executable_name==executable_name }
   end  
 end
+
+Then("$app_name should be the top most application") do |app_name|
+  verify_equal(app_name, 10){@sut.application.name}
+end
