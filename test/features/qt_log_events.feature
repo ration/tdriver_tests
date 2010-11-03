@@ -22,3 +22,23 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#log_events
     Then I execute "@app.log_events('MouseRelease')"
     And I perform some taps on the app
     And I make sure MouseRelease events are in the log /logs/testability/calculator.log
+
+@qt_symbian
+  Scenario: Clear the log file for sut
+    Given I have default sut
+    And I launch application "calculator"
+    And I enable logging on the application
+    And I clear the log file for the app
+    Then I execute "@app.log_events('MouseRelease')"
+    And I perform some taps on the app
+	And exception is not thrown
+
+@qt_meego
+  Scenario: Clear the log file for sut
+    Given I have default sut
+    And I launch application "calculator"
+    And I enable logging on the application
+    And I clear the log file for the app
+    Then I execute "@app.log_events('MouseRelease')"
+    And I perform some taps on the app
+	And exception is not thrown

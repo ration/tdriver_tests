@@ -6,7 +6,8 @@ Feature: MobyBehaviour::QT::Application#bring_to_foreground
   so that I can test the MobyBehaviour::QT::Application behaviour
 
   Scenario: Testing bring_to_foreground method with calculator application
+    Given I have default sut
     Given I launch application "calculator" as "@calculatorApp"
     Given I launch application "testapp" as "@testApp"
     When I execute "@calculatorApp.bring_to_foreground()"
-    Then exception is not thrown
+    Then calculator should be the top most application

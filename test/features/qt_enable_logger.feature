@@ -24,6 +24,36 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#enable_logger
     And I get current application
     And file C:/logs/testability/qttasserver.log should exist
 
+@qt_symbian
+  Scenario: Enable logger on the application
+    Given I have default sut
+    And I launch application "calculator"
+    And I disable logging on the application
+    Then I execute "@app.enable_logger"
+	And exception is not thrown
+
+@qt_symbian
+  Scenario: Enable logger on the sut
+    Given I have default sut
+    And I disable logging on the sut
+    Then I execute "@sut.enable_logger"
+	And exception is not thrown
+
+@qt_meego
+  Scenario: Enable logger on the application
+    Given I have default sut
+    And I launch application "calculator"
+    And I disable logging on the application
+    Then I execute "@app.enable_logger"
+	And exception is not thrown
+
+@qt_meego
+  Scenario: Enable logger on the sut
+    Given I have default sut
+    And I disable logging on the sut
+    Then I execute "@sut.enable_logger"
+	And exception is not thrown
+
 @qt_linux 
   Scenario: Enable logger on the application
     Given I have default sut

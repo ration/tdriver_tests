@@ -37,10 +37,26 @@ Then ("I should see \"$webelem\" having \"$attrib\" with value \"$value\"") do |
   frame_u = frame.attribute("y").to_i 
   frame_d = frame_u + frame.attribute("height").to_i
 
-  verify_true(1) {  (elem_r <= frame_r) &&
+
+  verify_true(1) {(
+                   (#fully inside
+                    (elem_r <= frame_r) && 
                     (elem_l >= frame_l) &&
                     (elem_u >= frame_u) &&
-                    (elem_d <= frame_d)}
+                    (elem_d <= frame_d)
+                   ) ||
+                   (#partially inside
+                    (
+                     (elem_l >= frame_l && elem_l < frame_r) || 
+                     (elem_r <= frame_r && elem_r > frame_l)
+                    )&&
+                    (
+                     (elem_u >= frame_u && elem_u < frame_d) ||
+                     (elem_d <= frame_d && elem_d > frame_u)
+                    )
+                   )
+                  )
+                  }
 end
 
 Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") do |webelem, attrib, value|

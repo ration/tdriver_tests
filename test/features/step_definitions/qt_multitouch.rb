@@ -48,8 +48,10 @@ Then("the Graphicsview of the application should be transformed by the zoom") do
 end
 
 Then("the Graphicsview of the application should not be transformed by the zoom") do
-  verify_true(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
-  verify_true(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+  if @app.QGraphicsView.attribute('isTransformed') == 'true'
+	verify_true(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
+	verify_true(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+  end
 end
 
 Then("the Handle should be rotated $amount degrees") do |amount|

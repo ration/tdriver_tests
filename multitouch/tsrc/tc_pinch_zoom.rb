@@ -27,6 +27,7 @@ class TC_Pinch < Test::Unit::TestCase
 	sut = TDriver.sut(:Id => 'sut_qt')
   
 	@app = sut.run(:name => 'matti_multitouchapp')
+	@app.log_qdebug(true)
   end
 
   def teardown
@@ -44,7 +45,7 @@ class TC_Pinch < Test::Unit::TestCase
 	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
 	end
   end
-
+=begin
   def test_pinch_zoom_vertical
 	@app.MainWindow.pinch_zoom_in(2, 50, :Vertical)	
 	verify(5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
@@ -92,6 +93,7 @@ class TC_Pinch < Test::Unit::TestCase
 	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
 	end
   end
+=end
 end
 
 

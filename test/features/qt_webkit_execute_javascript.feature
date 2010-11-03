@@ -8,8 +8,8 @@ Feature: MobyBehaviour::QT::Webkit#execute_javascript
   Scenario: Testing execute_javascript method 
     Given I launch application "testapp"
     Then I move to webkit screen
-    When I execute "@app.p(:id => 'sample').execute_javascript('this.innerHTML=\'<a>tdriver evolves</a>\';')"
-    Then I verify that "a" is having "elementText" with value "tdriver evolves"
+    When I execute "@app.p(:id => 'sample').execute_javascript('this.innerHTML=\'<div>tdriver evolves</div>\';')"
+    Then I verify that "div" is having "elementText" with value "tdriver evolves"
 
   Scenario: Testing execute_javascript method's return value 
     Given I launch application "testapp"
@@ -17,7 +17,7 @@ Feature: MobyBehaviour::QT::Webkit#execute_javascript
     When I execute 
     """
         calc = @app.p(:id=>'sample').execute_javascript('2+3;');
-        @app.p(:id => 'sample').execute_javascript('this.innerHTML=\'<a>'+calc+'</a>\';')
+        @app.p(:id => 'sample').execute_javascript('this.innerHTML=\'<div>'+calc+'</div>\';')
     """
-    Then I verify that "a" is having "elementText" with value "5"
+    Then I verify that "div" is having "elementText" with value "5"
 

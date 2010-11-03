@@ -1,4 +1,4 @@
-@qt_linux @qt_windows  @qt_meego
+@qt_linux @qt_windows  @qt_meego @qt_symbian
 
 Feature: MobyBehaviour::QT::Multitouch#one_point_rotate
   As a test script writer
