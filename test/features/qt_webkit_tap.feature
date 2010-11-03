@@ -11,13 +11,13 @@ Feature: MobyBehaviour::QT::Webkit#tap
     When I execute "@app.a(:elementText => 'test link2').tap"
     Then I verify that "a" is having "elementText" with value "return link"
   
-  Scenario: tap unvisisble link
+  Scenario: tap unvisible link
     Given I launch application "testapp"
     Then I move to webkit screen
     When I execute "@app.a(:elementText => 'not visible test link').tap"
     Then I verify that "a" is having "elementText" with value "return link"
 
-  Scenario: tap second unvisisble link
+  Scenario: tap second unvisible link
     Given I launch application "testapp"
     Then I move to webkit screen
     When I execute "@app.a(:elementText => 'second not visible test link').tap"
