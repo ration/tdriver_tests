@@ -7,6 +7,7 @@ module TDriver_Document_Writer
     :passed => { :text => 'PASSED', :color => 32 }, 
     :failed => { :text => 'FAILED', :color => 31 }, 
     :skipped => { :text => 'SKIPPED', :color => 31 }, 
+    :nodoc => { :text => '', :color => 37 },
     :undefined => { :text => 'NOT_RUN', :color => 33 }
   }
 
@@ -15,6 +16,8 @@ module TDriver_Document_Writer
   @@status_table.default = { :text => '', :color => 37 }
 
   def start_feature( keyword,name, feature_file )
+
+    @tags = []
 
     lines = name.split("\n")
 
@@ -47,25 +50,35 @@ module TDriver_Document_Writer
     File.open(@feature_xml_file, 'w') {|f| f.write(builder.to_xml) }
   end
 
-  def start_scenario(keyword, name, file_colon_line, source_indent)
+  def start_scenario(keyword, name, file_colon_line, source_indent, tags = [] )
 
-    #line_size = "Scenario: #{ name }".length
+    @tags = tags
 
+    # do not write test result to xml if @nodoc tag found
+    nodoc = @tags.include?("@nodoc") ? true : false
+
+    puts "          " + colorize( "@nodoc", 37, true ) if nodoc
+   
     line = colorize( "          Scenario: ", 35, false) + colorize( name, 35, true )
 
     puts "#{ line } " + colorize( file_colon_line.to_s + ' ' + source_indent.to_s, 30, true )
 
-    @scenario_name=name
-    io = File.open(@feature_xml_file, 'r')
-    xml_data = Nokogiri::XML(io){ |config| config.options = Nokogiri::XML::ParseOptions::STRICT }
-    xml_data.root.xpath("//feature/scenarios").each do |node|
-      @scenario= Nokogiri::XML::Node.new("scenario",node)
-      scenario_name = Nokogiri::XML::Node.new("description",@scenario)
-      scenario_name.content = name
-      @scenario.add_child(scenario_name)
-      node.add_child(@scenario)
+    unless nodoc
+      
+      @scenario_name=name
+      io = File.open(@feature_xml_file, 'r')
+      xml_data = Nokogiri::XML(io){ |config| config.options = Nokogiri::XML::ParseOptions::STRICT }
+      xml_data.root.xpath("//feature/scenarios").each do |node|
+        @scenario= Nokogiri::XML::Node.new("scenario",node)
+        scenario_name = Nokogiri::XML::Node.new("description",@scenario)
+        scenario_name.content = name
+        @scenario.add_child(scenario_name)
+        node.add_child(@scenario)
+      end
+      File.open(@feature_xml_file, 'w') {|f| f.write(xml_data.to_xml) }
+
     end
-    File.open(@feature_xml_file, 'w') {|f| f.write(xml_data.to_xml) }
+
   end
 
   def colorize( text, color_code = '37', highlight = false )
@@ -100,38 +113,43 @@ module TDriver_Document_Writer
 
   def update_scenario( details, status = nil, keyword = nil )
 
-    puts "          #{ colorize( keyword.to_s + details, @@status_table[ status ][ :color ] ) } " ##{ colorize( status.to_s.upcase, @@status_table[ status ][ :color ] ) }"
+    puts "          #{ colorize( keyword.to_s + details, @@status_table[ status ][ :color ] ) } "
     
-    io = File.open( @feature_xml_file, 'r' )
+    # do not write test result to xml if @nodoc tag found
+    unless @tags.include?("@nodoc") #status == :nodoc
 
-    xml_data = Nokogiri::XML(io){ |config| config.options = Nokogiri::XML::ParseOptions::STRICT }
+      io = File.open( @feature_xml_file, 'r' )
 
-    xml_data.root.xpath("//feature/scenarios/scenario").each do |node|
+      xml_data = Nokogiri::XML(io){ |config| config.options = Nokogiri::XML::ParseOptions::STRICT }
 
-      if node.child.text == @scenario_name
+      xml_data.root.xpath("//feature/scenarios/scenario").each do |node|
 
-        if details.index("I execute")==0
-          scenario_step = Nokogiri::XML::Node.new("example_step",node)
-        else
-          scenario_step = Nokogiri::XML::Node.new("step",node)
+        if node.child.text == @scenario_name
+
+          if details.index("I execute")==0
+            scenario_step = Nokogiri::XML::Node.new("example_step",node)
+          else
+            scenario_step = Nokogiri::XML::Node.new("step",node)
+          end
+
+          scenario_step.set_attribute("status", status.to_s )
+
+          scenario_step.content = "#{ details } #{ @@status_table[ status ][ :text ] }"
+
+          node.add_child(scenario_step)
+
         end
-
-        scenario_step.set_attribute("status", status.to_s )
-
-        scenario_step.content = "#{ details } #{ @@status_table[ status ][ :text ] }"
-
-        node.add_child(scenario_step)
 
       end
 
-    end
+      File.open(@feature_xml_file, 'w') {|f| f.write(xml_data.to_xml) }
 
-    File.open(@feature_xml_file, 'w') {|f| f.write(xml_data.to_xml) }
+    end
 
   end
 
   def update_scenario_exception( exception)
-
+ 
     puts "          #{ colorize( exception, :red ) }\n"
 
     io = File.open(@feature_xml_file, 'r')
@@ -144,11 +162,14 @@ module TDriver_Document_Writer
       end
     end
     File.open(@feature_xml_file, 'w') {|f| f.write(xml_data.to_xml) }
+
   end
 
   def end_scenario(current_feature,feature_status)
+
     #p "Ending scenario: #{current_feature} #{ feature_status.to_s.upcase }"
     puts "\n"
+
   end
 
   def end_feature(current_feature,feature_status)

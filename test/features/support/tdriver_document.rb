@@ -36,13 +36,19 @@ module TDriverDocument
     # === returns
     # === raises
     def initialize(step_mother, io, options)
+
       #super(step_mother, io, options)      
       @options = options
       @current_feature_element = nil
+      @last_feature_element = nil
+
       @current_feature = nil
+
       @tc_status=nil
       @py_string=nil
       @step_name=nil
+      @tags=[]
+
     end
     
     def after_features(features)
@@ -50,16 +56,13 @@ module TDriverDocument
       end_feature( @current_feature_element, @tc_status )
 
     end
+
     #This method visits the executed cucumber step and updates the results in to TDriver report
     #
     # === params
     # === returns
     # === raises
     def step_name(keyword, step_match, status, source_indent, background)
-
-      #p source_indent
-      #p background
-      #p step_match
 
       @step_name = step_match.format_args( lambda{| param | "#{ param }" } )
 
@@ -118,6 +121,7 @@ module TDriverDocument
 =end
 
     end		
+
     #This method visits the exception caused by a failed step
     #and updates the result in to TDriver report
     #
@@ -129,6 +133,7 @@ module TDriverDocument
         update_scenario_exception("#{exception.message} #{exception.class} #{exception.backtrace}")
       end      
     end
+
     #This method visits cucumber scenario name and starts a new test case when
     #new scenario is executed
     #and updates the result in to TDriver report
@@ -141,8 +146,10 @@ module TDriverDocument
     end
 
     def feature_name(keyword,name)
-      start_feature(keyword,name,@feature_file)
+      @tags = []
+      start_feature( keyword, name, @feature_file )
     end
+
     #This method determines when new test case needs to be started
     #based on the scenario name info if scenario name is different then a new test case
     #is started
@@ -151,15 +158,22 @@ module TDriverDocument
     # === returns
     # === raises
     def visit_feature_element_name(keyword, name, file_colon_line, source_indent)
+
       line = %Q("#{name}")
-      @current_feature_element=line if @current_feature_element.nil?
+
+      @current_feature_element = line if @current_feature_element.nil?
+
       unless line == @current_feature_element
         end_scenario(@current_feature_element,@tc_status)
         @current_feature_element=line
       end
-      start_scenario(keyword, name, file_colon_line, source_indent)
+
+      start_scenario( keyword, name, file_colon_line, source_indent, @tags )
+
       @tc_status=nil
+
     end
+
     #This method records the cucumber outline table results in to one test case
     #
     # === params
@@ -168,6 +182,7 @@ module TDriverDocument
     def before_outline_table(outline_table)
       update_scenario("running outline: ")
     end
+
     #This method records the cucumber outline table results in to one test case
     #
     # === params
@@ -186,6 +201,7 @@ module TDriverDocument
         update_scenario("#{format_table_row(table_row)}", :passed)
       end
     end
+
     def format_table_row(row)
       begin
         [row.name, row.line]
@@ -193,40 +209,64 @@ module TDriverDocument
         row
       end
     end
+
     def tag_name(tag_name)
+
+      if @last_feature_element != @current_feature_element
+
+        @tags = []
+        @last_feature_element = @current_feature_element
+
+      end
+
+      @tags << tag_name
+
     end
+
     def comment_line(comment_line)
       update_scenario(comment_line)
     end
+
     def after_tags(tags)
     end
+
     def after_feature_element(feature_element)      
     end
+
     def after_background(background)
     end
+
     def before_examples_array(examples_array)
     end
+
     def examples_name(keyword, name)
     end
+
     def py_string(string)
 	    details="#{@step_name} \"#{string}\" #{@tc_status.upcase}"
       update_scenario(details)
     end
+
     def before_feature(feature)
       @feature_file=feature.file
     end
+
     def print_feature_element_name(keyword, name, file_colon_line, source_indent)
-      start_scenario(keyword, name, file_colon_line, source_indent)
+
+      start_scenario( keyword, name, file_colon_line, source_indent, @tags )
+
     end
 
     def before_table_row(table_row)
       return unless @table
       @col_index = 0
     end
+
     def table_cell_value(value, status)
       return unless @table
       status ||= @status || :passed
     end
+
   end
 end
 
