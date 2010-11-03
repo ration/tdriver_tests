@@ -18,6 +18,13 @@
 ############################################################################
 require 'cucumber/formatter/console'
 require File.expand_path( File.join( File.dirname( __FILE__ ), 'tdriver_document_writer' ) )
+
+begin
+  require 'Win32/Console/ANSI' if Config::CONFIG[ 'host_os' ] =~ /mswin|mingw|windows|cygwin/i
+rescue LoadError
+  raise 'You must gem install win32console to use color on Windows environment'
+end
+
 module TDriverDocument
   #Class for formatting cucumber report
   class CucumberReport
@@ -39,7 +46,9 @@ module TDriverDocument
     end
     
     def after_features(features)
-      end_feature(@current_feature_element,@tc_status)
+
+      end_feature( @current_feature_element, @tc_status )
+
     end
     #This method visits the executed cucumber step and updates the results in to TDriver report
     #
@@ -47,27 +56,67 @@ module TDriverDocument
     # === returns
     # === raises
     def step_name(keyword, step_match, status, source_indent, background)
-      @step_name=step_match.format_args(lambda{|param| "#{param}"})
+
+      #p source_indent
+      #p background
+      #p step_match
+
+      @step_name = step_match.format_args( lambda{| param | "#{ param }" } )
+
+=begin      
+      status_table = { 
+        :passed => 'PASSED', 
+        :failed => 'FAILED', 
+        :skipped => 'SKIPPED', 
+        :undefined => 'NOT_RUN' 
+      }
+=end
+      status_table2 = { 
+        :passed => 'passed', 
+        :failed => 'failed', 
+        :skipped => 'skipped', 
+        :undefined => 'not run' 
+      }
+
+      if status_table2.has_key?( status )
+
+        step_name = step_match.format_args( lambda{ | param | "#{ param }" } )
+
+        update_scenario("#{ step_name }", status, keyword ) if @step_name != 'I execute'
+
+        @tc_status = status_table2[ status ] 
       
+      else
+
+        puts "Unknown status '#{ status.inspect }' in '#{ step_name }'"
+
+      end
+
+=begin
       if status == :passed
         step_name = step_match.format_args(lambda{|param| "#{param}"})
         update_scenario("#{step_name} PASSED") if @step_name!='I execute'
         @tc_status='passed'
       end
+
       if status == :failed
         step_name = step_match.format_args(lambda{|param| "#{param}"})
         update_scenario("#{step_name} FAILED") if @step_name!='I execute'
         @tc_status='failed'
       end
+
       if status == :skipped
         step_name = step_match.format_args(lambda{|param| "#{param}"})
         update_scenario("#{step_name} SKIPPED") if @step_name!='I execute'
       end
+
       if status == :undefined
         step_name = step_match.format_args(lambda{|param| "#{param}"})
         update_scenario("#{step_name} NOT_RUN") if @step_name!='I execute'
         @tc_status='not run'
       end
+=end
+
     end		
     #This method visits the exception caused by a failed step
     #and updates the result in to TDriver report
@@ -128,11 +177,13 @@ module TDriverDocument
       if table_row.exception
         @tc_status='failed'
         capture_screen_test_case()
-        update_scenario("#{format_table_row(table_row)} FAILED")
+        #update_scenario("#{format_table_row(table_row)} FAILED")
+        update_scenario("#{format_table_row(table_row)}", :failed)
         update_scenario(table_row.exception)
       else
         @tc_status='passed' if @tc_status==nil
-        update_scenario("#{format_table_row(table_row)} PASSED")
+        #update_scenario("#{format_table_row(table_row)} PASSED")
+        update_scenario("#{format_table_row(table_row)}", :passed)
       end
     end
     def format_table_row(row)
