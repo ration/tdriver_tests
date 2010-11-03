@@ -129,7 +129,7 @@ bool MainWindow::event(QEvent *event)
 }
 
 void MainWindow::pinchTriggered(QPinchGesture *gesture)
-{
+{    
     if(mViews.head()->supportPinch()){
         QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
         if (changeFlags & QPinchGesture::ScaleFactorChanged) {
@@ -147,9 +147,14 @@ void MainWindow::pinchTriggered(QPinchGesture *gesture)
         }
         else{
             mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
-        }
-        mainView->centerOn(mViews.head());
+        }        
+#ifdef Q_OS_SYMBIAN
+        //need to think of a way to center in symbian since the center on crashes
+#else
+        mainView->centerOn(mViews.head()->sceneBoundingRect().center());
+#endif
     }
+    qDebug() << "MainWindow::pinchTriggered done";
 }
 
 
