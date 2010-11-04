@@ -24,7 +24,7 @@
 
 Then "I obtain array of behaviour names" do
 	raise @__exception if @__exception != nil
-	verify_true(30, "Behaviours array is not array of beahviours names (String)") {$behaviours!=nil && $behaviours.class==Array && !$behaviours.empty? }
+	verify_true(30, "Behaviours array is not array of behaviours names (String)") {$behaviours!=nil && $behaviours.class==Array && !$behaviours.empty? }
 	$behaviours.each {|x| verify_true(0,"Behaviours array is not array of behaviour names (String)"){x.class==String}}
 end
 
