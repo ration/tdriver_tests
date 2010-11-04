@@ -15,7 +15,7 @@ Feature: MobyBehaviour::ObjectBehaviourDescription#describe
     When I execute "$result=@app.Triangle( :name => 'Triangle1' ).describe(false)"
     Then verify "$result.class==Hash && $result.size==3"
 
-  Scenario: Testing describe method with optional argument 'return_result' to true, to print result and return result as string
+  Scenario: Testing describe method with optional arguments 'print' and 'return_result' set to true, to print and return result as string
     Given I launch application "testapp" as "@app"
     When I execute "$result=@app.Triangle( :name => 'Triangle1' ).describe(true, true)"
     Then verify "$result.class==String"
