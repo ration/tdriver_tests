@@ -15,6 +15,13 @@ And("I tap text \"$text\"") do |text|
   @app.MLabel( :elidedText => text ).tap
 end
 
+And("I tap regular text \"$text\"") do |text|
+  @app.MLabel( :text => text ).tap
+end
+
+And("I long tap text \"$text\"") do |text|
+  @app.MLabel( :text => text ).long_tap
+end
 
 # Tap and type text. Tap is needed to set focus.
 And("I type \"$text\" to field \"$field\"") do |text, field|
