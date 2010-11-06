@@ -114,7 +114,7 @@ void MainWindow::openMenu()
 void MainWindow::determineSize()
 {
     QRect rect = qApp->desktop()->screenGeometry();    
-    if(rect.width() > 864 && !mFullScreen ){
+    if(rect.width() > 1024 && !mFullScreen ){
         qDebug("MainWindow::determineSize() not full screen");
         setMinimumSize(864, 480);
         setMaximumSize(864, 480);
@@ -123,13 +123,7 @@ void MainWindow::determineSize()
         qDebug("MainWindow::determineSize() is full screen");
         setMinimumSize(rect.size());
         setMaximumSize(rect.size());
-#ifdef Q_OS_SYMBIAN
         showFullScreen();
-#else
-        // maemo devices in dui do not like showFullScreen calls, causes an infinite resizeEvent loop.
-        showMaximized();
-#endif
-
     }
     mViewSize = minimumSize() - QSize(4,4);
     scene->setSceneRect(0, 0, VIEWS*minimumSize().width(), minimumSize().height());
