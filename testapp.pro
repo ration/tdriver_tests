@@ -28,6 +28,8 @@ SUBDIRS += testapp
 
 SUBDIRS += multitouch
 
+SUBDIRS += browser
+
 unix: { 
    tests.files = test/*
    tests.path = /usr/share/testability-driver-tests
