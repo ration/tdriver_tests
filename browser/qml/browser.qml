@@ -112,6 +112,7 @@ Rectangle {
                flickarea.contentHeight=webpage.contentsSize.height;
                flickarea.contentWidth=webpage.contentsSize.width;
                urlbutton.color="cyan";
+               urltext.text=url
             }
          }
       }
