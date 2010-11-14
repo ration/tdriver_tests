@@ -40,6 +40,7 @@ Rectangle {
 
          TextInput {
             id:urltext;
+            objectName: "urltext";
             text:webpage.url;
             color:"white"
             selectByMouse:true;
@@ -51,6 +52,7 @@ Rectangle {
          Rectangle {
             color:"cyan"
             id:urlbutton
+            objectName: "urlbutton";
 
             width:parent.height
             height:parent.height
@@ -63,30 +65,57 @@ Rectangle {
                   parent.x = urltext.width;
                }
 
-               //clear gesture
                drag.target: urlbutton
                drag.axis: Drag.XAxis
                drag.minimumX: 0
                drag.maximumX: browser.width - parent.width
-               onPressed: {urlbutton.color="gray";
-                           urlbutton.opacity=0.50;}
+               onPressed: {
+                  addressbar.state="drag";
+               }
                onReleased:{
-                  parent.opacity=1.00;
                   if(parent.x < parent.parent.width/2){
                      urltext.text = "http://";
-                     urltext.x=parent.width;
                      urltext.focus=true;
-                     urlbutton.x=0
+                     addressbar.state="type"
                   }
                   if(parent.x > parent.parent.width/2){
                      webpage.url = urltext.text;
-                     parent.color="red";
-                     parent.x = urltext.width;
-                     urltext.x=0;
+                     addressbar.state="load"
                   }
                }
             }
          }
+         states:[
+            State {
+               name: "drag";
+               PropertyChanges { target: urlbutton; opacity:0.50;}
+            },
+            State {
+               name: "type";
+               PropertyChanges { target: urltext; x:urlbutton.width; y:0; }
+               PropertyChanges { target: urlbutton; x:0; y:0; opacity:1.00;}
+            },
+            State {
+               name: "load";
+               PropertyChanges { target: urlbutton; x: urltext.width; opacity:1.00; color:"red";}
+               PropertyChanges { target: urltext; x: 0; }
+            },
+            State {
+               name: "ready"
+               PropertyChanges { target: urlbutton; color:"cyan"; opacity:1.00; }
+            }
+         ]
+         transitions: [
+            Transition {
+               from: "*"; to: "*";
+               //SequentialAnimation {
+               NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuart ;duration:400}
+               NumberAnimation { properties: "opacity"; easing.type: Easing.InOutQuart; duration:400}
+                  ColorAnimation { duration: 1000 }
+               //}
+            }
+         ]
+
       }
       Flickable {
          id:flickarea
@@ -111,7 +140,7 @@ Rectangle {
             onLoadFinished: {
                flickarea.contentHeight=webpage.contentsSize.height;
                flickarea.contentWidth=webpage.contentsSize.width;
-               urlbutton.color="cyan";
+               addressbar.state="ready";
                urltext.text=url
             }
          }
@@ -127,6 +156,7 @@ Rectangle {
       color:"black";
       Rectangle {
          id:switcher
+         objectName:"bottom_button"
 
          width:parent.height-2
          height:parent.height-2
@@ -135,24 +165,38 @@ Rectangle {
          y:1
 
          MouseArea {
+            id:switcherMouseArea
             anchors.fill: parent
             drag.target: switcher
             drag.axis: Drag.XAxis
             drag.minimumX: 0
             drag.maximumX: browser.width - parent.width
 
-            onPressed: {switcher.color="gray";}
+            onPressed: {
+               switcher.color="gray";
+               parent.state="dragging"
+            }
             onReleased:{
                switcher.color="white";
                if(switcher.x < switcher.parent.width/3){
                   webpage.back.trigger();
+
                }
                if(switcher.x > 2*switcher.parent.width/3){
                   urltext.text = "http://";
                }
-               var target = (switcher.parent.width-switcher.width)/2;
-               switcher.x = target;
+               parent.state="released"
             }
+         }
+
+         states: State {
+            name: "released";
+            PropertyChanges { target: switcher; x: (switcher.parent.width-switcher.width)/2; }
+         }
+
+         transitions: Transition {
+            from:"*";to:"released";
+            NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuart }
          }
       }
    }
