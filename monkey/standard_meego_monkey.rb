@@ -17,21 +17,28 @@
 ##
 ############################################################################
 
-require 'monkey_example_configuration.rb'
+require 'meego_monkey_configuration.rb'
 
-qt_monkey = nil
+monkey_time = 10
+
+begin
+  if ARGV.size > 0
+    monkey_time = ARGV[0].to_i
+  end
+rescue
+end
+
+puts "Exercising monkey #{monkey_time} times."
+
+meego_monkey = nil
 begin
 
-  qt_monkey = MobyBase::QtTDMonkeyCalculator.new("calculator")
-  10.times do
+  meego_monkey = MobyBase::MeeGoMonkey.new()
+  monkey_time.times do
 
     begin
 
-      if rand(3).to_i == 1
-        qt_monkey.gorilla
-      else
-        qt_monkey.chimp
-      end
+      meego_monkey.gorilla
 
     rescue MobyBase::TestObjectNotFoundError => e
       puts e.inspect
@@ -56,3 +63,4 @@ rescue Exception => e
 end
 
 puts "TDMonkey finished"
+
