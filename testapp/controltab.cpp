@@ -57,7 +57,7 @@ ControlTab::ControlTab(QGraphicsItem* parent)
 
 QRectF ControlTab::boundingRect() const
 {
-    return QRectF(0, 0, CONTROLTAB_WIDTH+3, CONTROLTAB_HEIGHT+3);
+    return QRectF(0, 0, CONTROLTAB_WIDTH, CONTROLTAB_HEIGHT);
 }
 
 QPainterPath ControlTab::shape() const

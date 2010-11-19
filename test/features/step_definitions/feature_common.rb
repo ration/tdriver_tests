@@ -363,6 +363,19 @@ Then "the new location of the $target_type is $expected_x, $expected_y" do | tar
 
 end
 
+Then "the scenepos of $obj is $pos" do |obj, pos|
+  verify_equal(pos, 5){@__current_app.child( :type => obj).attribute('scenePos')}
+end
+
+Then "I set testapp to fullscreen" do
+  seq = MobyCommand::KeySequence.new(:kControl, :KeyDown).append!(:kF).append!(:kControl, :KeyUp)
+  @__current_app.press_key(seq)
+end
+
+Then "$target_type is on top of $target2_type" do |target_type, target_type2|
+  verify_equal(@__current_app.child( :type => target_type2).attribute('x'), 5){@__current_app.child( :type => target_type).attribute('x')}
+end
+
 Then /^I find and delete the file "([^\"]*)"$/ do |file|
   File.delete(file)
 end

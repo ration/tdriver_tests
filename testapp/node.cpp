@@ -57,7 +57,8 @@ Node::Node(QGraphicsItem* item)
 
 QRectF Node::boundingRect() const
 {
-    return QRectF(0, 0, SIZE + ADJUST, SIZE + ADJUST);
+    //    return QRectF(0, 0, SIZE + ADJUST, SIZE + ADJUST);
+    return QRectF(0, 0, SIZE , SIZE );
 }
 
 QPainterPath Node::shape() const

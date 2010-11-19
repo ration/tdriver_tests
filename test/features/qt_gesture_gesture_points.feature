@@ -9,15 +9,13 @@ Feature: MobyBehaviour::QT::Gesture#gesture_points
     Given I launch application "testapp" as "@app"	
 	And the Node is at location 200, 100
     When I execute "@app.Node.gesture_points([{'x' => 220,'y' => 120, 'interval' => 100},{'x' => 200,'y' => 300, 'interval' => 300}], 2)"
-	Then the Node has the x attribute with value 180
-	And the Node has the y attribute with value 280
+	Then the scenepos of Node is 180,280
 		
   Scenario: Mouse simulation details can be configured with the 'mouse_details' Hash
     Given I launch application "testapp" as "@app"
 	And the Node is at location 200, 100
     When I execute "@app.Node.gesture_points([{'x' => 220,'y' => 120, 'interval' => 100},{'x' => 100,'y' => 200, 'interval' => 80}], 2, { :press => true, :release => true, :button => :Left, :isDrag => true})"
-    Then the Node has the x attribute with value 80
-	And the Node has the y attribute with value 180
+	Then the scenepos of Node is 80,180
 
 @nodoc
   Scenario: Testing gesture_points method with optional argument 'press' (Rename this to be more descriptive)
@@ -47,6 +45,5 @@ Feature: MobyBehaviour::QT::Gesture#gesture_points
     Given I launch application "testapp" as "@app"
 	And the Node is at location 200, 100
     When I execute "@app.Node.gesture_points([{'x' => 220,'y' => 120, 'interval' => 100},{'x' => 200,'y' => 300, 'interval' => 80}], 5, { :press => true, :release => true, :button => :Left, :isDrag => true}, { :use_tap_screen => false })"
-    Then the Node has the x attribute with value 180
-	And the Node has the y attribute with value 280
+	Then the scenepos of Node is 180,280
 

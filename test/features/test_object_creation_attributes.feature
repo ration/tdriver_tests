@@ -20,8 +20,8 @@ Feature: MobyBehaviour::TestObject#creation_attributes=
   Scenario: Testing creation_attributes accessor method are unchanged when two instances of the same Test Object are retrieved
     Given I launch application "testapp" as "@app"
     When I execute "$triangle1=@app.Triangle( :name => 'Triangle1' )"
-    And I retrieve another instance of Test Object "$triangle1" called "$triangle2" using child behaviour with attributes "{ :x => '430', :y => '238' }"
-    Then the contents of "$triangle2.creation_attributes" should be equal to "{ :x => '430', :y => '238' }"
+    And I retrieve another instance of Test Object "$triangle1" called "$triangle2" using child behaviour with attributes "{:color => 'magenta' }"
+    Then the contents of "$triangle2.creation_attributes" should be equal to "{ :color => 'magenta' }"
 
 
 
