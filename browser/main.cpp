@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 #endif
     }
     view.setSource(url);
-    view.show();
+    view.rotate(90.0);
+    view.showFullScreen();
     return app.exec();
 }

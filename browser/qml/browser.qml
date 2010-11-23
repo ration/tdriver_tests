@@ -70,7 +70,8 @@ Rectangle {
                drag.minimumX: 0
                drag.maximumX: browser.width - parent.width
                onPressed: {
-                  addressbar.state="drag";
+                  urlbutton.opacity=0.5;
+                  //addressbar.state="drag";
                }
                onReleased:{
                   if(parent.x < parent.parent.width/2){
@@ -143,6 +144,9 @@ Rectangle {
                addressbar.state="ready";
                urltext.text=url
             }
+            onLoadStarted: {
+               addressbar.state="load"
+            }
          }
       }
    }
@@ -183,19 +187,33 @@ Rectangle {
 
                }
                if(switcher.x > 2*switcher.parent.width/3){
-                  urltext.text = "http://";
+                  parent.state="locked"
+                  flickarea.flickableDirection=Flickable.VerticalFlick;
+               } else {
+                  flickarea.flickableDirection=Flickable.HorizontalAndVerticalFlick;
+                  parent.state="released"
                }
-               parent.state="released"
             }
          }
 
-         states: State {
-            name: "released";
-            PropertyChanges { target: switcher; x: (switcher.parent.width-switcher.width)/2; }
-         }
+         states: [
+            State {
+               name: "dragging";
+               PropertyChanges { target: switcher; color:"gray"; }
+            },
+            State {
+               name: "released";
+               PropertyChanges { target: switcher; x: (switcher.parent.width-switcher.width)/2; }
+            },
+            State {
+               name: "locked";
+               PropertyChanges { target: switcher; x: (switcher.parent.width-switcher.width); }
+            }
+         ]
+
 
          transitions: Transition {
-            from:"*";to:"released";
+            from:"*";to:"*";
             NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuart }
          }
       }
