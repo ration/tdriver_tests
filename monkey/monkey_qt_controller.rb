@@ -17,7 +17,7 @@
 ##
 ############################################################################
 
-require 'monkey.rb'
+require 'monkey_example_configuration.rb'
 
 qt_monkey = nil
 begin
