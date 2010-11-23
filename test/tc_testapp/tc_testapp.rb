@@ -161,12 +161,10 @@ class TC_Testapp < Test::Unit::TestCase
     rectangle = @tapp.Rectangle(:name => 'Rectangle1')
     old_color = rectangle.attribute('color')
     node.drag_to_object(rectangle)
-    @tapp.Rectangle.tap_up
-    new_color = rectangle.attribute('color')
 
     #then color of rectangle should change frm red to  blue
-    verify_true(TIMEOUT, "Node was not moved over Rectangle"){
-        new_color=='blue' #old_color=='red' &&  new_color=='blue'
+    verify_equal('blue', TIMEOUT, "Node was not moved over Rectangle"){
+        rectangle.attribute('color')
     }
   end
 
