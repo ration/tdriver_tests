@@ -1,10 +1,12 @@
+DEFAULT_LANGUAGE = "en_GB"
+
 Given /^I set localisation parameters for mysql table creation$/ do
 	MobyUtil::Parameter[ :localisation_db_type ] = "mysql"
 	MobyUtil::Parameter[ :localisation_server_ip ] = "trmatti1.nmp.nokia.com" 
 	MobyUtil::Parameter[ :localisation_server_username ] = "locale"
 	MobyUtil::Parameter[ :localisation_server_password ] = "password"
 	MobyUtil::Parameter[ :localisation_server_database_name ] = "matti_locale"
-	MobyUtil::Parameter[ @sut.id ][ :language ] = "en_GB"
+	MobyUtil::Parameter[ @sut.id ][ :language ] = DEFAULT_LANGUAGE
 	MobyUtil::Parameter[ @sut.id  ][ :localisation_server_database_tablename ] = "temp_table_for_regression_test"
 end
 
@@ -14,15 +16,28 @@ Given /^I set localisation parameters for sqlite table creation$/ do
 	MobyUtil::Parameter[ :localisation_server_username ] = ""
 	MobyUtil::Parameter[ :localisation_server_password ] = ""
 	MobyUtil::Parameter[ :localisation_server_database_name ] = "./test_data/settings.sqlite"
-	MobyUtil::Parameter[ @sut.id ][ :language ] = "en_GB"
+	MobyUtil::Parameter[ @sut.id ][ :language ] = DEFAULT_LANGUAGE
 	MobyUtil::Parameter[ @sut.id  ][ :localisation_server_database_tablename ] = "temp_table_for_regression_test"
 end
 
-Then /^I can get the translation "([^\"]*)" from the new table$/ do |translation|
-    verify_true(10, "Failed to get translation.") { @sut.translate(:qtn_sett_main_title, nil, nil, nil, "1") == translation }
-	MobyUtil::Parameter[ @sut.id ][ :language ] = "id"
-	verify_true(10, "Failed to get translation.") { @sut.translate(:qtn_sett_main_title, nil, nil, nil, "1") == translation }
-	MobyUtil::Parameter[ @sut.id ][ :language ] = "en_GB"
+Then /^I set the language to "([^\"]*)"$/ do |lan|
+  MobyUtil::Parameter[ @sut.id ][ :language ] = lan
+end
+
+Then /^I restore the language to default$/ do
+  MobyUtil::Parameter[ @sut.id ][ :language ] = DEFAULT_LANGUAGE
+end
+
+Then /^I can get the translation "([^\"]*)" for the symbol "([^\"]*)"$/ do |lengthvar, translation, symbol|
+    verify_true(10, "Failed to get translation.") { @sut.translate(symbol.to_sym) == translation }
+end
+
+Then /^I can get the lengthvariant "([^\"]*)" with the translation "([^\"]*)" for the symbol "([^\"]*)"$/ do |lengthvar, translation, symbol|
+    verify_true(10, "Failed to get translation.") { @sut.translate(symbol.to_sym, nil, nil, nil, lengthvar) == translation }
+end
+
+Then /^I can get the plurality "([^\"]*)" with the translation "([^\"]*)" for the symbol "([^\"]*)"$/ do |plurality, translation, symbol|
+    verify_true(10, "Failed to get translation.") { @sut.translate(symbol.to_sym, nil, plurality) == translation }
 end
 
 Then /^I can drop the new table$/ do	

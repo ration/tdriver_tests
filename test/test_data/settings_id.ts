@@ -19,7 +19,12 @@
     </message>
     <message>
         <source>qtn_sett_main_other</source>
-        <translation>All settings</translation>
+        <translation>
+          <numerus> </numerus>
+          <numerusform>Setting</numerusform>
+          <numerusform>%L1 Settings</numerusform>
+          <numerusform>All Settings</numerusform>
+        </translation>
     </message>
     <message>
         <source>qtn_sett_main_utilities</source>
