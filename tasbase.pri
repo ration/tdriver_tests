@@ -31,14 +31,17 @@ symbian: {
 TAS_TARGET_BIN=/qttas/bin
 TAS_TARGET_LIB=/qttas/lib
 TAS_TARGET_PLUGIN=$$[QT_INSTALL_PLUGINS]/
+TAS_TEST_FOLDER=/tdriver/testdata
 }
 win32: {
 TAS_TARGET_BIN=/qttas/bin
 TAS_TARGET_LIB=/qttas/lib
 TAS_TARGET_PLUGIN=$$[QT_INSTALL_PLUGINS]/
+TAS_TEST_FOLDER=/tdriver/testdata
 }
 macx: {
 TAS_TARGET_BIN=/usr/local/bin
 TAS_TARGET_LIB=/usr/lib
 TAS_TARGET_PLUGIN=$$[QT_INSTALL_PLUGINS]/
+TAS_TEST_FOLDER=/opt/tdriver/testdata
 }
