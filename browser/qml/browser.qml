@@ -78,7 +78,7 @@ Rectangle {
                }
                onReleased:{
                   if(parent.x < parent.parent.width/2){
-                     urltext.text = "http://";
+                     urltext.text = "";
                      urltext.focus=true;
                      addressbar.state="type"
                   }
