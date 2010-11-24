@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+<html>
+<head>
+<title>Testapp Test Page</title>
+<meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+<meta http-equiv='content-type' content='application/xhtml+xml; charset=UTF-8'>
+<meta http-equiv='content-style-type' content='text/css'>
+<script type='text/javascript'>
+function madeSelection(value){
+   setText("Option " + value + " selected.", "statusbox");
+}
+function setText(text, box) {
+	document.getElementById(box).innerHTML = text;
+}
+
+function displayCoord(element) {
+   obj = document.getElementById(element);
+	curleft = obj.offsetLeft;
+   var curtop = obj.offsetTop;
+   setText("Position of " + element + ":"+ curleft +":"+curtop, "selectionbox");
+}	
+function setValue(element ,text) {
+	element.innerHTML=text;
+}	
+
+</script>
+</head>
+<body onload="displayCoord('selection_area')">
+<img src="matti.png" alt="matti" onclick="setText('Image clicked', 'statusbox')"/>
+<form>
+Selection: <select id='selection_area' tag="select_option" 
+					onchange="madeSelection(this.value, 'statusbox')">
+<option>Please Choose</option>
+<option value='1' id='1' onclick="displayCoord('2')">Option 1</option>
+<option value='2' id='2' onclick="displayCoord('2')">Option 2</option>
+<br />
+</select>
+<fieldset>
+<legend>Checkbox test</legend>
+<div><label for="f5">
+<input id="f5" type="radio" name="radio" 
+onclick="setText('Radio 1 selected', 'statusbox')" value="1" /> Checkbox 1</label></div>
+<div><label for="f6">
+<input id="f6" type="radio" name="radio"  
+onclick="setText('Radio 2 selected', 'statusbox')" value="2" checked /> Checkbox 2 (initially checked)</label></div>
+</fieldset>
+<div>
+	<label for="f1">Single-line text input field: 
+	<input id="textfield" type="text" name="text" size="20" ></label><br/>
+	<label for="f7">File input field: 
+			<input id="filefield" type="file" name="file" size="20" ></label><br/>
+
+<button id="but" type="button" name="submitbutton" value="submit"
+onclick="setText('Input text: ' + document.getElementById('textfield').value, 'statusbox')">Send</button>
+</div>
+
+</form>
+<div tag='statusbox' id='statusbox'></div>
+<br />
+<div id='selectionbox'>
+</div>
+</body>
+<frameset>
+  <frame src="js_test.html"/>
+</frameset>
+</html>

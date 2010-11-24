@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+<html>
+<head>
+<title>JS Test Page</title>
+<meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+<meta http-equiv='content-type' content='application/xhtml+xml; charset=UTF-8'>
+<meta http-equiv='content-style-type' content='text/css'>
+<script type='text/javascript'>
+function setText(text, box) {
+	document.getElementById(box).innerHTML = text;
+}
+
+</script>
+</head>
+<body>
+<p>
+  <img src="matti.png" id="1" alt="matti1" onclick="setText('Image 1 clicked', 'statusbox2')"/>
+  <img src="matti.png" id="2" alt="matti2" onclick="setText('Image 2 clicked', 'statusbox2')"/>
+  <img src="matti.png" id="3" alt="matti3" onclick="setText('Image 3 clicked', 'statusbox2')"/>
+</p>
+<div tag='statusbox2' id='statusbox2'></div>
+<div tag='statusbox3' id='statusbox'></div>
+
+<p id="sample">
+	sample element text
+	<i id="sample2">
+	  first phase 
+  	<b id="sample3">
+  		third text
+  	</b>
+	  second phase
+	  <br/>
+	  <u> test text 4 </u>
+	  third phase
+  </i>
+  <a href="test2.html" onClick="alert('The link was clicked.');"> test link </a>
+  <br>
+  <a href="test2.html"> test link2 </a>
+</p>
+
+
+<p>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<table width="700px">
+		<tr>
+			<td>  <a href="test2.html">not visible test link</a>
+			</td>
+			<td>almost empty space</td>
+			<td>
+				<a href="test2.html">second not visible test link</a>
+			</td>
+		</tr>
+	</table>
+</p>
+
+
+</body>
+</html>

@@ -22,8 +22,8 @@ import QtWebKit 1.0
 
 Rectangle {
    id:browser
-   width:480
-   height:800
+   width:360
+   height:640
 
    Rectangle {
       id:filler
@@ -59,7 +59,10 @@ Rectangle {
 
             x:urltext.width
             MouseArea {
-               anchors.fill:parent
+               anchors.horizontalCenter: parent.horizontalCenter
+               anchors.verticalCenter: parent.verticalCenter
+               width: (parent.width)*2
+               height: (parent.height)*2
                onClicked:{
                   webpage.url=urltext.text;
                   parent.x = urltext.width;
@@ -118,14 +121,15 @@ Rectangle {
          ]
 
       }
-      Flickable {
+//      Flickable {
+      Rectangle {
          id:flickarea
          anchors.top:addressbar.bottom
          anchors.bottom:parent.bottom
          width:parent.width
 
-         contentHeight:webpage.contentsSize.height
-         contentWidth:webpage.contentsSize.width
+         //contentHeight:webpage.contentsSize.height
+         //contentWidth:webpage.contentsSize.width
 
          WebView {
             anchors.fill:parent;
@@ -136,11 +140,11 @@ Rectangle {
             preferredHeight:height;
             preferredWidth:width;
 
-            url:"../html/test1.html"
+            url:"../html/testpage.html"
 
             onLoadFinished: {
-               flickarea.contentHeight=webpage.contentsSize.height;
-               flickarea.contentWidth=webpage.contentsSize.width;
+               //flickarea.contentHeight=webpage.contentsSize.height;
+               //flickarea.contentWidth=webpage.contentsSize.width;
                addressbar.state="ready";
                urltext.text=url
             }
@@ -170,7 +174,10 @@ Rectangle {
 
          MouseArea {
             id:switcherMouseArea
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            width: (parent.width)*2
+            height: (parent.height)*2
             drag.target: switcher
             drag.axis: Drag.XAxis
             drag.minimumX: 0
@@ -190,8 +197,8 @@ Rectangle {
                   parent.state="locked"
                   flickarea.flickableDirection=Flickable.VerticalFlick;
                } else {
+                   parent.state="released"
                   flickarea.flickableDirection=Flickable.HorizontalAndVerticalFlick;
-                  parent.state="released"
                }
             }
          }
