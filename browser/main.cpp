@@ -39,9 +39,13 @@ int main(int argc, char *argv[])
        url = QUrl::fromLocalFile("/etc/tdriver/testdata/browser/qml/browser.qml");
 #else
        url = QUrl::fromLocalFile("/tdriver/testdata/browser/qml/browser.qml");
-#endif
+#endif //Q_OS_LINUX
     }
     view.setSource(url);
+#ifdef Q_OS_SYMBIAN
+    view.showFullScreen();
+#else
     view.show();
+#endif //Q_OS_SYMBIAN
     return app.exec();
 }

@@ -15,11 +15,15 @@ DESTDIR = bin
 
 SOURCES += main.cpp
 
-unix:{
-   target.path = $$TAS_TARGET_BIN
-   testqml.files = qml/*
-   testqml.path = $$TAS_TEST_FOLDER/browser/qml
-   testhtml.files = html/*
-   testhtml.path = $$TAS_TEST_FOLDER/browser/html
-}
+target.path = $$TAS_TARGET_BIN
+
+testqml.files = qml/*
+testqml.sources = qml/*
+testqml.path = $$TAS_TEST_FOLDER/browser/qml
+
+testhtml.files = html/*
+testhtml.sources = html/*
+testhtml.path = $$TAS_TEST_FOLDER/browser/html
+
+DEPLOYMENT += target testqml testhtml
 INSTALLS += target testqml testhtml

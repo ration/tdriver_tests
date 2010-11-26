@@ -128,7 +128,21 @@ Feature: MobyBehaviour::SUT#translate
 	  And I set localisation parameters for mysql test environment
     When I execute "$translation = @sut.translate(:txt_plurality_test, 'calendar', 'a', 3, '1')"
 	  Then I get the translation "My dog eats 3 cookies a day."
-	
+
+  @mysql
+  Scenario: Testing translate method with optional arguments fname, plurality and multiple numerus values (%1, %2) on mysql
+    Given I have default sut
+	  And I set localisation parameters for mysql test environment
+    When I execute "$translation = @sut.translate(:txt_plurality_test, 'calendar', 'c', [3, 2])"
+	  Then I get the translation "My dog eats 3 cookies every 2 minutes."
+
+  @mysql
+  Scenario: Testing translate method with optional arguments fname, plurality and multiple numerus values (%L1, %L2) on mysql
+    Given I have default sut
+	  And I set localisation parameters for mysql test environment
+    When I execute "$translation = @sut.translate(:txt_plurality_test, 'calendar', 'd', [3, 2])"
+	  Then I get the translation "My dog eats 3 cookies every 2 minutes."
+    
   @sqlite
   Scenario: Testing translate method with optional arguments fname, plurality and lengthvariant on sqlite
     Given I have default sut
