@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta name="touchnavigation" content="scroll">
+    <script src="drag.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        div.box {
+            border: 1px solid #000;
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            font-size: 8pt;
+        }
+        #blue {
+            top: 400px;
+            left: 000px;
+            background-color: blue;
+        }
+        #red {
+            top: 390px;
+            left: 190px;
+            width: 170px;
+            height: 170px;
+            background-color: red;
+        }
+        #debug_container {
+            width: 90%;
+            height: 90%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body  ontouchstart="event.preventDefault();" height="100%">
+    <div class="box" id="blue"></div>
+    <div class="box" id="red"></div>
+    <div id="debug_container"></div>
+</body>
+</html>
