@@ -6,8 +6,7 @@ Feature: MobyBehaviour::QT::Webkit#execute_javascript
   so that I can test the MobyBehaviour::QT::Webkit behaviour
 
   Scenario: After loading web element following elements should be available
-    Given I launch application "testapp"
-    Then I move to webkit screen
+    Given I launch application "browser"
     Then I verify evaluate string "@app.input(:type => 'radio', :checked => 'false')"
     Then I verify evaluate string "@app.input(:type => 'radio', :checked => 'true')"
     Then I verify evaluate string "@app.p(:elementText => 'sample element text')"
