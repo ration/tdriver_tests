@@ -26,7 +26,7 @@ require 'tdriver'
 
 
 Then ("I verify that the page is loaded") do 
-  verify(5) {
+  verify(2) {
   	#color of the button changes when ready
   	@app.QDeclarativeRectangle(:color => '#00ffff')
   }
