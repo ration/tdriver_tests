@@ -51,6 +51,8 @@ After do
         end
     end
   @__sut.clear_verify_blocks
+  #Raising exception if it hasn't been handled
+  raise @__exception if @__exception != nil
 end
 
 
@@ -279,6 +281,8 @@ Then /^exception matching "([^\"]*)" is thrown$/ do |arg1|
   verify_false(0, "No exception has not been raised") { @__exception.nil? }
   re = Regexp.new(arg1.to_s)
   verify_false(0, "Exception '#{@__exception.to_s}' does not match given regexp #{re.inspect}") { (re =~ @__exception.to_s).nil? }
+  #exception handled can be set to nil
+  @__exception=nil
 end
 
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |
