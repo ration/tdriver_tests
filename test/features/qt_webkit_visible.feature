@@ -9,7 +9,11 @@ Feature: MobyBehaviour::QT::Webkit
     Given I launch application "browser"
 		Then I move to page "../html/html_css.html"
 		Then I verify that the page is loaded
-		Then I verify that "h1" is having "visible" with value "true"
-		Then I verify that "h2" is having "visible" with value "false"
-		Then I verify that "h3" is having "visible" with value "false"
-		Then I verify that "h4" is having "visible" with value "false"
+		Then verify "@app.h1( :name => 'h1' ).attribute('visible')=='true'"
+		Then verify "@app.h2( {:name => 'h2',:id => 'display_none'} ).attribute('visible')=='false'"
+		Then verify "@app.h3( :name => 'h3' ).attribute('visible')=='false'"
+		Then verify "@app.h4( :name => 'h4' ).attribute('visible')=='false'"
+		Then verify "@app.h5( :name => 'h5' ).attribute('visible')=='false'"
+		Then verify "@app.h6( :name => 'h6' ).attribute('visible')=='false'"
+		
+		
