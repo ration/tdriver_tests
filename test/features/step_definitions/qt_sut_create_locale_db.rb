@@ -28,7 +28,7 @@ Then /^I restore the language to default$/ do
   MobyUtil::Parameter[ @sut.id ][ :language ] = DEFAULT_LANGUAGE
 end
 
-Then /^I can get the translation "([^\"]*)" for the symbol "([^\"]*)"$/ do |lengthvar, translation, symbol|
+Then /^I can get the translation "([^\"]*)" for the symbol "([^\"]*)"$/ do |translation, symbol|
     verify_true(10, "Failed to get translation.") { @sut.translate(symbol.to_sym) == translation }
 end
 

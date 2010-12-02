@@ -55,3 +55,21 @@ Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
     And I can get the plurality "3" with the translation "All Settings" for the symbol "qtn_sett_main_other"
     And I restore the language to default
     And I can delete the new table
+    
+  @mysql
+  Scenario: Create a new localisation table with the .loc files on a mysql db using column name map
+    Given I have default sut
+    And I set localisation parameters for mysql table creation  
+    When I execute "@sut.create_locale_db( Dir.pwd + '/test_data/' , '*.loc', nil, {'01' => 'en_GB'})"
+    And I can get the translation "#accindicatorsettings" for the symbol "STRING_r_short_caption"
+    And I can drop the new table
+    
+  @mysql
+  Scenario: Create a new localisation table with the .loc files on a mysql db
+    Given I have default sut
+    And I set localisation parameters for mysql table creation  
+    When I execute "@sut.create_locale_db( Dir.pwd + '/test_data/' , '*.loc')"
+    And I set the language to "en"
+    And I can get the translation "#accindicatorsettings" for the symbol "STRING_r_short_caption"
+    And I restore the language to default
+    And I can drop the new table
