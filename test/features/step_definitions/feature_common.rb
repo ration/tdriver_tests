@@ -265,7 +265,12 @@ Then /^object named "([^\"]*)" does not exist$/ do |arg1|
 end
 
 Then /^exception is thrown$/ do
+
   verify_false(0, "Exception has not been raised") { @__exception.nil? }
+
+  # reset exception variable, otherwise exception will be actually raised!
+  @__exception = nil
+
 end
 
 
