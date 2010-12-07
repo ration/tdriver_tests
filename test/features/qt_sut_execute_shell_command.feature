@@ -25,7 +25,7 @@ Feature: MobyBehaviour::QT::SUT#execute_shell_command
     When I execute "@sut.execute_shell_command('testapp -r 10', :wait => 'true')"
     Then exception is not thrown
 
-  Scenario: Testing execute_shell_command method with optional argument ':timout' 
+  Scenario: Testing execute_shell_command method with optional argument ':timeout' 
     Given I have default sut
     When I execute "@sut.execute_shell_command('testapp -r 10', {:wait => 'true', :timeout => 5})"
     Then get a RuntimeError exception
