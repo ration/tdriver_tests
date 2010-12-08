@@ -75,12 +75,17 @@ Then("file $name should not exist") do |name|
   verify_equal(false,5){File.exist?(name)}
 end
 
-
-
 Then("log file $file should not contain $level messages") do |file, level|
+
   File.open(file).each_line do |line|
-	line.to_s.include?(level).should == false
+
+    # do not use rspec
+  	#line.to_s.include?( level ).should == false
+
+    verify_false( 0, "String #{ level.inspect } was found in line #{ line.inspect }" ){ line.to_s.include?( level ) }
+
   end.close
+
 end
 
 Then("change sut log folder $name") do |name|
