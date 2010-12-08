@@ -73,13 +73,13 @@ When /^I set localisation parameters for sqlite test environment$/ do
 end
 
 Then /^I get the translation "([^\"]*)"$/ do |translation|
-  verify_true(10, "Failed to get translation.") { $translation == translation }
+  verify_true(0, "Failed to get translation.") { $translation == translation }
 end
 
 Then /^I get an "([^\"]*)" as a return type$/ do |type|
-	verify_true(10, "Wrong return type on translation.") { $translation.class.to_s == type }
+	verify_true(0, "Wrong return type on translation.") { $translation.class.to_s == type }
 end
 
 Then /^I get the translation "([^\"]*)" on the first value of the returned Array$/ do |translation|
-  verify_true(10, "Failed to get translation.") { $translation[0] == translation }
+  verify_true(0, "Failed to get translation.") { $translation[0] == translation }
 end
