@@ -23,6 +23,6 @@ Feature: MobyBehaviour::QT::Gesture#flick_to
   Scenario: The 'optional_params' argument can be used to set :use_tap_screen
     Given I launch application "testapp" as "@app"	
 	And I set testapp to fullscreen
-    When I execute "@app.Node.flick_to( 350, 400, , :Left, { :use_tap_screen => 'true' })"    
+    When I execute "@app.Node.flick_to( 350, 400, :Left, { :use_tap_screen => 'true' })"    
     Then the new absolute location of the Node is 350, 400
 
