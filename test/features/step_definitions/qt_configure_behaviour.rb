@@ -82,7 +82,7 @@ Then("log file $file should not contain $level messages") do |file, level|
     # do not use rspec
   	#line.to_s.include?( level ).should == false
 
-    verify_true( 0, "String #{ level.inspect } was found in line #{ line.inspect }" ){ line.to_s.include?( level ) }
+    verify_false( 0, "String #{ level.inspect } was found in line #{ line.inspect }" ){ line.to_s.include?( level ) }
 
   end.close
 
