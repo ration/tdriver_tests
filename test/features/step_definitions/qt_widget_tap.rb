@@ -81,6 +81,16 @@ Then("I can tap \"$button\" control with \"$interval\" second interval \"$amount
   @tap_time = Time.now
   app.Control(:name => $button).tap($amount.to_i, $interval.to_i)
   dif = Time.now - @tap_time
-  dif.should >= $interval.to_i
+  
+
+  verify_true(0, "Difference (#{ dif }) should be more than #{ $interval.to_i } "){ 
+  
+    # do not use rspec
+    #dif.should >= $interval.to_i
+     
+    dif.to_i >= $interval.to_i
+  }
+  
   verify_true {app.NodeView.attribute('nodeCount').to_i > $amount.to_i}
+
 end
