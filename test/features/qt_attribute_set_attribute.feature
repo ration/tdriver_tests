@@ -8,11 +8,11 @@ Feature: MobyBehaviour::QT::Attribute#set_attribute
   Scenario: The set_attribute method deduces the attribute data type from the argument class by default.
     Given I launch application "testapp" as "@app"
     When I execute "@app.Control( :name => 'Crash' ).set_attribute('x', 150)"
-    Then the Control with name Crash has the attribute x with the value 150
+    Then the Control with name Crash has the attribute Qt_x with the value 150
 
   Scenario: The attribute type can also be given with the optinal type argument. This is required for more complex attribute types.
     Given I launch application "testapp" as "@app"
     When I execute "@app.Control(:name => 'Crash').set_attribute('pos', '200,250', 'QPoint')"    
-	Then the Control with name Crash has the attribute x with the value 200
-	And the Control with name Crash has the attribute y with the value 250
+	Then the Control with name Crash has the attribute Qt_x with the value 200
+	And the Control with name Crash has the attribute Qt_y with the value 250
 

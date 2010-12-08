@@ -17,19 +17,69 @@
 **
 ****************************************************************************/
 
+#include <QObject>
+#include <QString>
 
 #include <QtGui/QApplication>
 #include <QDeclarativeView>
 #include <QApplication>
 #include <QFile>
 
+/*Add following libraries to enable testabilityloading and testailiby if not already included */
+#include <QtPlugin>
+#include <QPluginLoader>
+#include <QLibraryInfo>
+#include "testabilityinterface.h" //this file needs to be copied to inc folder from qttas package
+/*Endof adding files */
+
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    TestabilityInterface* testabilityInterface;
+
+    /* In beginning of main file: activate testailiby plugin if available */
+    QString testabilityPlugin = "testability/testability";
+    QString testabilityPluginPostfix = ".dll";
+
+#ifdef Q_OS_LINUX
+    testabilityPluginPostfix = ".so";
+    testabilityPlugin = "testability/libtestability";
+#endif
+
+#ifdef Q_WS_MAC
+    testabilityPluginPostfix = ".dylib";
+    testabilityPlugin = "testability/libtestability";
+#endif
+
+    testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath)
+                        + QObject::tr("/") + testabilityPlugin + testabilityPluginPostfix;
+    QPluginLoader loader(testabilityPlugin.toLatin1().data());
+
+    QObject *plugin = loader.instance();
+    if (plugin) {
+        qDebug("Testability plugin loaded successfully!");
+        testabilityInterface = qobject_cast<TestabilityInterface *>(plugin);
+
+        if (testabilityInterface) {
+            qDebug("Testability interface obtained!");
+            testabilityInterface->Initialize();
+        } else {
+            qDebug("Failed to get testability interface!");
+        }
+    } else {
+        qDebug("Testability plugin %s load failed with error:%s",
+               testabilityPlugin.toLatin1().data(), loader.errorString().toLatin1().data());
+    }
+
+    /* Endof activate testailiby plugin if available */
+
     QDeclarativeView view;
+
     QFile file("../qml/browser.qml");
     QUrl url;
+
     if(file.exists()){
        //to run correct files without install
        url = QUrl::fromLocalFile("../qml/browser.qml");

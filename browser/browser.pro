@@ -13,6 +13,7 @@ TARGET = browser
 TEMPLATE = app
 DESTDIR = bin
 
+#HEADERS += testabilityinterface.h
 SOURCES += main.cpp
 
 target.path = $$TAS_TARGET_BIN

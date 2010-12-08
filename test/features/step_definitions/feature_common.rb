@@ -51,6 +51,8 @@ After do
         end
     end
   @__sut.clear_verify_blocks
+  #Raising exception if it hasn't been handled
+  raise @__exception if @__exception != nil
 end
 
 
@@ -263,7 +265,12 @@ Then /^object named "([^\"]*)" does not exist$/ do |arg1|
 end
 
 Then /^exception is thrown$/ do
+
   verify_false(0, "Exception has not been raised") { @__exception.nil? }
+
+  # reset exception variable, otherwise exception will be actually raised!
+  @__exception = nil
+
 end
 
 
@@ -279,6 +286,8 @@ Then /^exception matching "([^\"]*)" is thrown$/ do |arg1|
   verify_false(0, "No exception has not been raised") { @__exception.nil? }
   re = Regexp.new(arg1.to_s)
   verify_false(0, "Exception '#{@__exception.to_s}' does not match given regexp #{re.inspect}") { (re =~ @__exception.to_s).nil? }
+  #exception handled can be set to nil
+  @__exception=nil
 end
 
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |
@@ -361,6 +370,19 @@ Then "the new location of the $target_type is $expected_x, $expected_y" do | tar
 
   end
 
+end
+
+Then "the scenepos of $obj is $pos" do |obj, pos|
+  verify_equal(pos, 5){@__current_app.child( :type => obj).attribute('scenePos')}
+end
+
+Then "I set testapp to fullscreen" do
+  seq = MobyCommand::KeySequence.new(:kControl, :KeyDown).append!(:kF).append!(:kControl, :KeyUp)
+  @__current_app.press_key(seq)
+end
+
+Then "$target_type is on top of $target2_type" do |target_type, target_type2|
+  verify_equal(@__current_app.child( :type => target_type2).attribute('x'), 5){@__current_app.child( :type => target_type).attribute('x')}
 end
 
 Then /^I find and delete the file "([^\"]*)"$/ do |file|

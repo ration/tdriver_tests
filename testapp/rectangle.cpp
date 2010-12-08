@@ -56,7 +56,8 @@ Rectangle::Rectangle(QGraphicsItem* parent)
 
 QRectF Rectangle::boundingRect() const
 {
-    qreal adjust = 3;
+    //qreal adjust = 3;
+    qreal adjust = 0;
     return QRectF(0,0, SIZE+adjust, SIZE+adjust);
 }
 

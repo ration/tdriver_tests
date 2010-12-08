@@ -162,6 +162,7 @@ void PopupItem::exec()
     }    
     Background background;
     scene()->addItem(&background);
+    setParentItem(&background);
     show();
 
     if (scene()) {

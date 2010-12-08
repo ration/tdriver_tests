@@ -54,7 +54,7 @@ Control::Control(QGraphicsItem* parent)
 
 QRectF Control::boundingRect() const
 {
-    return QRectF(0, 0, CONTROL_SIZE+3, CONTROL_SIZE+3);
+    return QRectF(0, 0, CONTROL_SIZE, CONTROL_SIZE);
 }
 
 QPainterPath Control::shape() const

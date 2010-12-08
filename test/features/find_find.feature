@@ -10,7 +10,7 @@ Feature: MobyBehaviour::Find#find
     Given I have default sut
     And I launch application "testapp"
     When I test code "@testobj = @sut.find"
-    Then exception matching "Input parameter not of Type" is thrown
+    Then exception matching "Attributes hash must not be empty" is thrown
 
 #@nodoc
   #Scenario: Testing find method on non-existing object

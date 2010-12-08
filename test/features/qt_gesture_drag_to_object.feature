@@ -10,19 +10,19 @@ Feature: MobyBehaviour::QT::Gesture#drag_to_object
 	And the Triangle is at location 100, 100
 	And the Triangle is assigned to the @_triangle object
     When I execute "@app.Node.drag_to_object(@_triangle)"
-    Then the new location of the Node is 100, 100
+	Then Node is on top of Triangle
 
   Scenario: The used button can be defined
     Given I launch application "testapp" as "@app"
 	And the Triangle is at location 300, 100
 	And the Triangle is assigned to the @_triangle object
     When I execute "@app.Node.drag_to_object(@_triangle, :Left)"
-    Then the new location of the Node is 300, 100	
+	Then Node is on top of Triangle
 
   Scenario: The 'optional_params' argument can be used to set :use_tap_screen
     Given I launch application "testapp" as "@app"
 	And the Triangle is at location 100, 300
 	And the Triangle is assigned to the @_triangle object
     When I execute "@app.Node.drag_to_object(@_triangle, :Left, { :use_tap_screen => true })"
-    Then the new location of the Node is 100, 300
+	Then Node is on top of Triangle
 
