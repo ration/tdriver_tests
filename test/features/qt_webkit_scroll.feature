@@ -12,10 +12,10 @@ Feature: MobyBehaviour::QT::Webkit#scroll
 
   Scenario: Scrolls the webframe to wanted direction (x: 0, y: 150)
     Given I launch application "browser"
-    Then I execute "@app.QWebFrame(:__index=>'2').scroll(0,150)"
+    Then I execute "@app.QWebFrame(:__index=>2).scroll(0,150)"
     Then I should not see "img" having "alt" with value "matti3"
 
   Scenario: Scrolls the webframe to wanted direction (x: 110, y: 0)
     Given I launch application "browser"
-    Then I execute "@app.QWebFrame(:__index=>'2').scroll(110,0)"
+    Then I execute "@app.QWebFrame(:__index=>2).scroll(110,0)"
     Then I should not see "img" having "alt" with value "matti3"
