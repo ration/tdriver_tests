@@ -196,7 +196,7 @@ end
 When "I can delete file \"$file\"" do |file|
   verify_true(0,"The file doesn't exist"){File.exist?(file)}
   File.delete(file)
-  verify_false(0,"The file doesn't exist"){File.exist?(file)}
+  verify_false(0,"The file still exists"){File.exist?(file)}
 end
 
 Then /^application "([^\"]*)" is running$/ do |arg1|
