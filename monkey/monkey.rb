@@ -102,7 +102,7 @@ module MobyBase
       write_log( "Initializing TDMonkey, sut id: " << @_sut_id.to_s ) 
       
       @sut = TDriver.sut(:Id => @_sut_id)
-	  write_script( "require 'tdriver'")
+	    write_script( "require 'tdriver'")
       write_script( "@sut = TDriver.sut(:Id => '#{@_sut_id}')")
       
       if !target_app.nil?
@@ -151,8 +151,6 @@ module MobyBase
       target = random_target
       action = random_action(target.type)
       
-      puts( "Target: " + target.type + " Action: " + action ) if @_verbose
-      
       t_name = nil
       begin
         t_name = target.attribute("objectName")
@@ -164,8 +162,6 @@ module MobyBase
         t_text = target.attribute("text")
       rescue
       end
-            
-      write_log( "Action performed. Target: #{target.type} Action: #{action}" )
       
       script_id = "(:id => '#{target.id}')"
       if t_text != nil and t_text.to_s != ""
@@ -176,6 +172,10 @@ module MobyBase
         script_id = "(:objectName => '#{t_name}')"
       end
       
+      puts( "Target: " + target.type + ":" + script_id.to_s + " Action: " + action ) if @_verbose
+	  
+      write_log( "Action performed. Target: #{target.type}#{script_id} Action: #{action}" )
+       
       begin
         target.instance_eval(action)
         write_script( "@sut.application.#{target.type}#{script_id}.#{action}" )
@@ -297,8 +297,7 @@ module MobyBase
        # load blocked objects   
       data_object.invalid_targets_to_replace.each do | target_type,  target_args |      
         @_invalid_targets[target_type] = target_args
-      end
-       
+      end       
      
     end
         
@@ -369,36 +368,36 @@ module MobyBase
       # Check if the test object matches an entry on the list of invalid targets 
       @_invalid_targets.keys.each do | invalid_type |
         
-        if test_object.type == invalid_type
+      if test_object.type == invalid_type
+        
+        # Check if all attributes match         
           
-          # Check if all attributes match         
-          
-          @_invalid_targets[ invalid_type ].each { | description | 
-            description.each do | blocking_attribute, value|      
-                all_matched = true
-              begin
-                all_matched = false if test_object.attribute(blocking_attribute) != value
-              rescue Exception => e                
-                all_matched = false
-              end
-                            
-              if all_matched
-                if !action.nil?
-                  # TODO: modify data structure to contain invalid action types
-                  invalid_actions = [action]
-                  return false if invalid_actions.contain? action
-                else
-                  return false
-                end
-              end
-              
-            end 
+        set_matched = false
+        @_invalid_targets[ invalid_type ].each { | set |          
+        
+          set.each { | blocking_attribute, value | 
+             
+            all_matched = true
+                    
+            begin			   
+              all_matched = false if test_object.attribute(blocking_attribute) != value
+            rescue Exception => e	
+              all_matched = false
+            end
+                          
+            if all_matched
+              set_matched = true
+            end
+
           }
+        }
+		  
+        return false if set_matched 
           
         end
         
       end
-      
+
       return true
       
     end
@@ -422,8 +421,8 @@ module MobyBase
       # Check if the target application must be restarted 
       if @_app != nil
         
-        begin
-          @sut.application(:name => @_app)
+        begin        
+          @sut.application(:FullName => @_app)
         rescue TestObjectNotFoundError
           
           begin
@@ -444,9 +443,6 @@ module MobyBase
     # Adds a message to the (human readable, timestamped) log
     def write_log( message )
             
-      #@_log << "\n"
-      #@_log << Time.now.to_s
-      #@_log << ": " << message
       File.open('m_log.txt', "a") do |l_file|      
         l_file << "\n" << Time.now.to_s << ": " << message
       end
@@ -455,10 +451,7 @@ module MobyBase
     
     # Adds a line to the script log. This log can be used to recreate the TDMonkey test session
     def write_script( action )
-      
-      #@_script << "\n" unless @_script.empty? 
-      #@_script << action
-      
+  
       File.open('m_script.txt', "a") do |s_file|      
         s_file << "\n" << action         
       end
@@ -659,30 +652,36 @@ module MobyBase
 
         end        
         
-        # add blocking attributes        
+        # add blocking attributes
+
+        blocking_set = []
         target_node.xpath("blocking-attributes/set").each do | arg_set |
         
           block_arguments = {}
           arg_set.xpath("attribute").each do | attribute_node |
-            attribute_name = attribute_node.attribute("name")
-            attribute_value = attribute_node.attribute("name")
+            attribute_name = attribute_node.attribute("name")           
+            attribute_value = attribute_node.attribute("value")
             raise TDMonkeyXmlDataParseError.new("The target '#{target_name}' has an a set of blockin attributes with a missing name-value attribute pair.") if (attribute_name.nil? || attribute_value.nil?)
             block_arguments[attribute_name] = attribute_value 
           end
-                      
-          target_hash = nil
-          if replace_target
-            target_hash = @_replace_invalid_targets
-          else
-            target_hash = @_add_invalid_targets
-          end
           
-          if target_hash.key?(target_name)
-            target_hash[target_name].merge block_arguments
-          else
-            target_hash[target_name] = block_arguments
-          end
-        end                 
+          blocking_set << block_arguments
+          
+        end # blocking-attributes/set
+        
+        # merge loaded blocking attributes into data structure
+        target_hash = nil
+        if replace_target
+          target_hash = @_replace_invalid_targets
+        else
+          target_hash = @_add_invalid_targets
+        end
+        
+        if target_hash.key?(target_name)
+          target_hash[target_name] << blocking_set
+        else
+          target_hash[target_name] = blocking_set
+        end
                 
       end # targets/target
       
