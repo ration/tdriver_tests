@@ -1,4 +1,4 @@
-tests/browser/html/matti.png
-tests/test/test_data/localization_data.sqlite
-tests/test/test_data/operator_data.sqlite
+browser/html/matti.png
+test/test_data/localization_data.sqlite
+test/test_data/operator_data.sqlite
 
