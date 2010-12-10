@@ -31,7 +31,7 @@ Then ("I should see \"$webelem\" having \"$attrib\" with value \"$value\"") do |
   elem_u = elem.attribute("y").to_i 
   elem_d = elem_u + elem.attribute("height").to_i
   
-  frame = @app.QWebFrame(:__index=>"2")
+  frame = @app.QWebFrame(:__index=>2)
   frame_l = frame.attribute("x").to_i 
   frame_r = frame_l + frame.attribute("width").to_i
   frame_u = frame.attribute("y").to_i 
@@ -67,7 +67,7 @@ Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") 
   elem_u = elem.attribute("y").to_i 
   elem_d = elem_u + elem.attribute("height").to_i
   
-  frame = @app.QWebFrame(:__index=>"2")
+  frame = @app.QWebFrame(:__index=>2)
   frame_l = frame.attribute("x").to_i 
   frame_r = frame_l + frame.attribute("width").to_i
   frame_u = frame.attribute("y").to_i 

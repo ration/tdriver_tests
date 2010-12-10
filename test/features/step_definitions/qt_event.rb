@@ -25,23 +25,65 @@ Before do
 end
 
 Then("I cannot get events for $name") do |name| 
-  verify_not(5){@app.Button(:name => name).get_events()}
+
+  verify_not(5){ 
+
+      @app.Button(:name => name).get_events()
+
+  }
+
 end
 
 Then("Tap button $name") do |name|
+
   @app.Button( :name => name ).tap
+
 end
 
-Then("the results of $name should contain $event_list events") do |name, event_list|
-  results = @app.Button(:name => name).get_events()
+Then("the results of $name should contain $event_list events") do | name, event_list |
+
+  # this doesn't work if too fast computer...
+  #results = @app.Button(:name => name).get_events()
+  #events = event_list.split(',')
+  #events.each{|event| verify_equal(true,1){results.include?(event)}}
+
+  object = @app.Button(:name => name)
+
   events = event_list.split(',')
-  events.each{|event| verify_equal(true,1){results.include?(event)}}
+
+  events.each{ | event |
+
+    verify_equal( true, 1, "Event #{ event } not found" ){ 
+
+      object.get_events().include?( event )
+
+    }
+
+  }
+
 end
 
-Then("the results of $name should not contain $event_list events") do |name, event_list|
-  results = @app.Button(:name => name).get_events()
+Then("the results of $name should not contain $event_list events") do | name, event_list |
+
+  # this doesn't work if too fast computer...
+  #results = @app.Button(:name => name).get_events()
+  #events = event_list.split(',')
+  #events.each{|event| verify_equal(false,1){results.include?(event)}}
+
+  object = @app.Button(:name => name)
+
   events = event_list.split(',')
-  events.each{|event| verify_equal(false,1){results.include?(event)}}
+
+  events.each{ | event |
+
+    verify_equal( false, 1, "Event #{ event } was found" ){ 
+
+      object.get_events().include?( event )
+
+    }
+
+  }
+
 end
 
 Then("I start listening to events on button $name") do |name|
