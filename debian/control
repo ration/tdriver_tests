@@ -1,17 +1,17 @@
-Source: testability-driver-tests
+Source: matti-tests
 Section: libs
 Priority: optional
 Maintainer: Tatu Lahtela <ext-tatu.lahtela@nokia.com>
 Build-Depends: debhelper (>> 5.0.0), libqt4-dev, libqtwebkit-dev (>=2.1~)
 Standards-Version: 3.8.0
 
-Package: testability-driver-testapp
+Package: matti-testapp
 Architecture: any
 Depends: libqt4-core, libqtwebkit4 (>=2.1~)
 Description: Testability-Driver Testing framework test applications
   Tests application for testing the Testability-Driver framework
 
-Package: testability-driver-tests
+Package: matti-tests
 Architecture: all
 Depends: testability-driver, libcucumber-ruby1.8 ( >= 0.4.4), librmagick-ruby1.8, testability-driver-testapp, ci-testing
 XB-Maemo-CI-Packages: testability-driver, libtestability-driver-ruby-sut-qt, libtestability-driver-ruby1.8, libtestability-driver-ruby-config-default, qttas, qttas-server, qttas-plugins-dui, qttas-plugins
@@ -19,7 +19,7 @@ XB-Maemo-CI-Stage: staging, acceptance
 Description: Testability-Driver Testing framework testing packages
   Tests for the Testability-Driver testing framework itself.
 
-Package: testability-driver-unit-tests
+Package: matti-unit-tests
 Architecture: all
 Depends: testability-driver, librmagick-ruby1.8, testability-driver-testapp, ci-testing
 XB-Maemo-CI-Packages: testability-driver, libtestability-driver-ruby-sut-qt, libtestability-driver-ruby1.8, libtestability-driver-ruby-config-default, qttas, qttas-server, qttas-plugins-dui, qttas-plugins
