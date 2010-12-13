@@ -26,5 +26,5 @@ Feature: MobyBehaviour::QT::Multitouch#pinch_zoom
     Given I launch application "matti_multitouchapp"
 	And I zoom in with params 2, 50, 180
     And the Graphicsview of the application should be transformed by the zoom
-    When I execute "@app.MainWindow.pinch_zoom( :type => :out, :speed => 2, :distance_1 => 0, :distance_2 => 1000, :direction => 0, :differential => 10 )"
+    When I execute "@app.MainWindow.pinch_zoom( :type => :out, :speed => 2, :distance_1 => 0, :distance_2 => 100, :direction => 0, :differential => 10 )"
     Then the Graphicsview of the application should not be transformed by the zoom
