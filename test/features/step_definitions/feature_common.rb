@@ -41,7 +41,6 @@ Before do
 end
 
 After do
-
     @__apps.each_key do |app|
 
         begin

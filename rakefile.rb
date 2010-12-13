@@ -45,6 +45,12 @@ task :doc_linux do
 
 end
 
+task :doc_meego do 
+
+  run_tests( "meego", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_meego" )
+
+end
+
 task :doc_windows do 
 
   run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
