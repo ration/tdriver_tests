@@ -37,60 +37,60 @@ class TC_Pinch < Test::Unit::TestCase
   def test_pinch_zoom
 	@app.MainWindow.pinch_zoom_in(2, 50, 0)	
 	verify(5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
-	verify(5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
-	verify(5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
+	verify_equal(true,5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
+	verify_equal(true,5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
 	@app.MainWindow.pinch_zoom_out(2, 50, 0)	
 	if @app.QGraphicsView.attribute('isTransformed') == 'true'
-	  verify(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
-	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+	  verify_equal(1,5){@app.QGraphicsView.attribute('transformM11').to_i}
+	  verify_equal(1,5){@app.QGraphicsView.attribute('transformM22').to_i}
 	end
   end
 
   def test_pinch_zoom_vertical
 	@app.MainWindow.pinch_zoom_in(2, 50, :Vertical)	
-	verify(5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
-	verify(5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
-	verify(5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
 	@app.MainWindow.pinch_zoom_out(2, 50, :Vertical)	
 	if @app.QGraphicsView.attribute('isTransformed') == 'true'
-	  verify(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
-	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
 	end
   end
 
   def test_pinch_zoom_horizontal
 	@app.MainWindow.pinch_zoom_in(2, 50, :Horizontal)	
-	verify(5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
-	verify(5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
-	verify(5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
 	@app.MainWindow.pinch_zoom_out(2, 50, :Horizontal)	
 	if @app.QGraphicsView.attribute('isTransformed') == 'true'
-	  verify(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
-	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
 	end
   end
 
   def test_pinch_zoom_degrees
 	@app.MainWindow.pinch_zoom_in(2, 50, 75)	
-	verify(5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
-	verify(5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
-	verify(5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
 	@app.MainWindow.pinch_zoom_out(2, 50, 25)	
 	if @app.QGraphicsView.attribute('isTransformed') == 'true'
-	  verify(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
-	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
 	end
   end
 
   def test_pinch_zoom_one_finger
 	@app.MainWindow.pinch_zoom({:type => :in, :speed => 2, :distance_1 => 100, :distance_2 => 0, :direction => :Vertical, :differential => 10})
-	verify(5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
-	verify(5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
-	verify(5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('isTransformed') == 'true'}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i > 1}
+	verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i > 1}
 	@app.MainWindow.pinch_zoom({:type => :out, :speed => 2, :distance_1 => 100, :distance_2 => 0, :direction => 0, :differential => 10})
 	if @app.QGraphicsView.attribute('isTransformed') == 'true'
-	  verify(5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
-	  verify(5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM11').to_i == 1}
+	  verify_equal(true, 5){@app.QGraphicsView.attribute('transformM22').to_i == 1}
 	end
   end
 
