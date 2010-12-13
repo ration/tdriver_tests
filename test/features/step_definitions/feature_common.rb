@@ -199,6 +199,10 @@ When "I can delete file \"$file\"" do |file|
   verify_false(0,"The file still exists"){File.exist?(file)}
 end
 
+Then "I delete file \"$file\" from sut" do |file|
+  @sut.delete_from_sut(:dir => file )
+end
+
 Then /^application "([^\"]*)" is running$/ do |arg1|
   raise @__exception if @__exception != nil
   if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or

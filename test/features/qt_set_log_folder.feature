@@ -20,6 +20,7 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_folder
     Then I execute "@app.set_log_folder('/tmp')"
     And I enable logging on the application
     And I get current application
-    And file /tmp/calculator.log should exist
+    #And file /tmp/calculator.log should exist
+    And the file "calculator.log" is found from "/tmp/" in sut
     And I disable logging on the application
-    And I delete file /tmp/calculator.log
+    And I delete file /tmp/calculator.log from sut

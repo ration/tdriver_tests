@@ -12,17 +12,17 @@ Feature: MobyBehaviour::QT::SUT#execute_shell_command
 
   Scenario: Testing execute_shell_command method with optional argument ':detached' 
     Given I have default sut
-    When I execute "@sut.execute_shell_command('testapp -r 3', :detached => 'true')"
+    When I execute "@sut.execute_shell_command('testapp -r 1', :detached => 'true')"
     Then exception is not thrown
 
   Scenario: Testing execute_shell_command method with optional argument ':threaded' 
     Given I have default sut
-    When I execute "@pid = @sut.execute_shell_command('testapp -r 3', :threaded => 'true')"
+    When I execute "@pid = @sut.execute_shell_command('testapp -r 1', :threaded => 'true')"
     Then the retuned @pid is not null
     
   Scenario: Testing execute_shell_command method with optional argument ':wait' 
     Given I have default sut
-    When I execute "@sut.execute_shell_command('testapp -r 10', :wait => 'true')"
+    When I execute "@sut.execute_shell_command('testapp -r 5', :wait => 'true')"
     Then exception is not thrown
 
   Scenario: Testing execute_shell_command method with optional argument ':timeout' 
