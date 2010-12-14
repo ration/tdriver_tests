@@ -140,14 +140,8 @@ void MainWindow::pinchTriggered(QPinchGesture *gesture)
             scaleFactor *= currentStepScaleFactor;
             currentStepScaleFactor = 1;
         }
-        if((currentStepScaleFactor * scaleFactor) < 1){
-            currentStepScaleFactor = 1;
-            scaleFactor = 1;
-            mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
-        }
-        else{
-            mainView->setTransform(QTransform().scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor));
-        }        
+        mainView->scale(currentStepScaleFactor * scaleFactor,currentStepScaleFactor * scaleFactor);
+            //        }        
 #ifdef Q_OS_SYMBIAN
         //need to think of a way to center in symbian since the center on crashes
 #else

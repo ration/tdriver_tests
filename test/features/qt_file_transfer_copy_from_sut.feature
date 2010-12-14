@@ -40,7 +40,7 @@ Feature: MobyBehaviour::QT::FileTransfer#copy_from_sut
     And I can delete the test files
     When I execute "@sut.copy_from_sut(:from => '/tmp/test_copy/', :file => 'test_file_1.txt', :to => '/tmp/copy/')"
     Then exception is not thrown
-    And the file "test_file_1.txt" is found from "/tmp/copy/" in sut
-    And I test code "@sut.delete_from_sut(:dir => '/tmp/copy/' )"
+	And file /tmp/copy/test_file_1.txt should exist
+    And I delete file C:\temp\copy\test_file_1.txt
     And I test code "@sut.delete_from_sut(:dir => '/tmp/test_copy/' )"
 

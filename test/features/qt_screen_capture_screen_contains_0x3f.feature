@@ -26,7 +26,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#screen_contains?
 @qt_linux @qt_meego
   Scenario: Check that image is found from screen
     Given I launch application "calculator"
-    And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
+    And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',false)"
     And exception is not thrown
     When I execute "@clear_all_button_image_found = @app.screen_contains?('/tmp/clear_all_button_image.PNG')"
     And exception is not thrown
@@ -36,7 +36,7 @@ Feature: MobyBehaviour::QT::ScreenCapture#screen_contains?
 @qt_linux @qt_meego
   Scenario: Check that image is found from screen using tolerance 20
     Given I launch application "calculator"
-    And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',true)"
+    And I test code "@app.Button( :name => 'clearAllButton' ).capture_screen('PNG','/tmp/clear_all_button_image.PNG',false)"
     And exception is not thrown
     When I execute "@clear_all_button_image_found = @app.screen_contains?('/tmp/clear_all_button_image.PNG',20)"
     And exception is not thrown

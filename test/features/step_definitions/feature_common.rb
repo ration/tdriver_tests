@@ -41,7 +41,6 @@ Before do
 end
 
 After do
-
     @__apps.each_key do |app|
 
         begin
@@ -197,6 +196,10 @@ When "I can delete file \"$file\"" do |file|
   verify_true(0,"The file doesn't exist"){File.exist?(file)}
   File.delete(file)
   verify_false(0,"The file still exists"){File.exist?(file)}
+end
+
+Then "I delete file \"$file\" from sut" do |file|
+  @sut.delete_from_sut(:dir => file )
 end
 
 Then /^application "([^\"]*)" is running$/ do |arg1|
