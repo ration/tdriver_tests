@@ -32,4 +32,10 @@ Then "another test object with the same rule should be equal" do
   verify_equal($testobj ,30, "Two child objects with the same rule should be equal") {@app.child(:text => 'MC')}
 end
 
-  
+Then /result test object is same as "([^\"]*)"$/ do |script|
+
+  raise @__exception if @__exception != nil
+  verify_equal( @__ret_val, 0 ){ eval(script) }
+
+end
+
