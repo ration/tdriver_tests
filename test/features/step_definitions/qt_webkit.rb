@@ -79,10 +79,4 @@ Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") 
                    (elem_d < frame_u)}
 end
 
-Then ("I verify that \"$webelem\" is having \"$attrib\" with value \"$value\"") do |webelem, attrib, value|
-  @app.send(webelem.to_sym, {attrib=>value}).name
-end
 
-Then ("I verify that \"$webelem\" is having \"$attrib\" with evaluated value \"$value\"") do |webelem, attrib, value|
-  @app.send(webelem.to_sym, {attrib=>eval(value).to_s}).name
-end
