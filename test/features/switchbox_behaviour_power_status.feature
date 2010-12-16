@@ -2,11 +2,14 @@
 
 Feature: MobyBehaviour::SwitchboxBehaviour#power_status
   As a test scripter writer
-  I want to use power_status method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use power_status method to check the switchbox power status
   so that I can test the MobyBehaviour::SwitchboxBehaviour behaviour
 
-  Scenario: Testing power_status method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].power_status()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
+  Scenario: Execute power_status command
+    Given I have default sut
+    And I set the mandatory switchbox parameters for sut
+    And I test code "@sut.power_up()"
+    And exception is not thrown
+    When I execute "@power_status=@sut.power_status()"
+    Then exception is not thrown
+    And The power status is true

@@ -2,11 +2,12 @@
 
 Feature: MobyBehaviour::SwitchboxBehaviour#reset
   As a test scripter writer
-  I want to use reset method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use reset method to reset device using switchbox commands
   so that I can test the MobyBehaviour::SwitchboxBehaviour behaviour
 
-  Scenario: Testing reset method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].reset()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Execute reset command
+    Given I have default sut
+    And I set the mandatory switchbox parameters for sut
+    When I execute "@sut.reset()"
+    Then exception is not thrown
 
