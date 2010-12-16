@@ -41,12 +41,13 @@ Before do
 end
 
 After do
+
     @__apps.each_key do |app|
 
         begin
-            @__apps[app].kill
+		  @__apps[app].close
         rescue Exception => e
-            # nothing
+		  # nothing
         end
     end
   @__sut.clear_verify_blocks
