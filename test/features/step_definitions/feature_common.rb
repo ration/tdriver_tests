@@ -446,3 +446,11 @@ Then /^color of Triangle(\d+) is "([^"]*)"$/ do |arg1, arg2|
   raise @__exception if @__exception != nil
   verify_equal(arg2, 2, "Expeting color #{arg2}") { @app.Triangle(:name => "Triangle"+arg1.to_s).attribute('color') }
 end
+
+Then ("I verify that \"$object\" is having \"$attrib\" with value \"$value\"") do |obj, attrib, value|
+    @app.send(obj.to_sym, {attrib=>value}).name
+end
+
+Then ("I verify that \"$obj\" is having \"$attrib\" with evaluated value \"$value\"") do |obj, attrib, value|
+    @app.send(obj.to_sym, {attrib=>eval(value).to_s}).name
+end
