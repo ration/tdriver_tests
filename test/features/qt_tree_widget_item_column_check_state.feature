@@ -15,12 +15,12 @@ Feature: MobyBehaviour::QT::TreeWidgetItemColumn#check_state
     When I execute "@app.TreeWidgetItemColumn( :text => 'Qt::Unchecked' ).check_state( 2 )"
     Then verify "@app.TreeWidgetItemColumn( :text => 'Qt::Unchecked' ).attribute('checkState') == '2'"
 
+  @nodoc
   Scenario: Changing partially checked TreeWidgetItem state to unchecked
     Given I launch application "treewidgetapp" as "@app"
     When I execute "@app.TreeWidgetItemColumn( :text => 'Qt::PartiallyChecked' ).check_state( 0 )"
     Then verify "@app.TreeWidgetItemColumn( :text => 'Qt::PartiallyChecked' ).attribute('checkState') == '0'"
  
-  @nodoc
   Scenario: Changing partially checked TreeWidgetItem state to checked
     Given I launch application "treewidgetapp" as "@app"
     When I execute "@app.TreeWidgetItemColumn( :text => 'Qt::PartiallyChecked' ).check_state( 2 )"
