@@ -172,6 +172,8 @@ module TDriverDocument
 
       @tc_status=nil
 
+      @tags = []
+
     end
 
     #This method records the cucumber outline table results in to one test case
