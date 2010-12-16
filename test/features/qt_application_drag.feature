@@ -7,10 +7,10 @@ Feature: MobyBehaviour::QT::Application#drag
 
   Scenario: Testing drag method with required argument(s) (Rename this to be more descriptive)
     Given I launch application "testapp"
-    When I execute "@app.drag( ix = @app.Node(:name => 'Node1').attribute("x").to_i, iy = @app.Node(:name => 'Node1').attribute("y").to_i, ix - 10, iy - 10)"
+    When I execute "@app.drag( ix = @app.Node(:name => 'Node1').attribute('x').to_i, iy = @app.Node(:name => 'Node1').attribute('y').to_i, ix - 10, iy - 10)"
     Then exception is not thrown
 
   Scenario: Testing drag method with optional argument 'duration' (Rename this to be more descriptive)
     Given I launch application "testapp"
-    When I execute "@app.drag( ix = @app.Node(:name => 'Node1').attribute("x").to_i, iy = @app.Node(:name => 'Node1').attribute("y").to_i, ix - 10, iy - 10, 2000)"
+    When I execute "@app.drag( ix = @app.Node(:name => 'Node1').attribute('x').to_i, iy = @app.Node(:name => 'Node1').attribute('y').to_i, ix - 10, iy - 10, 2000)"
     Then exception is not thrown
