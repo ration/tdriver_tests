@@ -2,11 +2,15 @@
 
 Feature: MobyBehaviour::SwitchboxBehaviour#power_down
   As a test scripter writer
-  I want to use power_down method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use power_down method to cut the power down from device using switchbox command
   so that I can test the MobyBehaviour::SwitchboxBehaviour behaviour
 
-  Scenario: Testing power_down method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].power_down()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Execute power_down command
+    Given I have default sut
+    And I set the mandatory switchbox parameters for sut
+    When I execute "@sut.power_down()"
+    Then exception is not thrown
+    And I test code "@sut.power_up()"
+    And exception is not thrown
+
 
