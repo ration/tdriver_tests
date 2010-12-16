@@ -7,8 +7,8 @@ Feature: MobyBehaviour::QT::Application#verify_popup
 
   Scenario: Get popup verification data as an xml object. Attributes (e.g @xml_object.PopupItem.attribute('text')) can be verified as with any test object.
 	Given I launch application "testapp"
-    And I hide the triangle
     And I hide the node
+    And I hide the triangle    
     And I go to popup view
 	And I start to track PopupItem
 	And I tap "modalPopup" control button
@@ -18,8 +18,8 @@ Feature: MobyBehaviour::QT::Application#verify_popup
 
   Scenario: Get popup verification data as an xml object with a specific timeout.
 	Given I launch application "testapp"
-    And I hide the triangle
     And I hide the node
+    And I hide the triangle    
     And I go to popup view
 	And I start to track PopupItem
 	And I tap "modalPopup" control button
