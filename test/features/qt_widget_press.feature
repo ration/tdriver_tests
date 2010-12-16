@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Widget#press
 
   Scenario: Testing press method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].press()"
+    When I execute "@app.[SOME_OBJECT].press"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing press method with optional argument 'tap_count' (Rename this to be more descriptive)

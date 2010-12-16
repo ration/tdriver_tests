@@ -7,6 +7,6 @@ Feature: MobyBehaviour::QT::Gesture#object_center_y
 
   Scenario: Testing object_center_y method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].object_center_y()"
+    When I execute "@app.[SOME_OBJECT].object_center_y"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

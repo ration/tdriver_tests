@@ -7,6 +7,6 @@ Feature: MobyBehaviour::QT::SUT#close_qttas
 
   Scenario: Testing close_qttas method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].close_qttas()"
+    When I execute "@app.[SOME_OBJECT].close_qttas"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

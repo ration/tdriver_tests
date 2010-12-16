@@ -8,6 +8,6 @@ Feature: MobyBehaviour::SwitchboxBehaviour#reset
   Scenario: Execute reset command
     Given I have default sut
     And I set the mandatory switchbox parameters for sut
-    When I execute "@sut.reset()"
+    When I execute "@sut.reset"
     Then exception is not thrown
 

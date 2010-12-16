@@ -7,5 +7,5 @@ Feature: MobyBehaviour::Application#executable_name
 
   Scenario: Testing executable_name method
     Given I launch application "calculator" as "@app"
-    When I execute "$executable_name = @app.executable_name()"
+    When I execute "$executable_name = @app.executable_name"
     Then the application executable name should be "calculator"

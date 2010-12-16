@@ -8,7 +8,7 @@ Feature: MobyBehaviour::TestObject#child
   @nodoc
   Scenario: Testing child method with no argument
     Given I launch application "calculator" as "@app"
-    When I execute "$testobj = @app.child()"
+    When I execute "$testobj = @app.child"
     Then exception is thrown
     
   Scenario: Testing child method with required argument

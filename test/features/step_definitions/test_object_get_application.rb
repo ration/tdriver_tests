@@ -24,7 +24,7 @@
 
 And "I get the application for \"$test_object\"" do |$test_object|
   raise @__exception if @__exception != nil
-  $app_parent=eval("#{$test_object}.get_application()")
+  $app_parent=eval("#{$test_object}.get_application")
 end
 
 Then "the test object returned is \"$test_object\"" do |$test_object|

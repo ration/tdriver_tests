@@ -7,6 +7,6 @@ Feature: MobyBehaviour::TestObject#attributes
 
   Scenario: Testing attributes method
     Given I launch application "testapp" as "@app"
-    When I execute "$attributes = @app.Triangle( :name => 'Triangle1' ).attributes()"
+    When I execute "$attributes = @app.Triangle( :name => 'Triangle1' ).attributes"
     Then the attributes are retrieved
 

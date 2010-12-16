@@ -9,5 +9,5 @@ Feature: MobyBehaviour::QT::Application#bring_to_foreground
     Given I have default sut
     Given I launch application "calculator" as "@calculatorApp"
     Given I launch application "testapp" as "@testApp"
-    When I execute "@calculatorApp.bring_to_foreground()"
+    When I execute "@calculatorApp.bring_to_foreground"
     Then calculator should be the top most application
