@@ -27,5 +27,5 @@ Feature: MobyBehaviour::QT::SUT#execute_shell_command
 
   Scenario: Testing execute_shell_command method with optional argument ':timeout' 
     Given I have default sut
-    When I execute "@sut.execute_shell_command('testapp -r 10', {:wait => 'true', :timeout => 5})"
+    When I execute "@sut.execute_shell_command('testapp -r 6', {:wait => 'true', :timeout => 5})"
     Then get a RuntimeError exception
