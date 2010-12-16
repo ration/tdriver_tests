@@ -7,7 +7,7 @@ Feature: MobyBehaviour::SUT#get_ui_dump
 
   Scenario: Testing get_ui_dump method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].get_ui_dump()"
+    When I execute "@app.[SOME_OBJECT].get_ui_dump"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing get_ui_dump method with optional argument 'refresh_args' (Rename this to be more descriptive)

@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Widget#long_tap
 
   Scenario: Testing long_tap method with required argument(s) (Rename this to be more descriptive)
     Given I launch application "calculator"
-    When I execute "@app.Button(:text => '9').long_tap()"
+    When I execute "@app.Button(:text => '9').long_tap"
     Then exception is not thrown
 
   Scenario: Testing long_tap method with optional argument 'time' (Rename this to be more descriptive)

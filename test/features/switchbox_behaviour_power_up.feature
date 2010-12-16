@@ -8,6 +8,6 @@ Feature: MobyBehaviour::SwitchboxBehaviour#power_up
   Scenario: Execute power_up command
     Given I have default sut
     And I set the mandatory switchbox parameters for sut
-    When I execute "@sut.power_up()"
+    When I execute "@sut.power_up"
     Then exception is not thrown
 

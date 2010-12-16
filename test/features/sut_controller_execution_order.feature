@@ -7,6 +7,6 @@ Feature: MobyBehaviour::SutController#execution_order
 
   Scenario: Testing execution_order method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].execution_order()"
+    When I execute "@app.[SOME_OBJECT].execution_order"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

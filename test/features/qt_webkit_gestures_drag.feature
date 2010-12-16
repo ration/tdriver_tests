@@ -1,6 +1,6 @@
 @nodoc
 
-Feature: MobyBehaviour::QT::Webkit#execute_javascript
+Feature: Testing WebKit gesture features
   As a test scripter writer
   I want to check that the webkit gestures are working correctly
   so that I can test the MobyBehaviour::QT::Webkit behaviour

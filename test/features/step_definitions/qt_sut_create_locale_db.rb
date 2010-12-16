@@ -58,7 +58,7 @@ Then /^I can delete the new table$/ do
 	db_type = MobyUtil::Parameter[ :localisation_db_type ]
 	host = MobyUtil::Parameter[ :localisation_server_ip ]
 	database_name = MobyUtil::Parameter[ :localisation_server_database_name ]
-	MobyUtil::DBAccess.connections[ host + db_type + database_name ].dbh.close()
+	MobyUtil::DBAccess.connections[ host + db_type + database_name ].dbh.close
     
 	File.delete( MobyUtil::Parameter[ :localisation_server_database_name ] )
 end

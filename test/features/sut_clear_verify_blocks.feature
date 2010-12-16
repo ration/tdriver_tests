@@ -8,6 +8,6 @@ Feature: MobyBehaviour::SUT#clear_verify_blocks
   Scenario: Testing clear_verify_blocks method with required argument(s) (Rename this to be more descriptive)
     Given I have default sut
     And I add a verify_always block on the sut
-    When I execute "@sut.clear_verify_blocks()"
+    When I execute "@sut.clear_verify_blocks"
     Then the code "@sut.verify_blocks.empty?" returns true
 

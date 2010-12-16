@@ -7,6 +7,6 @@ Feature: MobyBehaviour::TestObject#state
 
   Scenario: Testing state method 
     Given I launch application "testapp" as "@app"
-    When I execute "$app_state=@app.state()"
+    When I execute "$app_state=@app.state"
     Then "$app_state" is a static state object
 

@@ -8,8 +8,8 @@ Feature: MobyBehaviour::SwitchboxBehaviour#power_status
   Scenario: Execute power_status command
     Given I have default sut
     And I set the mandatory switchbox parameters for sut
-    And I test code "@sut.power_up()"
+    And I test code "@sut.power_up"
     And exception is not thrown
-    When I execute "@power_status=@sut.power_status()"
+    When I execute "@power_status=@sut.power_status"
     Then exception is not thrown
     And The power status is true

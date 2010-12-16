@@ -7,6 +7,6 @@ Feature: MobyBehaviour::SUT#state
 
   Scenario: Testing sut state method 
     Given I have default sut
-    When I execute "$sut_state=@sut.state()"
+    When I execute "$sut_state=@sut.state"
     Then "$sut_state" is a static state object
 

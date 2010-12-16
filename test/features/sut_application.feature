@@ -7,7 +7,7 @@ Feature: MobyBehaviour::SUT#application
 
   Scenario: Testing application method
     Given I launch application "testapp" as "@app"
-    When I execute "$app2=@__sut.application()"
+    When I execute "$app2=@__sut.application"
     Then verify "$app2==@app"
 
   Scenario: Testing application method with optional argument 'attributes'

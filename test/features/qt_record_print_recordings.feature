@@ -7,6 +7,6 @@ Feature: MobyBehaviour::QT::Record#print_recordings
 
   Scenario: Testing print_recordings method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].print_recordings()"
+    When I execute "@app.[SOME_OBJECT].print_recordings"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

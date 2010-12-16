@@ -35,14 +35,14 @@ Feature: MobyBehaviour::SUT#translate
     When I execute "$translation = @sut.translate(:txt_first_name, 'videos')"
     Then I get the translation "Ivan"
 
-  @mysql
+  @mysql @nodoc
   Scenario: Testing translate method when translations is missing on mysql
     Given I have default sut
 	  And I set localisation parameters for mysql test environment
     When I execute "$translation = @sut.translate(:dont_exist)"
 	  Then exception matching "No translation found for logical name 'dont_exist' in language 'english-gb' with given plurality" is thrown
 
-  @sqlite
+  @sqlite @nodoc
   Scenario: Testing translate method when translations is missing on sqlite
     Given I have default sut
 	  And I set localisation parameters for sqlite test environment
