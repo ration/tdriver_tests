@@ -18,8 +18,8 @@
 ############################################################################
 
 
-# Author: Ivan Castane
-# Date: 05.10.2010
+# Author: Ari Hyttinen
+# Date: 17.12.2010
 # Purpose: Test TDriver methods
 
 Then /^sut id is "([^"]*)"$/ do |arg1|
