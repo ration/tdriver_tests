@@ -8,6 +8,6 @@ Feature: MobyBehaviour::SUT#sent_data
   Scenario: Retrieve sent data from sut
     Given I have default sut
     And I launch application "testapp" as "@app"
-    When I execute "@sent_data=@sut.sent_data"
+    When I execute "@sent_data=@sut.sent_data()"
     Then the amount of sent data is retrieved
 

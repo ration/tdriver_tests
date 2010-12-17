@@ -8,6 +8,6 @@ Feature: MobyBehaviour::SUT#received_data
   Scenario: Retrieve received data from sut
     Given I have default sut
     And I launch application "testapp" as "@app"
-    When I execute "@received_data=@sut.received_data"
+    When I execute "@received_data=@sut.received_data()"
     Then the amount of received data is retrieved
 

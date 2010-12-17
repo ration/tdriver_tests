@@ -1,0 +1,19 @@
+
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<testdefinition version="1.0">
+  <suite name="matti-tests" domain="Application Framework" timeout="3600">
+    <description>Matti Framework</description>
+    <set name="matti-all-tests" feature="Full Feature Set">
+      <environments>
+      <environment>
+        <scratchbox>true</scratchbox>
+      </environment>
+      </environments>
+      <description>Matti all feature tests</description>
+      <case name="all" type="Functional" level="Component">
+        <step>cucumber -p cruise features</step>
+      </case>
+    </set>
+  </suite>
+</testdefinition>
