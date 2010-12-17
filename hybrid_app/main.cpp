@@ -34,10 +34,29 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setApplicationName("Matti HybridApp");
+
+#if !defined(QT_NO_LIBRARY)
+
+    QLibrary testLib("qttestability");
+    if(testLib.load()){
+        typedef void (*TasInitialize)(void);
+        TasInitialize initFunction = (TasInitialize)testLib.resolve("qt_testability_init");
+#ifdef Q_OS_SYMBIAN
+        //not found so use ordinal
+        if(!initFunction){
+            initFunction = (TasInitialize)testLib.resolve("1");
+        }
+#endif
+        if(initFunction){
+            initFunction();
+        }
+    }
+#endif
 
     QDeclarativeView view;
-    view.setSource(QUrl::fromLocalFile("main.qml"));
+    view.setSource(QUrl("qrc:/main.qml"));
     view.show();
-    
+
     return app.exec();
 }

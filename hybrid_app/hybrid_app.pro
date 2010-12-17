@@ -3,11 +3,20 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = hybrid_app
 DEPENDPATH += .
 INCLUDEPATH += .
+
+symbian {
+    TARGET.CAPABILITY=CAP_APPLICATION
+	TARGET.VID = VID_DEFAULT
+  	TARGET.EPOCALLOWDLLDATA = 1 
+}
+
 
 # Input
 SOURCES += main.cpp
 
 QT += declarative
+
+RESOURCES += hybrid_app.qrc
