@@ -6,6 +6,9 @@ Rectangle {
 
     Rectangle {
         id: redSquare
+
+	    objectName: "Click"
+
         width: 80; height: 80
         anchors.top: parent.top; anchors.left: parent.left; anchors.margins: 10
         color: "red"
@@ -16,26 +19,15 @@ Rectangle {
             anchors.fill: parent 
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton | Qt.RightButton
-
-            onEntered: info.text = 'Entered'
-            onExited: info.text = 'Exited (pressed=' + pressed + ')'
-
-            onPressed: {
-                info.text = 'Pressed (button=' + (mouse.button == Qt.RightButton ? 'right' : 'left') 
-                    + ' shift=' + (mouse.modifiers & Qt.ShiftModifier ? 'true' : 'false') + ')'
-                var posInBox = redSquare.mapToItem(box, mouse.x, mouse.y)
-                posInfo.text = + mouse.x + ',' + mouse.y + ' in square'
-                        + ' (' + posInBox.x + ',' + posInBox.y + ' in window)'
-            }
-
+            onPressed:{ 
+					info.text = 'Pressed' 
+					parent.color = "blue"
+			}
             onReleased: {
-                info.text = 'Released (isClick=' + mouse.isClick + ' wasHeld=' + mouse.wasHeld + ')'
-                posInfo.text = ''
-            }
-
+				info.text = 'Released'  
+				parent.color = "red"
+			}
             onPressAndHold: info.text = 'Press and hold'
-            onClicked: info.text = 'Clicked (wasHeld=' + mouse.wasHeld + ')'
-            onDoubleClicked: info.text = 'Double clicked'
         }
     }
 
@@ -43,7 +35,9 @@ Rectangle {
         id: blueSquare
         width: 80; height: 80
         x: box.width - width - 10; y: 10    // making this item draggable, so don't use anchors
-        color: "blue"
+        color: "orange"
+
+        objectName: "Drag"	
 
         Text { text: "Drag"; font.pixelSize: 16; color: "white"; anchors.centerIn: parent }
 
@@ -55,18 +49,21 @@ Rectangle {
             drag.maximumX: box.width - parent.width
             drag.minimumY: 0
             drag.maximumY: box.height - parent.width
+
+            onPressed:{ 
+   			    parent.color = "green"
+			}
+            onReleased: {
+				parent.color = "orange"
+			}
+
         }
     }
 
     Text {
         id: info
-        anchors.bottom: posInfo.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 30
-
+	    objectName: "buttonText"
+        anchors.verticalCenter: parent.verticalCenter; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 30
         onTextChanged: console.log(text)
-    }
-
-    Text {
-        id: posInfo
-        anchors.bottom: parent.bottom; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 30
     }
 }
