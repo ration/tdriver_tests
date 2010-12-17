@@ -30,6 +30,8 @@ SUBDIRS += multitouch
 
 SUBDIRS += browser
 
+SUBDIRS += treewidgetapp
+
 unix: { 
    tests.files = test/*
    tests.path = /usr/share/testability-driver-tests
