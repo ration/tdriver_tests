@@ -30,6 +30,6 @@ Feature: MobyBehaviour::TestObject#child
     
   Scenario: Testing child method with xy_sorting feature
     Given I launch application "calculator" as "@app"
-    Then I verify that "Calculator" is having "x" with value "0" # to make sure the app is visible
+    Then I verify that "Calculator" is having "x" with value "0"
     When I execute "@app.child(:type => 'Button', :__xy_sorting => true, :__index => 16)"
     Then result test object is same as "@app.child(:type => 'Button', :text => '1')"
