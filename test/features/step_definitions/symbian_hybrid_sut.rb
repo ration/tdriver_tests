@@ -47,3 +47,12 @@ Then("I get qt and avkon components") do
   verify(5){@app.QDeclarativeRectangle( :name => 'Click' )}
   verify(5){@app.QDeclarativeRectangle( :name => 'Drag' )}
 end
+
+Then("screen rotation is $value") do |$value|
+  verify_equal($value, 5){@sut.application.attribute('Rotation')}
+end
+ 
+Then("I rotate screen $direction") do |$direction|
+  @sut.rotate_screen($direction.to_sym)
+end
+
