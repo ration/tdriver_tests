@@ -9,6 +9,7 @@ Feature: MobyBehaviour::SUT#connect
     When I execute "@sut = TDriver.connect_sut( :sut_qt )"
     Then sut id is "sut_qt"
 
+@nodoc
   Scenario: Connect to sut_qt using hash argument
     When I execute "@sut = TDriver.connect_sut( :Id => 'sut_qt' )"
     Then sut id is "sut_qt"
