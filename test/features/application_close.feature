@@ -7,7 +7,7 @@ Feature: MobyBehaviour::Application#close
 
   Scenario: Testing close method with default arguments
     Given I launch application "calculator" as "@app"
-    When I execute "@app.close()"
+    When I execute "@app.close"
     Then application "calculator" is not running
 
   Scenario: Testing close method with optional argument force_close set to false

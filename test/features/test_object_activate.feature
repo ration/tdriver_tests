@@ -7,6 +7,6 @@ Feature: MobyBehaviour::TestObject#activate
 
   Scenario: Testing activate method
     Given I launch application "testapp" as "@app"
-    When I execute "@app.Node( :name => 'Node1' ).activate()"
+    When I execute "@app.Node( :name => 'Node1' ).activate"
     Then exception is not thrown
 

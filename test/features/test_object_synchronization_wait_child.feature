@@ -7,7 +7,7 @@ Feature: MobyBehaviour::TestObjectSynchronization#wait_child
 
   Scenario: Testing wait_child method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].wait_child()"
+    When I execute "@app.[SOME_OBJECT].wait_child"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing wait_child method with optional argument 'attributes' (Rename this to be more descriptive)

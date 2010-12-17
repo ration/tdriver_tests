@@ -7,6 +7,6 @@ Feature: MobyBehaviour::TestObject#deactivate
 
   Scenario: Testing deactivate method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].deactivate()"
+    When I execute "@app.[SOME_OBJECT].deactivate"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

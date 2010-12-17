@@ -7,7 +7,7 @@ Feature: MobyBehaviour::SUT#refresh
 
   Scenario: Testing refresh method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].refresh()"
+    When I execute "@app.[SOME_OBJECT].refresh"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing refresh method with optional argument 'refresh_args' (Rename this to be more descriptive)

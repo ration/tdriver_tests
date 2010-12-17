@@ -7,7 +7,7 @@ Feature: MobyBehaviour::ObjectBehaviourDescription#behaviours
 
   Scenario: Testing behaviours method with no arguments to obtain array of behaviour names
     Given I launch application "testapp" as "@app"
-    When I execute "$behaviours=@app.behaviours()"
+    When I execute "$behaviours=@app.behaviours"
     Then I obtain array of behaviour names
 
   Scenario: Testing behaviours method with optional argument 'return_indexes' set to true, to obtain array of indexes

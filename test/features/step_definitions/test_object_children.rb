@@ -24,5 +24,8 @@
 
 Then ("an array of test objects of size \"$size\" is returned" ) do |$size|
   raise @__exception if @__exception != nil
-  verify_true(0, 'Test objects were not found by children method' ) { $test_objs.class == Array && $test_objs.size==$size.to_i && $test_objs[0].class == MobyBase::TestObject}
+  verify_equal(Array, 0, 'Returned object was not array' ) { $test_objs.class }
+  verify_equal($size.to_i, 0, 'Array size is wrong' ) { $size.to_i}
+  verify_equal(MobyBase::TestObject, 0, 'The returned class was wrong' ) { $test_objs[0].class }
+  #verify_true(0, 'Test objects were not found by children method' ) { $test_objs.class == Array && $test_objs.size==$size.to_i && $test_objs[0].class == MobyBase::TestObject}
 end

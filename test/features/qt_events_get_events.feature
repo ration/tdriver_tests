@@ -8,7 +8,7 @@ Feature: MobyBehaviour::QT::Events#get_events
 	Given I launch application "calculator"
 	And I start listening to events on button sevenButton
 	And Tap button sevenButton
-    When I execute " @app.Button(:name => 'sevenButton').get_events()"
+    When I execute " @app.Button(:name => 'sevenButton').get_events"
     Then the results of sevenButton should contain MouseButtonPress,MouseButtonRelease events
 
 

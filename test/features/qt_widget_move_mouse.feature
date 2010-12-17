@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Widget#move_mouse
 
   Scenario: Testing move_mouse method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].move_mouse()"
+    When I execute "@app.[SOME_OBJECT].move_mouse"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing move_mouse method with optional argument 'move_params' (Rename this to be more descriptive)

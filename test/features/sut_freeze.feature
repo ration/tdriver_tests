@@ -2,11 +2,13 @@
 
 Feature: MobyBehaviour::SUT#freeze
   As a test scripter writer
-  I want to use freeze method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use freeze to freeze the current ui state
   so that I can test the MobyBehaviour::SUT behaviour
 
-  Scenario: Testing freeze method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].freeze()"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Freeze the current sut ui
+    Given I have default sut
+    When I execute "@sut.freeze"
+    Then exception is not thrown
+    And I test code "@sut.unfreeze"
+    And exception is not thrown
 

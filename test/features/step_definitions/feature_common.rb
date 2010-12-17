@@ -41,12 +41,13 @@ Before do
 end
 
 After do
+
     @__apps.each_key do |app|
 
         begin
-            @__apps[app].kill
+		  @__apps[app].close
         rescue Exception => e
-            # nothing
+		  # nothing
         end
     end
   @__sut.clear_verify_blocks
@@ -444,4 +445,12 @@ end
 Then /^color of Triangle(\d+) is "([^"]*)"$/ do |arg1, arg2|
   raise @__exception if @__exception != nil
   verify_equal(arg2, 2, "Expeting color #{arg2}") { @app.Triangle(:name => "Triangle"+arg1.to_s).attribute('color') }
+end
+
+Then ("I verify that \"$object\" is having \"$attrib\" with value \"$value\"") do |obj, attrib, value|
+    @app.send(obj.to_sym, {attrib=>value}).name
+end
+
+Then ("I verify that \"$obj\" is having \"$attrib\" with evaluated value \"$value\"") do |obj, attrib, value|
+    @app.send(obj.to_sym, {attrib=>eval(value).to_s}).name
 end

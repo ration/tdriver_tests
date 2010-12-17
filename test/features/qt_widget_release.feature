@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Widget#release
 
   Scenario: Testing release method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].release()"
+    When I execute "@app.[SOME_OBJECT].release"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing release method with optional argument 'button' (Rename this to be more descriptive)
