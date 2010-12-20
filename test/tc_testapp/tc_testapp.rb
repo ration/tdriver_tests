@@ -52,7 +52,7 @@ class TC_Testapp < Test::Unit::TestCase
   def setup
     # get the calculator app running
     @sut = TDriver.sut(:Id => "sut_qt")
-    @tapp = @sut.run(:name => "testapp")
+    @tapp = @sut.run({:name => "testapp", :arguments => '-style,motif'})
 #    puts "PWD:" << Dir.pwd
   end
 
