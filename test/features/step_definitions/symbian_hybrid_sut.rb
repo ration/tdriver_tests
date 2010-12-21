@@ -24,10 +24,6 @@ Before do
   $ErrorMessage=""
 end
 
-When("I zoom in with params $speed, $distance, $direction") do |speed, distance, direction |
-  @app.MainWindow.pinch_zoom_in(speed.to_i, distance.to_i, direction.to_i)
-end
-
 When("I tap the $name rectangle") do |$name|
   @app.QDeclarativeRectangle( :name => 'Click' ).tap
 end
