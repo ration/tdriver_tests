@@ -1,6 +1,6 @@
 @qt_symbian 
 
-Feature: MobyBehaviour::SUT#rotate_screen
+Feature: MobyBehaviour::Symbian::SUT#rotate_screen
   As a test script writer
   I want to rotate the screen of a symbian application
   so that I can test applications in different orientations
