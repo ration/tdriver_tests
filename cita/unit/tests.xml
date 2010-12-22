@@ -13,10 +13,6 @@
       <case name="all" type="Functional" level="Component">
         <step>ruby1.8 /usr/share/testability-driver-unit-tests/tc_testapp.rb</step>
       </case>
-      <post_steps>
-	<step>tar cvzf /root/tdriver_reports.tar.gz /root/tdriver_reports/</step>
-	<get>/root/tdriver_reports.tar.gz</get>
-      </post_steps>
     </set>
   </suite>
 </testdefinition>
