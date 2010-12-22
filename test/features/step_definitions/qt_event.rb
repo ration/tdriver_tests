@@ -32,6 +32,8 @@ Then("I cannot get events for $name") do |name|
 
   }
 
+  @__exception = nil
+
 end
 
 Then("Tap button $name") do |name|
