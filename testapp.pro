@@ -37,13 +37,13 @@ unix: {
    tests.path = /usr/share/testability-driver-tests
 
    unit_tests.files = test/tc_testapp/*
-   unit_tests.path = /usr/share/testability-driver-unit-tests
+   unit_tests.path = /usr/share/matti-unit-tests
 
    cita.files = cita/features/tests.xml
    cita.path = /usr/share/testability-driver-tests/
 
    cita_unit.files = cita/unit/tests.xml
-   cita_unit.path = /usr/share/testability-driver-unit-tests/
+   cita_unit.path = /usr/share/matti-unit-tests/
 
 
    INSTALLS += tests cita cita_unit unit_tests
