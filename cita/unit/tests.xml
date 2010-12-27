@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<testdefinition version="1.0">
+  <suite name="matti-unit-tests" domain="Matti" timeout="3600">
+    <description>Matti Framework</description>
+    <set name="matti-unit-tests" feature="Smoke set">
+      <environments>
+      <environment>
+        <scratchbox>true</scratchbox>
+        <hardware>true</hardware>
+      </environment>
+      </environments>
+      <description>Matti smoke test set</description>
+      <case name="all" type="Functional" level="Component">
+        <step>ruby1.8 /usr/share/matti-unit-tests/tc_testapp.rb</step>
+      </case>
+    </set>
+  </suite>
+</testdefinition>

@@ -28,9 +28,11 @@ Then("I cannot get events for $name") do |name|
 
   verify_not(5){ 
 
-      @app.Button(:name => name).get_events()
+      @app.Button(:name => name).get_events
 
   }
+
+  @__exception = nil
 
 end
 
@@ -43,7 +45,7 @@ end
 Then("the results of $name should contain $event_list events") do | name, event_list |
 
   # this doesn't work if too fast computer...
-  #results = @app.Button(:name => name).get_events()
+  #results = @app.Button(:name => name).get_events
   #events = event_list.split(',')
   #events.each{|event| verify_equal(true,1){results.include?(event)}}
 
@@ -55,7 +57,7 @@ Then("the results of $name should contain $event_list events") do | name, event_
 
     verify_equal( true, 1, "Event #{ event } not found" ){ 
 
-      object.get_events().include?( event )
+      object.get_events.include?( event )
 
     }
 
@@ -66,7 +68,7 @@ end
 Then("the results of $name should not contain $event_list events") do | name, event_list |
 
   # this doesn't work if too fast computer...
-  #results = @app.Button(:name => name).get_events()
+  #results = @app.Button(:name => name).get_events
   #events = event_list.split(',')
   #events.each{|event| verify_equal(false,1){results.include?(event)}}
 
@@ -78,7 +80,7 @@ Then("the results of $name should not contain $event_list events") do | name, ev
 
     verify_equal( false, 1, "Event #{ event } was found" ){ 
 
-      object.get_events().include?( event )
+      object.get_events.include?( event )
 
     }
 

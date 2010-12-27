@@ -8,9 +8,9 @@ Feature: MobyBehaviour::SwitchboxBehaviour#power_down
   Scenario: Execute power_down command
     Given I have default sut
     And I set the mandatory switchbox parameters for sut
-    When I execute "@sut.power_down()"
+    When I execute "@sut.power_down"
     Then exception is not thrown
-    And I test code "@sut.power_up()"
+    And I test code "@sut.power_up"
     And exception is not thrown
 
 

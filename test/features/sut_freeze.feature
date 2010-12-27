@@ -7,8 +7,8 @@ Feature: MobyBehaviour::SUT#freeze
 
   Scenario: Freeze the current sut ui
     Given I have default sut
-    When I execute "@sut.freeze()"
+    When I execute "@sut.freeze"
     Then exception is not thrown
-    And I test code "@sut.unfreeze()"
+    And I test code "@sut.unfreeze"
     And exception is not thrown
 

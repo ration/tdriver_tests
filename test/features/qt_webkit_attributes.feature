@@ -1,6 +1,6 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
 
-Feature: MobyBehaviour::QT::Webkit#execute_javascript
+Feature: Testing retrieving WebKit objects with attributes
   As a test scripter writer
   I want to check that all the webkit attributes are working correctly
   so that I can test the MobyBehaviour::QT::Webkit behaviour

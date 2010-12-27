@@ -7,6 +7,6 @@ Feature: MobyBehaviour::QT::ViewItem#select
 
   Scenario: Testing select method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].select()"
+    When I execute "@app.[SOME_OBJECT].select"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

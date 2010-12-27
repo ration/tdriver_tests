@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Widget#hold
 
   Scenario: Testing hold method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].hold()"
+    When I execute "@app.[SOME_OBJECT].hold"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing hold method with optional argument 'button' (Rename this to be more descriptive)

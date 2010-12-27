@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Os#press_enter
 
   Scenario: Testing press_enter method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].press_enter()"
+    When I execute "@app.[SOME_OBJECT].press_enter"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing press_enter method with optional argument 'interval' (Rename this to be more descriptive)

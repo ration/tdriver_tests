@@ -24,7 +24,7 @@
 
 And "I get the parent for \"$test_object\"" do |$test_object|
   raise @__exception if @__exception != nil
-  $app_parent=eval("#{$test_object}.get_parent()")
+  $app_parent=eval("#{$test_object}.get_parent")
 end
 
 Then "the parent test object is \"$test_object\"" do |$test_object|

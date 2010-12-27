@@ -7,6 +7,6 @@ Feature: MobyBehaviour::SUT#get_application_id
 
   Scenario: Testing get_application_id method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].get_application_id()"
+    When I execute "@app.[SOME_OBJECT].get_application_id"
     Then [ADD_YOUR_VERIFICATION_HERE]
 

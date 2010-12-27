@@ -57,5 +57,11 @@ task :doc_windows do
 
 end
 
+task :doc_symbian do 
+
+  run_tests( "symbian", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian" )
+
+end
+
 
 

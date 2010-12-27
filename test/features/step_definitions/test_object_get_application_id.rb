@@ -24,7 +24,7 @@
 
 And "I get the application id for \"$test_object\"" do |$test_object|
   raise @__exception if @__exception != nil
-  $app_parent_id=eval("#{$test_object}.get_application_id()")
+  $app_parent_id=eval("#{$test_object}.get_application_id")
 end
 
 Then "application id is id for test object \"$test_object\"" do |$test_object|

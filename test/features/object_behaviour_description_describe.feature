@@ -7,7 +7,7 @@ Feature: MobyBehaviour::ObjectBehaviourDescription#describe
 
   Scenario: Testing describe method with default arguments, to print list of methods to screen
     Given I launch application "testapp" as "@app"
-    When I execute "@app.Triangle( :name => 'Triangle1' ).describe()"
+    When I execute "@app.Triangle( :name => 'Triangle1' ).describe"
     Then exception is not thrown
 
   Scenario: Testing describe method with optional argument 'print' set to false, to return result as Hash

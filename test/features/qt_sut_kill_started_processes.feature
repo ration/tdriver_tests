@@ -9,7 +9,7 @@ Feature: MobyBehaviour::QT::SUT#kill_started_processes
     Given I have default sut
     And I launch application "calculator" as "@calcApp"
     And  I launch application "testapp" as "@testApp"
-    When I execute "@sut.kill_started_processes()"
+    When I execute "@sut.kill_started_processes"
     Then application "calculator" is not running
     And application "testapp" is not running
 

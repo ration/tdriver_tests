@@ -6,6 +6,6 @@ Feature: MobyBehaviour::QT::Events#disable_events
 
   Scenario: Stop listening to mouse events
 	Given I launch application "calculator"
-    When I execute "@app.Button(:name => 'sevenButton').disable_events()"
+    When I execute "@app.Button(:name => 'sevenButton').disable_events"
     Then I cannot get events for sevenButton
 

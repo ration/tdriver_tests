@@ -7,7 +7,7 @@ Feature: MobyBehaviour::TestObject#force_refresh
 
   Scenario: Testing force_refresh method with required argument(s) (Rename this to be more descriptive)
     Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].force_refresh()"
+    When I execute "@app.[SOME_OBJECT].force_refresh"
     Then [ADD_YOUR_VERIFICATION_HERE]
 
   Scenario: Testing force_refresh method with optional argument 'refresh_args' (Rename this to be more descriptive)

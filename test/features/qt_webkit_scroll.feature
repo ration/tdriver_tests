@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Webkit#scroll
 
   Scenario: Testing scroll without arguments, this brings the web element visible on screen
     Given I launch application "browser"
-    When I execute "@app.a(:elementText => 'not visible test link').scroll()"
+    When I execute "@app.a(:elementText => 'not visible test link').scroll"
     Then I should see "a" having "elementText" with value "not visible test link"
 
   Scenario: Scrolls the webframe to wanted direction (x: 0, y: 150)

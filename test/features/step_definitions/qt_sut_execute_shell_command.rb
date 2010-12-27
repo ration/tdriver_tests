@@ -7,3 +7,11 @@ Then /^get a RuntimeError exception$/ do
   verify_true(1, "Unexpected exception received" ) { @__exception.kind_of? RuntimeError}
   @__exception = nil
 end
+
+Then("I make sure that $app is not running") do |$app|
+  app = @sut.application
+  begin
+	app.kill if app.name == $app
+  rescue
+  end
+end
