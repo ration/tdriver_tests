@@ -63,5 +63,12 @@ task :doc_symbian do
 
 end
 
+task :cruise do
+  if /win/ =~ RUBY_PLATFORM
+    run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
+  else
+    run_tests( "linux", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux" )
+  end  
+end
 
 
