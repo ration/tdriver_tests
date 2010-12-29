@@ -29,13 +29,14 @@ def run_tests( name, command_line )
     }
 
     puts "Executing documentation #{ name } feature tests...\n"
-    system( command_line )
+    result=system( command_line )
 
   ensure
 
     Dir.chdir("..")
 
   end
+  result
 
 end
 
@@ -65,10 +66,22 @@ end
 
 task :cruise do
   if /win/ =~ RUBY_PLATFORM
-    run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
+    result=run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
   else
-    run_tests( "linux", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux" )
+    result=run_tests( "linux", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux" )
   end  
+  
+  puts "Feture tests executed" 
+   if ENV['CC_BUILD_ARTIFACTS']    
+    #Copy results to build artifacts
+    FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports", "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml"
+    FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports", :force => true)
+	
+	FileUtils.cp_r "#{Dir.pwd}/test/feature_xml", "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml"
+    FileUtils::remove_entry_secure("#{Dir.pwd}/test/feature_xml", :force => true)
+		
+   end
+   
 end
 
 
