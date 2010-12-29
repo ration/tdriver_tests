@@ -28,8 +28,8 @@ Feature: MobyBehaviour::TestObject#child
     When I execute "$testobj = @app.child(:text => 'MC')"
     Then another test object with the same rule should be equal
     
-  Scenario: Testing child method with xy_sorting feature
+  Scenario: Retrieve test object type of "Button" by using index feature
     Given I launch application "calculator" as "@app"
     Then I verify that "Calculator" is having "x" with value "0"
-    When I execute "@app.child(:type => 'Button', :__xy_sorting => true, :__index => 16)"
+    When I execute "@app.child(:type => 'Button', :__index => 16)"
     Then result test object is same as "@app.child(:type => 'Button', :text => '1')"
