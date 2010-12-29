@@ -1,4 +1,6 @@
 require 'fileutils'
+require 'zip/zip'
+require 'zip/zipfilesystem'
 
 task :default do
 
@@ -80,12 +82,17 @@ task :cruise do
         FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
 	  end
 	end
-    	
-	FileUtils.cp_r "#{Dir.pwd}/test/feature_xml", "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml"
-    FileUtils::remove_entry_secure("#{Dir.pwd}/test/feature_xml", :force => true)
-		
+    #Zip the generated xml documentation
+	filename = "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml.zip"
+	root="#{Dir.pwd}/test/feature_xml"
+	Zip::ZipFile.open(filename, 'w') do |zipfile|
+      Dir["#{Dir.pwd}/test/feature_xml"].reject{|f|f==filename}.each do |file|
+        zipfile.add(file.sub(root+'/',''),file)
+      end
+    end	
    end
-   
+   raise "Feature tests failed" if (result != true) or ($? != 0) 
+   exit(0)
 end
 
 
