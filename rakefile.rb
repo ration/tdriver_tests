@@ -86,7 +86,7 @@ task :cruise do
 	filename = "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml.zip"
 	root="#{Dir.pwd}/test/feature_xml"
 	Zip::ZipFile.open(filename, 'w') do |zipfile|
-      Dir["#{Dir.pwd}/test/feature_xml"].reject{|f|f==filename}.each do |file|
+      Dir["#{root}/*"].reject{|f|f==filename}.each do |file|
         zipfile.add(file.sub(root+'/',''),file)
       end
     end	
