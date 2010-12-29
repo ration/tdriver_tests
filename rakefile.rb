@@ -74,9 +74,13 @@ task :cruise do
   puts "Feture tests executed" 
    if ENV['CC_BUILD_ARTIFACTS']    
     #Copy results to build artifacts
-    FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports", "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml"
-    FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports", :force => true)
-	
+	Dir.foreach("#{Dir.pwd}/test/tdriver_reports") do |entry|
+	  if entry.include?('test_run')
+	    FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
+        FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
+	  end
+	end
+    	
 	FileUtils.cp_r "#{Dir.pwd}/test/feature_xml", "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml"
     FileUtils::remove_entry_secure("#{Dir.pwd}/test/feature_xml", :force => true)
 		
