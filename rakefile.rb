@@ -66,7 +66,44 @@ task :doc_symbian do
 
 end
 
-task :cruise do
+desc "Task for building the example QT application(s)"
+task :build_qttas do
+
+  puts "#########################################################"
+  puts "### Building test applications                        ####"
+  puts "#########################################################"
+
+	# buid version file
+	#File.open('common/inc/version.h', 'w') { |f| f.write "static QString TAS_VERSION = \"#{@__tas_revision}\";" }  
+  make = "make"
+  sudo = ""	
+
+  if /win/ =~ RUBY_PLATFORM
+    make = "mingw32-make"
+  else
+    sudo = "echo \"testability\" | sudo -S "
+  end
+  cmd = sudo + " #{make} uninstall"
+  system(cmd)
+
+  cmd = "#{make} distclean"
+  system(cmd)
+  
+  cmd = "qmake CONFIG+=release"
+  failure = system(cmd)
+  raise "qmake failed" if (failure != true) or ($? != 0) 
+    
+  cmd = "#{make}"
+  failure = system(cmd)
+  raise "make release failed" if (failure != true) or ($? != 0) 
+    
+  cmd = sudo + "#{make} install"
+  failure = system(cmd)
+  raise "make install failed" if (failure != true) or ($? != 0) 
+  puts "Testapps built"
+end
+
+task :cruise => ['build_testapps'] do
   if /win/ =~ RUBY_PLATFORM
     result=run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
   else
