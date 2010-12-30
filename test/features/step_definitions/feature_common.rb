@@ -26,33 +26,61 @@
 
 require 'tdriver'
 include TDriverVerify
+include TDriverReportAPI
 
 Before do
-        $ErrorMessage=""
-    @__current_app = nil
-    @__apps = {}
-    @__ret_val = nil
-    @__exception = nil
-    @__example_given = false
-    sut = ENV['TDRIVER_DEFAULT_SUT']
-    sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
-    #sut = "default_sut" if !sut or sut.empty?
-    @__sut = TDriver.sut(sut.to_sym) if sut != nil
+  $ErrorMessage=""
+  @__current_app = nil
+  @__apps = {}
+  @__ret_val = nil
+  @__exception = nil
+  @__example_given = false
+  sut = ENV['TDRIVER_DEFAULT_SUT']
+  sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
+  #sut = "default_sut" if !sut or sut.empty?
+  @__sut = TDriver.sut(sut.to_sym) if sut != nil
 end
 
-After do
+After do |scenario|
 
-    @__apps.each_key do |app|
-
-        begin
-		  @__apps[app].close
-        rescue Exception => e
+  @__apps.each_key do |app|
+    begin
+		  @__apps[app].close if @__apps[app].name != 'qttasserver'
+    rescue Exception => e
 		  # nothing
-        end
     end
+  end
+  if scenario.failed?
+    close_counter=0
+    while @__sut.application.name != 'qttasserver' && close_counter < 100
+      begin
+        tdriver_report_log("Closing app: #{@__sut.application.name}")
+        @__sut.application.close
+      rescue Exception => e
+        # nothing
+      end
+      close_counter+=1
+    end
+      if @fail_counter==nil
+        @fail_counter=0
+      end
+      @fail_counter+1
+
+      #Try to recover and check running apps
+      app_list=@__sut.list_apps
+      tdriver_report_log("Running applications: #{app_list}")
+
+      if @fail_counter>10
+        puts "Tests failing termitating execution"
+        Kernel::exit(1)
+      end
+  else
+    @fail_counter=0
+  end
   @__sut.clear_verify_blocks
   #Raising exception if it hasn't been handled
   raise @__exception if @__exception != nil
+
 end
 
 
@@ -66,28 +94,28 @@ end
 
 Given /^I launch application "([^\"]*)"$/ do |app_name|
 
-    app_ref = "@app"
-    raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
-    @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability")
-    eval(app_ref + " = @__apps[app_ref]")
-    @__current_app = @__apps[app_ref]
+  app_ref = "@app"
+  raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
+  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability")
+  eval(app_ref + " = @__apps[app_ref]")
+  @__current_app = @__apps[app_ref]
 end
 
 
 Given /^I launch application "([^\"]*)" as "([^\"]*)"$/ do |app_name, app_ref|
 
-    raise "No default sut given! Please set env variable TDRIVER_SUT!" if @__sut == nil
-    @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability")
-    eval(app_ref + " = @__apps[app_ref]")
-    @__current_app = @__apps[app_ref]
+  raise "No default sut given! Please set env variable TDRIVER_SUT!" if @__sut == nil
+  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability")
+  eval(app_ref + " = @__apps[app_ref]")
+  @__current_app = @__apps[app_ref]
 end
 
 Given /^I launch application "([^\"]*)" as "([^\"]*)" on sut "([^\"]*)"$/ do |app_name, app_ref, sut_id|
 
-    tmp_app = TDriver.sut(sut_id.to_sym).run( :name => app_name.to_s , :arguments => "-testability")
-    eval(app_ref + " = tmp_app")
-    @__apps[app_ref] = tmp_app
-    @__current_app = @__apps[app_ref]
+  tmp_app = TDriver.sut(sut_id.to_sym).run( :name => app_name.to_s , :arguments => "-testability")
+  eval(app_ref + " = tmp_app")
+  @__apps[app_ref] = tmp_app
+  @__current_app = @__apps[app_ref]
 end
 
 Given /^I show FloatingMenu of the testapp$/ do
@@ -129,10 +157,10 @@ Given "there is only $article $target_type on the testapp screen" do | article, 
 
   @__current_app.Control( :name => "Reset" ).tap
   case target_type
-    when "Node"
-          @__current_app.Control( :name => "AddNode" ).tap
-        when "Rectangle"
-          @__current_app.Control( :name => "AddRectangle" ).tap
+  when "Node"
+    @__current_app.Control( :name => "AddNode" ).tap
+  when "Rectangle"
+    @__current_app.Control( :name => "AddRectangle" ).tap
   end
 
   temp_obj = @__current_app.child( :type => target_type )
@@ -165,32 +193,32 @@ end
 
 
 When /^I execute "([^\"]*)"$/ do |script|
-    raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
-    @__example_given = true
-    begin
-        @__ret_val = eval(script)
-    rescue Exception => e
-        @__exception = e
-    end
+  raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
+  @__example_given = true
+  begin
+    @__ret_val = eval(script)
+  rescue Exception => e
+    @__exception = e
+  end
 end
 
 When "I execute" do |script|
-    raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
-    @__example_given = true
-    begin
-        @__ret_val = eval(script)
-    rescue Exception => e
-        @__exception = e
-    end
+  raise 'Invalid step! In these feature tests there should be only one "When I execute..." example code per scenario.' if @__example_given
+  @__example_given = true
+  begin
+    @__ret_val = eval(script)
+  rescue Exception => e
+    @__exception = e
+  end
 end
 
 
 When /^I test code "([^\"]*)"$/ do |script|
-    begin
-        @__ret_val = eval(script)
-    rescue Exception => e
-        @__exception = e
-    end
+  begin
+    @__ret_val = eval(script)
+  rescue Exception => e
+    @__exception = e
+  end
 end
 
 When "I can delete file \"$file\"" do |file|
@@ -206,8 +234,8 @@ end
 Then /^application "([^\"]*)" is running$/ do |arg1|
   raise @__exception if @__exception != nil
   if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
-    ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
-    (@os_name == "")
+      ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+      (@os_name == "")
     if RUBY_PLATFORM.downcase.include?("mswin")
       verify_equal(arg1 + '.exe', 30, "Application name should match."){
         @app.executable_name
@@ -224,8 +252,8 @@ end
 Then /^application "([^\"]*)" is not running$/ do |arg1|
   raise @__exception if @__exception != nil
   if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
-    ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
-    (@os_name == "")
+      ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+      (@os_name == "")
     if RUBY_PLATFORM.downcase.include?("mswin")
       verify_false(30, 'application should not be running') {
         @sut.application.name == arg1 + '.exe'
@@ -239,8 +267,8 @@ Then /^application "([^\"]*)" is not running$/ do |arg1|
 end
 
 Then /^The calculator display says "([^\"]*)"$/ do |result|
-    raise @__exception if @__exception != nil
-    verify_equal(result.to_s, 10, 'Calculator displays wrong value') { @__current_app.child(:name => 'display').attribute('text').to_s }
+  raise @__exception if @__exception != nil
+  verify_equal(result.to_s, 10, 'Calculator displays wrong value') { @__current_app.child(:name => 'display').attribute('text').to_s }
 end
 
 Then /^object named "([^\"]*)" is visible on screen$/ do |arg1|
@@ -299,20 +327,20 @@ Then "the $target_type has moved $expected_direction" do | target_type, expected
   raise @__exception if @__exception != nil
   verify_true(30, "The #{target_type} did not move #{expected_direction}") do
 
-        result = false
-        temp_obj = @__current_app.child( :type => target_type )
+    result = false
+    temp_obj = @__current_app.child( :type => target_type )
     case expected_direction
-      when "left"
-            result = temp_obj.attribute( "x" ).to_i < @initial_x.to_i
-          when "right"
-            result = temp_obj.attribute( "x" ).to_i > @initial_x.to_i
-      when "down"
-            result = temp_obj.attribute( "y" ).to_i > @initial_y.to_i
-          when "up"
-            result = temp_obj.attribute( "y" ).to_i < @initial_y.to_i
+    when "left"
+      result = temp_obj.attribute( "x" ).to_i < @initial_x.to_i
+    when "right"
+      result = temp_obj.attribute( "x" ).to_i > @initial_x.to_i
+    when "down"
+      result = temp_obj.attribute( "y" ).to_i > @initial_y.to_i
+    when "up"
+      result = temp_obj.attribute( "y" ).to_i < @initial_y.to_i
     end
 
-        result
+    result
 
   end
 
@@ -323,9 +351,9 @@ Then "the $target_type has not moved" do | target_type |
   raise @__exception if @__exception != nil
   verify_true(30, "The #{target_type} did move") do
 
-        temp_obj = @__current_app.child( :type => target_type )
+    temp_obj = @__current_app.child( :type => target_type )
 
-        ( temp_obj.attribute( "x" ).to_i == @initial_x.to_i ) and ( temp_obj.attribute( "y" ).to_i == @initial_y.to_i )
+    ( temp_obj.attribute( "x" ).to_i == @initial_x.to_i ) and ( temp_obj.attribute( "y" ).to_i == @initial_y.to_i )
 
   end
 
@@ -336,8 +364,8 @@ Then "the $target_type has the $expected_attribute attribute with value $expecte
   raise @__exception if @__exception != nil
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
 
-        temp_obj = @__current_app.child( :type => target_type )
-        temp_obj.attribute( expected_attribute )
+    temp_obj = @__current_app.child( :type => target_type )
+    temp_obj.attribute( expected_attribute )
 
   end
 
@@ -355,10 +383,10 @@ Then "the $target_type with $id_type $id_value has the attribute $expected_attri
   raise @__exception if @__exception != nil
   verify_equal(expected_value, 30, "The #{target_type} did not have the #{expected_attribute} attribute with a value of #{ expected_value }") do
 
-        result = false
-        temp_obj = @__current_app.child( :type => target_type, target_attribute.to_sym => target_value )
+    result = false
+    temp_obj = @__current_app.child( :type => target_type, target_attribute.to_sym => target_value )
 
-        temp_obj.attribute( expected_attribute )
+    temp_obj.attribute( expected_attribute )
 
   end
 
@@ -370,7 +398,7 @@ Then "the new location of the $target_type is $expected_x, $expected_y" do | tar
   raise @__exception if @__exception != nil
   verify(30, "The #{target_type} was not at location #{expected_x}, #{expected_y}") do
 
-        temp_obj = @__current_app.child( :type => target_type, :x => expected_x, :y => expected_y )
+    temp_obj = @__current_app.child( :type => target_type, :x => expected_x, :y => expected_y )
 
   end
 
@@ -448,9 +476,9 @@ Then /^color of Triangle(\d+) is "([^"]*)"$/ do |arg1, arg2|
 end
 
 Then ("I verify that \"$object\" is having \"$attrib\" with value \"$value\"") do |obj, attrib, value|
-    @app.send(obj.to_sym, {attrib=>value}).name
+  @app.send(obj.to_sym, {attrib=>value}).name
 end
 
 Then ("I verify that \"$obj\" is having \"$attrib\" with evaluated value \"$value\"") do |obj, attrib, value|
-    @app.send(obj.to_sym, {attrib=>eval(value).to_s}).name
+  @app.send(obj.to_sym, {attrib=>eval(value).to_s}).name
 end
