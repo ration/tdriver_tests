@@ -67,7 +67,7 @@ task :doc_symbian do
 end
 
 desc "Task for building the example QT application(s)"
-task :build_qttas do
+task :build_testapps do
 
   puts "#########################################################"
   puts "### Building test applications                        ####"
