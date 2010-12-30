@@ -61,12 +61,21 @@ After do |scenario|
       end
       close_counter+=1
     end
+      if @fail_counter==nil
+        @fail_counter=0
+      end
+      @fail_counter+1
 
       #Try to recover and check running apps
       app_list=@__sut.list_apps
       tdriver_report_log("Running applications: #{app_list}")
 
-
+      if @fail_counter>10
+        puts "Tests failing termitating execution"
+        Kernel::exit(1)
+      end
+  else
+    @fail_counter=0
   end
   @__sut.clear_verify_blocks
   #Raising exception if it hasn't been handled
