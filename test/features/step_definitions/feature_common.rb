@@ -26,6 +26,7 @@
 
 require 'tdriver'
 include TDriverVerify
+include TDriverReportAPI
 
 Before do
   $ErrorMessage=""
@@ -53,12 +54,19 @@ After do |scenario|
     close_counter=0
     while @__sut.application.name != 'qttasserver' && close_counter < 100
       begin
+        tdriver_report_log("Closing app: #{@__sut.application.name}")
         @__sut.application.close
       rescue Exception => e
         # nothing
       end
       close_counter+=1
     end
+
+      #Try to recover and check running apps
+      app_list=@__sut.list_apps
+      tdriver_report_log("Running applications: #{app_list}")
+
+
   end
   @__sut.clear_verify_blocks
   #Raising exception if it hasn't been handled
