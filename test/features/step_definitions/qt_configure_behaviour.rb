@@ -44,7 +44,7 @@ Then("I clear the log file for the sut") do
 end
 
 Then("I delete file $name") do |name|
-  File.delete(name) if File.exist?(name)
+  FileUtils::remove_entry_secure(name, :force => true) if File.exist?(name)
 end
 
 Then("I get current application") do 
