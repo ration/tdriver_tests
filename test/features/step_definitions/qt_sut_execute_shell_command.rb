@@ -8,10 +8,10 @@ Then /^get a RuntimeError exception$/ do
   @__exception = nil
 end
 
-Then("I make sure that $app is not running") do |$app|
+Then("I make sure that $app is not running") do | target_app |
   app = @sut.application
   begin
-	app.kill if app.name == $app
+	app.kill if app.name == target_app
   rescue
   end
 end

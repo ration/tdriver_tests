@@ -22,12 +22,12 @@
 # Date: 18.10.2010
 # Purpose: Test TDriver methods
 
-And "I get the application for \"$test_object\"" do |$test_object|
+And "I get the application for \"$test_object\"" do | test_object |
   raise @__exception if @__exception != nil
-  $app_parent=eval("#{$test_object}.get_application")
+  $app_parent=eval("#{test_object}.get_application")
 end
 
-Then "the test object returned is \"$test_object\"" do |$test_object|
-  verify_true(30, "Application test object was not retrieved successfully") {eval("$app_parent==#{$test_object}")}	
+Then "the test object returned is \"$test_object\"" do | test_object |
+  verify_true(30, "Application test object was not retrieved successfully") {eval("$app_parent==#{test_object}")}	
 end
 

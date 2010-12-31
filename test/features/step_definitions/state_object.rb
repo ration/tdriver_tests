@@ -17,17 +17,19 @@
 ## 
 ############################################################################
 
+Then /I set create xml state with (\d+) objects and store it in "([^\"]*)"$/ do | object_count, result_object |
+  
+  value = "<object id=\"0\" name=\"root\" type=\"objects\"><objects>"
+  
+  (1..object_count.to_i).each do | iter |
+  
+    value << "<object name=\"object_#{ iter }\" type=\"obj\" id=\"#{ iter }\"/>"
+  
+  end
+  
+  value << "</objects></object>"
 
-# Author: Bilkis Gargadia
-# Date: 03.11.2010
-# Purpose: Test TDriver methods
+  eval("#{ result_object }='#{ value }'")
 
-And "I get the coordinates for the Quit button as \"$x\" and \"$y\"" do | expected_x, expected_y|
-  control = @__sut.application.NodeView.Control( :name => 'Quit' )
-  x = control.attribute('x').to_i+10
-  y = control.attribute('y').to_i+10
-  x = x + ( control.attribute('width').to_i / 2 )
-  y = y + ( control.attribute('height').to_i / 2 )
-  eval ("#{expected_x}=x")
-  eval ("#{expected_y}=y")
 end
+
