@@ -23,13 +23,13 @@
 # Date: 29.10.2010
 # Purpose: Steps used to test gesture points behaviour
 
-Then("I drag node $number to the center of the screen") do |$number|
+Then("I drag node $number to the center of the screen") do | number |
   verify(30) {
   window_width = @sut.application.NodeView.attribute('width').to_i/2
   window_height = @sut.application.NodeView.attribute('height').to_i/2
   window_x = @sut.application.NodeView.attribute('x_absolute').to_i + window_width.to_i
   window_y = @sut.application.NodeView.attribute('y_absolute').to_i + window_height.to_i
-  @nodeid = "Node"+$number.to_s
+  @nodeid = "Node"+number.to_s
   @sut.application.Node(:name => @nodeid).drag_to(window_x.to_i, window_y.to_i)
   node_width = @sut.application.Node(:name => @nodeid).attribute('width').to_i/2
   node_height = @sut.application.Node(:name => @nodeid).attribute('height').to_i/2

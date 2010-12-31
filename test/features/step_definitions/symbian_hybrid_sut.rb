@@ -24,16 +24,16 @@ Before do
   $ErrorMessage=""
 end
 
-When("I tap the $name rectangle") do |$name|
+When("I tap the $name rectangle") do | name |
   @app.QDeclarativeRectangle( :name => 'Click' ).tap
 end
 
-Then("the $name will be $text") do | $name, $text |
-  verify_equal($text, 5){@app.QDeclarativeText( :name => 'buttonText' ).attribute('text')}
+Then("the $name will be $text") do | name, text |
+  verify_equal( text, 5 ){@app.QDeclarativeText( :name => 'buttonText' ).attribute('text')}
 end
 
-Then("I tap Softkey $name") do |$name|
- @app.softkey(:Text => $name ).tap
+Then("I tap Softkey $name") do | name |
+ @app.softkey(:Text => name ).tap
 end
 
 Then("I get qt and avkon components") do
@@ -44,11 +44,11 @@ Then("I get qt and avkon components") do
   verify(5){@app.QDeclarativeRectangle( :name => 'Drag' )}
 end
 
-Then("screen rotation is $value") do |$value|
-  verify_equal($value, 5){@sut.application.attribute('Rotation')}
+Then("screen rotation is $value") do | value |
+  verify_equal( value, 5){@sut.application.attribute('Rotation')}
 end
  
-Then("I rotate screen $direction") do |$direction|
-  @sut.rotate_screen($direction.to_sym)
+Then("I rotate screen $direction") do | direction |
+  @sut.rotate_screen( direction.to_sym )
 end
 

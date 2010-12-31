@@ -22,12 +22,12 @@
 # Date: 03.11.2010
 # Purpose: Test TDriver methods
 
-And "I get the coordinates for the Quit button as \"$x\" and \"$y\"" do |$x,$y|
+And "I get the coordinates for the Quit button as \"$x\" and \"$y\"" do | expected_x, expected_y|
   control = @__sut.application.NodeView.Control( :name => 'Quit' )
   x = control.attribute('x').to_i+10
   y = control.attribute('y').to_i+10
   x = x + ( control.attribute('width').to_i / 2 )
   y = y + ( control.attribute('height').to_i / 2 )
-  eval ("#{$x}=x")
-  eval ("#{$y}=y")
+  eval ("#{expected_x}=x")
+  eval ("#{expected_y}=y")
 end

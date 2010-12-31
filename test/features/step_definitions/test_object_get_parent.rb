@@ -22,13 +22,13 @@
 # Date: 18.10.2010
 # Purpose: Test TDriver methods
 
-And "I get the parent for \"$test_object\"" do |$test_object|
+And "I get the parent for \"$test_object\"" do | test_object |
   raise @__exception if @__exception != nil
-  $app_parent=eval("#{$test_object}.get_parent")
+  $app_parent=eval("#{ test_object }.get_parent")
 end
 
-Then "the parent test object is \"$test_object\"" do |$test_object|
-  verify_true(30, "Parent test object was not retrieved successfully") {eval("$app_parent==#{$test_object}")}	
+Then "the parent test object is \"$test_object\"" do | test_object |
+  verify_true(30, "Parent test object was not retrieved successfully") {eval("$app_parent==#{ test_object }")}	
 end
 
 
