@@ -47,7 +47,8 @@ Then("I delete file $name") do |name|
   if /win/ =~ RUBY_PLATFORM
     FileUtils::remove_entry_secure(name, :force => true) if File.exist?(name)
   else
-    system("sudo rm #{name}")
+    FileUtils::remove_entry_secure(name, :force => true) if File.exist?(name)
+    system("sudo rm #{name}") if File.exist?(name)
   end
 end
 
