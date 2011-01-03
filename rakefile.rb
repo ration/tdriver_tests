@@ -66,6 +66,38 @@ task :doc_symbian do
 
 end
 
+
+desc "Task for executing smoke tests"
+task :execute_smoke do
+
+  puts "#########################################################"
+  puts "### Executing smoke tests                            ####"
+  puts "#########################################################"
+  begin
+
+  Dir.chdir('test/tc_testapp')
+  cmd = "ruby tc_testapp.rb"
+  failure = system(cmd)
+  
+  raise "smoke test failed" if (failure != true) or ($? != 0) 
+	
+  ensure
+  Dir.chdir("../../")
+    if ENV['CC_BUILD_ARTIFACTS']    
+    #Copy results to build artifacts
+	  Dir.foreach("#{Dir.pwd}/test/tc_testapp/tdriver_reports") do |entry|
+	    if entry.include?('test_run')
+	      FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
+          FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
+	    end
+	  end
+    end    
+
+  end
+  raise "Smoke tests failed" if (result != true) or ($? != 0) 
+  result
+end
+
 desc "Task for building the example QT application(s)"
 task :build_testapps do
 
@@ -103,7 +135,7 @@ task :build_testapps do
   puts "Testapps built"
 end
 
-task :cruise => ['build_testapps'] do
+task :cruise => ['build_testapps'] => ['execute_smoke'] do
   if /win/ =~ RUBY_PLATFORM
     result=run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
   else
