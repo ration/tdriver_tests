@@ -135,7 +135,7 @@ task :build_testapps do
   puts "Testapps built"
 end
 
-task :cruise => ['build_testapps'] => ['execute_smoke'] do
+task :cruise => ['build_testapps','execute_smoke'] do
   if /win/ =~ RUBY_PLATFORM
     result=run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
   else
