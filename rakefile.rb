@@ -78,8 +78,7 @@ task :execute_smoke do
   Dir.chdir('test/tc_testapp')
   cmd = "ruby tc_testapp.rb"
   failure = system(cmd)
-  
-  raise "smoke test failed" if (failure != true) or ($? != 0) 
+    
 	
   ensure
   Dir.chdir("../../")
@@ -94,8 +93,8 @@ task :execute_smoke do
     end    
 
   end
-  raise "Smoke tests failed" if (result != true) or ($? != 0) 
-  result
+  raise "Smoke tests failed" if (failure != true) or ($? != 0) 
+  failure
 end
 
 desc "Task for building the example QT application(s)"
