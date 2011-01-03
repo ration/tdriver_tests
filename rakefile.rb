@@ -87,8 +87,8 @@ task :execute_smoke do
     #Copy results to build artifacts
 	  Dir.foreach("#{Dir.pwd}/test/tc_testapp/tdriver_reports") do |entry|
 	    if entry.include?('test_run')
-	      FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
-          FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
+	      FileUtils.cp_r "#{Dir.pwd}/test/tc_testapp/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
+          FileUtils::remove_entry_secure("#{Dir.pwd}/test/tc_testapp/tdriver_reports/#{entry}", :force => true)
 	    end
 	  end
     end    
