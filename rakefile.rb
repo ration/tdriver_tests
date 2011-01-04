@@ -44,25 +44,25 @@ end
 
 task :doc_linux do 
 
-  run_tests( "linux", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux" )
+  run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
 
 end
 
 task :doc_meego do 
 
-  run_tests( "meego", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_meego" )
+  run_tests( "meego", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_meego --tdriver_parameters custom_parameters.xml" )
 
 end
 
 task :doc_windows do 
 
-  run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
+  run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
 
 end
 
 task :doc_symbian do 
 
-  run_tests( "symbian", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian" )
+  run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
 
 end
 
@@ -74,9 +74,9 @@ task :execute_smoke do
   puts "### Executing smoke tests                            ####"
   puts "#########################################################"
   begin
-
+  current_dir=Dir.pwd
   Dir.chdir('test/tc_testapp')
-  cmd = "ruby tc_testapp.rb"
+  cmd = "ruby tc_testapp.rb --tdriver_parameters #{current_dir}/test/custom_parameters.xml"
   failure = system(cmd)
     
 	
