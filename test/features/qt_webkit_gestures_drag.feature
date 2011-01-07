@@ -17,7 +17,7 @@ Feature: Testing WebKit gesture features
         @app.div(:id => 'blue').gesture(:Left,1,10)
     """
     Then I verify that "div" is having "x" with evaluated value "@app.html(:name=>'html').attribute('x').to_i+20"
-    Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+420"
+    Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+320"
     
   Scenario: After loading gesture page blue element should be draggable
     Given I launch application "browser"
@@ -31,7 +31,7 @@ Feature: Testing WebKit gesture features
         @app.div(:id => 'blue').drag(:Left,10)
     """
     Then I verify that "div" is having "x" with evaluated value "@app.html(:name=>'html').attribute('x').to_i+20"
-    Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+420"
+    Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+320"
 
   Scenario: After loading gesture page blue element should gesture to target coordinates
     Given I launch application "browser"
