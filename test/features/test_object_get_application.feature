@@ -7,11 +7,10 @@ Feature: MobyBehaviour::TestObject#get_application
 
   Scenario: Testing get_application method for application testapp
     Given I launch application "testapp" as "@app"
-    And I get the application for "@app"
-    Then the test object returned is "@app"
+    When I execute "$application = @app.get_application()"
+    Then verify "$application==@app"
 
-  Scenario: Testing get_application method for a Test Object in testapp
+  Scenario: Testing get_application method for a test object in testapp
     Given I launch application "testapp" as "@app"
-    When I execute "$triangle = @app.Triangle( :name => 'Triangle1' )"
-    And I get the application for "$triangle"
-    Then the test object returned is "@app"
+    When I execute "$application = @app.Triangle( :name => 'Triangle1' ).get_application()"
+    Then verify "$application==@app"

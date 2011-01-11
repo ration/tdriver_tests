@@ -5,7 +5,7 @@ Feature: MobyBehaviour::TestObject#attributes
   I want to use attributes method to retrieve all test object attributes
   so that I can test the MobyBehaviour::TestObject behaviour
 
-  Scenario: Testing attributes method
+  Scenario: Executing attributes method to retrieve all test object attributes
     Given I launch application "testapp" as "@app"
     When I execute "$attributes = @app.Triangle( :name => 'Triangle1' ).attributes"
     Then the attributes are retrieved
