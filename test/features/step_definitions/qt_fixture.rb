@@ -27,3 +27,8 @@ end
 Then("QLinedit has focus") do
   verify_equal('true',5){@app.QLineEdit( :name => 'display' ).attribute('focus')}
 end
+
+Then("I clear fixture qt from parameters") do
+  puts @sut
+  MobyUtil::Parameter[@sut.id.to_sym][:fixtures][:qt] = nil
+end
