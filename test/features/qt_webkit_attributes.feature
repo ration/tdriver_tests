@@ -11,7 +11,7 @@ Feature: Testing retrieving WebKit objects with attributes
     Then I verify evaluate string "@app.input(:type => 'radio', :checked => 'true')"
     Then I verify evaluate string "@app.p(:elementText => 'sample element text')"
     Then I verify evaluate string "@app.img(:alt => 'matti1')"
-    Then I verify evaluate string "@app.img(:id => '3')"
+    Then I verify evaluate string "@app.img(:id => '2')"
     Then I verify evaluate string "@app.input(:id => 'textfield')"
     Then I verify evaluate string "@app.select(:value => 'Please Choose')"
     Then I verify evaluate string "@app.option(:value => '1', :selected => 'false')"

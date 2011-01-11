@@ -10,12 +10,12 @@ Feature: MobyBehaviour::QT::Webkit#scroll
     When I execute "@app.a(:elementText => 'not visible test link').scroll"
     Then I should see "a" having "elementText" with value "not visible test link"
 
-  Scenario: Scrolls the webframe to wanted direction (x: 0, y: 150)
+  Scenario: Scrolls the webframe to wanted direction (x: 0, y: 100)
     Given I launch application "browser"
-    Then I execute "@app.QWebFrame(:__index=>2).scroll(0,150)"
-    Then I should not see "img" having "alt" with value "matti3"
+    Then I execute "@app.QWebFrame(:__index=>2).scroll(0,100)"
+    Then I should not see "img" having "alt" with value "matti2"
 
   Scenario: Scrolls the webframe to wanted direction (x: 110, y: 0)
     Given I launch application "browser"
     Then I execute "@app.QWebFrame(:__index=>2).scroll(110,0)"
-    Then I should not see "img" having "alt" with value "matti3"
+    Then I should not see "img" having "alt" with value "matti2"
