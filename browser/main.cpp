@@ -24,6 +24,7 @@
 #include <QDeclarativeView>
 #include <QApplication>
 #include <QFile>
+#include <QDesktopWidget>
 
 /*Add following libraries to enable testabilityloading and testailiby if not already included */
 #include <QtPlugin>
@@ -94,10 +95,13 @@ int main(int argc, char *argv[])
     view.setSource(url);
     view.setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
-#ifdef Q_OS_SYMBIAN
-    view.showFullScreen();
-#else
-    view.show();
-#endif //Q_OS_SYMBIAN
+    if(qApp->desktop()->screen()->width() < 500 ||
+       qApp->desktop()->screen()->height() < 500)
+    {
+        view.showFullScreen();
+    }else{
+        view.setGeometry(100,50,340,640);
+        view.show();
+    }
     return app.exec();
 }
