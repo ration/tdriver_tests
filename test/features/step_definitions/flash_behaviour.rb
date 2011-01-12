@@ -37,7 +37,7 @@ Then "I set he mandatory flash parameters for sut" do
   @sut.parameter[:switchbox_commands_during_flash]=''
   @sut.parameter[:optional_parameters_after_flashing]=''
   @sut.parameter[:flash_images]=''
-  @sut.parameter[:sleep_time_after_flash_command]='1'
+  @sut.parameter[:flash_sleep_time_after_flash_command]='1'
   @sut.parameter[:command_after_flash]=''
   @sut.parameter[:switchbox_commands_after_failed_flash]=''
   @sut.parameter[:commands_after_failed_flash]=''
