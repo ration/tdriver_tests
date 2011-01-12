@@ -17,17 +17,18 @@
 ## 
 ############################################################################
 
-
 # Author: Bilkis Gargadia
-# Date: 18.10.2010
+# Date: 12.01.2011
 # Purpose: Test TDriver methods
 
-And "I get the application id for \"$test_object\"" do | test_object |
+Then "I cause testapp to crash" do
   raise @__exception if @__exception != nil
-  $app_parent_id=eval("#{ test_object }.get_application_id")
+  @app.NodeView.Control(:name => 'Crash').tap
+  #puts @__sut.list_crashed_apps
+ end
+ 
+Then "crashed application name is \"$crashed_app_name\"" do |crashed_app_name|
+  doc = Nokogiri::XML($xml)
+  verify_equal(crashed_app_name, 10){doc.xpath("//tasMessage//tasInfo//objects//object").attribute('name').to_s}
 end
-
-Then "application id is id for test object \"$test_object\"" do | test_object |
-  verify_true(30, "Application test object was not retrieved successfully") {eval("$app_parent_id==#{ test_object }.id()")}	
-end
-
+ 
