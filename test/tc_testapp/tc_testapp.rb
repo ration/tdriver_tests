@@ -22,6 +22,7 @@
 
 require 'tdriver'
 require 'test/unit'
+include TDriverVerify
 include TDriverReportTestUnit
 
 
