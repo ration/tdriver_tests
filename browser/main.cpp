@@ -92,6 +92,8 @@ int main(int argc, char *argv[])
 #endif //Q_OS_LINUX
     }
     view.setSource(url);
+    view.setResizeMode(QDeclarativeView::SizeRootObjectToView);
+
 #ifdef Q_OS_SYMBIAN
     view.showFullScreen();
 #else
