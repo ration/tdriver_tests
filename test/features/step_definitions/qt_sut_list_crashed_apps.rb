@@ -17,22 +17,18 @@
 ## 
 ############################################################################
 
-
 # Author: Bilkis Gargadia
-# Date: 18.10.2010
+# Date: 12.01.2011
 # Purpose: Test TDriver methods
 
-And "I get the parent for \"$test_object\"" do | test_object |
+Then "I cause testapp to crash" do
   raise @__exception if @__exception != nil
-  $app_parent=eval("#{ test_object }.get_parent")
+  @app.NodeView.Control(:name => 'Crash').tap
+  #puts @__sut.list_crashed_apps
+ end
+ 
+Then "crashed application name is \"$crashed_app_name\"" do |crashed_app_name|
+  doc = Nokogiri::XML($xml)
+  verify_equal(crashed_app_name, 10){doc.xpath("//tasMessage//tasInfo//objects//object").attribute('name').to_s}
 end
-
-Then "the parent test object is \"$test_object\"" do | test_object |
-  verify_true(30, "Parent test object was not retrieved successfully") {eval("$app_parent==#{ test_object }")}	
-end
-
-
-
-
-
-
+ 
