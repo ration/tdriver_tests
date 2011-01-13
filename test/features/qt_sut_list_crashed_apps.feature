@@ -1,4 +1,5 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+#Commented out because the apps are launched in detached and no info is collected if the apps crash
+#@qt_linux @qt_windows @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::QT::SUT#list_crashed_apps
   As a test scripter writer
