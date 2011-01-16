@@ -8,6 +8,37 @@ task :default do
 
 end
 
+def generate_sut_qt_api_doc()
+  if ENV['CC_BUILD_ARTIFACTS']
+    begin
+      current_dir=Dir.pwd
+      puts 'Copying feature xml'
+      FileUtils.cp_r "#{Dir.pwd}/test/feature_xml", "#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml"
+
+      puts 'Cloning sut qt'
+      Dir.chdir(ENV['CC_BUILD_ARTIFACTS'])
+      system("git clone git@gitorious.org:tdriver/driver.git")
+      system("git clone git@gitorious.org:tdriver/sut_qt.git")
+      Dir.chdir('sut_qt')
+
+      puts 'Generating API doc'
+      system("rake doc")
+
+      puts 'Copy API doc to artifacts'
+      FileUtils.cp_r "#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt/doc/output", "#{ENV['CC_BUILD_ARTIFACTS']}"
+
+      puts 'Cleanup artifacts'
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/driver", :force => true)
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt", :force => true)
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/tests", :force => true)
+
+    ensure
+      Dir.chdir(current_dir)
+    end
+
+  end
+end
+
 def collect_artifacts()
   if ENV['CC_BUILD_ARTIFACTS']
     #Copy results to build artifacts
@@ -164,6 +195,7 @@ task :cruise => ['build_testapps','execute_smoke'] do
   end    
   puts "Feature tests executed"
   collect_artifacts()
+  generate_sut_qt_api_doc()
   raise "Feature tests failed" if (result != true) or ($? != 0)
   exit(0)
 end
