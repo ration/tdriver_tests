@@ -26,9 +26,9 @@ def generate_sut_qt_api_doc()
 
       puts 'Generating API doc'
       system("rake doc")
-
+      Dir.chdir('..')
       puts 'Copy API doc to artifacts'
-      FileUtils.cp_r "#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt/doc/output", "#{ENV['CC_BUILD_ARTIFACTS']}"
+      FileUtils.cp_r "#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt/doc/output/.", "#{ENV['CC_BUILD_ARTIFACTS']}"
 
       puts 'Cleanup artifacts'
       FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/driver", :force => true)
