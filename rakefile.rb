@@ -13,6 +13,7 @@ def generate_sut_qt_api_doc()
     begin
       current_dir=Dir.pwd
       puts 'Copying feature xml'
+      Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml")
       FileUtils.cp_r "#{Dir.pwd}/test/feature_xml", "#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml"
 
       puts 'Cloning sut qt'
@@ -31,6 +32,7 @@ def generate_sut_qt_api_doc()
       FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/driver", :force => true)
       FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt", :force => true)
       FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/tests", :force => true)
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml", :force => true)
 
     ensure
       Dir.chdir(current_dir)
