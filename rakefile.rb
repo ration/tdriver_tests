@@ -13,6 +13,8 @@ def generate_sut_qt_api_doc()
     begin
       current_dir=Dir.pwd
       puts 'Copying feature xml'
+      Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests")
+      Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test")
       Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml")
       FileUtils.cp_r "#{Dir.pwd}/test/feature_xml", "#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml"
 
