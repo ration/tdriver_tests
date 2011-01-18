@@ -2,16 +2,13 @@
 
 Feature: MobyBehaviour::QT::Synchronization#wait_for_signal
   As a test scripter writer
-  I want to use wait_for_signal method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use wait_for_signal method to synchronizes script execution to a signal in calculator
   so that I can test the MobyBehaviour::QT::Synchronization behaviour
 
-  Scenario: Testing wait_for_signal method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].wait_for_signal(signal_timeout, signal_name)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
-  Scenario: Testing wait_for_signal method with optional argument 'block' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].wait_for_signal(signal_timeout, signal_name, block)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing wait_for_signal method with required signal timeout and signal name
+    Given I launch application "calculator" as "@app"
+    And I listen for signal clicked() from button "oneButton" using fixture
+    And I tap Button named "oneButton"
+    When I execute "@app.Button( :name => 'oneButton' ).wait_for_signal(3,'clicked()')"
+    Then exception is not thrown
 
