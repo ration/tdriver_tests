@@ -7,13 +7,13 @@ Feature: MobyBehaviour::QT::SUT#shell_command
 
   Scenario: Testing shell_command method with required argument(s) (Rename this to be more descriptive)
     Given I have default sut
-    And I launch testapp for 20 seconds
+    And I launch testapp for 2 seconds
     When I execute "$obj=@sut.shell_command($pid)"
     Then the pid should be still running
 
   Scenario: Testing shell_command method with optional argument 'param', to kill the process
     Given I have default sut
-    And I launch testapp for 20 seconds
+    And I launch testapp for 10 seconds
     When I execute "$obj=@sut.shell_command($pid,{:kill => 'true'})"
     Then application "testapp" is not running
 
