@@ -482,3 +482,7 @@ end
 Then ("I verify that \"$obj\" is having \"$attrib\" with evaluated value \"$value\"") do | obj, attrib, value |
   @app.send(obj.to_sym, {attrib=>eval(value).to_s}).name
 end
+
+Given /^I sleep "([^"]*)" second$/ do |arg1|
+  sleep arg1.to_i
+end

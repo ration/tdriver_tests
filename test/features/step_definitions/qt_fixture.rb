@@ -27,3 +27,11 @@ end
 Then("QLinedit has focus") do
   verify_equal('true',5){@app.QLineEdit( :name => 'display' ).attribute('focus')}
 end
+
+Given /^I tap the open button in the tool bar$/ do
+  @app.QToolButton( :text => 'Open' ).tap
+end
+
+Then /^I tap the native dialog "([^"]*)" button$/ do |arg1|
+  @sut.fixture('dialog', 'tap_control', { :dialog_name => 'Open', :name_pattern => arg1, :class_pattern => 'Button' } )
+end
