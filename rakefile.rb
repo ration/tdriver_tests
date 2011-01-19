@@ -8,6 +8,61 @@ task :default do
 
 end
 
+def generate_sut_qt_api_doc()
+  if ENV['CC_BUILD_ARTIFACTS']
+    begin
+      current_dir=Dir.pwd
+      puts 'Copying feature xml'
+      Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests")
+      Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test")
+      Dir.mkdir("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml")
+      FileUtils.cp_r "#{Dir.pwd}/test/feature_xml/.", "#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml"
+
+      puts 'Cloning sut qt'
+      Dir.chdir(ENV['CC_BUILD_ARTIFACTS'])
+      system("git clone git@gitorious.org:tdriver/driver.git")
+      system("git clone git@gitorious.org:tdriver/sut_qt.git")
+      Dir.chdir('sut_qt')
+
+      puts 'Generating API doc'
+      system("rake doc")
+      Dir.chdir('..')
+      puts 'Copy API doc to artifacts'
+      FileUtils.cp_r "#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt/doc/output/.", "#{ENV['CC_BUILD_ARTIFACTS']}"
+
+      puts 'Cleanup artifacts'
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/driver", :force => true)
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/sut_qt", :force => true)
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/tests", :force => true)
+      FileUtils::remove_entry_secure("#{ENV['CC_BUILD_ARTIFACTS']}/tests/test/feature_xml", :force => true)
+
+    ensure
+      Dir.chdir(current_dir)
+    end
+
+  end
+end
+
+def collect_artifacts()
+  if ENV['CC_BUILD_ARTIFACTS']
+    #Copy results to build artifacts
+    Dir.foreach("#{Dir.pwd}/test/tdriver_reports") do |entry|
+      if entry.include?('test_run')
+        FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
+        FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
+      end
+    end
+    #Zip the generated xml documentation
+    filename = "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml.zip"
+    root="#{Dir.pwd}/test/feature_xml"
+    Zip::ZipFile.open(filename, 'w') do |zipfile|
+      Dir["#{root}/*"].reject{|f|f==filename}.each do |file|
+        zipfile.add(file.sub(root+'/',''),file)
+      end
+    end
+  end
+end
+
 def run_tests( name, command_line )
 
   begin
@@ -61,9 +116,11 @@ task :doc_windows do
 end
 
 task :doc_symbian do 
-
-  run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
-
+  result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+  puts "Feature tests executed"
+  collect_artifacts()
+  raise "Feature tests failed" if (result != true) or ($? != 0)
+  exit(0)
 end
 
 
@@ -74,22 +131,22 @@ task :execute_smoke do
   puts "### Executing smoke tests                            ####"
   puts "#########################################################"
   begin
-  current_dir=Dir.pwd
-  Dir.chdir('test/tc_testapp')
-  cmd = "ruby tc_testapp.rb --tdriver_parameters #{current_dir}/test/custom_parameters.xml"
-  failure = system(cmd)
+    current_dir=Dir.pwd
+    Dir.chdir('test/tc_testapp')
+    cmd = "ruby tc_testapp.rb --tdriver_parameters #{current_dir}/test/custom_parameters.xml"
+    failure = system(cmd)
     
 	
   ensure
-  Dir.chdir("../../")
+    Dir.chdir("../../")
     if ENV['CC_BUILD_ARTIFACTS']    
-    #Copy results to build artifacts
-	  Dir.foreach("#{Dir.pwd}/test/tc_testapp/tdriver_reports") do |entry|
-	    if entry.include?('test_run')
-	      FileUtils.cp_r "#{Dir.pwd}/test/tc_testapp/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
+      #Copy results to build artifacts
+      Dir.foreach("#{Dir.pwd}/test/tc_testapp/tdriver_reports") do |entry|
+        if entry.include?('test_run')
+          FileUtils.cp_r "#{Dir.pwd}/test/tc_testapp/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
           FileUtils::remove_entry_secure("#{Dir.pwd}/test/tc_testapp/tdriver_reports/#{entry}", :force => true)
-	    end
-	  end
+        end
+      end
     end    
 
   end
@@ -136,31 +193,15 @@ end
 
 task :cruise => ['build_testapps','execute_smoke'] do
   if /win/ =~ RUBY_PLATFORM
-    result=run_tests( "windows", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows" )
+    result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
   else
-    result=run_tests( "linux", "cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux" )
-  end  
-  
-  puts "Feture tests executed" 
-   if ENV['CC_BUILD_ARTIFACTS']    
-    #Copy results to build artifacts
-	Dir.foreach("#{Dir.pwd}/test/tdriver_reports") do |entry|
-	  if entry.include?('test_run')
-	    FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
-        FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
-	  end
-	end
-    #Zip the generated xml documentation
-	filename = "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml.zip"
-	root="#{Dir.pwd}/test/feature_xml"
-	Zip::ZipFile.open(filename, 'w') do |zipfile|
-      Dir["#{root}/*"].reject{|f|f==filename}.each do |file|
-        zipfile.add(file.sub(root+'/',''),file)
-      end
-    end	
-   end
-   raise "Feature tests failed" if (result != true) or ($? != 0) 
-   exit(0)
+    result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
+  end    
+  puts "Feature tests executed"
+  collect_artifacts()
+  generate_sut_qt_api_doc()
+  raise "Feature tests failed" if (result != true) or ($? != 0)
+  exit(0)
 end
 
 

@@ -206,10 +206,10 @@ void Calculator::resizeEvent(QResizeEvent * event)
 {
     Q_UNUSED(event);
 #ifdef Q_OS_SYMBIAN
-    QRect rect = qApp->desktop()->screenGeometry();
-    setMinimumSize(rect.size());
-    setMaximumSize(rect.size());
-    showFullScreen();
+//     QRect rect = qApp->desktop()->screenGeometry();
+//     setMinimumSize(rect.size());
+//     setMaximumSize(rect.size());
+//     showFullScreen();
 #endif
 }
 

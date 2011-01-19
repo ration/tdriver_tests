@@ -18,21 +18,21 @@
 ############################################################################
 
 
-# Author: Bilkis Gargadia
-# Date: 18.10.2010
-# Purpose: Test TDriver methods
-
-And "I get the parent for \"$test_object\"" do | test_object |
-  raise @__exception if @__exception != nil
-  $app_parent=eval("#{ test_object }.get_parent")
+And("I enable listen to events for object \"$object\" in matti_multitouchapp") do |$object|
+	eval ($object+".enable_events('ALL')")
 end
 
-Then "the parent test object is \"$test_object\"" do | test_object |
-  verify_true(30, "Parent test object was not retrieved successfully") {eval("$app_parent==#{ test_object }")}	
+Then("I tap object \"$object\" in matti_multitouchapp")do |$object|
+	eval ($object+".tap_down")
+	eval ($object+".tap_up")
 end
 
-
-
-
-
-
+Then("the results of \"$object\" should not contain \"$event_list\"") do | $object,$event_list|
+	#puts @app.Square(:name =>'topLeft').get_events.to_s
+	events = $event_list.split(',')
+  events.each{ | event |
+    verify_equal( false, 1, "Event #{ event } not found" ){ 
+      eval ($object +".get_events.include?( event )")
+    }
+	}
+end

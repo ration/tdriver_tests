@@ -2,11 +2,11 @@
 
 Feature: MobyBehaviour::QT::SUT#close_qttas
   As a test scripter writer
-  I want to use close_qttas method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use close_qttas method to shutdown the qttas server
   so that I can test the MobyBehaviour::QT::SUT behaviour
 
-  Scenario: Testing close_qttas method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].close_qttas"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  #Scenario: Testing close_qttas method 
+    #Given I have default sut
+    #When I execute "@sut.close_qttas"
+    #Then exception is not thrown
 

@@ -22,26 +22,8 @@
 
 require 'tdriver'
 require 'test/unit'
-
-
-begin
-  include TDriverReport
-  create_test_unit_formatter()
-end
-module Test #:nodoc:all
-  module Unit
-    module UI
-      module Console
-        class TestRunner
-          def create_mediator(suite)
-            # swap in TDriver custom mediator
-            return TDriverReport::TestUnit.new(suite)
-          end
-        end
-      end
-    end
-  end
-end
+include TDriverVerify
+include TDriverReportTestUnit
 
 
 class TC_Testapp < Test::Unit::TestCase
@@ -328,22 +310,4 @@ end
 
 Test::Unit::UI::Console::TestRunner.run(TS_Testapp)
 
-# begin
-#   include TDriverReport
-#   create_test_unit_formatter()
-# end
-# module Test #:nodoc:all
-#   module Unit
-#     module UI
-#       module Console
-#         class TestRunner
-#           def create_mediator(suite)
-#             # swap in TDriver custom mediator
-#             return TDriverReport::TestUnit.new(suite)
-#           end
-#         end
-#       end
-#     end
-#   end
-# end
 

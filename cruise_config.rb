@@ -6,7 +6,7 @@ Project.configure do |project|
   project.triggered_by SuccessfulBuildTrigger.new(project, 'driver')
   project.triggered_by SuccessfulBuildTrigger.new(project, 'sut_qt')
  
-  project.email_notifier.emails = ['ext-mika.1.leiman@nokia.com']
+  project.email_notifier.emails = ['ext-mika.1.leiman@nokia.com','testabilitydriver@nokia.com']
   
   project.email_notifier.from = 'ext-mika.1.leiman@nokia.com'
 
@@ -19,6 +19,6 @@ Project.configure do |project|
   # project.build_command = 'build_my_app.sh'
 
   # Ping Subversion for new revisions every 5 minutes (default: 30 seconds)
-  # project.scheduler.polling_interval = 5.minutes
+  project.scheduler.polling_interval = 5.minutes
 
 end

@@ -2,16 +2,16 @@
 
 Feature: MobyBehaviour::QT::Widget#move_mouse
   As a test scripter writer
-  I want to use move_mouse method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use move_mouse method to move the mouse to the centre of test object it was called on in testapp
   so that I can test the MobyBehaviour::QT::Widget behaviour
 
-  Scenario: Testing move_mouse method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].move_mouse"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing move_mouse method without refreshing ui state
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.Triangle(:name =>'Triangle1').move_mouse"
+    And exception is not thrown
 
-  Scenario: Testing move_mouse method with optional argument 'move_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].move_mouse(move_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing move_mouse method and refreshing ui state
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.Triangle(:name =>'Triangle1').move_mouse(true)"
+    And exception is not thrown
 

@@ -22,8 +22,6 @@ import QtWebKit 1.0
 
 Rectangle {
    id:browser
-   width:360
-   height:460
 
    Rectangle {
       id:filler

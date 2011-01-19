@@ -23,23 +23,27 @@ Feature: MobyBehaviour::Find#find
   Scenario: Testing find method with one ambiguous argument
     Given I have default sut
     And I launch application "testapp"
+	And I test code "@sut.application.NodeView"
     When I test code "@testobj = @sut.find( :type => 'Control', :__timeout => 0 )"
     Then exception matching "Multiple test objects found with rule" is thrown
 
   Scenario: Testing find method with one unambiguous attribute argument
     Given I have default sut
     And I launch application "testapp"
+	And I test code "@sut.application.NodeView"
     When I execute "@testobj = @sut.find( :name => 'Node1' )"
     Then a test object is found by find
 
   Scenario: Testing find method with one unambiguous special argument
     Given I have default sut
     And I launch application "testapp"
+	And I test code "@sut.application.NodeView"
     When I execute "@testobj = @sut.find( :type => 'Node' )"
     Then a test object is found by find
 
   Scenario: Testing find method with two unambiguous arguments
     Given I have default sut
     And I launch application "testapp"
+	And I test code "@sut.application.NodeView"
     When I execute "@testobj = @sut.find( :type => 'Control', :name => 'AddNode' )"
     Then a test object is found by find

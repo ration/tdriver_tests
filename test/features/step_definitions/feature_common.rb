@@ -52,15 +52,6 @@ After do | scenario |
   end
   if scenario.failed?
     close_counter=0
-    while @__sut.application.name != 'qttasserver' && close_counter < 100
-      begin
-        tdriver_report_log("Closing app: #{@__sut.application.name}")
-        @__sut.application.close
-      rescue Exception => e
-        # nothing
-      end
-      close_counter+=1
-    end
       if @fail_counter==nil
         @fail_counter=0
       end
@@ -68,7 +59,7 @@ After do | scenario |
 
       #Try to recover and check running apps
       app_list=@__sut.list_apps
-      tdriver_report_log("Running applications: #{app_list}")
+      tdriver_report_log("Running applications: <pre>#{app_list}</pre>")
 
       if @fail_counter>10
         puts "Tests failing termitating execution"

@@ -7,12 +7,12 @@ Feature: MobyBehaviour::TestObject#get_application_id
 
   Scenario: Testing get_application_id method for application testapp
     Given I launch application "testapp" as "@app"
-    And I get the application id for "@app"
-    Then application id is id for test object "@app"
+    When I execute "$application_id = @app.get_application_id"
+    Then verify "@app.id==$application_id"
+
     
   Scenario: Testing get_application_id method for a Test Object in testapp
     Given I launch application "testapp" as "@app"
-    When I execute "$triangle = @app.Triangle( :name => 'Triangle1' )"
-    And I get the application id for "$triangle"
-    Then application id is id for test object "@app"
+    When I execute "$application_id = @app.Triangle( :name => 'Triangle1' ).get_application_id"
+    Then verify "@app.id==$application_id"
 
