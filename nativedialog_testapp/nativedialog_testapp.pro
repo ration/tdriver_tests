@@ -17,37 +17,20 @@
 ## 
 ############################################################################
 
-
-TEMPLATE = subdirs
-
-include(tasbase.pri)
-
-SUBDIRS += calculator
-
-SUBDIRS += testapp
-
-SUBDIRS += multitouch
-
-SUBDIRS += browser
-
-SUBDIRS += treewidgetapp
-
-SUBDIRS += nativedialog_testapp
-
-unix: { 
-   tests.files = test/*
-   tests.path = /usr/share/testability-driver-tests
-
-   unit_tests.files = test/tc_testapp/*
-   unit_tests.path = /usr/share/matti-unit-tests
-
-   cita.files = cita/features/tests.xml
-   cita.path = /usr/share/testability-driver-tests/
-
-   cita_unit.files = cita/unit/tests.xml
-   cita_unit.path = /usr/share/matti-unit-tests/
+HEADERS       = mainwindow.h
+SOURCES       = main.cpp \
+                mainwindow.cpp
+#! [0]
+RESOURCES     = nativedialog_testapp.qrc
+#! [0]
 
 
-   INSTALLS += tests cita cita_unit unit_tests
+# install
+unix:{
+target.path = /usr/bin
+}
+win32:{
+target.path = /qttas/bin
 }
 
+INSTALLS += target
