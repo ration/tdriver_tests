@@ -81,6 +81,26 @@ MainWindow::MainWindow(QWidget* parent)
     scene->addItem(webkitView);
     connect(webkitView, SIGNAL(flick(const GestureDirection&)), this, SLOT(flickScreen(const GestureDirection&)));
 
+    //Set Current View from ENV VAR TESTAPP_VIEW {"EditArea", "WebKitArea" or default}
+    QStringList env = QProcess::systemEnvironment();
+    foreach(QString var, env){
+        QStringList key = var.split("=");
+        if (key.size() == 2 && key.at(0) == "TESTAPP_VIEW" ) {
+            if ( key.at(1) == editView->objectName() )
+            {
+                currentView = editView;
+            }
+            else if ( key.at(1) ==  webkitView->objectName() )
+            {
+                currentView = webkitView;
+            }
+            else
+            {
+                currentView = view;
+            }
+        }
+    }
+
     mainView->centerOn(currentView->boundingRect().center());
 
     testabilityInterface = 0;
