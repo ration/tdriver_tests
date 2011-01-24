@@ -9,19 +9,20 @@ Feature: MobyBehaviour::QT::SUT#set_event_type
     Given I have default sut
     When I execute "@sut.set_event_type(:Mouse)"
     Then exception is not thrown
-    And I test code "@sut.set_event_type(:Touch)"
+   And I test code "@sut.set_event_type(:Both)"
     
   Scenario: Using set_event_type to set the event type to touch
     Given I have default sut
     When I execute "@sut.set_event_type(:Touch)"
     Then exception is not thrown
+    And I test code "@sut.set_event_type(:Both)"
 
 
   Scenario: Using set_event_type to set the event type to both (mouse and touch)
     Given I have default sut
     When I execute "@sut.set_event_type(:Both)"
     Then exception is not thrown
-    And I test code "@sut.set_event_type(:Touch)"
+    And I test code "@sut.set_event_type(:Both)"
     
   @nodoc	
   Scenario: Test that only mouse events are generated  when event type is set to :Mouse
@@ -32,7 +33,7 @@ Feature: MobyBehaviour::QT::SUT#set_event_type
     Then I tap object "@app.Square(:name =>'topLeft')" in matti_multitouchapp
     And I test code "$event_list=@app.Square(:name =>'topLeft').get_events"
     Then the results of "@app.Square(:name =>'topLeft')" should not contain "TouchBegin,TouchEnd"
-    And I test code "@sut.set_event_type(:Touch)"
+    And I test code "@__sut.set_event_type(:Both)"
     
   @nodoc
   Scenario: Test that only mouse events are generated  when event type is set to :Touch
@@ -43,5 +44,5 @@ Feature: MobyBehaviour::QT::SUT#set_event_type
     Then I tap object "@app.Square(:name =>'topLeft')" in matti_multitouchapp
     And I test code "$event_list=@app.Square(:name =>'topLeft').get_events"
     Then the results of "@app.Square(:name =>'topLeft')" should not contain "GrabMouse,UnGrabMouse"
-    And I test code "@sut.set_event_type(:Touch)"
+    And I test code "@__sut.set_event_type(:Both)"
 
