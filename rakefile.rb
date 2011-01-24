@@ -45,13 +45,6 @@ end
 
 def collect_artifacts()
   if ENV['CC_BUILD_ARTIFACTS']
-    #Copy results to build artifacts
-    Dir.foreach("#{Dir.pwd}/test/tdriver_reports") do |entry|
-      if entry.include?('test_run')
-        FileUtils.cp_r "#{Dir.pwd}/test/tdriver_reports/#{entry}", "#{ENV['CC_BUILD_ARTIFACTS']}/#{entry}"
-        FileUtils::remove_entry_secure("#{Dir.pwd}/test/tdriver_reports/#{entry}", :force => true)
-      end
-    end
     #Zip the generated xml documentation
     filename = "#{ENV['CC_BUILD_ARTIFACTS']}/feature_xml.zip"
     root="#{Dir.pwd}/test/feature_xml"
@@ -115,10 +108,21 @@ task :doc_windows do
 
 end
 
-task :doc_symbian do 
-  result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+task :doc_symbian do
+  if ENV['CC_BUILD_ARTIFACTS']
+    File.open("test/report_path.xml", 'w') do |f2|
+      f2.puts "
+      <parameters>
+        <parameter name=\"report_outputter_path\" value=\"#{ENV['CC_BUILD_ARTIFACTS']}/\" />
+      </parameters>
+      "
+    end
+    result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml report_path.xml" )
+  else
+    result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+  end
+  generate_sut_qt_api_doc()
   puts "Feature tests executed"
-  collect_artifacts()
   raise "Feature tests failed" if (result != true) or ($? != 0)
   exit(0)
 end
@@ -192,11 +196,28 @@ task :build_testapps do
 end
 
 task :cruise => ['build_testapps','execute_smoke'] do
-  if /win/ =~ RUBY_PLATFORM
-    result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
+  if ENV['CC_BUILD_ARTIFACTS']
+    File.open("test/report_path.xml", 'w') do |f2|
+      f2.puts "
+      <parameters>
+        <parameter name=\"report_outputter_path\" value=\"#{ENV['CC_BUILD_ARTIFACTS']}/\" />
+      </parameters>
+      "
+    end
+    if /win/ =~ RUBY_PLATFORM
+      result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml report_path.xml" )
+    else
+      result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml report_path.xml" )
+    end
   else
-    result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
-  end    
+    if /win/ =~ RUBY_PLATFORM
+      result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
+    else
+      result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
+    end
+  end
+
+
   puts "Feature tests executed"
   collect_artifacts()
   generate_sut_qt_api_doc()
