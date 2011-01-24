@@ -33,7 +33,7 @@ Feature: MobyBehaviour::QT::SUT#set_event_type
     Then I tap object "@app.Square(:name =>'topLeft')" in matti_multitouchapp
     And I test code "$event_list=@app.Square(:name =>'topLeft').get_events"
     Then the results of "@app.Square(:name =>'topLeft')" should not contain "TouchBegin,TouchEnd"
-    And I test code "@sut.set_event_type(:Both)"
+    And I test code "@__sut.set_event_type(:Both)"
     
   @nodoc
   Scenario: Test that only mouse events are generated  when event type is set to :Touch
@@ -44,5 +44,5 @@ Feature: MobyBehaviour::QT::SUT#set_event_type
     Then I tap object "@app.Square(:name =>'topLeft')" in matti_multitouchapp
     And I test code "$event_list=@app.Square(:name =>'topLeft').get_events"
     Then the results of "@app.Square(:name =>'topLeft')" should not contain "GrabMouse,UnGrabMouse"
-    And I test code "@sut.set_event_type(:Both)"
+    And I test code "@__sut.set_event_type(:Both)"
 
