@@ -108,10 +108,21 @@ task :doc_windows do
 
 end
 
-task :doc_symbian do 
-  result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+task :doc_symbian do
+  if ENV['CC_BUILD_ARTIFACTS']
+    File.open("test/report_path.xml", 'w') do |f2|
+      f2.puts "
+      <parameters>
+        <parameter name=\"report_outputter_path\" value=\"#{ENV['CC_BUILD_ARTIFACTS']}/\" />
+      </parameters>
+      "
+    end
+    result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml report_path.xml" )
+  else
+    result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+  end
+  generate_sut_qt_api_doc()
   puts "Feature tests executed"
-  collect_artifacts()
   raise "Feature tests failed" if (result != true) or ($? != 0)
   exit(0)
 end
