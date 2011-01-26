@@ -31,5 +31,8 @@ target.path = /usr/bin
 win32:{
 target.path = /qttas/bin
 }
+symbian: {
+    TARGET.UID3 = 0x2003C72D
+}
 
 INSTALLS += target
