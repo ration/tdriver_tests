@@ -13,6 +13,11 @@ TARGET = browser
 TEMPLATE = app
 DESTDIR = bin
 
+
+symbian: {
+    TARGET.UID3 = 0x2003C72C
+}
+
 #HEADERS += testabilityinterface.h
 SOURCES += main.cpp
 
