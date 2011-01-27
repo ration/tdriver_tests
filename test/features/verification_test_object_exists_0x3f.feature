@@ -19,3 +19,8 @@ Feature: MobyBehaviour::Verification#test_object_exists?
     Given I launch application "calculator" as "@app"
     When I execute "$obj_exists = @app.test_object_exists?( :type => 'Button', :text => '+', :objectName => 'non_existing_object', :__timeout => 0 )"
     Then verify "$obj_exists==false"
+    
+  Scenario: Testing test_object_exists? can be be used in SUT object
+    Given I launch application "calculator" as "@app"
+    When I execute "$obj_exists = @__sut.test_object_exists?( :type => 'Button', :objectName => 'oneButton' )"
+    Then verify "$obj_exists==true"
