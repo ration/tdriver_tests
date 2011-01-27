@@ -218,6 +218,12 @@ When "I can delete file \"$file\"" do | file |
   verify_false(0,"The file still exists"){File.exist?(file)}
 end
 
+Then "I add \"$app\" to close list" do | app |
+  app_ref = app
+  eval("@__apps['" + app_ref + "'] = " + app)
+  @__current_app = @__apps[app_ref]
+end
+
 Then "I delete file \"$file\" from sut" do | file |
   @sut.delete_from_sut(:dir => file )
 end
