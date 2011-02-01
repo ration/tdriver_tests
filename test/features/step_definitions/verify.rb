@@ -35,7 +35,7 @@ Before do
 end
 
 
-Given ("that I call verify_false with no timeout value") do
+Given ("I call verify_false with no timeout value") do
     
     begin      
       verify_start_time=Time.now
@@ -47,7 +47,7 @@ Given ("that I call verify_false with no timeout value") do
     tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
 end
 
-Given ("that I call verify_false with timeout $timeout") do |timeout|
+Given ("I call verify_false with timeout $timeout") do |timeout|
     begin
       verify_start_time=Time.now
       verify_false(timeout.to_i){true==true}
@@ -58,7 +58,7 @@ Given ("that I call verify_false with timeout $timeout") do |timeout|
     tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
 end
 
-Given ("that I call verify_true with no timeout value") do
+Given ("I call verify_true with no timeout value") do
 
     begin
       verify_start_time=Time.now
@@ -70,7 +70,7 @@ Given ("that I call verify_true with no timeout value") do
     tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
 end
 
-Given ("that I call verify_true with timeout $timeout") do |timeout|
+Given ("I call verify_true with timeout $timeout") do |timeout|
     begin
       verify_start_time=Time.now
       verify_true(timeout.to_i){true==false}
