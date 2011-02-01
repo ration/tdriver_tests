@@ -6,32 +6,38 @@ Feature: TDriver verify
 
 
 Scenario: Specify verify_false timeout as 0
-  Given that I call verify_false with timeout 0
+  Given I have default sut
+  When I call verify_false with timeout 0
   Then the verify should timeout in 0
   
 
 Scenario: Specify verify_false timeout as 3
-  Given that I call verify_false with timeout 3
+  Given I have default sut
+  When I call verify_false with timeout 3
   Then the verify should timeout in 3
 
 
 Scenario: Specify verify_false timeout as nil
-  Given that I call verify_false with no timeout value
+  Given I have default sut
+  When I call verify_false with no timeout value
   Then the verify should timeout with default synchronization value
 
 
 Scenario: Specify verify_true timeout as 0
-  Given that I call verify_true with timeout 0
+  Given I have default sut
+  When I call verify_true with timeout 0
   Then the verify should timeout in 0
 
 
 Scenario: Specify verify_true timeout as 3
-  Given that I call verify_true with timeout 3
+  Given I have default sut
+  When I call verify_true with timeout 3
   Then the verify should timeout in 3
 
 
 Scenario: Specify verify_true timeout as nil
-  Given that I call verify_true with no timeout value
+  Given I have default sut
+  When I call verify_true with no timeout value
   Then the verify should timeout with default synchronization value
   
 

@@ -31,7 +31,8 @@ mac {
    CONFIG -= app_bundle
 }
 
-symbian {
+symbian: {
+    TARGET.UID3 = 0x2003C72E
     TARGET.CAPABILITY=CAP_APPLICATION
     TARGET.EPOCHEAPSIZE = 0x100000 0x2000000 # Min 128kb, Max 16Mb
     BLD_INF_RULES.prj_exports += "testdata/matti.png      /epoc32/winscw/c/qt_testability/matti.png"
