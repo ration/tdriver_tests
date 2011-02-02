@@ -17,7 +17,7 @@ Feature: MobyBehaviour::QT::Fixture#fixture
     And I launch application "nativedialog_testapp"
     And I tap the open button in the tool bar
     And I sleep "1" second
-    When I execute "@sut.fixture('dialog', 'send_text', { :dialog_name => 'Open', :class_pattern => 'ComboBoxEx32', :text => 'runner.bat' } )"
+    When I execute "@sut.fixture('dialog', 'send_text', { :dialog_name => 'Open', :class_pattern => 'ComboBoxEx32', :text => '\qttas\bin\runner.bat' } )"
     Then I sleep "3" second
     And I tap the native dialog "&Open" button
     And exception is not thrown
