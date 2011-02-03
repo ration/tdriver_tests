@@ -67,36 +67,68 @@ Feature: MobyUtil::Parameter
 
   Scenario: Parameter should contain list configured suts
     Given I have parameter class initialized
-    When I execute "@sut_list = $parameters.configured_suts"
-    Then exception is not thrown
-    And verify "@sut_list.kind_of?( Array ) == true"
+    Then verify "$parameters.configured_suts.kind_of?( Array ) == true"
 
   Scenario: Parameter should contain list loaded files
     Given I have parameter class initialized
-    When I execute "@sut_list = $parameters.files"
+    Then verify "$parameters.files.kind_of?( Array ) == true"
+
+  Scenario: Retrieve parameter by using public end-user API
+    Given I have parameter class initialized
+    When I execute "$parameters['test'] = 'example'"
     Then exception is not thrown
-    And verify "@sut_list.kind_of?( Array ) == true"
+    And verify "TDriver.parameter('test') == 'example'"
+    And delete parameter "test"
 
+  Scenario: Retrieve default value of non existing parameter by using public end-user API
+    Given I have parameter class initialized
+    Then exception is not thrown
+    And verify "TDriver.parameter('test', 'example') == 'example'"
 
+  Scenario: Retrieve parameter with fetch method by using public end-user API
+    Given I have parameter class initialized
+    When I execute "$parameters['test'] = 'another_example'"
+    Then exception is not thrown
+    And verify "TDriver.parameter.fetch('test') == 'another_example'"
+    And delete parameter "test"
 
-#  Scenario: Retrieve a parameter value from current SUT
-#    Given I have default sut
-#    And I set new sut parameter "value_name" to "result_value"
-#    When I execute "@result = @sut.parameter[ 'value_name' ]"
-#    Then verify "@result=='result_value'"
+  Scenario: Retrieve default value of non existing parameter with fetch method by using public end-user API
+    Given I have parameter class initialized
+    Then exception is not thrown
+    And verify "TDriver.parameter.fetch('test', 'another_example') == 'another_example'"
+
+  Scenario: Retrieve default value from block of non existing parameter with fetch method by using public end-user API
+    Given I have parameter class initialized
+    Then exception is not thrown
+    And verify "TDriver.parameter.fetch('test'){ 'another_example' } == 'another_example'"
+
+  Scenario: Set parameter by using public end-user API
+    Given I have parameter class initialized
+    When I execute "TDriver.parameter['test'] = 'another_example'"
+    And verify "TDriver.parameter['test'] == 'another_example'"
+    And delete parameter "test"
+
+  Scenario: List loaded files by using public end-user API
+    Given I have parameter class initialized
+    Then verify "TDriver.parameter.files.kind_of?( Array ) == true"
+
+  Scenario: List loaded files by using public end-user API
+    Given I have parameter class initialized
+    Then verify "TDriver.suts.kind_of?( Array ) == true"
+
+  Scenario: Inspect parameters by using public end-user API
+    Given I have parameter class initialized
+    Then verify "( TDriver.parameter.inspect =~ /^\{.*\}$/ ) != nil"
     
-#  Scenario: Retrieve a parameter value from current SUT, return default value (second argument) if not found
-#    Given I have default sut
-#    When I execute "@result = @sut.parameter[ 'my_parameter', 'default' ]"
-#    Then verify "@result=='default'"
-    
-#  Scenario: Set parameter value in current SUT
-#    Given I have default sut
-#    When I execute "@sut.parameter[ 'my_parameter_another' ] = 'my_value'"
-#    Then parameter "my_parameter_another" should have value "my_value"
+  Scenario: Parameter hash can be cleared and restored by using public end-user API
+    Given I have parameter class initialized
+    When I execute "TDriver.parameter.clear"
+    Then exception is not thrown
+    Then verify "TDriver.parameter.inspect == '{}'"
+    Then I test code "TDriver.parameter.reset"
+    And verify "TDriver.parameter.inspect != '{}'"
 
-#tests:
-# ?? - merge hash with hash --> parameter hash
+# coverage:
 # ok - access from MobyUtil::Parameter[]
 # ok - access from MobyUtil::Parameter[]=
 # ok - add hash to parameter, verify that returns parameter hash
@@ -109,22 +141,22 @@ Feature: MobyUtil::Parameter
 # ok - MobyUtil::Parameter.parameters hash is accessible
 # ok - configured_suts
 # ok - loaded files
+# ok - api#[]
+# ok - api#fetch
+# ok - api#[]=
+# ok - api#files
+# ok - api#inspect
+# ok - api#clear
+# ok - api#reset
 
-
-#- command line arguments
-
-#- api#[]
-#- api#fetch
-#- api#[]=
-#- api#files
-#- api#clear
-#- api#load_xml
-#- api#reset
-#- api#inspect
-#- api#to_s
-
-#- load parameters xml
+# missing:
+# - command line arguments
+# - api#load_xml
+# - api#to_s
+# - load parameters xml
+# - parameter file parse error
+# - template not found error
+# - template file not loaded
 # ?? - to_s 
-#- parameter file parse error
-#- template not found error
-#- template file not loaded
+# ?? - merge hash with hash --> parameter hash
+
