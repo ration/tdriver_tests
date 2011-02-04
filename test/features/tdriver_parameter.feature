@@ -65,3 +65,15 @@ Feature: TDriver.parameter
     Then I test code "TDriver.parameter.reset"
     And verify "TDriver.parameter.inspect != '{}'"
 
+  Scenario: Additional parameters files can be loaded on demand
+    Given I have parameter class initialized
+    When I test code "TDriver.parameter.clear"
+    Then verify "TDriver.parameter.keys.empty? == true"
+    When I execute "TDriver.parameter.load_xml( 'tdriver_parameters.xml' )"
+    Then exception is not thrown
+    Then verify "TDriver.parameter.keys.empty? == false"
+    Then I test code "TDriver.parameter.reset"
+    And verify "TDriver.parameter.inspect != '{}'"
+
+# - api#to_s
+

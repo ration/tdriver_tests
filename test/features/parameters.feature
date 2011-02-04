@@ -5,6 +5,14 @@ Feature: MobyUtil::Parameter
   I want to use parameter instance methods to perform different actions to parameters
   so that I can test the MobyUtil::Parameter behaviour
 
+  Scenario: Parameter inspection string representation of hash
+    Given I have parameter class initialized
+    Then verify "( $parameters.inspect =~ /^\{.*\}$/ ) != nil"
+
+  Scenario: Parameter string representation of hash
+    Given I have parameter class initialized
+    Then verify "( $parameters.inspect =~ /^\{.*\}$/ ) != nil"
+
   Scenario: Verify that parameter with nil as key cannot be set
     Given I have parameter class initialized
     When I execute "$parameters[nil]='fails'"
@@ -60,6 +68,14 @@ Feature: MobyUtil::Parameter
     Then I test code "$parameters.instance.reset_parameters"
     And verify "$parameters.inspect != '{}'"
 
+  Scenario: Parameter hash can be cleared and restored with static methods
+    Given I have parameter class initialized
+    When I execute "$parameters.clear"
+    Then exception is not thrown
+    Then verify "$parameters.inspect == '{}'"
+    Then I test code "$parameters.reset"
+    And verify "$parameters.inspect != '{}'"
+
   Scenario: Parameter hash is accessible directly
     Given I have parameter class initialized
     When I execute "$parameters.parameters"
@@ -72,6 +88,35 @@ Feature: MobyUtil::Parameter
   Scenario: Parameter should contain list loaded files
     Given I have parameter class initialized
     Then verify "$parameters.files.kind_of?( Array ) == true"
+
+  Scenario: Parameter keys can be listed
+    Given I have parameter class initialized
+    Then verify "$parameters.keys.kind_of?( Array ) == true"
+
+  Scenario: Parameter values can be listed
+    Given I have parameter class initialized
+    Then verify "$parameters.values.kind_of?( Array ) == true"
+
+  Scenario: Additional parameters files can be loaded on demand
+    Given I have parameter class initialized
+    When I test code "$parameters.clear"
+    Then verify "$parameters.keys.empty? == true"
+    When I execute "$parameters.instance.load_parameters_xml( 'tdriver_parameters.xml' )"
+    Then exception is not thrown
+    Then verify "$parameters.keys.empty? == false"
+    Then I test code "$parameters.reset"
+    And verify "$parameters.keys.empty? == false"
+
+  Scenario: Additional parameters files can be loaded on demand by using static method parse_file
+    Given I have parameter class initialized
+    When I test code "$parameters.clear"
+    Then verify "$parameters.keys.empty? == true"
+    When I execute "$parameters.parse_file( 'tdriver_parameters.xml' )"
+    Then exception is not thrown
+    Then verify "$parameters.keys.empty? == false"
+    Then I test code "$parameters.reset"
+    And verify "$parameters.keys.empty? == false"
+
 
 # coverage:
 # ok - access from MobyUtil::Parameter[]
@@ -93,12 +138,11 @@ Feature: MobyUtil::Parameter
 # ok - api#inspect
 # ok - api#clear
 # ok - api#reset
+# ok - api#load_xml
+# ok - load parameters xml
 
 # missing:
 # - command line arguments
-# - api#load_xml
-# - api#to_s
-# - load parameters xml
 # - parameter file parse error
 # - template not found error
 # - template file not loaded
