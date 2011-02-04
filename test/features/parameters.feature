@@ -117,6 +117,44 @@ Feature: MobyUtil::Parameter
     Then I test code "$parameters.reset"
     And verify "$parameters.keys.empty? == false"
 
+  Scenario: Loading missing parameters file raises exception
+    Given I have parameter class initialized
+    When I execute "$parameters.parse_file( 'missing_file.xml' )"
+    Then exception is thrown
+
+  Scenario: Additional parameters xml can be parsed on demand by using static method parse_string
+    Given I have parameter class initialized
+    And delete parameter :test
+    When I execute "$parameters.parse_string( '<parameters><parameter name=\'test\' value=\'parsing\' /></parameters>' )"
+    Then exception is not thrown
+    Then verify "$parameters.keys.include?( :test ) == true"
+    And delete parameter :test
+    Then verify "$parameters.keys.include?( :test ) == false"
+
+  Scenario: Additional parameters xml is merged when calling parse_string with default arguments
+    Given I have parameter class initialized
+    When I test code "$parameters[ :test ] = { :original => 'hash' }"
+    Then exception is not thrown
+    And I execute "$parameters.parse_string( '<parameters><test><parameter name=\'merged\' value=\'parameter\' /></test></parameters>' )"
+    Then exception is not thrown
+    Then verify "$parameters[ :test ].kind_of?( MobyUtil::ParameterHash ) == true"
+    And verify "$parameters[ :test ].keys.include?( :original ) == true"
+    And verify "$parameters[ :test ].keys.include?( :merged ) == true"
+    And delete parameter :test
+    Then verify "$parameters.keys.include?( :test ) == false"
+
+  Scenario: Additional parameters xml overwrites existing values when calling parse_string
+    Given I have parameter class initialized
+    When I test code "$parameters[ :test ] = { :original => 'hash' }"
+    Then exception is not thrown
+    And I execute "$parameters.parse_string( '<parameters><test><parameter name=\'merged\' value=\'parameter\' /></test></parameters>', false )"
+    Then exception is not thrown
+    Then verify "$parameters[ :test ].kind_of?( MobyUtil::ParameterHash ) == true"
+    And verify "$parameters[ :test ].keys.include?( :original ) == false"
+    And verify "$parameters[ :test ].keys.include?( :merged ) == true"
+    And delete parameter :test
+    Then verify "$parameters.keys.include?( :test ) == false"
+
 
 # coverage:
 # ok - access from MobyUtil::Parameter[]
