@@ -73,61 +73,6 @@ Feature: MobyUtil::Parameter
     Given I have parameter class initialized
     Then verify "$parameters.files.kind_of?( Array ) == true"
 
-  Scenario: Retrieve parameter by using public end-user API
-    Given I have parameter class initialized
-    When I execute "$parameters['test'] = 'example'"
-    Then exception is not thrown
-    And verify "TDriver.parameter('test') == 'example'"
-    And delete parameter "test"
-
-  Scenario: Retrieve default value of non existing parameter by using public end-user API
-    Given I have parameter class initialized
-    Then exception is not thrown
-    And verify "TDriver.parameter('test', 'example') == 'example'"
-
-  Scenario: Retrieve parameter with fetch method by using public end-user API
-    Given I have parameter class initialized
-    When I execute "$parameters['test'] = 'another_example'"
-    Then exception is not thrown
-    And verify "TDriver.parameter.fetch('test') == 'another_example'"
-    And delete parameter "test"
-
-  Scenario: Retrieve default value of non existing parameter with fetch method by using public end-user API
-    Given I have parameter class initialized
-    Then exception is not thrown
-    And verify "TDriver.parameter.fetch('test', 'another_example') == 'another_example'"
-
-  Scenario: Retrieve default value from block of non existing parameter with fetch method by using public end-user API
-    Given I have parameter class initialized
-    Then exception is not thrown
-    And verify "TDriver.parameter.fetch('test'){ 'another_example' } == 'another_example'"
-
-  Scenario: Set parameter by using public end-user API
-    Given I have parameter class initialized
-    When I execute "TDriver.parameter['test'] = 'another_example'"
-    And verify "TDriver.parameter['test'] == 'another_example'"
-    And delete parameter "test"
-
-  Scenario: List loaded files by using public end-user API
-    Given I have parameter class initialized
-    Then verify "TDriver.parameter.files.kind_of?( Array ) == true"
-
-  Scenario: List loaded files by using public end-user API
-    Given I have parameter class initialized
-    Then verify "TDriver.suts.kind_of?( Array ) == true"
-
-  Scenario: Inspect parameters by using public end-user API
-    Given I have parameter class initialized
-    Then verify "( TDriver.parameter.inspect =~ /^\{.*\}$/ ) != nil"
-    
-  Scenario: Parameter hash can be cleared and restored by using public end-user API
-    Given I have parameter class initialized
-    When I execute "TDriver.parameter.clear"
-    Then exception is not thrown
-    Then verify "TDriver.parameter.inspect == '{}'"
-    Then I test code "TDriver.parameter.reset"
-    And verify "TDriver.parameter.inspect != '{}'"
-
 # coverage:
 # ok - access from MobyUtil::Parameter[]
 # ok - access from MobyUtil::Parameter[]=
@@ -157,6 +102,7 @@ Feature: MobyUtil::Parameter
 # - parameter file parse error
 # - template not found error
 # - template file not loaded
+
 # ?? - to_s 
 # ?? - merge hash with hash --> parameter hash
 
