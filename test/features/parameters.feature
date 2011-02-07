@@ -211,32 +211,3 @@ Feature: MobyUtil::Parameter
     And verify "$parameters.files.first == @some_xml_file"
     Then I test code "ARGV.clear"
     Then I test code "$parameters.reset"
-
-# coverage:
-# ok - access from MobyUtil::Parameter[]
-# ok - access from MobyUtil::Parameter[]=
-# ok - add hash to parameter, verify that returns parameter hash
-# ok - parameter value type of hash is type of parameter hash
-# ok - clear parameters (empty)
-# ok - inspect returns string inspection
-# ok - parameter not found error
-# ok - MobyUtil::Parameter[nil]= raises exception
-# ok - reset parameters (clear + reload)
-# ok - MobyUtil::Parameter.parameters hash is accessible
-# ok - configured_suts
-# ok - loaded files
-# ok - api#[]
-# ok - api#fetch
-# ok - api#[]=
-# ok - api#files
-# ok - api#inspect
-# ok - api#clear
-# ok - api#reset
-# ok - api#load_xml
-# ok - load parameters xml
-# ok - merge hash with hash --> parameter hash
-# ok - parameter file parse error
-
-# missing:
-# - command line arguments
-
