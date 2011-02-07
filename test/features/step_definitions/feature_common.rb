@@ -311,6 +311,19 @@ Then /^exception is not thrown$/ do
   end
 end
 
+Then /^exception type of "([^\"]*)" is thrown$/ do | expected |
+
+  verify_false(0, "No exception has not been raised") { @__exception.nil? }
+
+  verify_true(0, "Thrown exception type of #{ @__exception.class } does not match with #{ expected.inspect }"){ 
+
+    @__exception.class.to_s == expected.to_s 
+
+  }
+
+  @__exception=nil
+end
+
 Then /^exception matching "([^\"]*)" is thrown$/ do | arg1 |
   verify_false(0, "No exception has not been raised") { @__exception.nil? }
   re = Regexp.new(arg1.to_s)

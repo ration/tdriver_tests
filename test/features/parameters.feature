@@ -46,12 +46,12 @@ Feature: MobyUtil::Parameter
   Scenario: Retrieving non existing parameter fails with fetch method 
     Given I have parameter class initialized
     When I execute "$parameters.fetch('test')"
-    Then exception is thrown
+    Then exception type of "MobyUtil::ParameterNotFoundError" is thrown
 
   Scenario: Retrieving non existing parameter fails with [] method 
     Given I have parameter class initialized
     When I execute "$parameters['test']"
-    Then exception is thrown
+    Then exception type of "MobyUtil::ParameterNotFoundError" is thrown
 
   Scenario: Verify that hashes are converted to ParameterHash
     Given I have parameter class initialized
@@ -155,6 +155,62 @@ Feature: MobyUtil::Parameter
     And delete parameter :test
     Then verify "$parameters.keys.include?( :test ) == false"
 
+  Scenario: Parameters are merged when loading xml file
+    Given I have parameter class initialized
+    When I test code "$parameters.clear"
+    Then verify "$parameters.keys.empty? == true"
+    When I test code "$parameters.parse_file( 'tdriver_parameters.xml' )"
+    Then exception is not thrown
+    When I test code "@some_hash_key = $parameters.keys.collect{ | key | key if $parameters[ key ].kind_of?( MobyUtil::ParameterHash ) }.compact.first"
+    Then exception is not thrown
+    When I test code "@some_hash = $parameters[ @some_hash_key ].dup"
+    Then exception is not thrown
+    When I test code "$parameters.clear"
+    Then verify "$parameters.keys.empty? == true"
+    Then I test code "$parameters[ @some_hash_key ] = @some_hash.merge( :original_value => 'found' )"
+    When I execute "$parameters.parse_file( 'tdriver_parameters.xml' )"
+    Then exception is not thrown
+    And verify "$parameters[ @some_hash_key ].keys.include?( :original_value ) == true"
+    Then I test code "$parameters.reset"
+    And verify "$parameters.keys.empty? == false"
+    And verify "$parameters[ @some_hash_key ].keys.include?( :original_value ) == false"
+
+  Scenario: Correct exception is raised if parsing non xml fails 
+    Given I have parameter class initialized
+    When I execute "$parameters.parse_file( caller.first.split(':').first )"
+    Then exception type of "MobyUtil::ParameterFileParseError" is thrown
+
+  Scenario: Correct exception is raised if parsing xml string fails 
+    Given I have parameter class initialized
+    When I execute "$parameters.parse_string( 'not_valid_xml' )"
+    Then exception type of "MobyUtil::ParameterXmlParseError" is thrown
+
+  Scenario: Exception is raised if xml file not found in command line argument
+    Given I have parameter class initialized
+    When I test code "ARGV.concat(['--tdriver_parameters', 'missing.xml'])"
+    When I execute "$parameters.instance.__send__(:parse_command_line_arguments)"
+    Then exception type of "MobyUtil::FileNotFoundError" is thrown
+    Then I test code "ARGV.clear"
+
+  Scenario: Exception is raised if xml file not defined in command line argument
+    Given I have parameter class initialized
+    When I test code "ARGV.concat(['--tdriver_parameters'])"
+    When I execute "$parameters.instance.__send__(:parse_command_line_arguments)"
+    Then exception type of "ArgumentError" is thrown
+    Then I test code "ARGV.clear"
+
+  Scenario: Exception is raised if xml file not defined in command line argument
+    Given I have parameter class initialized
+    When I test code "@some_xml_file = $parameters.files.first"
+    When I test code "$parameters.instance.clear"
+    When I test code "ARGV.concat(['--tdriver_parameters', @some_xml_file])"
+    When I test code "$parameters.instance.__send__(:parse_command_line_arguments)"
+    When I execute "$parameters.instance.__send__(:reset, false, false, false, true)"
+    Then exception is not thrown
+    And verify "$parameters.files.count == 1"
+    And verify "$parameters.files.first == @some_xml_file"
+    Then I test code "ARGV.clear"
+    Then I test code "$parameters.reset"
 
 # coverage:
 # ok - access from MobyUtil::Parameter[]
@@ -178,13 +234,9 @@ Feature: MobyUtil::Parameter
 # ok - api#reset
 # ok - api#load_xml
 # ok - load parameters xml
+# ok - merge hash with hash --> parameter hash
+# ok - parameter file parse error
 
 # missing:
 # - command line arguments
-# - parameter file parse error
-# - template not found error
-# - template file not loaded
-
-# ?? - to_s 
-# ?? - merge hash with hash --> parameter hash
 
