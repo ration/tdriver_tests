@@ -199,13 +199,22 @@ Feature: MobyUtil::Parameter
     Then exception type of "ArgumentError" is thrown
     Then I test code "ARGV.clear"
 
+  Scenario: Verify that filenames is parsed from command line argument
+    Given I have parameter class initialized
+    When I test code "@some_xml_file = $parameters.files.first"
+    When I test code "ARGV.concat(['--tdriver_parameters', @some_xml_file ])"
+    Then I execute "@arguments = $parameters.instance.__send__(:parse_command_line_arguments)"
+    And verify "@arguments.count == 1"
+    And verify "@arguments.first == @some_xml_file"
+    Then I test code "ARGV.clear"
+
   Scenario: Exception is raised if xml file not defined in command line argument
     Given I have parameter class initialized
     When I test code "@some_xml_file = $parameters.files.first"
     When I test code "$parameters.instance.clear"
     When I test code "ARGV.concat(['--tdriver_parameters', @some_xml_file])"
     When I test code "$parameters.instance.__send__(:parse_command_line_arguments)"
-    When I execute "$parameters.instance.__send__(:reset, false, false, false, true)"
+    When I execute "$parameters.instance.__send__(:reset_hashes, { :load_default_parameters => false, :load_user_parameters => false })"
     Then exception is not thrown
     And verify "$parameters.files.count == 1"
     And verify "$parameters.files.first == @some_xml_file"
