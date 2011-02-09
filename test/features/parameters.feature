@@ -62,10 +62,10 @@ Feature: MobyUtil::Parameter
 
   Scenario: Parameter hash can be cleared and restored
     Given I have parameter class initialized
-    When I execute "$parameters.instance.clear"
+    When I execute "$parameters.clear"
     Then exception is not thrown
     Then verify "$parameters.inspect == '{}'"
-    Then I test code "$parameters.instance.reset_parameters"
+    Then I test code "$parameters.reset"
     And verify "$parameters.inspect != '{}'"
 
   Scenario: Parameter hash can be cleared and restored with static methods
@@ -78,7 +78,7 @@ Feature: MobyUtil::Parameter
 
   Scenario: Parameter hash is accessible directly
     Given I have parameter class initialized
-    When I execute "$parameters.parameters"
+    When I execute "$parameters.hash"
     Then exception is not thrown
 
   Scenario: Parameter should contain list configured suts
@@ -101,7 +101,7 @@ Feature: MobyUtil::Parameter
     Given I have parameter class initialized
     When I test code "$parameters.clear"
     Then verify "$parameters.keys.empty? == true"
-    When I execute "$parameters.instance.load_parameters_xml( 'tdriver_parameters.xml' )"
+    When I execute "$parameters.parse_file( 'tdriver_parameters.xml' )"
     Then exception is not thrown
     Then verify "$parameters.keys.empty? == false"
     Then I test code "$parameters.reset"
@@ -188,14 +188,14 @@ Feature: MobyUtil::Parameter
   Scenario: Exception is raised if xml file not found in command line argument
     Given I have parameter class initialized
     When I test code "ARGV.concat(['--tdriver_parameters', 'missing.xml'])"
-    When I execute "$parameters.instance.__send__(:parse_command_line_arguments)"
+    When I execute "$parameters.__send__(:parse_command_line_arguments)"
     Then exception type of "MobyUtil::FileNotFoundError" is thrown
     Then I test code "ARGV.clear"
 
   Scenario: Exception is raised if xml file not defined in command line argument
     Given I have parameter class initialized
     When I test code "ARGV.concat(['--tdriver_parameters'])"
-    When I execute "$parameters.instance.__send__(:parse_command_line_arguments)"
+    When I execute "$parameters.__send__(:parse_command_line_arguments)"
     Then exception type of "ArgumentError" is thrown
     Then I test code "ARGV.clear"
 
@@ -203,7 +203,7 @@ Feature: MobyUtil::Parameter
     Given I have parameter class initialized
     When I test code "@some_xml_file = $parameters.files.first"
     When I test code "ARGV.concat(['--tdriver_parameters', @some_xml_file ])"
-    Then I execute "@arguments = $parameters.instance.__send__(:parse_command_line_arguments)"
+    Then I execute "@arguments = $parameters.__send__(:parse_command_line_arguments)"
     And verify "@arguments.count == 1"
     And verify "@arguments.first == @some_xml_file"
     Then I test code "ARGV.clear"
@@ -211,10 +211,10 @@ Feature: MobyUtil::Parameter
   Scenario: Exception is raised if xml file not defined in command line argument
     Given I have parameter class initialized
     When I test code "@some_xml_file = $parameters.files.first"
-    When I test code "$parameters.instance.clear"
+    When I test code "$parameters.clear"
     When I test code "ARGV.concat(['--tdriver_parameters', @some_xml_file])"
-    When I test code "$parameters.instance.__send__(:parse_command_line_arguments)"
-    When I execute "$parameters.instance.__send__(:reset_hashes, { :load_default_parameters => false, :load_user_parameters => false })"
+    When I test code "$parameters.__send__(:parse_command_line_arguments)"
+    When I execute "$parameters.__send__(:reset_hashes, { :load_default_parameters => false, :load_user_parameters => false })"
     Then exception is not thrown
     And verify "$parameters.files.count == 1"
     And verify "$parameters.files.first == @some_xml_file"
