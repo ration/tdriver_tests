@@ -177,7 +177,7 @@ Feature: MobyUtil::Parameter
 
   Scenario: Correct exception is raised if parsing non xml fails 
     Given I have parameter class initialized
-    When I execute "$parameters.parse_file( caller.first.split(':').first )"
+    When I execute "$parameters.parse_file( File.join( MobyUtil::FileHelper.tdriver_home, 'sut_parameters.rb' ) )"
     Then exception type of "MobyUtil::ParameterFileParseError" is thrown
 
   Scenario: Correct exception is raised if parsing xml string fails 
