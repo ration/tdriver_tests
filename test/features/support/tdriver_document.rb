@@ -44,10 +44,11 @@ module TDriverDocument
 
       @current_feature = nil
 
-      @tc_status=nil
-      @py_string=nil
-      @step_name=nil
-      @tags=[]
+      @tc_status = nil
+      @py_string = nil
+      @step_name = nil
+
+      @tags = []
 
     end
     
@@ -128,10 +129,14 @@ module TDriverDocument
     # === params
     # === returns
     # === raises
-    def exception(exception, status)
+    def exception( exception, status )
+
       if status == :failed        
+
         update_scenario_exception("#{exception.message} #{exception.class} #{exception.backtrace}")
+
       end      
+
     end
 
     #This method visits cucumber scenario name and starts a new test case when
@@ -141,13 +146,25 @@ module TDriverDocument
     # === params
     # === returns
     # === raises
-    def scenario_name(keyword, name, file_colon_line, source_indent)
-      visit_feature_element_name(keyword, name, file_colon_line, source_indent)
+    def scenario_name( keyword, name, file_colon_line, source_indent )
+
+      visit_feature_element_name( keyword, name, file_colon_line, source_indent )
+
     end
 
-    def feature_name(keyword,name)
+    def before_feature_element( *args )
+
+      # reset tags before scenario
       @tags = []
+
+    end
+
+    def feature_name( keyword,name )
+
+      #@tags = []
+
       start_feature( keyword, name, @feature_file )
+
     end
 
     #This method determines when new test case needs to be started
@@ -157,22 +174,23 @@ module TDriverDocument
     # === params
     # === returns
     # === raises
-    def visit_feature_element_name(keyword, name, file_colon_line, source_indent)
+    def visit_feature_element_name( keyword, name, file_colon_line, source_indent )
 
       line = %Q("#{name}")
 
       @current_feature_element = line if @current_feature_element.nil?
 
       unless line == @current_feature_element
-        end_scenario(@current_feature_element,@tc_status)
-        @current_feature_element=line
+
+        end_scenario( @current_feature_element, @tc_status )
+
+        @current_feature_element = line
+
       end
 
       start_scenario( keyword, name, file_colon_line, source_indent, @tags )
 
-      @tc_status=nil
-
-      @tags = []
+      @tc_status = nil
 
     end
 
@@ -182,7 +200,9 @@ module TDriverDocument
     # === returns
     # === raises
     def before_outline_table(outline_table)
+
       update_scenario("running outline: ")
+
     end
 
     #This method records the cucumber outline table results in to one test case
@@ -191,6 +211,7 @@ module TDriverDocument
     # === returns
     # === raises
     def after_table_row(table_row)
+
       if table_row.exception
         @tc_status='failed'
         capture_screen_test_case()
@@ -202,6 +223,7 @@ module TDriverDocument
         #update_scenario("#{format_table_row(table_row)} PASSED")
         update_scenario("#{format_table_row(table_row)}", :passed)
       end
+
     end
 
     def format_table_row(row)
@@ -214,43 +236,43 @@ module TDriverDocument
 
     def tag_name(tag_name)
 
-      if @last_feature_element != @current_feature_element
-
-        @tags = []
-        @last_feature_element = @current_feature_element
-
-      end
+      #if @last_feature_element != @current_feature_element
+      #  @tags = []
+      #  @last_feature_element = @current_feature_element
+      #end
 
       @tags << tag_name
 
     end
 
-    def comment_line(comment_line)
-      update_scenario(comment_line)
+    def comment_line( comment_line )
+
+      update_scenario( comment_line )
+
     end
 
-    def after_tags(tags)
-    end
+    def after_tags( tags ); end
 
-    def after_feature_element(feature_element)      
-    end
+    def after_feature_element( feature_element ); end
 
-    def after_background(background)
-    end
+    def after_background( background ); end
 
-    def before_examples_array(examples_array)
-    end
+    def before_examples_array( examples_array ); end
 
-    def examples_name(keyword, name)
-    end
+    def examples_name( keyword, name ); end
 
-    def py_string(string)
-	    details="#{@step_name} \"#{string}\" #{@tc_status.upcase}"
+    def py_string( string )
+
+	    details = "#{@step_name} \"#{string}\" #{@tc_status.upcase}"
+
       update_scenario(details)
+
     end
 
-    def before_feature(feature)
-      @feature_file=feature.file
+    def before_feature( feature )
+
+      @feature_file = feature.file
+
     end
 
     def print_feature_element_name(keyword, name, file_colon_line, source_indent)
@@ -259,14 +281,20 @@ module TDriverDocument
 
     end
 
-    def before_table_row(table_row)
+    def before_table_row( table_row )
+
       return unless @table
+
       @col_index = 0
+
     end
 
-    def table_cell_value(value, status)
+    def table_cell_value( value, status )
+
       return unless @table
+
       status ||= @status || :passed
+
     end
 
   end
