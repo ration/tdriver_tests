@@ -4,8 +4,15 @@ Given "I have parameter class initialized" do
 
 end
 
-Then "delete parameter \"$key\"" do | key |
+Then /^delete parameter \:(.+)$/ do | key |
+
+  MobyUtil::Parameter.delete( key.to_sym )
+
+end
+
+Then /^delete parameter \"(.+)\"$/ do | key |
 
   MobyUtil::Parameter.delete( key )
 
 end
+
