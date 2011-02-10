@@ -49,10 +49,6 @@ Feature: TDriver.parameter
     Given I have parameter class initialized
     Then verify "TDriver.parameter.files.kind_of?( Array ) == true"
 
-  Scenario: List loaded files by using public end-user API
-    Given I have parameter class initialized
-    Then verify "TDriver.suts.kind_of?( Array ) == true"
-
   Scenario: Inspect parameters by using public end-user API
     Given I have parameter class initialized
     Then verify "( TDriver.parameter.inspect =~ /^\{.*\}$/ ) != nil"
