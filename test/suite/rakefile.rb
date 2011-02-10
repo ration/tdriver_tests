@@ -17,19 +17,18 @@
 ## 
 ############################################################################
 
-
 require 'rubygems'
 require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s| 
-  s.name = "mattitestsuite"
+  s.name = "tdriver_test_suite"
   s.version = "0.0.2"
-  s.author = "MATTI Developer"
+  s.author = "TDriver Developer"
   s.email = ""
   s.homepage = ""
   s.platform = Gem::Platform::RUBY
-  s.summary = "TestSuite for MATTI Developers"
-  s.files = FileList["mattitestsuite.rb"].to_a
+  s.summary = "TestSuite for TDriver Developers"
+  s.files = FileList["tdriver_test_suite.rb"].to_a
   s.require_path = "."
   #s.autorequire = ""
   s.has_rdoc = false

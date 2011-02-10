@@ -1,4 +1,4 @@
 #!/bin/sh
 rake gem
-sudo gem uninstall mattitestsuite  
-sudo gem install pkg/mattitestsuite
+sudo gem uninstall tdriver_test_suite  
+sudo gem install pkg/tdriver_test_suite
