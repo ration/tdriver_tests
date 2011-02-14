@@ -27,6 +27,12 @@ Feature: MobyBehaviour::TestObject#child
     Given I launch application "calculator" as "@app"
     When I execute "$testobj = @app.child(:text => 'MC')"
     Then another test object with the same rule should be equal
+
+  @nodoc
+  Scenario: Retrieving test object with empty attribute value (bugfix)
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.Node(:emptyProp => '', :__timeout => 0)"
+    Then exception is not thrown
     
   Scenario: Retrieve test object type of "Button" by using index feature
     Given I launch application "calculator" as "@app"
