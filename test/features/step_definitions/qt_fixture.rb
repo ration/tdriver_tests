@@ -29,6 +29,16 @@ Then("QLinedit has focus") do
 end
 
 
+Then("I store dimensions for app") do 
+  @width = @app.QDeclarativeView.attribute('width')
+  @height = @app.QDeclarativeView.attribute('height')
+end 
+
+Then("application dimensions have switched") do 
+  verify_equal(@height, 5){@app.QDeclarativeView.attribute('width')}
+  verify_equal(@width, 5){@app.QDeclarativeView.attribute('height')}
+end
+
 Given /^I tap the open button in the tool bar$/ do
   @app.QToolButton( :text => 'Open' ).tap
 end

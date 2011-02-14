@@ -34,6 +34,8 @@ SUBDIRS += treewidgetapp
 
 SUBDIRS += nativedialog_testapp
 
+SUBDIRS += hybrid_app
+
 unix: { 
    tests.files = test/*
    tests.path = /usr/share/testability-driver-tests
