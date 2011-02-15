@@ -52,3 +52,18 @@ Then("I clear fixture qt from parameters") do
   MobyUtil::Parameter[@sut.id.to_sym][:fixtures][:qt] = nil
 end
 
+Then("I create some activity") do
+  3.times do
+	@app.ControlTab( :name => 'ControlTab' ).flick(:Up)
+	@app.ControlTab( :name => 'ControlTab' ).flick(:Down)
+  end
+end
+
+Then("I stop measuring fps data") do 
+  @data_array = @app.MainView( :name => 'MainView' ).stop_fps_measurement
+end
+
+Then("I verify that fps results are collected") do 
+  verify_true(0){@data_array.size != 0}
+  @data_array.each{|entry| verify_true(0){ entry[:value].kind_of?(Integer); entry[:time_stamp].kind_of?(String)} }
+end
