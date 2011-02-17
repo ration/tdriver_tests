@@ -16,3 +16,8 @@ Feature: MobyBehaviour::QT::Attribute#set_attribute
 	Then the Control with name Crash has the attribute Qt_x with the value 200
 	And the Control with name Crash has the attribute Qt_y with the value 250
 
+  Scenario: The set_attribute method works for proxy elements
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.QLineEdit.set_attribute('text', '1/1/1')"
+    Then the QLineEdit with name qt_spinbox_lineedit has the attribute text with the value 1/1/1
+
