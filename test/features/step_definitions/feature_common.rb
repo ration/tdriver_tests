@@ -332,6 +332,10 @@ Then /^exception matching "([^\"]*)" is thrown$/ do | arg1 |
   @__exception=nil
 end
 
+Then /^I set the value "([^\"]*)" to "([^\"]*)" sut parameter$/ do | arg1,arg2 |
+  @sut.parameter[arg2.to_sym]=arg1
+end
+
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |
 
   raise @__exception if @__exception != nil
