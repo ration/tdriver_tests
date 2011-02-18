@@ -11,3 +11,21 @@ Feature: MobyBehaviour::SUT#press_key
     When I execute "@sut.press_key(:k1)"
     Then exception is not thrown
 
+  Scenario: Testing press_key method with key sequence
+    Given I have default sut
+    And I launch application "calculator"
+    When I execute "@sut.press_key( MobyCommand::KeySequence.new.append!( :k1 ).append!( :k1 ) )"
+    Then exception is not thrown
+
+  Scenario: Testing press_key method on Qt specified key
+    Given I have default sut
+    And I launch application "calculator"
+    When I execute "@sut.press_key(:default_k1)"
+    Then exception is not thrown
+
+  Scenario: Testing press_key method with key sequence with Qt specified keys
+    Given I have default sut
+    And I launch application "calculator"
+    When I execute "@sut.press_key( MobyCommand::KeySequence.new.append!( :default_k1 ).append!( :default_k1 ) )"
+    Then exception is not thrown
+
