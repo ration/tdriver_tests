@@ -14,7 +14,7 @@ Feature: MobyBehaviour::QT::KeyPress#press_key
   Scenario: Using press_key with a Qt specific symbol as argument
     Given I launch application "testapp"
     Then testapp nonModalPopup button is not visible on screen
-    When I execute "@app.NodeView.press_key( :default_kRight )"
+    When I execute "@app.NodeView.press_key( :qt_kRight )"
     Then testapp nonModalPopup button is visible on screen
 
   Scenario: Using press_key with a key sequence as argument
@@ -26,7 +26,7 @@ Feature: MobyBehaviour::QT::KeyPress#press_key
   Scenario: Using press_key with a Qt specific key sequence as argument
     Given I launch application "testapp"
     Then testapp nonModalPopup button is not visible on screen
-    When I execute "@app.NodeView.press_key( MobyCommand::KeySequence.new( :default_kRight ).append!( :default_kLeft ).append!( :default_kRight ) )"
+    When I execute "@app.NodeView.press_key( MobyCommand::KeySequence.new( :qt_kRight ).append!( :qt_kLeft ).append!( :qt_kRight ) )"
     Then testapp nonModalPopup button is visible on screen
 
   Scenario: Using press_key with a hex as argument
