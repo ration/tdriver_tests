@@ -6,7 +6,8 @@ Feature: MobyBehaviour::QT::SUT#cpu_load_start
   so that I can test the MobyBehaviour::QT::SUT behaviour
   
   Scenario: Testing cpu_load_start method for sut
-    Given I launch application "testapp" as "@app"
-    When I execute "@__sut.cpu_load_start(50)"
+	Given I have default sut
+    When I execute "@sut.cpu_load_start(15)"
     Then exception is not thrown
+	And I test code "@sut.cpu_load_stop()"
     
