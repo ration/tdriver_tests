@@ -107,6 +107,8 @@ module TDriver_Document_Writer
 
     end
 
+    color_code = 37 if @tags.include?('@nodoc')
+
     "\e[#{ highlight ? '1;' : '0;' }#{ color_code }m#{ text }\e[0m"
 
   end

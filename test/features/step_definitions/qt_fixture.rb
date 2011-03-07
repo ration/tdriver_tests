@@ -29,6 +29,16 @@ Then("QLinedit has focus") do
 end
 
 
+Then("I store dimensions for app") do 
+  @width = @app.QDeclarativeView.attribute('width')
+  @height = @app.QDeclarativeView.attribute('height')
+end 
+
+Then("application dimensions have switched") do 
+  verify_equal(@height, 5){@app.QDeclarativeView.attribute('width')}
+  verify_equal(@width, 5){@app.QDeclarativeView.attribute('height')}
+end
+
 Given /^I tap the open button in the tool bar$/ do
   @app.QToolButton( :text => 'Open' ).tap
 end
@@ -42,3 +52,18 @@ Then("I clear fixture qt from parameters") do
   MobyUtil::Parameter[@sut.id.to_sym][:fixtures][:qt] = nil
 end
 
+Then("I create some activity") do
+  3.times do
+	@app.ControlTab( :name => 'ControlTab' ).flick(:Up)
+	@app.ControlTab( :name => 'ControlTab' ).flick(:Down)
+  end
+end
+
+Then("I stop measuring fps data") do 
+  @data_array = @app.MainView( :name => 'MainView' ).stop_fps_measurement
+end
+
+Then("I verify that fps results are collected") do 
+  verify_true(0){@data_array.size != 0}
+  @data_array.each{|entry| verify_true(0){ entry[:value].kind_of?(Integer); entry[:time_stamp].kind_of?(String)} }
+end

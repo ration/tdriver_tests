@@ -4,7 +4,7 @@
 ## All rights reserved. 
 ## Contact: Nokia Corporation (testabilitydriver@nokia.com) 
 ## 
-## This file is part of TDriver. 
+## This file is part of MATTI. 
 ## 
 ## If you have questions regarding the use of this file, please contact 
 ## Nokia at testabilitydriver@nokia.com . 
@@ -17,25 +17,26 @@
 ## 
 ############################################################################
 
+require 'rubygems'
+require 'rake/gempackagetask'
 
-# Author: Ari Hyttinen
-# Date: 16.09.2010
-# Purpose: Tests TDriver
-
-
-require 'tdriver'
-include TDriverVerify
-
-Before do
-	$ErrorMessage=""
+spec = Gem::Specification.new do |s| 
+  s.name = "tdriver_test_suite"
+  s.version = "0.0.2"
+  s.author = "TDriver Developer"
+  s.email = ""
+  s.homepage = ""
+  s.platform = Gem::Platform::RUBY
+  s.summary = "TestSuite for TDriver Developers"
+  s.files = FileList["tdriver_test_suite.rb"].to_a
+  s.require_path = "."
+  #s.autorequire = ""
+  s.has_rdoc = false
+  #s.extra_rdoc_files = [""]
+  #s.add_dependency("dependency", ">= 0.x.x")
 end
+ 
+Rake::GemPackageTask.new(spec) do |pkg| 
+  #pkg.need_tar = true 
+end 
 
-Then /^suts returns a non\-empty list$/ do
-  raise @__exception if @__exception != nil
-  verify_true(0, "TDriver.suts should return class Array, but it returned class #{@tdriver_suts_list.class}") {
-    @tdriver_suts_list.class == Array
-  }
-  verify_false(0, "TDriver.suts should return non-empty list, but it returned an empty list") {
-    @tdriver_suts_list.empty?
-  }
-end

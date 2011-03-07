@@ -311,12 +311,29 @@ Then /^exception is not thrown$/ do
   end
 end
 
+Then /^exception type of "([^\"]*)" is thrown$/ do | expected |
+
+  verify_false(0, "No exception has not been raised") { @__exception.nil? }
+
+  verify_true(0, "Thrown exception type of #{ @__exception.class } does not match with #{ expected.inspect }"){ 
+
+    @__exception.class.to_s == expected.to_s 
+
+  }
+
+  @__exception=nil
+end
+
 Then /^exception matching "([^\"]*)" is thrown$/ do | arg1 |
   verify_false(0, "No exception has not been raised") { @__exception.nil? }
   re = Regexp.new(arg1.to_s)
   verify_false(0, "Exception '#{@__exception.to_s}' does not match given regexp #{re.inspect}") { (re =~ @__exception.to_s).nil? }
   #exception handled can be set to nil
   @__exception=nil
+end
+
+Then /^I set the value "([^\"]*)" to "([^\"]*)" sut parameter$/ do | arg1,arg2 |
+  @sut.parameter[arg2.to_sym]=arg1
 end
 
 Then "the $target_type has moved $expected_direction" do | target_type, expected_direction |

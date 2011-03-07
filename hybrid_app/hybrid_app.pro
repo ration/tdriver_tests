@@ -20,3 +20,12 @@ SOURCES += main.cpp
 QT += declarative
 
 RESOURCES += hybrid_app.qrc
+
+# install
+unix:{
+target.path = /usr/bin
+}
+win32:{
+target.path = /qttas/bin
+}
+INSTALLS += target

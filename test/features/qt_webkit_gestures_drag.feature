@@ -49,7 +49,7 @@ Feature: Testing WebKit gesture features
     Then I verify that "div" is having "x" with evaluated value "@app.html(:name=>'html').attribute('x').to_i+100"
     Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+100"
 
-  Scenario: After loading gesture page blue element should dragable to red box
+  Scenario: After loading gesture page, blue element should be dragable to red box
     Given I launch application "browser"
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
@@ -63,16 +63,17 @@ Feature: Testing WebKit gesture features
     Then I verify that the page is loaded
     When I execute
     """
-       @app.div(:id => 'blue').gesture_points(
-         [{'x' => 77, 'y' => 93, 'interval' => 1 },
+       @app.html.gesture_points(
+         [{'x' => 40, 'y' => 400, 'interval' => 1 },
+          {'x' => 77, 'y' => 93, 'interval' => 1 },
           {'x' => 100, 'y' => 100, 'interval' => 2 },
-          {'x' => 25, 'y' => 83, 'interval' => 2 }
+          {'x' => 45, 'y' => 103, 'interval' => 2 }
          ], 
          5,
          { :press => true, :release => true }
         )
     """
        
-    Then I verify that "div" is having "x" with evaluated value "@app.html(:name=>'html').attribute('x').to_i+25"
-    Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+83"
+    Then I verify that "div" is having "x" with evaluated value "5"
+    Then I verify that "div" is having "y" with evaluated value "35"
 

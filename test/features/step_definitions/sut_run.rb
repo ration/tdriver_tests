@@ -17,25 +17,17 @@
 ## 
 ############################################################################
 
-
-# Author: Ari Hyttinen
-# Date: 16.09.2010
-# Purpose: Tests TDriver
-
-
-require 'tdriver'
-include TDriverVerify
-
-Before do
-	$ErrorMessage=""
-end
-
-Then /^suts returns a non\-empty list$/ do
-  raise @__exception if @__exception != nil
-  verify_true(0, "TDriver.suts should return class Array, but it returned class #{@tdriver_suts_list.class}") {
-    @tdriver_suts_list.class == Array
-  }
-  verify_false(0, "TDriver.suts should return non-empty list, but it returned an empty list") {
-    @tdriver_suts_list.empty?
-  }
+# In test app, to check that a certain view is visible
+# for now we check for the value of the attribute "x"
+Then /^"([^"]*)" view is visible$/ do |view_name|
+  case( view_name)
+    when "NodeArea"
+      verify_equal( "1", 0, "Expected Testapp view EditArea. Checking by coordinates so make sure the app has not changed.") { @app.NodeView.attribute("x").to_s }
+    when "EditArea"
+      verify_equal( "-858", 0, "Expected Testapp view EditArea. Checking by coordinates so make sure the app has not changed.") { @app.NodeView.attribute("x").to_s }
+    when "WebKitArea"
+      verify_equal( "-1718", 0, "Expected Testapp view EditArea. Checking by coordinates so make sure the app has not changed.") { @app.NodeView.attribute("x").to_s }
+    else
+      
+  end
 end

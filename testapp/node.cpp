@@ -53,6 +53,7 @@ Node::Node(QGraphicsItem* item)
     setFlag(ItemIsMovable);
     setCacheMode(DeviceCoordinateCache);
     setZValue(3); 
+    setProperty("emptyProp", "");
 }
 
 QRectF Node::boundingRect() const
