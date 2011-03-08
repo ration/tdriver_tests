@@ -5,13 +5,13 @@ Feature: MobyBehaviour::QT::Fixture#fixture
 
 @qt_linux @qt_windows @qt_symbian @qt_meego
   Scenario: Set focus to a component using a fixture call
-	Given I launch application "calculator"
-  When I execute "@app.QLineEdit( :name => 'display' ).fixture('qt', 'setFocus')"
-	Then QLinedit has focus
+  Given I launch application "calculator" as "@app"
+  When I execute "@__sut.application(:name => 'calculator').QLineEdit( :name => 'display' ).fixture('qt', 'setFocus')"
+  Then QLinedit has focus
 
 @qt_linux @qt_windows @qt_meego @nodoc
   Scenario: Test dynamic paramer for fixture
-  Given I launch application "calculator"
+  Given I launch application "calculator" as "@app"
   And I have default sut
   Then I clear fixture qt from parameters
   When I execute 
