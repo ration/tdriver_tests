@@ -3,7 +3,7 @@ Feature: MobyBehaviour::SUT#settings
   I want to use read_all_settings method to read all application and system settings
   so that I can test the MobyBehaviour::Qt:Settings behaviour
 
-@qt_windows
+@qt_windows @qt_linux @qt_meego
   Scenario: Test reading all settings from application settings
     Given I have default sut
 	And I insert a setting test_setting and value foobaar
@@ -28,3 +28,16 @@ Feature: MobyBehaviour::SUT#settings
 	And test_setting is removed from C:\qttas\conf\qt_testability.ini
 	And I clear ini setting test_setting2 from C:\qttas\conf\qt_testability.ini
 	And test_setting2 is removed from C:\qttas\conf\qt_testability.ini
+
+@qt_linux @qt_meego
+  Scenario: Test setting a setting using path to ini file
+    Given I have default sut
+	And I write a setting test_setting and value foobaar to /etc/qt_testability/qt_testability.ini
+	And I write a setting test_setting2 and value foobaar2 to /etc/qt_testability/qt_testability.ini
+	When I execute "@settings = @sut.read_all_settings({:fileName => '/etc/qt_testability/qt_testability.ini', :format => 'ini'})"
+	Then the settings hash has a test_setting foobaar key value pair
+	Then the settings hash has a test_setting2 foobaar2 key value pair
+	And I clear ini setting test_setting from /etc/qt_testability/qt_testability.ini
+	And test_setting is removed from /etc/qt_testability/qt_testability.ini
+	And I clear ini setting test_setting2 from /etc/qt_testability/qt_testability.ini
+	And test_setting2 is removed from /etc/qt_testability/qt_testability.ini
