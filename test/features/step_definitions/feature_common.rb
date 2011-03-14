@@ -68,6 +68,12 @@ After do | scenario |
   else
     @fail_counter=0
   end
+
+  begin
+	@__sut.kill_started_processes
+  rescue
+  end
+
   @__sut.clear_verify_blocks
   #Raising exception if it hasn't been handled
   raise @__exception if @__exception != nil
