@@ -39,3 +39,16 @@ Feature: MobyBehaviour::TestObject#child
     Then I verify that "Calculator" is having "x" with value "0"
     When I execute "@app.child(:type => 'Button', :__index => 16)"
     Then result test object is same as "@app.child(:type => 'Button', :text => '1')"
+
+  @nodoc
+  Scenario: Correct exception is raised when trying to retrieve non existing child test object from application object
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.NonExistingChildTestObject(:__timeout => 0)"
+    Then exception matching "The application" is thrown
+
+  @nodoc
+  Scenario: Correct exception is raised when trying to retrieve non existing child test object from test object
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.Node(:__index=>0, :__timeout => 0).NonExistingChildTestObject(:__timeout => 0)"
+    Then exception matching "The test object" is thrown
+
