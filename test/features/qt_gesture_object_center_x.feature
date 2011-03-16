@@ -2,11 +2,12 @@
 
 Feature: MobyBehaviour::QT::Gesture#object_center_x
   As a test scripter writer
-  I want to use object_center_x method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use object_center_y method to get the x coordinate of the center of a object  in testapp
   so that I can test the MobyBehaviour::QT::Gesture behaviour
 
-  Scenario: Testing object_center_x method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].object_center_x"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing object_center_y method
+    Given I launch application "testapp" as "@app"
+    When I execute "$center_x=@app.Node.object_center_x"
+    Then verify "$center_x.to_i==@app.Node.attribute('width').to_i/2+@app.Node.attribute('x_absolute').to_i"
+    
 
