@@ -2,11 +2,12 @@
 
 Feature: MobyBehaviour::QT::Record#print_recordings
   As a test scripter writer
-  I want to use print_recordings method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use print_recordings method to print recorded script in testapp 
   so that I can test the MobyBehaviour::QT::Record behaviour
 
-  Scenario: Testing print_recordings method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].print_recordings"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing print_recordings method 
+    Given I launch application "testapp" as "@app"
+    And I start recording and perform some gestures
+    When I execute "@script=MobyUtil::Recorder.print_script(@__sut, @app)"	
+    Then I am able to play the recording
 

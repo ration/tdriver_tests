@@ -2,7 +2,7 @@
 
 Feature: MobyBehaviour::QT::Widget#tap_down_object
   As a test scripter writer
-  I want to use tap_down_object method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use tap_down_object method to tap object in testapp
   so that I can test the MobyBehaviour::QT::Widget behaviour
 
   Scenario: Tapping down at child QGraphicsItem coordinates
@@ -18,21 +18,33 @@ Feature: MobyBehaviour::QT::Widget#tap_down_object
       """
     Then color of Triangle1 is "darkMagenta"
 
-@nodoc    
-  Scenario: Testing tap_down_object method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap_down_object(x, y)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
 
 @nodoc    
-  Scenario: Testing tap_down_object method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap_down_object(x, y, button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing tap_down_object method with optional argument 'button' to use.
+    Given I launch application "testapp"
+    Then color of Triangle1 is "magenta"
+    When I execute 
+      """
+      # retrieve position
+      pos = @app.child( :name => 'Triangle1' ).attribute( 'pos' ).split( ',' ).map { | str | str.to_i + 5 }
+       
+      # perform tap down object
+      @app.NodeView.tap_down_object( pos[ 0 ], pos[ 1 ] ,:Right)
+      """
+    Then color of Triangle1 is "darkMagenta"
 
 @nodoc    
-  Scenario: Testing tap_down_object method with optional argument 'tap_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap_down_object(x, y, button, tap_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing tap_down_object method with optional argument 'tap_params'
+   Given I launch application "testapp"
+    Then color of Triangle1 is "magenta"
+    When I execute 
+      """
+      # retrieve position
+      pos = @app.child( :name => 'Triangle1' ).attribute( 'pos' ).split( ',' ).map { | str | str.to_i + 5 }
+       
+      # perform tap down object
+      @app.NodeView.tap_down_object( pos[ 0 ], pos[ 1 ] ,:Right, {:tap_count=>2})
+      """
+    Then color of Triangle1 is "darkMagenta"
+
 

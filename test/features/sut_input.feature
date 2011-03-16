@@ -6,12 +6,12 @@ Feature: MobyBehaviour::SUT#input=
   so that I can test the MobyBehaviour::SUT behaviour
 
   Scenario: Testing input attribute (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].input"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I have default sut
+    When I execute "@sut.input"
+    Then exception is not thrown
 
   Scenario: Testing input= attribute (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].input="
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I have default sut
+    When I execute "@sut.input=:key"
+    Then verify "@sut.input==:key"
 
