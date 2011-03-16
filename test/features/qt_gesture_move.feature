@@ -7,19 +7,20 @@ Feature: MobyBehaviour::QT::Gesture#move
 
   Scenario: The move method requires a direction and a distance as arguments
     Given I launch application "testapp" as "@app"
-	And I know the Node initial location
+    And I know the Node initial location
     When I execute "@app.Node.move(:Left, 100)"
     Then the Node has not moved
 
 @nodoc
-  Scenario: Testing move method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].move(direction, distance, button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing move method with optional argument 'button' to use in move
+    Given I launch application "testapp" as "@app"
+    And I know the Node initial location
+    When I execute "@app.Node.move(:Left, 100, :Right)"
+    Then the Node has not moved
 
 @nodoc
-  Scenario: Testing move method with optional argument 'optional_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].move(direction, distance, button, optional_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
-
+  Scenario: Testing move method with optional argument 'optional_params'
+     Given I launch application "testapp" as "@app"
+    And I know the Node initial location
+    When I execute "@app.Node.move(:Left, 100, :Right, {:use_tap_screen=>true})"
+    Then the Node has not moved
