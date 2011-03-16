@@ -8,6 +8,7 @@ Feature: MobyBehaviour::QT::Record#print_recordings
   Scenario: Testing print_recordings method 
     Given I launch application "testapp" as "@app"
     And I start recording and perform some gestures
-    When I execute "@script=MobyUtil::Recorder.print_script(@__sut, @app)"	
+    When I execute "@recordings=@app.print_recordings"	
+    And I stop recording
     Then I am able to play the recording
 

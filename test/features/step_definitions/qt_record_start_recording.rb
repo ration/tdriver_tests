@@ -23,7 +23,7 @@
 # Purpose: Test TDriver methods
 
 
-And /^I perform some gestures and stop recording$/ do
+And /^I perform some gestures$/ do
 	raise @__exception if @__exception != nil
 	
 	@app.Menu.ControlTab.flick(:Up)
@@ -33,33 +33,44 @@ And /^I perform some gestures and stop recording$/ do
 	@app.Menu.Control(:name => 'AddNode').tap  
 	@app.Menu.Control(:name => 'AddNode').tap 
 	@app.Menu.ControlTab.flick(:Down)
-	@script = MobyUtil::Recorder.print_script(@__sut, @app)	
 end
 
 Then /^I am able to play the recording$/ do 
 	raise @__exception if @__exception != nil
-
+		
+	@script=MobyUtil::Scripter.new( @__sut.id,  ['text','icontext','label']  ).write_fragment( MobyBase::StateObject.new( @recordings ), @app.name )	
+		
 	@app.Triangle.tap_up 
 	@app.Menu.ControlTab.flick(:Up)
 	@app.Menu.Control(:name => 'Reset').tap 
 	@app.Menu.ControlTab.flick(:Down)
 	
 	@script.gsub!('sut','@__sut')
-	#puts @script
 	eval(@script)
 	
 	verify_equal('4', 30){@app.NodeView.attribute('nodeCount')}
 end
 
+
+And /^I stop recording$/ do
+	raise @__exception if @__exception != nil
+	@app.stop_recording	
+end
+
 And /^I start recording and perform some gestures$/ do
 	raise @__exception if @__exception != nil
-	
-	MobyUtil::Recorder.start_rec(@app)
+
+	@app.start_recording
 	@app.Menu.ControlTab.flick(:Up)
 	@app.Menu.Control(:name => 'Reset').tap
 	@app.Menu.Control(:name => 'AddNode').tap
 	@app.Menu.Control(:name => 'AddNode').tap 
 	@app.Menu.Control(:name => 'AddNode').tap  
 	@app.Menu.Control(:name => 'AddNode').tap 
-	@app.Menu.ControlTab.flick(:Down)
+	@app.Menu.ControlTab.flick(:Down)	
 end
+
+And /^I print the recording$/ do
+	raise @__exception if @__exception != nil
+	@recordings = @app.print_recordings		
+ end

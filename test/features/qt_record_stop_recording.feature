@@ -6,7 +6,9 @@ Feature: MobyBehaviour::QT::Record#stop_recording
   so that I can test the MobyBehaviour::QT::Record behaviour
 
   Scenario: Testing stop_recording method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].stop_recording"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+    Given I launch application "testapp" as "@app"
+    And I start recording and perform some gestures
+    And I print the recording
+    When I execute "@script=@app.stop_recording"	
+    Then I am able to play the recording
 
