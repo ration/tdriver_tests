@@ -1,6 +1,21 @@
-require 'fileutils'
-require 'zip/zip'
-require 'zip/zipfilesystem'
+# safe require; raises proper exception if file or gem not found
+def require_gem( gem_name )
+
+  begin
+  
+    require gem_name
+  
+  rescue LoadError
+   
+    raise $!.class, "\nLoadError: Required file or gem #{ gem_name.inspect } is not installed! Aborting...", caller
+     
+  end
+
+end
+
+require_gem 'fileutils'
+require_gem 'zip/zip'
+require_gem 'zip/zipfilesystem'
 
 task :default do
 
