@@ -20,4 +20,5 @@ Feature: MobyBehaviour::SUT#frozen
 	$is_frozen=@sut.frozen
 	"""
     Then verify "$is_frozen==true"
+    Then I test code "@sut.unfreeze"
 
