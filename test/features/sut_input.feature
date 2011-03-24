@@ -12,6 +12,8 @@ Feature: MobyBehaviour::SUT#input=
 
   Scenario: Testing input= attribute (Rename this to be more descriptive)
     Given I have default sut
+    And I test code "@original_input_method=@sut.input"
     When I execute "@sut.input=:key"
     Then verify "@sut.input==:key"
+    And I test code "@sut.input=@original_input_method"
 
