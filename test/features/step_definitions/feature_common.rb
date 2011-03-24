@@ -42,7 +42,7 @@ Before do
 end
 
 After do | scenario |
-
+  @__sut.unfreeze if @__sut.frozen
   @__apps.each_key do |app|
     begin
 		  @__apps[app].close if @__apps[app].name != 'qttasserver'
