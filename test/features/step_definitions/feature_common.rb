@@ -59,7 +59,7 @@ After do | scenario |
 
       #Try to recover and check running apps
       app_list=@__sut.list_apps
-      tdriver_report_log("Running applications: <pre>#{app_list}</pre>")
+      tdriver_report_log("Running applications: <pre>#{app_list.to_s.gsub(/[<>]/,' ')}</pre>")
 
       if @fail_counter>10
         puts "Tests failing termitating execution"
