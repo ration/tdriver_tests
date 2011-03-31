@@ -1,6 +1,31 @@
-require 'fileutils'
-require 'zip/zip'
-require 'zip/zipfilesystem'
+# safe require/gem availibity checker; raises proper exception if file or gem not found
+def require_gem( gem_name, check_availibility = false )
+
+  begin
+
+    if check_availibility
+
+      p Gem.available?( gem_name )
+
+      raise LoadError unless Gem.available?( gem_name )
+
+    else
+  
+      require gem_name 
+
+    end
+    
+  rescue LoadError
+   
+    raise $!.class, "\nLoadError: Required file or gem #{ gem_name.inspect } is not installed! Aborting...", caller
+     
+  end
+
+end
+
+require_gem 'fileutils'
+require_gem 'zip/zip'
+require_gem 'zip/zipfilesystem'
 
 task :default do
 
@@ -9,6 +34,7 @@ task :default do
 end
 
 def generate_sut_qt_api_doc()
+
   if ENV['CC_BUILD_ARTIFACTS']
     begin
       current_dir=Dir.pwd
@@ -78,19 +104,35 @@ def run_tests( name, command_line )
 
     }
 
-    puts "Executing documentation #{ name } feature tests...\n"
-    result=system( command_line )
+    puts "Executing documentation #{ name } feature tests...\n\n"
+    puts "#{ command_line }\n\n"
+
+    result = system( command_line )
+    
+    if result
+
+      puts "\nTests executed succesfully... (with exit code 0)\n"
+      
+    else
+    
+      puts "\nTest execution failed (with exit code: #{ $?.exitstatus })\n\n" 
+
+    end
 
   ensure
 
     Dir.chdir("..")
 
   end
+  
   result
 
 end
 
 task :doc_linux do 
+
+  # verify that testability-driver-runner is installed
+  require_gem( 'testability-driver-runner', true )
 
   run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
 
@@ -98,18 +140,29 @@ end
 
 task :doc_meego do 
 
+  # verify that testability-driver-runner is installed
+  require_gem( 'testability-driver-runner', true )
+
   run_tests( "meego", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_meego --tdriver_parameters custom_parameters.xml" )
 
 end
 
 task :doc_windows do 
 
+  # verify that testability-driver-runner is installed
+  require_gem( 'testability-driver-runner', true )
+
   run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
 
 end
 
 task :doc_symbian do
+
   if ENV['CC_BUILD_ARTIFACTS']
+
+    # verify that testability-driver-runner is installed
+    require_gem( 'testability-driver-runner', true )
+
     File.open("test/report_path.xml", 'w') do |f2|
       f2.puts "
       <parameters>
@@ -117,14 +170,22 @@ task :doc_symbian do
       </parameters>
       "
     end
+
     result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml report_path.xml" )
   else
+
     result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+
   end
+
   generate_sut_qt_api_doc()
+
   puts "Feature tests executed"
+
   raise "Feature tests failed" if (result != true) or ($? != 0)
+
   exit(0)
+
 end
 
 
@@ -197,6 +258,10 @@ end
 
 task :cruise => ['build_testapps','execute_smoke'] do
   if ENV['CC_BUILD_ARTIFACTS']
+
+    # verify that testability-driver-runner is installed
+    require_gem( 'testability-driver-runner', true )
+
     File.open("test/report_path.xml", 'w') do |f2|
       f2.puts "
       <parameters>
@@ -204,25 +269,33 @@ task :cruise => ['build_testapps','execute_smoke'] do
       </parameters>
       "
     end
+
     if /win/ =~ RUBY_PLATFORM
       result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml report_path.xml" )
     else
       result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml report_path.xml" )
     end
+
   else
+
     if /win/ =~ RUBY_PLATFORM
       result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
     else
       result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
     end
+
   end
 
-
   puts "Feature tests executed"
+
   collect_artifacts()
+
   generate_sut_qt_api_doc()
+
   raise "Feature tests failed" if (result != true) or ($? != 0)
+
   exit(0)
+
 end
 
-
+# EOF

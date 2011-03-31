@@ -26,45 +26,73 @@ require 'test/unit/ui/console/testrunner.rb'
 
 module TDriverTestSuite
 
-	VERSION = "0.0.2" unless VERSION
+	VERSION = "0.0.3" unless defined?( VERSION )
 
 	def self.matti_root( folder = nil )
+
 		folder = caller.first if !folder
-		File.expand_path( folder.split( /:[0-9]+/ ).first ).split( /[\/|\\]+/ ).tap{ | path |
-			return "#{ path.slice( 0 .. @index - 1 ).join( File::SEPARATOR ) }#{ File::SEPARATOR }" if !( @index = self.rindex_regexp( path, /^test$/i ) ).nil?
-		} 
+
+		File.expand_path( folder.split( /:[0-9]+/ ).first ).split( /[\/|\\ ]+/ ).tap{ | path |
+
+      if !( @index = self.rindex_regexp( path, /^test$/i ) ).nil?
+
+			  return "#{ path.slice( 0 .. @index - 1 ).join( File::SEPARATOR ) }#{ File::SEPARATOR }"
+
+      end
+
+		}
+
 		Kernel::raise RuntimeError.new("Tests must be located /matti/test/ -folder/subfolder")
+
 	end
 
 	def self.test_folder( folder = nil )
+
 		folder = caller.first if !folder
-		return "#{ self.matti_root( folder ) }test#{ File::SEPARATOR }"
+
+		"#{ self.matti_root( folder ) }test#{ File::SEPARATOR }"
+
 	end
 
 	def self.test_data_folder( folder = nil )
+
 		folder = caller.first if !folder
-		return "#{ self.test_folder( folder ) }test_data#{ File::SEPARATOR }"
+
+		"#{ self.test_folder( folder ) }test_data#{ File::SEPARATOR }"
+
 	end
 
 	def self.current_folder()
-		return File.expand_path( File.dirname( caller.first.split( /:[0-9]+/ ).first ) )
+
+		File.expand_path( File.dirname( caller.first.split( /:[0-9]+/ ).first ) )
+
 	end
 
 	def self.execute_tests( file_pattern = "tc_*.rb", folder = nil, show_message = true )
+
 		folder = caller.first if !folder
+
 		File.expand_path( File.dirname( folder.split( /:[0-9]+/ ).first ) ).tap{ | path |
+
 			puts "executing test set from directory: #{ path  }" if show_message
+
 			Dir.glob( File.join( path, file_pattern ) ).each { | filename | require filename  }
-		}    
+
+		}
+
 	end
 
 	#  private
 
 	def self.rindex_regexp( array, pattern )
-		Kernel::raise TypeError.new("Unexpected variable type '%s' for array (Expected: %s)" % [ array.class, 'Array'] ) unless array.kind_of?( Array )
-		Kernel::raise TypeError.new("Unexpected variable type '%s' for regular expression pattern (Expected: %s)" % [ pattern.class, 'Regexp'] ) unless pattern.kind_of?( Regexp )  
+
+		raise TypeError, "Unexpected variable type '#{ array.class }' for array (Expected: Array)" unless array.kind_of?( Array )
+
+		raise TypeError, "Unexpected variable type '#{ array.class }' for regular expression pattern (Expected: RegExp)" unless pattern.kind_of?( Regexp )  
+
 		# return nil if no matches found, otherwise return index of value
 		return nil if ( array.reverse.each_index{ | index | return @rindex if array[ ( @rindex = ( ( array.size-1 ) - index ) ) ] =~ pattern; } )
+
 	end
 
 	class EnduranceRunner
@@ -173,7 +201,7 @@ module TDriverTestSuite
 			Kernel::raise TypeError.new("Unexpected argument variable type for :times (Expected: Integer, Actual: #{ rules[:times].class })") if rules[:times] && !rules[:times].kind_of?( Integer )
 
 			# raise exception if no tests added for execution
-			#Kernel::raise TypeError.new("No tests cases to run, use TDriverTestSuite::EnduranceRunner.add_file( filename ) to add tests to suite") if @@testcases == 0 
+			#Kernel::raise TypeError.new("No tests cases to run, use MattiTestSuite::EnduranceRunner.add_file( filename ) to add tests to suite") if @@testcases == 0 
 
 			mode = ( rules[ :time ] || rules[ :date ] || rules[ :days ] || rules[ :hours ] || rules[ :minutes ] || rules[ :seconds ] ) ? :duration : ( rules[ :times ] ? :times : nil )
 
@@ -205,28 +233,49 @@ module TDriverTestSuite
 
 			stop_testing = false
 
+      fastest_iteration_time = 0
+
+      slowest_iteration_time = 0
+
 			loop do
 
         break if $exit
 
+        iteration_start_time = Time.now
+
 				if mode == :times
+
 					break if iteration >= rules[ :times ]
-					puts "#{ Date.today } #{ iteration_start_time = Time.now }: Suite iteration #{ iteration += 1 }/#{ rules[:times] }\n"
+					puts "#{ Date.today } #{ iteration_start_time }: Suite iteration #{ iteration += 1 }/#{ rules[:times] }\n"
+
 				else
+
 					break if Time.now >= end_time
-					days, hours, mins, secs = self.convert_seconds_to_time( end_time - ( iteration_start_time = Time.now ) )
+					days, hours, mins, secs = self.convert_seconds_to_time( end_time - ( iteration_start_time ) )
 					puts "#{ Date.today } #{ iteration_start_time }: Suite iteration #{ iteration += 1 } - test execution time left #{ days }d #{ hours }h #{ mins }m #{ secs.round }s.\n"
+
 				end
 
+        # run test iteration
 				results = Test::Unit::UI::Console::TestRunner.run( test_suite )
 
+        # store iteration end time
 				iteration_end_time = Time.now
+
+        # calculate elapsed time for iteration
+        iteration_time = iteration_end_time - iteration_start_time
+
+        # was iteration fastest so far?
+        fastest_iteration_time = iteration_time if ( fastest_iteration_time.zero? ) || ( iteration_time < fastest_iteration_time ) 
+
+        # was iteration slowest so far?
+        slowest_iteration_time = iteration_time if ( slowest_iteration_time.zero? ) || ( iteration_time > slowest_iteration_time ) 
 
 				if results.instance_eval( '@errors' ).count > 0
 
 					results.instance_eval( '@errors' ).each{ | error |
 
-						@@exceptions.push( error )
+            @@exceptions.push({ :iteration => iteration, :iteration_start_time => iteration_start_time, :iteration_end_time => iteration_end_time, :object => error })
 
 						# check if user defined exception was raised, stop testing if matches
 						if !stop_when_exception.nil? && ( stop_when_exception.include?( error.exception.class.to_s ) || stop_when_exception.empty? )
@@ -241,10 +290,11 @@ module TDriverTestSuite
 
 				if results.instance_eval( '@failures' ).count > 0
 					results.instance_eval( '@failures' ).each{ | error |
-						@@exceptions.push( error )
+
+            @@exceptions.push({ :iteration => iteration, :iteration_start_time => iteration_start_time, :iteration_end_time => iteration_end_time, :object => error })
+
 					}
 				end
-
 
 				# add last test results to total test results
 				@@results[ :errors ] += results.instance_eval( '@errors' ).count
@@ -264,37 +314,57 @@ module TDriverTestSuite
 			days, hours, mins, secs = self.convert_seconds_to_time( finish_time - start_time )
 
 			if @@exceptions.count > 0 				
+
 				puts "Exceptions:\n\n"
-				@@exceptions.each_index{ | index | 
+
+				@@exceptions.each_with_index{ | error, index | 
+
 					error_type = nil
+
 					details = ""
-					case @@exceptions[ index ].class.to_s					
+
+					case error[:object].class.to_s
+
 						when "Test::Unit::Failure"
+
 							error_type = 'Failure'
-							details += "#{ @@exceptions[ index ].location.collect{ | x | "\t\t#{ x }\n" }  }"
-							details += "\t\t#{ @@exceptions[ index ].message.gsub("\n", "\n\t\t")  }\n"
+							details += "#{ error[:object].location.collect{ | x | "\t\t#{ x }\n" }  }"
+							details += "\t\t#{ error[:object].message.gsub("\n", "\n\t\t")  }\n"
+
 						when "Test::Unit::Error"
+
 							error_type = 'Error'
-							details += "\t\t#{ @@exceptions[ index ].exception.class }: #{ @@exceptions[ index ].exception.message }\n"
+							details += "\t\t#{ error[:object].exception.class }: #{ error[:object].exception.message }\n"
+
 							details += "#{ 
 								@backtrace_print = true; 
-								@@exceptions[ index ].exception.backtrace.collect{ | caller_method | 									
+								error[:object].exception.backtrace.collect{ | caller_method | 									
 									@backtrace_print = false if caller_method =~ /\/test\/unit\/testsuite\.rb/
 									@backtrace_print ? "\t\t#{ caller_method }\n" : nil
 								}.compact
 							  }"
+
 					else
+
 						error_type = 'Unknown error type'
-						details += @@exceptions[ index ].inspect
+						details += error[:object].inspect
 						# Unknown error type
+
 					end
-					puts "\t#{ index + 1 }) #{ error_type } in #{ @@exceptions[ index ].test_name }:\n#{ details }\n"
+
+					puts "\t#{ index + 1 }) #{ error_type } in #{ error[:object].test_name } (Iteration: %s, %s - %s):\n#{ details }\n" % [ error[:iteration], error[:iteration_start_time], error[:iteration_end_time] ]
+
 				}
+
 			end
 
-			puts "Suite executed #{ iteration } times for #{ days } days, #{ hours } hours, #{ mins } minutes and #{ secs.round } seconds.\n"
-			puts "Total runtime time in seconds: #{finish_time - start_time}. Average iteration time in seconds: #{ ( finish_time - start_time ) / iteration }\n"
-			puts "#{ @@results[ :tests ] } tests, #{ @@results[ :passed ] } passed, #{ @@results[ :asserts ] } assertions, #{ @@results[ :fails ] } failures and #{ @@results[ :errors ] } errors.\n\n"
+			#puts "Suite executed #{ iteration } times for #{ days } days, #{ hours } hours, #{ mins } minutes and #{ secs.round } seconds.\n"
+			#puts "Total runtime time in seconds: #{finish_time - start_time}. Average iteration time in seconds: #{ ( finish_time - start_time ) / iteration }\n"
+			#puts "#{ @@results[ :tests ] } tests, #{ @@results[ :passed ] } passed, #{ @@results[ :asserts ] } assertions, #{ @@results[ :fails ] } failures and #{ @@results[ :errors ] } errors.\n\n"
+
+			puts "Suite executed %s times for %s days, %s hours, %s minutes and %s seconds.\n" % [ iteration, days, hours, mins, secs.round ]
+			puts "Total runtime time in seconds: %s. Fastest/average/slowest iteration time in seconds: %s / %s / %s\n" % [ ( finish_time - start_time ), fastest_iteration_time, ( ( finish_time - start_time ) / iteration ).to_f, slowest_iteration_time ]
+			puts "%s tests, %s passed, %s assertions, %s failures and %s errors.\n\n" % [ @@results[ :tests ], @@results[ :passed ], @@results[ :asserts ], @@results[ :fails ], @@results[ :errors ] ]
 
 			return ( ( @@results[ :fails ] > 0 || @@results[ :errors ] > 0 ) ? false : true )
 
@@ -360,8 +430,6 @@ module TDriverTestSuite
 			return [run_time, run_time - current_time, days, hours, mins, seconds]
 
 		end
-
-
 	    
 	end # EnduranceRunner
 

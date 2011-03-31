@@ -1,5 +1,7 @@
 # Project-specific configuration for CruiseControl.rb
 
+exit( 1 ) unless defined?( Project )
+
 Project.configure do |project|
   
   project.triggered_by SuccessfulBuildTrigger.new(project, 'agent_qt')

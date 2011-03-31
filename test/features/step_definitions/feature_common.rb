@@ -42,7 +42,7 @@ Before do
 end
 
 After do | scenario |
-
+  @__sut.unfreeze if @__sut.frozen
   @__apps.each_key do |app|
     begin
 		  @__apps[app].close if @__apps[app].name != 'qttasserver'
@@ -59,7 +59,7 @@ After do | scenario |
 
       #Try to recover and check running apps
       app_list=@__sut.list_apps
-      tdriver_report_log("Running applications: <pre>#{app_list}</pre>")
+      tdriver_report_log("Running applications: <div>#{app_list.to_s.gsub(/[<>]/,' ')}</div>")
 
       if @fail_counter>10
         puts "Tests failing termitating execution"

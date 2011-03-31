@@ -2,11 +2,14 @@
 
 Feature: MobyBehaviour::QT::Record#start_recording
   As a test scripter writer
-  I want to use start_recording method to [DO_SOMETHING] in [TARGET_APPLICATION]
+  I want to use start_recording method to record gesture in testapp
   so that I can test the MobyBehaviour::QT::Record behaviour
 
-  Scenario: Testing start_recording method with required argument(s) (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].start_recording"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+  Scenario: Testing start_recording method
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.start_recording"
+    And I perform some gestures
+    And I print the recording
+    And I stop recording
+    Then I am able to play the recording 
 
