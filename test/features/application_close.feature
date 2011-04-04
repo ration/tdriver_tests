@@ -23,13 +23,13 @@ Feature: MobyBehaviour::Application#close
   @nodoc
   Scenario: Testing close method with false as argument (force_kill)
     Given I launch application "calculator" as "@app"
-    When I execute "@app.close( false )"
+    When I execute "@app.close( :force_kill => false )"
     Then application "calculator" is not running
 		
   @nodoc
 	Scenario: Testing close method with true as argument (force_kill)
     Given I launch application "calculator" as "@app"
-    When I execute "@app.close( true )"
+    When I execute "@app.close( :force_kill => true )"
     Then application "calculator" is not running
 
 	Scenario: Testing close method with optional argument check_process set to false
@@ -57,13 +57,13 @@ Feature: MobyBehaviour::Application#close
   @nodoc
   Scenario: Testing close method with "false" as argument (force_kill)
     Given I launch application "calculator" as "@app"
-    When I execute "@app.close( 'false' )"
+    When I execute "@app.close( :force_kill => false )"
     Then application "calculator" is not running
 		
   @nodoc
 	Scenario: Testing close method with "true" as argument (force_kill)
     Given I launch application "calculator" as "@app"
-    When I execute "@app.close( 'true' )"
+    When I execute "@app.close( :force_kill => true )"
     Then application "calculator" is not running
 
   @nodoc

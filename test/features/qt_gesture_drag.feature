@@ -27,4 +27,4 @@ Feature: MobyBehaviour::QT::Gesture#drag
     Given I launch application "testapp"
     Then object named "Scramble" is not visible on screen
     When I execute "@app.ControlTab( :name => 'ControlTab').drag(:Up, 10, :Right, { :use_tap_screen => 'true' })"
-    Then object named "Scramble" is not visible on screen
+    Then object named "Scramble" is visible on screen
