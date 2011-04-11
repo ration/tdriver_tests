@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows @qt_meego
 
 Feature: MobyBehaviour::QT::SUT#execute_shell_command
   As a test scripter writer

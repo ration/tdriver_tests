@@ -12,18 +12,18 @@ Feature: MobyBehaviour::Find#find
     When I test code "@testobj = @sut.find"
     Then exception matching "Attributes hash must not be empty" is thrown
 
-#@nodoc
-  #Scenario: Testing find method on non-existing object
-  #  Given I have default sut
-  #  And I launch application "testapp"
-  #  When I test code "@testobj = @sut.find( :name => 'Node0' )"
-  #  Then exception matching "Cannot find object with rule" is thrown
+  @nodoc
+  Scenario: Testing find method on non-existing object
+    Given I have default sut
+    And I launch application "testapp"
+    When I test code "@testobj = @sut.find( :name => 'NonExistingObject', :__timeout => 0 )"
+    Then exception is thrown
 
 @nodoc
   Scenario: Testing find method with one ambiguous argument
     Given I have default sut
     And I launch application "testapp"
-	And I test code "@sut.application.NodeView"
+  	And I test code "@sut.application.NodeView"
     When I test code "@testobj = @sut.find( :type => 'Control', :__timeout => 0 )"
     Then exception matching "Multiple test objects found with rule" is thrown
 

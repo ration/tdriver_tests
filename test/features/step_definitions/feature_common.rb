@@ -93,7 +93,7 @@ Given /^I launch application "([^\"]*)"$/ do | app_name |
 
   app_ref = "@app"
   raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
-  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability")
+  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability,-style,motif")
   eval(app_ref + " = @__apps[app_ref]")
   @__current_app = @__apps[app_ref]
 end
@@ -102,14 +102,14 @@ end
 Given /^I launch application "([^\"]*)" as "([^\"]*)"$/ do | app_name, app_ref |
 
   raise "No default sut given! Please set env variable TDRIVER_SUT!" if @__sut == nil
-  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability")
+  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability,-style,motif")
   eval(app_ref + " = @__apps[app_ref]")
   @__current_app = @__apps[app_ref]
 end
 
 Given /^I launch application "([^\"]*)" as "([^\"]*)" on sut "([^\"]*)"$/ do | app_name, app_ref, sut_id |
 
-  tmp_app = TDriver.sut(sut_id.to_sym).run( :name => app_name.to_s , :arguments => "-testability")
+  tmp_app = TDriver.sut(sut_id.to_sym).run( :name => app_name.to_s , :arguments => "-testability,-style,motif")
   eval(app_ref + " = tmp_app")
   @__apps[app_ref] = tmp_app
   @__current_app = @__apps[app_ref]
