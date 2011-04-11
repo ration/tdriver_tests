@@ -22,11 +22,12 @@
 Then /^"([^"]*)" view is visible$/ do |view_name|
   case( view_name)
     when "NodeArea"
-      verify_equal( "1", 0, "Expected Testapp view EditArea. Checking by coordinates so make sure the app has not changed.") { @app.NodeView.attribute("x").to_s }
+      verify( 5, "Expected Testapp view Node area is visible.") { @app.Menu(:visibleOnScreen => 'true') }
     when "EditArea"
-      verify_equal( "-858", 0, "Expected Testapp view EditArea. Checking by coordinates so make sure the app has not changed.") { @app.NodeView.attribute("x").to_s }
+      verify( 5, "Expected Testapp view Node area not visible.") { @app.Menu(:visibleOnScreen => 'false') }
+      verify( 5, "Expected Testapp webkit not visible.") { @app.WebKitView( :name => 'WebKitArea' ).QGraphicsProxyWidget(:visibleOnScreen => 'false') }
     when "WebKitArea"
-      verify_equal( "-1718", 0, "Expected Testapp view EditArea. Checking by coordinates so make sure the app has not changed.") { @app.NodeView.attribute("x").to_s }
+      verify( 5, "Expected Testapp view EditArea.") { @app.WebKitView( :name => 'WebKitArea' ).QGraphicsProxyWidget(:visibleOnScreen => 'true') }
     else
       
   end
