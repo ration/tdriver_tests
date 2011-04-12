@@ -32,3 +32,9 @@ Feature: MobyBehaviour::SUT#run
     And I test code "@app.close"
     And application "testapp" is not running
 
+
+Scenario: Try to start non existing application
+  Given I have default sut
+  When I execute "@app=@sut.run(:name => 'thisappdoesnotexist')"  
+  And exception is thrown
+  And application "testapp" is not running
