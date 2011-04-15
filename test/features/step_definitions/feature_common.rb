@@ -265,13 +265,13 @@ Then /^application "([^\"]*)" is not running$/ do | arg1 |
       if RUBY_PLATFORM.downcase.include?("mswin")
 
         verify_false(30, 'application should not be running') {
-          @sut.application.name == arg1 + '.exe'
+          @__sut.application.name == arg1 + '.exe'
         }
 
       else
 
         verify_false(30, 'application should not be running') {
-          @sut.application.name == arg1
+          @__sut.application.name == arg1
         }
 
       end
