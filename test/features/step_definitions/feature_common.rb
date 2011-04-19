@@ -39,6 +39,8 @@ Before do
   sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
   #sut = "default_sut" if !sut or sut.empty?
   @__sut = TDriver.sut(sut.to_sym) if sut != nil
+  @__os_name = MobyUtil::EnvironmentHelper.platform.to_s
+
 end
 
 After do | scenario |
@@ -236,9 +238,9 @@ end
 
 Then /^application "([^\"]*)" is running$/ do | arg1 |
   raise @__exception if @__exception != nil
-  if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
-      ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
-      (@os_name == "")
+  if ((@__os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
+      ((@__os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+      (@__os_name == "")
     if RUBY_PLATFORM.downcase.include?("mswin")
       verify_equal(arg1 + '.exe', 30, "Application name should match."){
         @app.executable_name
@@ -253,20 +255,29 @@ end
 
 
 Then /^application "([^\"]*)" is not running$/ do | arg1 |
+
   raise @__exception if @__exception != nil
-  if ((@os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
-      ((@os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
-      (@os_name == "")
-    if RUBY_PLATFORM.downcase.include?("mswin")
-      verify_false(30, 'application should not be running') {
-        @sut.application.name == arg1 + '.exe'
-      }
-    else
-      verify_false(30, 'application should not be running') {
-        @sut.application.name == arg1
-      }
-    end
+
+  if ((@__os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
+      ((@__os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+      (@__os_name == "")
+
+      if RUBY_PLATFORM.downcase.include?("mswin")
+
+        verify_false(30, 'application should not be running') {
+          @__sut.application.name == arg1 + '.exe'
+        }
+
+      else
+
+        verify_false(30, 'application should not be running') {
+          @__sut.application.name == arg1
+        }
+
+      end
+
   end
+
 end
 
 Then /^The calculator display says "([^\"]*)"$/ do | result |

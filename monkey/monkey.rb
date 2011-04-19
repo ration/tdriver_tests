@@ -118,7 +118,7 @@ module MobyBase
     # Simple monkey: apply random control action to the SUT, eg. touch a random spot
     def gorilla   
     
-      app = @sut.application
+      #app = @sut.application
       
       random_control = controls.keys.random_element
       random_variant = rand( controls[ random_control ].size )
@@ -313,9 +313,9 @@ module MobyBase
 
       targets_xpath = '*//object[@type="' << actions.keys.join("\" or @type=\"") << '"]'     
       target_node_set = @sut.xml_data.xpath(targets_xpath)
-
+     
       Kernel::raise(TDMonkeyNoTargetsError.new("No test objects found matching allowed target types.")) if target_node_set.empty?
-            
+ 
       target_nodes = target_node_set.to_a
       target_node_set = nil
         
@@ -328,12 +328,17 @@ module MobyBase
         candidate = nil
             
         begin
-                            
-          candidate = @sut.application.child({:type => target_type, :id => target_id})                    
+                      
+          begin
+            candidate = @sut.application.child({:type => target_type, :id => target_id, :__timeout => 0})                    
+          rescue MultipleTestObjectsIdentifiedError
+            write_log( "TDMonkey failed to get an object due to multiple matching objects ( Type : #{target_type}) Id: #{target_id} )")            
+            candidate = @sut.application.child({:type => target_type, :id => target_id}, :__timeout => 0, :__index => 0)                    
+          end
           return candidate if valid_target?( candidate )
           # else retry
           
-        rescue TestObjectNotFoundError, TestObjectNotVisibleError, MultipleTestObjectsIdentifiedError
+        rescue TestObjectNotFoundError, TestObjectNotVisibleError, MultipleTestObjectsIdentifiedError => eee
           # retry if array has nodes left
         end
       
