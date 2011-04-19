@@ -47,7 +47,6 @@ HEADERS += \
         triangle.h \
         mainwindow.h \
         nodeview.h \
-        controlview.h \
         rectangle.h \
         shape.h \
         gesturehandler.h \
@@ -71,7 +70,6 @@ SOURCES += \
         shape.cpp \
         rectangle.cpp \
         nodeview.cpp \
-        controlview.cpp \
         gesturehandler.cpp \
         mainview.cpp \
         baseview.cpp \

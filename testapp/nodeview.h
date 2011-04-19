@@ -1,23 +1,23 @@
-/*************************************************************************** 
-** 
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-** All rights reserved. 
-** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-** 
-** This file is part of TDriver. 
-** 
-** If you have questions regarding the use of this file, please contact 
-** Nokia at testabilitydriver@nokia.com . 
-** 
-** This library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU Lesser General Public 
-** License version 2.1 as published by the Free Software Foundation 
-** and appearing in the file LICENSE.LGPL included in the packaging 
-** of this file. 
-** 
-****************************************************************************/ 
- 
- 
+/***************************************************************************
+**
+** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (testabilitydriver@nokia.com)
+**
+** This file is part of TDriver.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at testabilitydriver@nokia.com .
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
+
 /*
 *  ===========================================================================
 *  Name        : nodeview.h
@@ -42,7 +42,6 @@
 #include <QtGui/QGraphicsView>
 #include <QGraphicsWidget>
 
-//#include "controlview.h"
 #include "baseview.h"
 
 class Node;
@@ -58,8 +57,8 @@ public:
     NodeView(const QRectF& rect, QGraphicsItem* parent=0);
     ~NodeView();
 
-	void addTriangle();
- 
+        void addTriangle();
+
 public slots:
     void addNewNode();
     void addNewRectangle();
@@ -67,7 +66,7 @@ public slots:
     void resetView();
 
 signals:
-	void sizeChange();
+        void sizeChange();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -76,12 +75,11 @@ protected:
     int getRectangleCount();
 
 private:
-    //ControlView* controlView;
     int timerId;
     int nodeCount;
     int rectangleCount;
-	int triangleCount;
-	Crasher* mCrasher;
+        int triangleCount;
+        Crasher* mCrasher;
 };
 
 #endif

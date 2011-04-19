@@ -1,23 +1,23 @@
-/*************************************************************************** 
-** 
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-** All rights reserved. 
-** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-** 
-** This file is part of TDriver. 
-** 
-** If you have questions regarding the use of this file, please contact 
-** Nokia at testabilitydriver@nokia.com . 
-** 
-** This library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU Lesser General Public 
-** License version 2.1 as published by the Free Software Foundation 
-** and appearing in the file LICENSE.LGPL included in the packaging 
-** of this file. 
-** 
-****************************************************************************/ 
- 
- 
+/***************************************************************************
+**
+** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (testabilitydriver@nokia.com)
+**
+** This file is part of TDriver.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at testabilitydriver@nokia.com .
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
+
 /*
 *  ===========================================================================
 *  Name        : nodeview.cpp
@@ -37,7 +37,6 @@
 */
 
 #include "nodeview.h"
-#include "controlview.h"
 #include "node.h"
 #include "triangle.h"
 #include "shape.h"
@@ -51,7 +50,7 @@
 
 #include <math.h>
 
-#include <QtPlugin> 
+#include <QtPlugin>
 #include <QPluginLoader>
 #include <QLibraryInfo>
 
@@ -71,12 +70,12 @@ NodeView::NodeView(const QRectF& rect, QGraphicsItem* parent)
 
     Control* node = addNewControl("AddNode", "Node");
     connect(node, SIGNAL(clicked()), this, SLOT(addNewNode()));
-   
+
     Control* rec = addNewControl("AddRectangle", "Rectangle");
     connect(rec, SIGNAL(clicked()), this, SLOT(addNewRectangle()));
 
     Control* scramble = addNewControl("Scramble", "Scramble");
-    connect(scramble, SIGNAL(clicked()), this, SLOT(scramble()));    
+    connect(scramble, SIGNAL(clicked()), this, SLOT(scramble()));
 
     Control* reset = addNewControl("Reset", "Reset");
     connect(reset, SIGNAL(clicked()), this, SLOT(resetView()));
@@ -152,7 +151,7 @@ void NodeView::addTriangle()
     triangleCount++;
     Triangle *node = new Triangle(this);
     node->setObjectName("Triangle"+QString::number(nodeCount));
-    node->setPos(boundingRect().center());    
+    node->setPos(boundingRect().center());
     connect(this, SIGNAL(sizeChange()), node, SLOT(checkPosition()));
 }
 
@@ -171,8 +170,8 @@ void NodeView::addNewRectangle()
 QPointF NodeView::randomPos(QRectF area)
 {
     QRectF rect = boundingRect();
-    qreal x = (rect.right()-area.width())*qrand()/(RAND_MAX+1.0); 
-    qreal y = (rect.bottom()-area.height()-CONTROLTAB_HEIGHT)*qrand()/(RAND_MAX+1.0); 
+    qreal x = (rect.right()-area.width())*qrand()/(RAND_MAX+1.0);
+    qreal y = (rect.bottom()-area.height()-CONTROLTAB_HEIGHT)*qrand()/(RAND_MAX+1.0);
     return QPointF(x,y);
 }
 

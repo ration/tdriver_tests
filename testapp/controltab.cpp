@@ -1,26 +1,26 @@
-/*************************************************************************** 
-** 
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-** All rights reserved. 
-** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-** 
-** This file is part of TDriver. 
-** 
-** If you have questions regarding the use of this file, please contact 
-** Nokia at testabilitydriver@nokia.com . 
-** 
-** This library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU Lesser General Public 
-** License version 2.1 as published by the Free Software Foundation 
-** and appearing in the file LICENSE.LGPL included in the packaging 
-** of this file. 
-** 
-****************************************************************************/ 
- 
- 
+/***************************************************************************
+**
+** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (testabilitydriver@nokia.com)
+**
+** This file is part of TDriver.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at testabilitydriver@nokia.com .
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
+
 /*
 *  ===========================================================================
-*  Name        : controlview.cpp
+*  Name        : controltab.cpp
 *  Part of     : Test application
 *  Description : Test application main window
 *  Version     : %version: %
@@ -68,13 +68,13 @@ QPainterPath ControlTab::shape() const
 }
 
 void ControlTab::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
-{    
+{
     if (option->state & QStyle::State_Sunken) {
         painter->setBrush(QBrush(Qt::cyan));
     }
     else{
         painter->setBrush(QBrush(Qt::darkCyan));
-    }   
+    }
     painter->setPen(QPen(Qt::black, 2));
     painter->drawChord(QRectF(0, 0, CONTROLTAB_WIDTH, CONTROLTAB_WIDTH), startAngle, spanAngle);
 }
