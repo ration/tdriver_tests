@@ -29,30 +29,37 @@ include TDriverVerify
 include TDriverReportAPI
 
 Before do
+
   $ErrorMessage=""
   @__current_app = nil
   @__apps = {}
   @__ret_val = nil
   @__exception = nil
   @__example_given = false
+
   sut = ENV['TDRIVER_DEFAULT_SUT']
   sut = TDriver.parameter[:default_sut] if !sut or sut.empty?
   #sut = "default_sut" if !sut or sut.empty?
+
   @__sut = TDriver.sut(sut.to_sym) if sut != nil
   @__os_name = MobyUtil::EnvironmentHelper.platform.to_s
 
 end
 
 After do | scenario |
+
   @__sut.unfreeze if @__sut.frozen
+
   @__apps.each_key do |app|
     begin
-		  @__apps[app].close if @__apps[app].name != 'qttasserver'
+      @__apps[app].close if @__apps[app].name != 'qttasserver'
     rescue Exception => e
-		  # nothing
+      # nothing
     end
   end
+
   if scenario.failed?
+
     close_counter=0
       if @fail_counter==nil
         @fail_counter=0
@@ -67,21 +74,27 @@ After do | scenario |
         puts "Tests failing termitating execution"
         Kernel::exit(1)
       end
+
   else
+
     @fail_counter=0
+
   end
 
   begin
-	@__sut.kill_started_processes
+
+  	@__sut.kill_started_processes
+
   rescue
+
   end
 
   @__sut.clear_verify_blocks
+
   #Raising exception if it hasn't been handled
   raise @__exception if @__exception != nil
 
 end
-
 
 Given /^I have default sut$/ do
   @sut = @__sut
@@ -92,7 +105,6 @@ Given /^I create sut object "([^\"]*)"$/ do | arg1 |
 end
 
 Given /^I launch application "([^\"]*)"$/ do | app_name |
-
   app_ref = "@app"
   raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
   @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability,-style,motif")
@@ -156,10 +168,10 @@ Given "there is only $article $target_type on the testapp screen" do | article, 
 
   @__current_app.Control( :name => "Reset" ).tap
   case target_type
-  when "Node"
-    @__current_app.Control( :name => "AddNode" ).tap
-  when "Rectangle"
-    @__current_app.Control( :name => "AddRectangle" ).tap
+    when "Node"
+      @__current_app.Control( :name => "AddNode" ).tap
+    when "Rectangle"
+      @__current_app.Control( :name => "AddRectangle" ).tap
   end
 
   temp_obj = @__current_app.child( :type => target_type )
@@ -236,6 +248,74 @@ Then "I delete file \"$file\" from sut" do | file |
   @sut.delete_from_sut(:dir => file )
 end
 
+
+Then /^application "([^\"]*)"(()|(?:[ ]on[ ]"([^\"]*)")*) (is|is not) running$/ do | application_name, sut_given, sut_name, sut_object_name, application_status |
+
+  raise @__exception if @__exception != nil
+
+  # convert application name to string
+  application_name = application_name.to_s
+
+  # use defined sut object name if given 
+  if sut_given.to_s.empty?
+
+    # not sut given, use default sut
+    sut_object = @__sut
+
+  else
+
+    # retrieve sut object
+    sut_object = eval( sut_object_name )
+
+    # verify that given object is SUT object
+    raise ArgumentError, "Given SUT object #{ sut_object_name.inspect } is type of #{ sut_object.class } (expected type: MobyBase::SUT)" unless sut_object.kind_of?( MobyBase::SUT )
+    
+  end
+
+  if ((@__os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or 
+      ((@__os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
+      (@__os_name == "")
+
+    # modify application name when running on windows env
+    application_name = application_name + '.exe' if RUBY_PLATFORM.downcase.include?("mswin")
+
+    # determine expected result, used for comparing with actual result
+    expected_result = ( application_status == 'is' )
+
+    # error message if verify fails
+    error_message = expected_result ? "Application should be running" : "Application should not be running"
+
+    # verify loop for 30 seconds
+    verify_equal( expected_result, 30, error_message ){
+
+      # negate expected result
+      result = !expected_result
+
+      begin
+
+        # compare application names
+        result = ( sut_object.application(:__timeout=>0 ).name == application_name )
+
+      rescue
+
+        # do nothing, retry
+
+      end
+
+      # return actual result
+      result
+
+    }
+
+  else
+
+    warn 'This step was not tested due to OS was not detected properly'
+
+  end
+
+end
+
+=begin
 Then /^application "([^\"]*)" is running$/ do | arg1 |
   raise @__exception if @__exception != nil
   if ((@__os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
@@ -243,17 +323,22 @@ Then /^application "([^\"]*)" is running$/ do | arg1 |
       (@__os_name == "")
     if RUBY_PLATFORM.downcase.include?("mswin")
       verify_equal(arg1 + '.exe', 30, "Application name should match."){
-        @app.executable_name
+        #@app.executable_name
+        @__sut.application.name #== arg1 + '.exe'
       }
     else
+
       verify_equal(arg1.to_s, 30, "Application name should match."){
-        @app.executable_name
+       @__sut.application.name # == arg1
+       #@app.executable_name
       }
+
     end
   end
 end
+=end
 
-
+=begin
 Then /^application "([^\"]*)" is not running$/ do | arg1 |
 
   raise @__exception if @__exception != nil
@@ -279,6 +364,7 @@ Then /^application "([^\"]*)" is not running$/ do | arg1 |
   end
 
 end
+=end
 
 Then /^The calculator display says "([^\"]*)"$/ do | result |
   raise @__exception if @__exception != nil
