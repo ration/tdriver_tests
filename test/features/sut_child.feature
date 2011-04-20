@@ -9,3 +9,10 @@ Feature: MobyBehaviour::SUT#child
     Given I launch application "testapp" as "@app"
     When I execute "$testobj = @__sut.child(:name => 'testapp' )"
 		Then a test object is found by child
+
+  @nodoc
+  Scenario: Retrieving child object directly from SUT instead of under application object (bugfix) 
+    Given I launch application "testapp" as "@app"
+    When I execute "@__sut.child(:type=>'application')"
+		Then exception is not thrown
+
