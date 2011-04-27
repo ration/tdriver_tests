@@ -1,6 +1,6 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
 
-Feature: MobyBase::StateObject
+Feature: TDriver#state_object
   As a test scripter writer
   I want to use child and children methods to access data in state object
   so that I can test the MobyBase::StateObject module
