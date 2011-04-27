@@ -8,12 +8,12 @@ Feature: MobyBase::StateObject
   @nodoc
   Scenario: Perform child method to StateObject
     Then I set create xml state with 3 objects and store it in "@xml_data" 
-    When I execute "$object = MobyBase::StateObject.new(@xml_data).child(:id=>'2')"
-    Then verify "$object.name == 'object_2'"
+    When I execute "TDriver.state_object( :data => @xml_data ).child( :id=>'2' )"
+    Then verify "@__ret_val.name == 'object_2'"
 
   @nodoc
   Scenario: Perform child method to StateObject
     Then I set create xml state with 10 objects and store it in "@xml_data" 
-    When I execute "$objects = MobyBase::StateObject.new(@xml_data).children(:type=>'obj')"
-    Then verify "$objects.count == 10"
+    When I execute "TDriver.state_object( :data => @xml_data ).children( :type=>'obj' )"
+    Then verify "@__ret_val.count == 10"
 
