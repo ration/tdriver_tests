@@ -54,3 +54,14 @@ Scenario: Try to start non existing application with exact path
     When I execute "@app=@sut.run(:name => '/usr/bin/thisappdoesnotexist')"  
     And exception is thrown
     And application "testapp" is not running
+
+@qt_linux @qt_windows @qt_meego @qt_symbian
+  Scenario: Start application twice, restart it the second time
+    Given I have default sut
+    When I test code "@app=@sut.run(:name => 'testapp')"
+    And exception is not thrown
+    And I execute "@app=@sut.run(:name => 'testapp', :restart_if_running => true)"
+    Then testapp should be the top most application
+    And I test code "@app.close"
+    And application "testapp" is not running
+
