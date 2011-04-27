@@ -27,6 +27,16 @@
 require 'tdriver'
 include TDriverVerify
 
+Then /^I can read the log data from "([^\"]*)"$/ do | data |
+
+  verify_true(0,"log data was not retrieved"){ 
+
+    eval( data ).logData.attribute('entryCount').to_i > 0
+
+  }  
+  
+end
+
 Then "I can read the cpu log data" do
   count = @cpu_log_data.logData.attribute('entryCount').to_i
   verify_true(0,"cpu log data retrieved"){count>0}  

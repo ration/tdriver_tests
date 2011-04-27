@@ -10,9 +10,9 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_gpu_log
     And I test code "@app.log_gpu_mem( :interval => 1, :filePath => 'C:\temp' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
-    And I test code "@gpu_log_data = @sut.state_object( @app.load_gpu_log )"
+    And I test code "@sut.state_object( @app.load_gpu_log )"
     And exception is not thrown
-    And I can read the gpu log data
+    Then I can read the log data from "@__ret_val"
     When I execute "@app.stop_gpu_log"
     Then exception is not thrown
 
@@ -23,9 +23,9 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_gpu_log
     And I test code "@app.log_gpu_mem( :interval => 1, :filePath => '/tmp/' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
-    And I test code "@gpu_log_data = @sut.state_object( @app.load_gpu_log )"
+    And I test code "@sut.state_object( @app.load_gpu_log )"
     And exception is not thrown
-    And I can read the gpu log data
+    Then I can read the log data from "@__ret_val"
     When I execute "@app.stop_gpu_log"
     Then exception is not thrown
 

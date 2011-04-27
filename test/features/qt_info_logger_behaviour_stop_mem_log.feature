@@ -10,9 +10,9 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_mem_log
     And I test code "@app.log_mem( :interval => 1, :filePath => 'C:\temp' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
-    When I test code "@mem_log_data = @sut.state_object( @app.load_mem_log )"
+    When I test code "@sut.state_object( @app.load_mem_log )"
     And exception is not thrown
-    Then I can read the mem log data
+    Then I can read the log data from "@__ret_val"
     And I execute "@app.stop_mem_log"
     And exception is not thrown
 
@@ -23,9 +23,9 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_mem_log
     And I test code "@app.log_mem( :interval => 1, :filePath => '/tmp/' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
-    When I test code "@mem_log_data = @sut.state_object( @app.load_mem_log )"
+    When I test code "@sut.state_object( @app.load_mem_log )"
     And exception is not thrown
-    Then I can read the mem log data
+    Then I can read the log data from "@__ret_val"
     And I execute "@app.stop_mem_log"
     And exception is not thrown
 

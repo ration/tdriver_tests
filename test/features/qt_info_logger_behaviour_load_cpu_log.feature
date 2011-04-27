@@ -11,9 +11,9 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_cpu_log
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
     And exception is not thrown
-    When I execute "@cpu_log_data = @sut.state_object( @app.load_cpu_log )"
+    When I execute "@sut.state_object( @app.load_cpu_log )"
     And exception is not thrown
-    Then I can read the cpu log data
+    Then I can read the log data from "@__ret_val"
     And I test code "@app.stop_cpu_log"
     And exception is not thrown
 
@@ -25,9 +25,9 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#load_cpu_log
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
     And exception is not thrown
-    When I execute "@cpu_log_data = @sut.state_object( @app.load_cpu_log )"
+    When I execute "@sut.state_object( @app.load_cpu_log )"
     And exception is not thrown
-    Then I can read the cpu log data
+    Then I can read the log data from "@__ret_val"
     And I test code "@app.stop_cpu_log"
     And exception is not thrown
 
