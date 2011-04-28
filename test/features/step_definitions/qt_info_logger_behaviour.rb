@@ -51,3 +51,9 @@ Then "I can read the mem log data" do
   count = @mem_log_data.logData.attribute('entryCount').to_i
   verify_true(0,"gpu log data retrieved"){count>0}
 end
+
+Then "I can read the pwr log data" do
+  count = @pwr_log_data.logData.attribute('entryCount').to_i
+  verify_true(0,"pwr log data retrieved"){count>0}
+end
+
