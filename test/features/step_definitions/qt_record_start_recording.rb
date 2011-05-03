@@ -38,7 +38,13 @@ end
 Then /^I am able to play the recording$/ do 
 	raise @__exception if @__exception != nil
 		
-	@script=MobyUtil::Scripter.new( @__sut.id,  ['text','icontext','label']  ).write_fragment( MobyBase::StateObject.new( @recordings ), @app.name )	
+	@script = MobyUtil::Scripter.new(     
+    @__sut.id,  
+    ['text','icontext','label']  
+  ).write_fragment( 
+    @__sut.state_object( @recordings ), 
+    @app.name 
+  )	
 		
 	@app.Triangle.tap_up 
 	@app.Menu.ControlTab.flick(:Up)

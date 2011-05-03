@@ -9,6 +9,6 @@ Feature: MobyBehaviour::QT::SUT#list_apps
     Given I have default sut
     And I launch application "calculator" as "@calculator"
     And I launch application "testapp" as "@testapp"
-    When I execute "@apps_testobject = MobyBase::StateObject.new(@sut.list_apps)"
+    When I execute "@apps_testobject = @sut.state_object( @sut.list_apps )"
     Then verify "nil != @apps_testobject.application( :name => 'calculator', :__index => 0)"
     And verify "nil != @apps_testobject.application( :name => 'testapp', :__index => 0)"
