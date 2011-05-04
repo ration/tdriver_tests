@@ -7,8 +7,8 @@ Feature: MobyBehaviour::SUT#capture_screen
 
   Scenario: Testing capture_screen method specifying filename to save screenshot to
     Given I have default sut
-	And I launch application "calculator"
-    When I execute "@sut.capture_screen(:Filename => './test_data/screen_shot.png')"
+	  And I launch application "calculator"
+    When I execute "@sut.capture_screen( :filename => './test_data/screen_shot.png' )"
     Then exception is not thrown
     And I find and delete the file "./test_data/screen_shot.png"
 
