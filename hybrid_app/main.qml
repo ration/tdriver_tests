@@ -4,66 +4,131 @@ Rectangle {
     id: box
     width: 360; height: 540
 
+	Rectangle {
+	    z: 1
+	    id: buttonArea
+	    width: 360; height: 270
+
+	    Rectangle {
+    	    id: redSquare
+		    objectName: "Click"
+
+	        width: 80; height: 80
+	        anchors.top: parent.top; anchors.left: parent.left; anchors.margins: 10
+	        color: "red"
+
+	        Text { text: "Click"; font.pixelSize: 16; anchors.centerIn: parent }
+
+    	    MouseArea {
+	            anchors.fill: parent 
+	            hoverEnabled: true
+	            acceptedButtons: Qt.LeftButton | Qt.RightButton
+	            onPressed:{ 
+						info.text = 'Pressed' 
+						parent.color = "blue"
+				}
+	            onReleased: {
+					info.text = 'Released'  
+					parent.color = "red"
+				}
+	            onPressAndHold: info.text = 'Press and hold'
+	        }
+	    }
+
+	    Rectangle {
+		    z: 2
+	        id: blueSquare
+	        width: 80; height: 80
+	        x: box.width - width - 10; y: 10    // making this item draggable, so don't use anchors
+	        color: "orange"
+	
+	        objectName: "Drag"	
+	
+	        Text { text: "Drag"; font.pixelSize: 16; color: "white"; anchors.centerIn: parent }
+	
+	        MouseArea {
+	            anchors.fill: parent
+	            drag.target: blueSquare
+	            drag.axis: Drag.XandYAxis
+	            drag.minimumX: 0
+	            drag.maximumX: box.width - parent.width
+	            drag.minimumY: 0
+	            drag.maximumY: box.height - parent.width
+	
+	            onPressed:{ 
+	   			    parent.color = "green"
+				}
+	            onReleased: {
+					parent.color = "orange"
+				}
+	
+	        }
+	    }
+    	Text {
+        	id: info
+	    	objectName: "buttonText"
+        	anchors.verticalCenter: parent.verticalCenter; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 30
+        	onTextChanged: console.log(text)
+    	}
+	}
     Rectangle {
-        id: redSquare
+		z: 0
+		objectName: "ListArea"
+     	width: 360; height: 270
+    	anchors.top: parent.verticalCenter; anchors.left: parent.left
+    	color: "lightgray"
 
-	    objectName: "Click"
+     	Component {
+        	id: contactDelegate
+         	Item {
+            	width: 360; height: 40
+				objectName : itemIndex
+             	Column {
+                	Text { text: '<b>Title:</b> ' + value }
+             	}
+  		        MouseArea { 
+					anchors.fill: parent 
+					onClicked: listView.currentIndex  = index
+				}
+         	}
+     	}
+	
+		Component {
+        	id: highlightBar
+         	Rectangle {
+				objectName: "highlightBar"
+            	width: 360; height: 40
+				color: "lightsteelblue"
+			    radius: 5 
+             	y: listView.currentItem.y;
+         	}
+     	}	
 
-        width: 80; height: 80
-        anchors.top: parent.top; anchors.left: parent.left; anchors.margins: 10
-        color: "red"
+     	ListView {
+			id: listView
+			objectName: "ContactList"
+			flickDeceleration: 100
+	        anchors.fill: parent
+	        model: listModel
+	        delegate: contactDelegate
+	        highlight: highlightBar
+			highlightFollowsCurrentItem: false
+	        focus: true			
+	    }
 
-        Text { text: "Click"; font.pixelSize: 16; anchors.centerIn: parent }
+		ListModel {
+			id: listModel
+ 		}	
 
-        MouseArea {
-            anchors.fill: parent 
-            hoverEnabled: true
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            onPressed:{ 
-					info.text = 'Pressed' 
-					parent.color = "blue"
+		Component.onCompleted: addItemsToList()			
+		function addItemsToList() {
+			for(var i = 0 ; i < 1000; i++){
+				listModel.append({value: "List item number: " + i, itemIndex: i})
 			}
-            onReleased: {
-				info.text = 'Released'  
-				parent.color = "red"
-			}
-            onPressAndHold: info.text = 'Press and hold'
-        }
-    }
-
-    Rectangle {
-        id: blueSquare
-        width: 80; height: 80
-        x: box.width - width - 10; y: 10    // making this item draggable, so don't use anchors
-        color: "orange"
-
-        objectName: "Drag"	
-
-        Text { text: "Drag"; font.pixelSize: 16; color: "white"; anchors.centerIn: parent }
-
-        MouseArea {
-            anchors.fill: parent
-            drag.target: blueSquare
-            drag.axis: Drag.XandYAxis
-            drag.minimumX: 0
-            drag.maximumX: box.width - parent.width
-            drag.minimumY: 0
-            drag.maximumY: box.height - parent.width
-
-            onPressed:{ 
-   			    parent.color = "green"
-			}
-            onReleased: {
-				parent.color = "orange"
-			}
-
-        }
-    }
-
-    Text {
-        id: info
-	    objectName: "buttonText"
-        anchors.verticalCenter: parent.verticalCenter; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 30
-        onTextChanged: console.log(text)
-    }
+			listModel.sync
+		}
+	}
 }
+
+
+

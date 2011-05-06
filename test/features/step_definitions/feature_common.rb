@@ -277,7 +277,8 @@ Then /^application "([^\"]*)"(()|(?:[ ]on[ ]"([^\"]*)")*) (is|is not) running$/ 
       (@__os_name == "")
 
     # modify application name when running on windows env
-    application_name = application_name + '.exe' if RUBY_PLATFORM.downcase.include?("mswin")
+	#why is exe added? it is not coming in the ui state
+    #application_name = application_name + '.exe' if RUBY_PLATFORM.downcase.include?("mswin")
 
     # determine expected result, used for comparing with actual result
     expected_result = ( application_status == 'is' )
@@ -294,6 +295,8 @@ Then /^application "([^\"]*)"(()|(?:[ ]on[ ]"([^\"]*)")*) (is|is not) running$/ 
       begin
 
         # compare application names
+		puts sut_object.application(:__timeout=>0 ).name + " <> " + application_name
+		 
         result = ( sut_object.application(:__timeout=>0 ).name == application_name )
 
       rescue
@@ -314,57 +317,6 @@ Then /^application "([^\"]*)"(()|(?:[ ]on[ ]"([^\"]*)")*) (is|is not) running$/ 
   end
 
 end
-
-=begin
-Then /^application "([^\"]*)" is running$/ do | arg1 |
-  raise @__exception if @__exception != nil
-  if ((@__os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
-      ((@__os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
-      (@__os_name == "")
-    if RUBY_PLATFORM.downcase.include?("mswin")
-      verify_equal(arg1 + '.exe', 30, "Application name should match."){
-        #@app.executable_name
-        @__sut.application.name #== arg1 + '.exe'
-      }
-    else
-
-      verify_equal(arg1.to_s, 30, "Application name should match."){
-       @__sut.application.name # == arg1
-       #@app.executable_name
-      }
-
-    end
-  end
-end
-=end
-
-=begin
-Then /^application "([^\"]*)" is not running$/ do | arg1 |
-
-  raise @__exception if @__exception != nil
-
-  if ((@__os_name == "linux") and RUBY_PLATFORM.downcase.include?("linux")) or
-      ((@__os_name == "windows") and RUBY_PLATFORM.downcase.include?("mswin")) or
-      (@__os_name == "")
-
-      if RUBY_PLATFORM.downcase.include?("mswin")
-
-        verify_false(30, 'application should not be running') {
-          @__sut.application.name == arg1 + '.exe'
-        }
-
-      else
-
-        verify_false(30, 'application should not be running') {
-          @__sut.application.name == arg1
-        }
-
-      end
-
-  end
-
-end
-=end
 
 Then /^The calculator display says "([^\"]*)"$/ do | result |
   raise @__exception if @__exception != nil
