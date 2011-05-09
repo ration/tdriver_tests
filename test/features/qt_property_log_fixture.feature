@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_windows @qt_symbian
 
 Feature: MobyBehaviour::QT::Fixture#fixture
   As a test scripter writer
