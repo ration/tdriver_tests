@@ -24,43 +24,43 @@ Before do
   $ErrorMessage=""
 end
 
-Then("the $key value $value can be read") do |$key, $value|
-  settings = @sut.read_settings({:organization => 'tDriver', :application => 'qttasserver'}, [$key]) 
-  verify_equal($value, 1){settings[$key.to_sym]}
+Then("the $key value $value can be read") do |key, value |
+  settings = @sut.read_settings({:organization => 'tDriver', :application => 'qttasserver'}, [key]) 
+  verify_equal(value, 1){settings[key.to_sym]}
 end
 
-Then("I remove $key") do |$key|
-  @sut.remove_settings({:organization => 'tDriver', :application => 'qttasserver'}, [$key]) 
+Then("I remove $key") do |key|
+  @sut.remove_settings({:organization => 'tDriver', :application => 'qttasserver'}, [key]) 
 end
 
-Then("$key is removed") do |$key|
-  settings = @sut.read_settings({:organization => 'tDriver', :application => 'qttasserver'}, [$key]) 
-  verify_equal("",1){settings[$key.to_sym]}
+Then("$key is removed") do |key|
+  settings = @sut.read_settings({:organization => 'tDriver', :application => 'qttasserver'}, [key]) 
+  verify_equal("",1){settings[key.to_sym]}
 end
 
-Then("the $key value $value can be read from $file") do |$key, $value, $file|
-  settings = @sut.read_settings({:fileName => $file, :format => 'ini'}, [$key]) 
-  verify_equal($value, 1){settings[$key.to_sym]}
+Then("the $key value $value can be read from $file") do | key, value, file |
+  settings = @sut.read_settings({:fileName => file, :format => 'ini'}, [key]) 
+  verify_equal(value, 1){settings[key.to_sym]}
 end
 
 
-Then("I clear ini setting $key from $file") do |$key, $file|
-  @sut.remove_settings({:fileName => $file, :format => 'ini'}, [$key]) 
+Then("I clear ini setting $key from $file") do | key, file |
+  @sut.remove_settings({:fileName => file, :format => 'ini'}, [key]) 
 end
 
-Then("$key is removed from $file") do |$key, $file|
-  settings = @sut.read_settings({:fileName => $file, :format => 'ini'}, [$key]) 
-  verify_equal("",1){settings[$key.to_sym]}
+Then("$key is removed from $file") do | key, file |
+  settings = @sut.read_settings({:fileName => file, :format => 'ini'}, [key]) 
+  verify_equal("",1){settings[key.to_sym]}
 end
 
-Then("I insert a setting $key and value $value") do |$key, $value|
-  @sut.set_settings({:organization => 'tDriver', :application => 'qttasserver'},{ $key.to_sym => $value})
+Then("I insert a setting $key and value $value") do | key, value |
+  @sut.set_settings({:organization => 'tDriver', :application => 'qttasserver'},{ key.to_sym => value})
 end
 
-Then("I write a setting $key and value $value to $file") do |$key, $value, $file|
-  @sut.set_settings({:fileName => $file, :format => 'ini'},{ $key.to_sym => $value})
+Then("I write a setting $key and value $value to $file") do | key, value, file |
+  @sut.set_settings({:fileName => file, :format => 'ini'},{ key.to_sym => value})
 end
 
-Then("the settings hash has a $key $value key value pair") do |$key, $value|
-  verify_equal($value, 1){@settings[$key.to_sym]}
+Then("the settings hash has a $key $value key value pair") do | key, value |
+  verify_equal(value, 1){@settings[key.to_sym]}
 end
