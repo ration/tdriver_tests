@@ -29,6 +29,7 @@ When "I start to log property $property for object $name with interval $interval
 end
 
 When "I gesture $name object $direction for $distance pixels in $duration seconds" do |$name, $direction, $distance, $duration|
+  @app.child(:name => $name).gesture($direction.to_sym, 0.10, 10)
   @app.child(:name => $name).gesture($direction.to_sym, $duration, $distance)
 end
 
