@@ -18,21 +18,21 @@
 ############################################################################
 
 
-And("I enable listen to events for object \"$object\" in matti_multitouchapp") do |$object|
-	eval ($object+".enable_events('ALL')")
+And("I enable listen to events for object \"$object\" in matti_multitouchapp") do | object |
+	eval (object+".enable_events('ALL')")
 end
 
-Then("I tap object \"$object\" in matti_multitouchapp")do |$object|
-	eval ($object+".tap_down")
-	eval ($object+".tap_up")
+Then("I tap object \"$object\" in matti_multitouchapp")do |object|
+	eval (object+".tap_down")
+	eval (object+".tap_up")
 end
 
-Then("the results of \"$object\" should not contain \"$event_list\"") do | $object,$event_list|
+Then("the results of \"$object\" should not contain \"$event_list\"") do | object, event_list |
 	#puts @app.Square(:name =>'topLeft').get_events.to_s
-	events = $event_list.split(',')
+	events = event_list.split(',')
   events.each{ | event |
     verify_equal( false, 1, "Event #{ event } not found" ){ 
-      eval ($object +".get_events.include?( event )")
+      eval (object +".get_events.include?( event )")
     }
 	}
 end
