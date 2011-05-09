@@ -5,3 +5,7 @@ browser/browser.qmlproject.user
 browser/Makefile calculator/Makefile multitouch/Makefile testapp/Makefile
 browser/Makefile calculator/Makefile multitouch/Makefile testapp/Makefile
 Makefile
+*.*~
+*.Debug
+*.Release
+*.exe

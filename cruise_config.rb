@@ -8,7 +8,7 @@ Project.configure do |project|
   project.triggered_by SuccessfulBuildTrigger.new(project, 'driver')
   project.triggered_by SuccessfulBuildTrigger.new(project, 'sut_qt')
  
-  project.email_notifier.emails = ['ext-mika.1.leiman@nokia.com','testabilitydriver@nokia.com']
+  project.email_notifier.emails = ['ext-mika.1.leiman@nokia.com', 'testabilitydriver@nokia.com', 'ext-jussi.koljonen@nokia.com']
   
   project.email_notifier.from = 'ext-mika.1.leiman@nokia.com'
 
