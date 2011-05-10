@@ -18,7 +18,7 @@
 ############################################################################
 
 
-And "I listen for signal clicked() from button \"$button_name\" using fixture" do |$button_name|
+And "I listen for signal clicked() from button \"$button_name\" using fixture" do |button_name|
   #puts @__sut.application.Button(:name =>'oneButton').fixture('signal', 'list_signals')
-  @__sut.application.Button(:name => $button_name.to_s).fixture('signal','enable_signal', {:signal => 'clicked()'})
+  @__sut.application.Button(:name => button_name.to_s).fixture('signal','enable_signal', {:signal => 'clicked()'})
 end
