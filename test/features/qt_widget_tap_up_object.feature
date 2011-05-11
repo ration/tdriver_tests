@@ -46,7 +46,7 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
 @qt_symbian @nodoc
   Scenario: Tapping up at child QGraphicsItem coordinates after having done tap_down on it
     Given I launch application "testapp"
-    And I test code "@app.Triangle.tap_down_object(5,5, :Left, { :use_tap_screen => 'true' })"
+    And I test code "@app.Triangle.tap_down_object(15,15, :Left, { :use_tap_screen => 'true' })"
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
@@ -59,7 +59,7 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
 @qt_symbian @nodoc
   Scenario: Testing tap_up_object method with optional argument 'button' to use in press
     Given I launch application "testapp"
-    And I test code "@app.Triangle.tap_down_object(5,5, :Left,{ :use_tap_screen => 'true' })"
+    And I test code "@app.Triangle.tap_down_object(15,15, :Left,{ :use_tap_screen => 'true' })"
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
@@ -71,7 +71,7 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
 @qt_symbian @nodoc
   Scenario: Testing tap_up_object method with optional argument 'tap_params' 
     Given I launch application "testapp"
-    And I test code "@app.Triangle.tap_down_object(5,5, :Left, { :use_tap_screen => 'true' })"
+    And I test code "@app.Triangle.tap_down_object(15,15, :Left, { :use_tap_screen => 'true' })"
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """

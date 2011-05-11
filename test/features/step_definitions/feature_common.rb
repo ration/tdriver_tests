@@ -295,7 +295,7 @@ Then /^application "([^\"]*)"(()|(?:[ ]on[ ]"([^\"]*)")*) (is|is not) running$/ 
       begin
 
         # compare application names
-		puts sut_object.application(:__timeout=>0 ).name + " <> " + application_name
+    		#puts sut_object.application(:__timeout=>0 ).name + " <> " + application_name
 		 
         result = ( sut_object.application(:__timeout=>0 ).name == application_name )
 

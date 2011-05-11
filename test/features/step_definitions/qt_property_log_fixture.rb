@@ -24,24 +24,25 @@
 
 require 'tdriver'
 
-When "I start to log property $property for object $name with interval $interval" do | $property, $name, $interval |
-  @app.child(:name => $name).fixture('qt','logProperty',{:property => $property, :filePath => 'c:\Data',:interval => $interval})
+When "I start to log property $property for object $name with interval $interval" do | property, name, interval |
+  @app.child(:name => name).fixture('qt','logProperty',{:property => property, :filePath => 'c:\Data',:interval => interval})
 end
 
-When "I gesture $name object $direction for $distance pixels in $duration seconds" do |$name, $direction, $distance, $duration|
-  @app.child(:name => $name).gesture($direction.to_sym, $duration, $distance)
+When "I gesture $name object $direction for $distance pixels in $duration seconds" do |name, direction, distance, duration|
+  @app.child(:name => name).gesture(direction.to_sym, 0.10, 10)
+  @app.child(:name => name).gesture(direction.to_sym, duration, distance)
 end
 
-When "I wait $time second" do |$time|
-  sleep $time.to_f
+When "I wait $time second" do | time |
+  sleep time.to_f
 end
 
-Then "I use $command to get property values for object $name property $property" do |$command, $name, $property| 
-  data = @__sut.state_object(@app.child( :name => $name ).fixture('qt', $command,{:property => $property}))
+Then "I use $command to get property values for object $name property $property" do | command, name, property | 
+  data = @__sut.state_object(@app.child( :name => name ).fixture('qt', command,{:property => property}))
   @entry_count = data.logData.attribute('entryCount').to_i
   verify_true(1){@entry_count != 0}
-  verify_equal($property, 1){data.logData.name}
-  verify_equal($name, 1){data.logData.attribute('objectName')}
+  verify_equal(property, 1){data.logData.name}
+  verify_equal(name, 1){data.logData.attribute('objectName')}
 end
 
 
