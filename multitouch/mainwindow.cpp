@@ -474,27 +474,30 @@ bool Square::sceneEvent(QEvent *event)
 
 bool Square::primaryPoint(QTouchEvent* event)
 {
-    foreach(QTouchEvent::TouchPoint point, event->touchPoints()){
-        if(point.isPrimary()){
-            return true;
-        }
-    }
-    return false;
+    return false; //not interested in primary at the moment
+//     foreach(QTouchEvent::TouchPoint point, event->touchPoints()){
+//         if(point.isPrimary()){
+//             return true;
+//         }
+//     }
+//     return false;
 }
 
 void Square::mouseReleaseEvent( QGraphicsSceneMouseEvent * event )
 {
-    qDebug() << objectName() << "Square::mouseReleaseEvent";        
-    mCounter++;
-    mPressed = false;
-    update();
+    return;
+//     qDebug() << objectName() << "Square::mouseReleaseEvent";        
+//     mCounter++;
+//     mPressed = false;
+//     update();
 }
 
 void Square::mousePressEvent( QGraphicsSceneMouseEvent * event )
 {
-    qDebug() << objectName() << "Square::mousePressEvent";        
-    mPressed = true;
-    update();
+    return;
+//     qDebug() << objectName() << "Square::mousePressEvent";        
+//     mPressed = true;
+//     update();
 }
 
 
