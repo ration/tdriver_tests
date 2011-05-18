@@ -23,12 +23,12 @@
 
 Then "I get a Hash containing all sut parameters" do
   raise @__exception if @__exception != nil
-  verify_true(0, "Parameter hash was not retreived successfully") { $parameter_hash.class == MobyUtil::ParameterHash }
+  verify_true(0, "Parameter hash was not retreived successfully") { $parameter_hash.kind_of?( MobyUtil::ParameterHash ) }
 end
 
 Then "return value \"$variable\" is kind of \"$type\"" do | variable, type |
   raise @__exception if @__exception != nil
-  verify_true(0, "Parameter hash was not retreived successfully") { eval("#{ variable }.class.to_s == '#{ type }'") }
+  verify_true(0, "Parameter hash was not retreived successfully") { eval("#{ variable }.kind_of?( #{ type } )") }
 end
 
 
