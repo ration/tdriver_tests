@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows @qt_symbian 
 
 Feature: MobyUtil::Recorder#start_rec
   As a test scripter writer
@@ -11,3 +11,4 @@ Feature: MobyUtil::Recorder#start_rec
     And I start the recorder and do tap some buttons
     When I execute "@ruby_script = MobyUtil::Recorder.print_script( @__sut, @app )"
     Then I am able to play the correct ruby script
+

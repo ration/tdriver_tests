@@ -30,14 +30,28 @@ Rectangle {
 	            onReleased: {
 					info.text = 'Released'  
 					parent.color = "red"
+                    greenSquare.opacity = greenSquare.opacity == 0
 				}
 	            onPressAndHold: info.text = 'Press and hold'
 	        }
 	    }
 
+
+      Rectangle {
+    	    id: greenSquare
+		    objectName: "Visible"
+            x: 20 ; y: 100
+	        width: 80; height: 80
+            opacity: 0
+	        color: "green"
+	        anchors.left: parent.left; anchors.margins: 10
+	        Text { text: "Visible"; font.pixelSize: 16; anchors.centerIn: parent }
+	    }
+
+
 	    Rectangle {
 		    z: 2
-	        id: blueSquare
+	        id: orangeSquare
 	        width: 80; height: 80
 	        x: box.width - width - 10; y: 10    // making this item draggable, so don't use anchors
 	        color: "orange"
@@ -48,7 +62,7 @@ Rectangle {
 	
 	        MouseArea {
 	            anchors.fill: parent
-	            drag.target: blueSquare
+	            drag.target: orangeSquare
 	            drag.axis: Drag.XandYAxis
 	            drag.minimumX: 0
 	            drag.maximumX: box.width - parent.width
