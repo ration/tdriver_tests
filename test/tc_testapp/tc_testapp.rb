@@ -264,9 +264,9 @@ class TC_Testapp < Test::Unit::TestCase
    
   def test_state
     #test static state - nothing has changed
-    stateTestApp = @tapp.state
+    stateTestApp = @tapp.state_object
     
-    verify_true(TIMEOUT, "Failed to get the state object.") { (stateTestApp== @tapp.state) and  (stateTestApp != nil) }
+    verify_true(TIMEOUT, "Failed to get the state object.") { (stateTestApp== @tapp.state_object) and  (stateTestApp != nil) }
     
     #change something and test again
     #should adding a new object to tree not change the state of the object?

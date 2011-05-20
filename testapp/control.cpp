@@ -20,7 +20,7 @@
 
 /*
 *  ===========================================================================
-*  Name        : controlview.cpp
+*  Name        : control.cpp
 *  Part of     : Test application
 *  Description : Test application main window
 *  Version     : %version: %
@@ -41,7 +41,6 @@
 #include <QLinearGradient>
 
 #include "control.h"
-#include "controlview.h"
 
 Control::Control(QGraphicsItem* parent)
     :QGraphicsWidget(parent)

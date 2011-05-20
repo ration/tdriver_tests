@@ -72,3 +72,13 @@ Feature: MobyBehaviour::TestObject#child
     When I execute "@app.Button(:text => /^(a|b|c|5)$/)"
     Then exception is not thrown
 
+  Scenario: Retrieving the test object with multiple attribute text value options 
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.Button(:text => ['111','11','1'])"
+    Then exception is not thrown
+
+  Scenario: Retrieving the test object with multiple name options 
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.Button(:name => ['ooneButtonn','oneeButton','oneButton'])"
+    Then exception is not thrown
+

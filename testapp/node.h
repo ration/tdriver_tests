@@ -60,6 +60,18 @@ public:
     QRectF boundingRect() const;
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+public slots:
+    // Test methods for call_method calls
+    QString color();
+    int sumTest(int x, double y);
+    double doubleTest(double x, double y);
+    bool inverse(bool inverse);
+
+
+
+
+
 };
 
 #endif

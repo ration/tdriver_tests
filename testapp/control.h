@@ -20,7 +20,7 @@
 
 /*
 *  ===========================================================================
-*  Name        : controlview.h
+*  Name        : control.h
 *  Part of     : Test application
 *  Description : Test application control view
 *  Version     : %version: %

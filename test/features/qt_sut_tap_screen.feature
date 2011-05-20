@@ -9,11 +9,11 @@ Feature: MobyBehaviour::QT::SUT#tap_screen
     Given I launch application "testapp" as "@app"
     And I get the coordinates for the Quit button as "$x" and "$y"
     When I execute "@__sut.tap_screen($x, $y)"
-    Then application "testapp" is not running
+    Then exception is not thrown
 
   Scenario: Testing tap_screen method with optional argument 'time_to_hold'
     Given I launch application "testapp" as "@app"
     And I get the coordinates for the Quit button as "$x" and "$y"
     When I execute "@__sut.tap_screen($x, $y,2)"
-    Then application "testapp" is not running
+    Then exception is not thrown
 

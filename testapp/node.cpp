@@ -86,3 +86,25 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 
 
+QString Node::color() 
+{
+    return shapeColor();
+}
+
+int Node::sumTest(int x,double y) 
+{
+    qDebug() << x << "+" << y;
+    return (int)(x+y);
+}
+
+double Node::doubleTest(double x,double y) 
+{
+    qDebug() << x << "/" << y;
+    return x/y;
+}
+
+bool Node::inverse(bool inverse)
+{
+    return !inverse;
+}
+

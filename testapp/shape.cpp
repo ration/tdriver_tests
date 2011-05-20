@@ -1,23 +1,23 @@
-/*************************************************************************** 
-** 
-** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). 
-** All rights reserved. 
-** Contact: Nokia Corporation (testabilitydriver@nokia.com) 
-** 
-** This file is part of TDriver. 
-** 
-** If you have questions regarding the use of this file, please contact 
-** Nokia at testabilitydriver@nokia.com . 
-** 
-** This library is free software; you can redistribute it and/or 
-** modify it under the terms of the GNU Lesser General Public 
-** License version 2.1 as published by the Free Software Foundation 
-** and appearing in the file LICENSE.LGPL included in the packaging 
-** of this file. 
-** 
-****************************************************************************/ 
- 
- 
+/***************************************************************************
+**
+** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (testabilitydriver@nokia.com)
+**
+** This file is part of TDriver.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at testabilitydriver@nokia.com .
+**
+** This library is free software; you can redistribute it and/or
+** modify it under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation
+** and appearing in the file LICENSE.LGPL included in the packaging
+** of this file.
+**
+****************************************************************************/
+
+
 /*
 *  ===========================================================================
 *  Name        : shape.cpp
@@ -43,7 +43,6 @@
 #include <QDebug>
 
 #include "shape.h"
-#include "controlview.h"
 #include "controltab.h"
 
 Shape::Shape(QGraphicsItem* parent)
@@ -60,7 +59,7 @@ QVariant Shape::itemChange(GraphicsItemChange change, const QVariant &value)
     if (change == ItemPositionChange && scene()) {
          paintItems();
          // value is the new position.
-         QPointF newPos = value.toPointF();         
+         QPointF newPos = value.toPointF();
          QRectF rect = scene()->sceneRect();
          if(parentItem()){
              rect = parentItem()->boundingRect();
@@ -69,7 +68,7 @@ QVariant Shape::itemChange(GraphicsItemChange change, const QVariant &value)
          if (!rect.contains(newPos)) {
              // Keep the item inside the scene rect.
              newPos.setX(qMin((rect.right() - boundingRect().width()), qMax(newPos.x(), rect.left())));
-             newPos.setY(qMin((rect.bottom() - boundingRect().height() - CONTROLTAB_HEIGHT), qMax(newPos.y(), rect.top())));             
+             newPos.setY(qMin((rect.bottom() - boundingRect().height() - CONTROLTAB_HEIGHT), qMax(newPos.y(), rect.top())));
              return newPos;
          }
     }
@@ -88,11 +87,11 @@ void Shape::paintItems()
 
 void Shape::checkPosition()
 {
-    setPos(itemChange(ItemPositionChange, scenePos()).toPointF());    
+    setPos(itemChange(ItemPositionChange, scenePos()).toPointF());
 }
 
 void Shape::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{    
+{
     update();
     QGraphicsItem::mousePressEvent(event);
 }

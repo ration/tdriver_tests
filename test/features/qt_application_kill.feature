@@ -7,18 +7,18 @@ Feature: MobyBehaviour::QT::Application#kill
 Scenario: Testing kill method with calculator application
     Given I launch application "calculator" as "@app"
     When I execute "@app.kill"
-    Then application "calculator" is not running
+    Then application "calculator" on "@__sut" is not running
 
 @nodoc
 Scenario: Testing kill method on first application, when two applications are started
     Given I launch application "calculator" as "@app1"
     And I launch application "testapp" as "@app2"
     When I execute "@app1.kill"
-    Then application "calculator" is not running
+    Then application "calculator" on "@__sut" is not running
 
 @nodoc
 Scenario: Testing kill method on second application, when two applications are started
     Given I launch application "calculator" as "@app1"
     And I launch application "testapp" as "@app2"
     When I execute "@app2.kill"
-    Then application "calculator" is not running
+    Then application "calculator" on "@__sut" is running
