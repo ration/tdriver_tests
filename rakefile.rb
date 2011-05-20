@@ -231,7 +231,7 @@ task :build_testapps do
   make = "make"
   sudo = ""	
 
-  if /win/ =~ RUBY_PLATFORM
+  if /win/ =~ RUBY_PLATFORM || /mingw32/ =~ RUBY_PLATFORM
     make = "mingw32-make"
   else
     sudo = "echo \"testability\" | sudo -S "
@@ -270,7 +270,7 @@ task :cruise => ['build_testapps','execute_smoke'] do
       "
     end
 
-    if /win/ =~ RUBY_PLATFORM
+    if /win/ =~ RUBY_PLATFORM || /mingw32/ =~ RUBY_PLATFORM
       result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml report_path.xml" )
     else
       result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml report_path.xml" )
@@ -278,7 +278,7 @@ task :cruise => ['build_testapps','execute_smoke'] do
 
   else
 
-    if /win/ =~ RUBY_PLATFORM
+    if /win/ =~ RUBY_PLATFORM || /mingw32/ =~ RUBY_PLATFORM
       result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
     else
       result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
