@@ -42,12 +42,26 @@ Feature: MobyBehaviour::TestObject#force_refresh
     Then exception is not thrown
 
   @nodoc
-  Scenario: (bugfix) TestObject#force_refresh must not fail with multiple test object  
-    Given I launch application "calculator" as "@app2"
+  Scenario: (bugfix) TestObject#force_refresh with argument must not fail with multiple test object  
+    Given I launch application "calculator" as "@app1"
     When I execute
     """
-        @app1.force_refresh 
-        @app2.force_refresh
+        @button1 = @app1.Button(:name=>'oneButton')
+        @button2 = @app1.Button(:name=>'twoButton')
+        @button1.force_refresh(:text=>'1')
+        @button2.force_refresh(:text=>'2')
+    """
+    Then exception is not thrown
+
+  @nodoc
+  Scenario: (bugfix) TestObject#force_refresh must not fail with multiple test object   
+    Given I launch application "calculator" as "@app1"
+    When I execute
+    """
+        @button1 = @app1.Button(:name=>'oneButton')
+        @button2 = @app1.Button(:name=>'twoButton')
+        @button1.force_refresh 
+        @button2.force_refresh 
     """
     Then exception is not thrown
 
