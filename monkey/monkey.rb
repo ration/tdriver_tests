@@ -380,21 +380,38 @@ module MobyBase
         set_matched = false
         @_invalid_targets[ invalid_type ].each { | set |          
         
-          set.each { | blocking_attribute, value | 
-             
-            all_matched = true
-                    
-            begin			   
-              all_matched = false if test_object.attribute(blocking_attribute) != value
+          all_matched = true
+           
+          set.each { | blocking_limit, value |           
+          
+            blocking_operator = "="
+            
+            blocking_attribute, blocking_operator = *blocking_limit
+            blocking_operator = "=" if blocking_operator.nil?
+                        
+            begin
+              case blocking_operator
+              when ">"
+                all_matched = false if test_object.attribute(blocking_attribute).to_i <= value.to_i
+              when ">="
+                all_matched = false if test_object.attribute(blocking_attribute).to_i < value.to_i
+              when "<"
+                all_matched = false if test_object.attribute(blocking_attribute).to_i >= value.to_i
+              when "<="
+                all_matched = false if test_object.attribute(blocking_attribute).to_i > value.to_i              
+              else
+                all_matched = false if test_object.attribute(blocking_attribute) != value
+              end
             rescue Exception => e	
               all_matched = false
             end
-                          
-            if all_matched
-              set_matched = true
-            end
-
+            
           }
+          
+          if all_matched
+            set_matched = true
+          end
+            
         }
 		  
         return false if set_matched 
