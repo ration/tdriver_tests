@@ -110,9 +110,7 @@ module MobyBase
         @sut.run( :name => target_app, :arguments => '-testability' )
         write_script( "@sut.run(:name => '#{target_app}', :arguments => '-testability')")
       end
-      
-      @sut.refresh
-      
+
     end
     
     # Simple monkey: apply random control action to the SUT, eg. touch a random spot
@@ -147,6 +145,9 @@ module MobyBase
     
     # Smart monkey: perfoms a random action on a random available UI object
     def chimp
+      
+      
+      @sut.refresh # refresh before checking the sut for targets
       
       target = random_target
       action = random_action(target.type)
@@ -313,7 +314,13 @@ module MobyBase
 
       targets_xpath = '*//object[@type="' << actions.keys.join("\" or @type=\"") << '"]'     
       target_node_set = @sut.xml_data.xpath(targets_xpath)
-     
+                
+      # retry once
+      if target_node_set.empty?
+        @sut.refresh
+        target_node_set = @sut.xml_data.xpath(targets_xpath)        
+      end
+      
       Kernel::raise(TDMonkeyNoTargetsError.new("No test objects found matching allowed target types.")) if target_node_set.empty?
  
       target_nodes = target_node_set.to_a
@@ -330,10 +337,18 @@ module MobyBase
         begin
                       
           begin
-            candidate = @sut.application.child({:type => target_type, :id => target_id, :__timeout => 0})                    
+            if target_type = "application"
+              candidate = @sut.application({ :id => target_id, :name => target_node.attribute("name"), :__timeout => 0 })
+            else
+              candidate = @sut.application.child({ :type => target_type, :id => target_id, :__timeout => 0 })
+            end
           rescue MultipleTestObjectsIdentifiedError
-            write_log( "TDMonkey failed to get an object due to multiple matching objects ( Type : #{target_type}) Id: #{target_id} )")            
-            candidate = @sut.application.child({:type => target_type, :id => target_id}, :__timeout => 0, :__index => 0)                    
+            write_log( "TDMonkey failed to get an object due to multiple matching objects ( Type : #{target_type}) Id: #{target_id} )" )            
+            if target_type = "application"
+              candidate = @sut.application({ :id => target_id, :name => target_node.attribute("name"), :__index => 0 })
+            else
+              candidate = @sut.application.child({ :type => target_type, :id => target_id, :__timeout => 0, :__index => 0 })
+            end
           end
           return candidate if valid_target?( candidate )
           # else retry
@@ -436,9 +451,7 @@ module MobyBase
     
     # finishes the action, satisfying synchronization requirements and checking that target application limits are maintained
     def digest  
-      
-      #sleep 1
-      @sut.refresh
+
       
       # Check if the target application must be restarted 
       if @_app != nil
