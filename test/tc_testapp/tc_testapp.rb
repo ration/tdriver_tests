@@ -211,7 +211,7 @@ class TC_Testapp < Test::Unit::TestCase
 
   def test_executable_name
     exe_name = "testapp"
-    if RUBY_PLATFORM=='i386-mswin32'
+    if RUBY_PLATFORM=='i386-mswin32' || RUBY_PLATFORM=='i386-mingw32'
       verify_equal(exe_name.to_s+'.exe', TIMEOUT, "Executable Name should be correct."){ @tapp.executable_name }
     else     
       verify_equal(exe_name.to_s, TIMEOUT, "Executable Name should be correct."){ @tapp.executable_name }
