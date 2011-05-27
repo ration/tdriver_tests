@@ -49,7 +49,7 @@ end
 
 Then("I clear fixture qt from parameters") do
   puts @sut
-  MobyUtil::Parameter[@sut.id.to_sym][:fixtures][:qt] = nil
+  TDriver::Parameter[@sut.id.to_sym][:fixtures][:qt] = nil
 end
 
 Then("I create some activity") do

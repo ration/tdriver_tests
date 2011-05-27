@@ -23,7 +23,7 @@
 
 Then "I get a Hash containing all sut parameters" do
   raise @__exception if @__exception != nil
-  verify_true(0, "Parameter hash was not retreived successfully") { $parameter_hash.kind_of?( MobyUtil::ParameterHash ) }
+  verify_true(0, "Parameter hash was not retreived successfully") { $parameter_hash.kind_of?( TDriver::ParameterHash ) }
 end
 
 Then "return value \"$variable\" is kind of \"$type\"" do | variable, type |
@@ -39,6 +39,6 @@ end
 
 Then "parameter \"$parameter\" should have value \"$value\"" do | parameter, value |
   raise @__exception if @__exception != nil
-  verify_true(0, "Parameter hash was not set successfully") { MobyUtil::Parameter[ @sut.id ][ parameter ] == value }
+  verify_true(0, "Parameter hash was not set successfully") { TDriver::Parameter[ @sut.id ][ parameter ] == value }
 end
 

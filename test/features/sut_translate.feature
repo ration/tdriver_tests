@@ -160,4 +160,4 @@ Feature: MobyBehaviour::SUT#translate
     
 # Test Test Object identification and use (tap)
 # find a test object with the dynamic attributes for translation (:__plurality, :__numerus, ...)
-# MobyUtil::Parameter[ @sut.id ][ :read_lang_from_app ] true/false .. test may be related to a recent defect report
+# TDriver::Parameter[ @sut.id ][ :read_lang_from_app ] true/false .. test may be related to a recent defect report

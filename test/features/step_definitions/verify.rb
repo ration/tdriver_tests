@@ -88,8 +88,8 @@ end
 
 
 Then ("the verify should timeout with default synchronization value") do
-   verify_true(){@verify_timeout.to_f > MobyUtil::Parameter[:synchronization_timeout].to_i}
-   verify_true(){@verify_timeout.to_f < MobyUtil::Parameter[:synchronization_timeout].to_i+3}
+   verify_true(){@verify_timeout.to_f > TDriver::Parameter[:synchronization_timeout].to_i}
+   verify_true(){@verify_timeout.to_f < TDriver::Parameter[:synchronization_timeout].to_i+3}
 end
 
 Then ("I call verify_signal to catch signal $signal with no message") do | signal |

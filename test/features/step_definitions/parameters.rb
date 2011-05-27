@@ -1,18 +1,18 @@
 Given "I have parameter class initialized" do
 
-  raise RuntimeError, "parameter class not initialized" unless defined?( MobyUtil::Parameter )
+  raise RuntimeError, "parameter class not initialized" unless defined?( TDriver::Parameter )
 
 end
 
 Then /^delete parameter \:(.+)$/ do | key |
 
-  MobyUtil::Parameter.delete( key.to_sym )
+  TDriver::Parameter.delete( key.to_sym )
 
 end
 
 Then /^delete parameter \"(.+)\"$/ do | key |
 
-  MobyUtil::Parameter.delete( key )
+  TDriver::Parameter.delete( key )
 
 end
 

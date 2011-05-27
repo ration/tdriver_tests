@@ -1,9 +1,9 @@
 @qt_linux @qt_windows @qt_symbian @qt_meego
 
-Feature: MobyUtil::Parameter
+Feature: TDriver::Parameter
   As a test scripter writer
   I want to use parameter instance methods to perform different actions to parameters
-  so that I can test the MobyUtil::Parameter behaviour
+  so that I can test the TDriver::Parameter behaviour
 
   Scenario: Parameter inspection string representation of hash
     Given I have parameter class initialized
@@ -57,7 +57,7 @@ Feature: MobyUtil::Parameter
     Given I have parameter class initialized
     When I execute "$parameters['test'] = {:example => 'hash'}"
     Then exception is not thrown
-    Then verify "$parameters['test'].kind_of?( MobyUtil::ParameterHash )"
+    Then verify "$parameters['test'].kind_of?( TDriver::ParameterHash )"
     And delete parameter "test"
 
   Scenario: Parameter hash can be cleared and restored
@@ -137,7 +137,7 @@ Feature: MobyUtil::Parameter
     Then exception is not thrown
     And I execute "$parameters.parse_string( '<parameters><test><parameter name=\'merged\' value=\'parameter\' /></test></parameters>' )"
     Then exception is not thrown
-    Then verify "$parameters[ :test ].kind_of?( MobyUtil::ParameterHash ) == true"
+    Then verify "$parameters[ :test ].kind_of?( TDriver::ParameterHash ) == true"
     And verify "$parameters[ :test ].keys.include?( :original ) == true"
     And verify "$parameters[ :test ].keys.include?( :merged ) == true"
     And delete parameter :test
@@ -149,7 +149,7 @@ Feature: MobyUtil::Parameter
     Then exception is not thrown
     And I execute "$parameters.parse_string( '<parameters><test><parameter name=\'merged\' value=\'parameter\' /></test></parameters>', false )"
     Then exception is not thrown
-    Then verify "$parameters[ :test ].kind_of?( MobyUtil::ParameterHash ) == true"
+    Then verify "$parameters[ :test ].kind_of?( TDriver::ParameterHash ) == true"
     And verify "$parameters[ :test ].keys.include?( :original ) == false"
     And verify "$parameters[ :test ].keys.include?( :merged ) == true"
     And delete parameter :test
@@ -161,7 +161,7 @@ Feature: MobyUtil::Parameter
     Then verify "$parameters.keys.empty? == true"
     When I test code "$parameters.parse_file( 'tdriver_parameters.xml' )"
     Then exception is not thrown
-    When I test code "@some_hash_key = $parameters.keys.collect{ | key | key if $parameters[ key ].kind_of?( MobyUtil::ParameterHash ) }.compact.first"
+    When I test code "@some_hash_key = $parameters.keys.collect{ | key | key if $parameters[ key ].kind_of?( TDriver::ParameterHash ) }.compact.first"
     Then exception is not thrown
     When I test code "@some_hash = $parameters[ @some_hash_key ].dup"
     Then exception is not thrown
