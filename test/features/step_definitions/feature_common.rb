@@ -96,6 +96,10 @@ After do | scenario |
 
 end
 
+Given /^this scenario is pending$/ do
+  pending # always
+end
+
 Given /^I have default sut$/ do
   @sut = @__sut
 end
