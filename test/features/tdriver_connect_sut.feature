@@ -8,6 +8,7 @@ Feature: TDriver::connect_sut
   Scenario: Connect to sut_qt
     When I execute "@connected_sut = TDriver.connect_sut(:Id => 'sut_qt')"
     Then id of connected sut is "sut_qt"
+    And I test code "@connected_sut.disconnect"
 
 @nodoc
   Scenario: Connect to an invalid sut
