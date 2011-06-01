@@ -25,7 +25,7 @@ Given /^I start the recorder and do tap some buttons$/ do
   @app.Button(:text=>'1').tap
   @app.Button(:text=>'2').tap
   rescue Exception => e
-    put e
+    puts e
   end
 end
 

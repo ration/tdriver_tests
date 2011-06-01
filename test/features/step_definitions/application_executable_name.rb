@@ -25,7 +25,7 @@
 
 Then /^the application executable name should be "([^\"]*)"$/ do |executable_name|
 	raise @__exception if @__exception != nil
-  if RUBY_PLATFORM=='i386-mswin32'
+  if RUBY_PLATFORM=='i386-mswin32' || RUBY_PLATFORM=='i386-mingw32'
    verify_true(10, "Failed to get executable name.") { $executable_name==executable_name+'.exe'}
   else     
     verify_true(10, "Failed to get executable name.") { $executable_name==executable_name }
