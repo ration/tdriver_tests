@@ -128,6 +128,7 @@ Rectangle {
 	        highlight: highlightBar
 			highlightFollowsCurrentItem: false
 	        focus: true			
+            cacheBuffer: 300
 	    }
 
 		ListModel {
