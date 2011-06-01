@@ -46,7 +46,7 @@ Before do
   @__sut = TDriver.sut(sut.to_sym) if sut != nil
   @__os_name = MobyUtil::EnvironmentHelper.platform.to_s
 
-  @__sut.log_mem({:interval => 2, :filePath => '/usr/tmp'}) if RUBY_PLATFORM.downcase.include?("linux")
+  @__sut.log_mem({:interval => 2, :filePath => '/tmp/'}) if RUBY_PLATFORM.downcase.include?("linux")
   @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mswin")
   @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mingw")
 
