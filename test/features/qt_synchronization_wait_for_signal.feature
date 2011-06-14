@@ -10,5 +10,6 @@ Feature: MobyBehaviour::QT::Synchronization#wait_for_signal
     And I listen for signal clicked() from button "oneButton" using fixture
     And I tap Button named "oneButton"
     When I execute "@app.Button( :name => 'oneButton' ).wait_for_signal(3,'clicked()')"
-    Then exception is not thrown
+
+
 
