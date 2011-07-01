@@ -55,7 +55,7 @@ Feature: MobyBehaviour::QT::Attribute#set_attribute
   Scenario: Objects containing escape character (ASCII #27) in attribute value must be encoded as "\e" (bugfix)
     Given I launch application "calculator" as "@app"
     When I test code "@app.QLineEdit.set_attribute(:text, 'escape ' << 27.chr)"
-    Then verify "@app.QLineEdit.attribute(:text) == 'escape \e'"
+    Then verify "@app.QLineEdit.attribute(:text) == 'escape '"
     And exception is not thrown
 
   @nodoc
