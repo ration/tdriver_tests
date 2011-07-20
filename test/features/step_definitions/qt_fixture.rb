@@ -48,7 +48,7 @@ Then /^I tap the native dialog "([^"]*)" button$/ do |arg1|
 end
 
 Then("I clear fixture qt from parameters") do
-  puts @sut
+  #puts @sut
   TDriver::Parameter[@sut.id.to_sym][:fixtures][:qt] = nil
 end
 
