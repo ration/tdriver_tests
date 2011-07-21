@@ -79,7 +79,7 @@ Feature: MobyBehaviour::TestObject#child
     When I execute "@app.Button(['ooneButtonn','oneeButton','oneButton'])"
     Then exception is not thrown
 
-  Scenario: Retrieving the test type of Button object with object name attribute as regular expression
+  Scenario: Retrieving the test object type of Button with object name attribute as regular expression
     Given I launch application "calculator" as "@app"
     When I execute "@app.Button(:name => /^oneButton$/)"
     Then exception is not thrown
