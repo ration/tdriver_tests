@@ -40,6 +40,22 @@ Feature: MobyBehaviour::TestObject#child
     When I execute "@app.child(:type => 'Button', :__index => 16)"
     Then result test object is same as "@app.child(:type => 'Button', :text => '1')"
 
+  Scenario: Retrieve test object with object name as only argument by using child method
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.child('oneButton')"
+    Then exception is not thrown
+
+  Scenario: Retrieve test object with object name as only argument by using object type as method
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.Button('oneButton')"
+    Then exception is not thrown
+
+  @nodoc
+  Scenario: Retrieve test object with object name (symbol) as only argument
+    Given I launch application "calculator" as "@app"
+    When I execute "@app.child(:oneButton)"
+    Then exception is not thrown
+
   @nodoc
   Scenario: Correct exception is raised when trying to retrieve non existing child test object from application object
     Given I launch application "calculator" as "@app"
