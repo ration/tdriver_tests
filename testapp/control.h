@@ -63,6 +63,7 @@ public:
 
 signals:
     void clicked();
+    void rightClicked();
 
 public slots:
     void click(void);

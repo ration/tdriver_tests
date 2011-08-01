@@ -61,7 +61,11 @@ public:
 
 public slots:
     void addNewNode();
+    void addNewNodes();
+
     void addNewRectangle();
+    void addNewRectangles();
+
     void scramble();
     void resetView();
 

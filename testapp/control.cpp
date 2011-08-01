@@ -91,14 +91,36 @@ void Control::click(void)
 void Control::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
+
+//    qDebug() << event;
+
+/*    
+    if ( event == QGraphicsItem::MouseReleaseEvent ){
+    
+      qDebug() << "right click!";
+    
+    }
+
     QGraphicsItem::mousePressEvent(event);
+*/
 }
 
 void Control::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
+
     QGraphicsItem::mouseReleaseEvent(event);
-    emit clicked();
+
+    if(event->button() == Qt::RightButton)
+    {
+    
+      emit rightClicked();
+      
+    } else {
+    
+      emit clicked();
+      
+    }
 }
 
 void Control::setText(const QString& text)

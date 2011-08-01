@@ -70,9 +70,11 @@ NodeView::NodeView(const QRectF& rect, QGraphicsItem* parent)
 
     Control* node = addNewControl("AddNode", "Node");
     connect(node, SIGNAL(clicked()), this, SLOT(addNewNode()));
+    connect(node, SIGNAL(rightClicked()), this, SLOT(addNewNodes()));
 
     Control* rec = addNewControl("AddRectangle", "Rectangle");
     connect(rec, SIGNAL(clicked()), this, SLOT(addNewRectangle()));
+    connect(rec, SIGNAL(rightClicked()), this, SLOT(addNewRectangles()));
 
     Control* scramble = addNewControl("Scramble", "Scramble");
     connect(scramble, SIGNAL(clicked()), this, SLOT(scramble()));
@@ -146,6 +148,17 @@ void NodeView::addNewNode()
     connect(this, SIGNAL(sizeChange()), node, SLOT(checkPosition()));
 }
 
+void NodeView::addNewNodes()
+{
+    for(int i = 0; i < 100; i++){
+      nodeCount++;
+      Node *node = new Node(this);
+      node->setObjectName("Node"+QString::number(nodeCount));
+      node->setPos(randomPos(node->boundingRect()));
+      connect(this, SIGNAL(sizeChange()), node, SLOT(checkPosition()));
+    }  
+}
+
 void NodeView::addTriangle()
 {
     triangleCount++;
@@ -155,8 +168,6 @@ void NodeView::addTriangle()
     connect(this, SIGNAL(sizeChange()), node, SLOT(checkPosition()));
 }
 
-
-
 void NodeView::addNewRectangle()
 {
     rectangleCount++;
@@ -164,6 +175,17 @@ void NodeView::addNewRectangle()
     rectangle->setObjectName("Rectangle"+QString::number(rectangleCount));
     rectangle->setPos(randomPos(rectangle->boundingRect()));
     connect(this, SIGNAL(sizeChange()), rectangle, SLOT(checkPosition()));
+}
+
+void NodeView::addNewRectangles()
+{
+    for(int i = 0; i < 100; i++){
+      rectangleCount++;
+      Rectangle *rectangle = new Rectangle(this);
+      rectangle->setObjectName("Rectangle"+QString::number(rectangleCount));
+      rectangle->setPos(randomPos(rectangle->boundingRect()));
+      connect(this, SIGNAL(sizeChange()), rectangle, SLOT(checkPosition()));
+    }
 }
 
 
