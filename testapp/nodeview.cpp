@@ -150,7 +150,7 @@ void NodeView::addNewNode()
 
 void NodeView::addNewNodes()
 {
-    for(int i = 0; i < 100; i++){
+    for(int i = 0; i < 250; i++){
       nodeCount++;
       Node *node = new Node(this);
       node->setObjectName("Node"+QString::number(nodeCount));
@@ -179,7 +179,7 @@ void NodeView::addNewRectangle()
 
 void NodeView::addNewRectangles()
 {
-    for(int i = 0; i < 100; i++){
+    for(int i = 0; i < 250; i++){
       rectangleCount++;
       Rectangle *rectangle = new Rectangle(this);
       rectangle->setObjectName("Rectangle"+QString::number(rectangleCount));
