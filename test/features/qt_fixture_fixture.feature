@@ -10,7 +10,7 @@ Feature: MobyBehaviour::QT::Fixture#fixture
   Then QLinedit has focus
 
 @qt_linux @qt_windows @qt_meego @nodoc
-  Scenario: Test dynamic paramer for fixture
+  Scenario: Test dynamic parameter for fixture
   Given I launch application "calculator" as "@app"
   And I have default sut
   Then I clear fixture qt from parameters
@@ -19,4 +19,10 @@ Feature: MobyBehaviour::QT::Fixture#fixture
     TDriver::Parameter[@sut.id.to_sym][:fixtures][:qt] = 'tasfixture'
     @app.QLineEdit( :name => 'display' ).fixture('qt', 'setFocus')
     """
+
+@qt_linux @qt_windows @qt_meego @nodoc
+  Scenario: Set focus to a component via fixtures service class
+  Given I launch application "calculator" as "@app"
+  When I execute "@__sut.application(:name => 'calculator').QLineEdit( :name => 'display' ).fixtures.qt.setFocus"
+  Then QLinedit has focus
 
