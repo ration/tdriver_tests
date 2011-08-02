@@ -26,30 +26,30 @@ Feature: MobyBehaviour::QT::Attribute#set_attribute
     When I execute "@app.QLineEdit.set_attribute('text', '1/1/1')"
     Then the QLineEdit with name qt_spinbox_lineedit has the attribute text with the value 1/1/1
 
-  Scenario: Setting attribute value with variable type of TrueClass
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#  Scenario: Setting attribute value with variable type of TrueClass
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-  Scenario: Setting attribute value with variable type of FalseClass
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#  Scenario: Setting attribute value with variable type of FalseClass
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-  Scenario: Setting attribute value with variable type of Date
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#  Scenario: Setting attribute value with variable type of Date
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-  Scenario: Setting attribute value with variable type of Time
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#  Scenario: Setting attribute value with variable type of Time
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-  Scenario: Setting attribute value with variable type of DateTime
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#  Scenario: Setting attribute value with variable type of DateTime
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].set_attribute(attribute, value)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
   @nodoc
   Scenario: Objects containing escape character (ASCII #27) in attribute value must be encoded as "\e" (bugfix)

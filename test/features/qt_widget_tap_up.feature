@@ -12,21 +12,21 @@ Feature: MobyBehaviour::QT::Widget#tap_up
     When I execute "@app.Triangle( :name => 'Triangle1' ).tap_up"
     Then color of Triangle1 is "magenta"
 
-@nodoc
-  Scenario: Testing tap_up method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap_up(button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+#  Scenario: Testing tap_up method with optional argument 'button' (Rename this to be more descriptive)
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].tap_up(button)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-@nodoc
-  Scenario: Testing tap_up method with optional argument 'refresh' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap_up(button, refresh)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+#  Scenario: Testing tap_up method with optional argument 'refresh' (Rename this to be more descriptive)
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].tap_up(button, refresh)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-@nodoc
-  Scenario: Testing tap_up method with optional argument 'tap_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap_up(button, refresh, tap_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+#  Scenario: Testing tap_up method with optional argument 'tap_params' (Rename this to be more descriptive)
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].tap_up(button, refresh, tap_params)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 

@@ -10,21 +10,21 @@ Feature: MobyBehaviour::QT::Widget#tap
     When I execute "@app.Button(:name => 'oneButton').tap"
     Then The calculator display says "1"
 
-@nodoc
-  Scenario: Testing tap method with optional argument 'tap_params' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap(tap_params)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+#  Scenario: Testing tap method with optional argument 'tap_params' (Rename this to be more descriptive)
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].tap(tap_params)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-@nodoc
-  Scenario: Testing tap method with optional argument 'interval' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap(tap_params, interval)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+#  Scenario: Testing tap method with optional argument 'interval' (Rename this to be more descriptive)
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].tap(tap_params, interval)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 
-@nodoc
-  Scenario: Testing tap method with optional argument 'button' (Rename this to be more descriptive)
-    Given I launch application [APPLICATION_NAME] as @app
-    When I execute "@app.[SOME_OBJECT].tap(tap_params, interval, button)"
-    Then [ADD_YOUR_VERIFICATION_HERE]
+#@nodoc
+#  Scenario: Testing tap method with optional argument 'button' (Rename this to be more descriptive)
+#    Given I launch application [APPLICATION_NAME] as @app
+#    When I execute "@app.[SOME_OBJECT].tap(tap_params, interval, button)"
+#    Then [ADD_YOUR_VERIFICATION_HERE]
 

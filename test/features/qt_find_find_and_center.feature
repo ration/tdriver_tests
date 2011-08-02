@@ -1,4 +1,3 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::QT::Find#find_and_center
   As a test scripter writer

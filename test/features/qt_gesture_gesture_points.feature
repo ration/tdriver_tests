@@ -60,17 +60,17 @@ Feature: MobyBehaviour::QT::Gesture#gesture_points
     """
   	Then the scenepos of Node is 180,280
 
-  @nodoc
-  Scenario: Perform gesture_points with :use_tap_screen as true - how to verify?
-    Given this scenario is pending
+#  @nodoc
+#  Scenario: Perform gesture_points with :use_tap_screen as true - how to verify?
+#    Given this scenario is pending
 
-  @nodoc
-  Scenario: Perform gesture with :isDrag as true - how to verify?
-    Given this scenario is pending
+#  @nodoc
+#  Scenario: Perform gesture with :isDrag as true - how to verify?
+#    Given this scenario is pending
 
-  @nodoc
-  Scenario: Perform gesture with :isDrag as false - how to verify?
-    Given this scenario is pending
+#  @nodoc
+#  Scenario: Perform gesture with :isDrag as false - how to verify?
+#    Given this scenario is pending
 
   @nodoc
   Scenario: (bugfix) Perform gesture with :press as false
