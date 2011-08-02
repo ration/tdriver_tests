@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+
 
 Feature: MobyBehaviour::QT::Behaviour#plugin_command
   As a test scripter writer

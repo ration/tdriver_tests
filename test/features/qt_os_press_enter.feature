@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+
 
 Feature: MobyBehaviour::QT::Os#press_enter
   As a test scripter writer
