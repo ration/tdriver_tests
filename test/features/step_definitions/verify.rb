@@ -34,62 +34,119 @@ Before do
 
 end
 
+def call_verify_method( _method, _timeout )
 
-Given ("I call verify_false with no timeout value") do
+    case _method
+
+      when /^verify$/
+        verify(_timeout){ raise MobyBase::VerificationError }
+        
+      when /^verify_not$/
+        verify_not(_timeout){}
+
+      when /^verify_false$/
+        verify_false(_timeout){ true }
+
+      when /^verify_true$/
+        verify_true(_timeout){ false }
+
+      when 'verify_equal'
+        verify_equal(0, _timeout){ 1 }
+
+      when /^verify_less$/
+        verify_less(0, _timeout){ 1 }
+
+      when /^verify_greater$/
+        verify_greater(1, _timeout){ 0 }
+
+      when /^verify_signal$/
+        button1  = @sut.application.Button(:objectName => "zeroButton")
+        # retrieving object takes some time...
+        @verify_start_time = Time.now
+        button1.verify_signal( _timeout, 'clicked()' ){}
+
+      when /^verify_regexp$/
+        verify_regexp( /^true$/, _timeout ){ "false" }
+
+    else
+
+      raise ArgumentError, 'unknown verify method ' << _method.to_s.downcase
+
+    end
+
+end
+
+Given /^I call ([^\"]*) with timeout (\d+)$/ do | _method, _timeout |
     
+    @verify_timeout = 0
+
     begin      
-      verify_start_time=Time.now
-      verify_false(){true==true}
-    rescue Exception => e
-     
-    end
-    @verify_timeout=Time.now - verify_start_time
-    tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
+
+      @verify_start_time = Time.now
+
+      call_verify_method( _method, _timeout.to_i )
+
+    rescue MobyBase::VerificationError
+
+      # do nothing
+
+    end 
+       
+    @verify_timeout = Time.now - @verify_start_time
+
+    tdriver_report_log( "Verify timeout in #{ @verify_timeout }s")
+    
 end
 
-Given ("I call verify_false with timeout $timeout") do |timeout|
-    begin
-      verify_start_time=Time.now
-      verify_false(timeout.to_i){true==true}
-    rescue Exception => e
-      
-    end
-    @verify_timeout=Time.now - verify_start_time
-    tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
-end
+Given /^I call ([^\"]*) with no timeout value$/ do | _method |
+    
+    @verify_timeout = 0
 
-Given ("I call verify_true with no timeout value") do
+    begin      
 
-    begin
-      verify_start_time=Time.now
-      verify_true(){true==false}
-    rescue Exception => e
+      @verify_start_time = Time.now
+
+      call_verify_method( _method, nil )
+
+    rescue MobyBase::VerificationError
+
+      # do nothing
 
     end
-    @verify_timeout=Time.now - verify_start_time
-    tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
+
+    @verify_timeout = Time.now - @verify_start_time
+
+    tdriver_report_log( "Verify timeout in #{ @verify_timeout }s")
+    
 end
 
-Given ("I call verify_true with timeout $timeout") do |timeout|
-    begin
-      verify_start_time=Time.now
-      verify_true(timeout.to_i){true==false}
-    rescue Exception => e
 
-    end
-    @verify_timeout=Time.now - verify_start_time
-    tdriver_report_log( "Verify timeout in #{@verify_timeout}s")
+Then ("the verify should timeout in $timeout") do |timeout|
+
+  verify_true(0){ @verify_timeout.to_f >= timeout.to_f }
+  #verify_true(0){@verify_timeout.to_f < timeout.to_f+3} # why +3 seconds?
 end
 
-Then ("the verify should timeout in $timeout") do |timeout|   
-   verify_true(){@verify_timeout.to_f > timeout.to_f}
-   verify_true(){@verify_timeout.to_f < timeout.to_f+3}
+And /^I set default sychronization timeout to (\d+)$/ do | _timeout |
+
+  @original_default_timeout = TDriver::Parameter[:synchronization_timeout]
+  
+  TDriver::Parameter[ :synchronization_timeout ] = _timeout.to_i
+
+end
+
+Then /restore to default sychronization timeout value/ do
+
+  TDriver::Parameter[ :synchronization_timeout ] = @original_default_timeout
+
 end
 
 
 Then ("the verify should timeout with default synchronization value") do
-   verify_true(){@verify_timeout.to_f > TDriver::Parameter[:synchronization_timeout].to_i}
-   verify_true(){@verify_timeout.to_f < TDriver::Parameter[:synchronization_timeout].to_i+3}
+
+  verify_true(){@verify_timeout.to_f >= TDriver::Parameter[:synchronization_timeout].to_i}
+  #verify_true(){@verify_timeout.to_f < TDriver::Parameter[:synchronization_timeout].to_i+3} # why +3 seconds?
+
 end
 
 Then ("I call verify_signal to catch signal $signal with no message") do | signal |
@@ -108,7 +165,7 @@ Then ("I call verify_signal to catch signal $signal with message $msg" )do | sig
 
 end
 
-And("I $status custom on error verify block" ) do | status |
+And("I $status on_error_verify block" ) do | status |
 
   case status
 
@@ -145,31 +202,33 @@ And("I call $method that $status" ) do | method, status |
 
             case method
 
-# VERIFY
               when /^verify$/
                 verify( 0, "" ){ raise ArgumentError.new("error") }
 
-# VERIFY_NOT
               when /verify_not/
                 verify_not( 0, "" ){ nil }
 
-# VERIFY_TRUE
               when /verify_true/
                 verify_true( 0, "" ){ false }
 
-# VERIFY_FALSE
               when /verify_false/
                 verify_false( 0, "" ){ true }
 
-# VERIFY_EQUAL
               when /verify_equal/
                 verify_equal( "0", 0 ){ 1 }
 
-# VERIFY_SIGNAL
+              when /verify_less/
+                verify_less( 0, 0 ){ 1 }
+
+              when /verify_greater/
+                verify_greater( 1, 0 ){ 0 }
+
+              when /verify_regexp/
+                verify_regexp( /a/, 0 ){ 'b' }
+
               when /verify_signal/
                 button1  = @sut.application.Button(:objectName => "zeroButton")
-                button1.verify_signal(0, 'unknownSignal()' )
-
+                button1.verify_signal(0, 'unknownSignal()' ){}
 
             else
 
@@ -188,43 +247,41 @@ And("I call $method that $status" ) do | method, status |
 
           end
 
-# PASSES
         when /passes/
 
           begin
   
             case method
 
-# VERIFY
               when /^verify$/
                 verify( 0, "" ){ nil }
 
-# VERIFY_NOT
               when /verify_not/
                 verify_not( 0, "" ){ raise ArgumentError.new("error") }
 
-# VERIFY_TRUE
               when /verify_true/
                 verify_true( 0, "" ){ true } 
 
-# VERIFY_FALSE
               when /verify_false/
                 verify_false( 0, "" ){ false }
 
-# VERIFY_EQUAL
               when /verify_equal/
                 verify_equal( "0", 0 ){ "0" }
 
-# VERIFY_SIGNAL
+              when /verify_less/
+                verify_less( 1, 0 ){ 0 }
+
+              when /verify_greater/
+                verify_greater( 0, 0 ){ 1 }
+
+              when /verify_regexp/
+                verify_regexp( /a/, 0 ){ 'a' }
+
               when /verify_signal/
-
-		@button  = @sut.application.Button(:objectName => "zeroButton")
-
-		@button.verify_signal(10, 'clicked()' ){
-
-			@button.tap
-
-		}
+                @button  = @sut.application.Button(:objectName => "zeroButton")
+                @button.verify_signal(10, 'clicked()' ){
+                  @button.tap
+                }
 
             else
 
