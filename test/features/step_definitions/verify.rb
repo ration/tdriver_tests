@@ -173,8 +173,6 @@ When /I call ([^\"]*) with with custom error message/ do | _method |
 
 end
 
-p method(:Then).methods.sort
-
 Then ("given message is in exception details") do
 
   verify_regexp(/#{ @__custom_message.inspect }/, 0, "exception did not contain custom error message: #{ @__custom_message.inspect }"){ @__exception_message }
