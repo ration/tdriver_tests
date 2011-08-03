@@ -34,39 +34,39 @@ Before do
 
 end
 
-def call_verify_method( _method, _timeout )
+def call_verify_method( _method, _timeout, message = nil )
 
     case _method
 
       when /^verify$/
-        verify(_timeout){ raise MobyBase::VerificationError }
+        verify(_timeout, message){ raise MobyBase::VerificationError }
         
       when /^verify_not$/
-        verify_not(_timeout){}
+        verify_not(_timeout, message){}
 
       when /^verify_false$/
-        verify_false(_timeout){ true }
+        verify_false(_timeout, message){ true }
 
       when /^verify_true$/
-        verify_true(_timeout){ false }
+        verify_true(_timeout, message){ false }
 
       when 'verify_equal'
-        verify_equal(0, _timeout){ 1 }
+        verify_equal(0, _timeout, message){ 1 }
 
       when /^verify_less$/
-        verify_less(0, _timeout){ 1 }
+        verify_less(0, _timeout, message){ 1 }
 
       when /^verify_greater$/
-        verify_greater(1, _timeout){ 0 }
+        verify_greater(1, _timeout, message){ 0 }
 
       when /^verify_signal$/
         button1  = @sut.application.Button(:objectName => "zeroButton")
         # retrieving object takes some time...
         @verify_start_time = Time.now
-        button1.verify_signal( _timeout, 'clicked()' ){}
+        button1.verify_signal( _timeout, 'clicked()', message ){}
 
       when /^verify_regexp$/
-        verify_regexp( /^true$/, _timeout ){ "false" }
+        verify_regexp( /^true$/, _timeout, message ){ "false" }
 
     else
 
@@ -153,16 +153,49 @@ Then ("I call verify_signal to catch signal $signal with no message") do | signa
 
     button1  = @sut.application.Button(:objectName => "zeroButton")
 
-    button1.verify_signal(10, signal ){ button1.tap }
+    button1.verify_signal( 10, signal ){ button1.tap }
 
 end
 
-Then ("I call verify_signal to catch signal $signal with message $msg" )do | signal, msg|
+When /I call ([^\"]*) with with custom error message/ do | _method |
 
-  button1  = @sut.application.Button(:objectName => "zeroButton")
+  begin
 
-  button1.verify_signal(10, signal, msg){ button1.tap }
+    @__custom_message = "__custom message with #{ _method.to_s }__"
+  
+    call_verify_method( _method, 0, @__custom_message )
 
+  rescue
+
+    @__exception_message = $!.message.to_s
+  
+  end
+
+end
+
+p method(:Then).methods.sort
+
+Then ("given message is in exception details") do
+
+  verify_regexp(/#{ @__custom_message.inspect }/, 0, "exception did not contain custom error message: #{ @__custom_message.inspect }"){ @__exception_message }
+
+end
+
+
+Then ("I call verify_signal to catch signal $signal with message \"$msg\"" )do | signal, msg |
+
+  button1  = @sut.application.Button( :objectName => "zeroButton" )
+
+  begin
+  
+    button1.verify_signal( 0, signal, msg ){}
+    
+  rescue
+    
+    verify_regexp(/#{ msg.inspect }/, 0, "exception did not contain the message: #{ msg.inspect }"){ $!.message.to_s }
+  
+  end
+  
 end
 
 And("I $status on_error_verify block" ) do | status |

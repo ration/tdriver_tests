@@ -5,6 +5,11 @@ Feature: TDriver verify
 	so that I can write reliable tests
 
 #verify
+Scenario: User defined error message is shown with verify
+  Given I have default sut
+  When I call verify with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify timeout as 0
   Given I have default sut
   When I call verify with timeout 0
@@ -47,6 +52,11 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_not
+Scenario: User defined error message is shown with verify_not
+  Given I have default sut
+  When I call verify_not with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_not timeout as 0
   Given I have default sut
   When I call verify_not with timeout 0
@@ -89,6 +99,11 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_true
+Scenario: User defined error message is shown with verify_true
+  Given I have default sut
+  When I call verify_true with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_true timeout as 0
   Given I have default sut
   When I call verify_true with timeout 0
@@ -131,6 +146,11 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_false
+Scenario: User defined error message is shown with verify_false
+  Given I have default sut
+  When I call verify_false with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_false timeout as 0
   Given I have default sut
   When I call verify_false with timeout 0
@@ -173,6 +193,11 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_equal
+Scenario: User defined error message is shown with verify_equal
+  Given I have default sut
+  When I call verify_equal with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_equal timeout as 0
   Given I have default sut
   When I call verify_equal with timeout 0
@@ -215,6 +240,11 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_less
+Scenario: User defined error message is shown with verify_less
+  Given I have default sut
+  When I call verify_less with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_less timeout as 0
   Given I have default sut
   When I call verify_less with timeout 0
@@ -256,9 +286,12 @@ Scenario: User defined code block is not executed when disabled and verify passe
   And I call verify_less that passes
   Then user defined code block won't be executed
 
-
-
 #verify_greater
+Scenario: User defined error message is shown with verify_greater
+  Given I have default sut
+  When I call verify_greater with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_greater timeout as 0
   Given I have default sut
   When I call verify_greater with timeout 0
@@ -301,6 +334,11 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_regexp
+Scenario: User defined error message is shown with verify_regexp
+  Given I have default sut
+  When I call verify_regexp with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_regexp timeout as 0
   Given I have default sut
   When I call verify_regexp with timeout 0
@@ -343,6 +381,12 @@ Scenario: User defined code block is not executed when disabled and verify passe
   Then user defined code block won't be executed
 
 #verify_signal
+Scenario: User defined error message is shown with verify_signal
+  Given I have default sut
+  When I launch application "calculator"
+  And I call verify_signal with with custom error message
+  Then given message is in exception details
+
 Scenario: Specify verify_signal timeout as 0
   Given I have default sut
   When I launch application "calculator"
@@ -355,15 +399,15 @@ Scenario: Specify verify_signal timeout as 3
   When I call verify_signal with timeout 3
   Then the verify should timeout in 3
 
-  Scenario: Specify verify_signal with message
+  Scenario: Specify verify_signal with no message
   Given I have default sut
   When I launch application "calculator"
   Then I call verify_signal to catch signal clicked() with no message   
 
-Scenario: Specify verify_signal with no message
-  Given I have default sut
-  When I launch application "calculator"
-  Then I call verify_signal to catch signal clicked() with message "The zero button should be clicked"    
+#Scenario: Specify verify_signal with message
+#  Given I have default sut
+#  When I launch application "calculator"
+#  Then I call verify_signal to catch signal clicked() with message "The zero button should be clicked"    
 
 Scenario: User defined code block is executed (verify_signal)
   Given I have default sut
