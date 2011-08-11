@@ -27,12 +27,6 @@ Feature: MobyBehaviour::TestObject#child
     Given I launch application "calculator" as "@app"
     When I execute "$testobj = @app.child(:text => 'MC')"
     Then another test object with the same rule should be equal
-
-  @nodoc
-  Scenario: Retrieving test object with empty attribute value (bugfix)
-    Given I launch application "testapp" as "@app"
-    When I execute "@app.Node(:emptyProp => '', :__timeout => 0)"
-    Then exception is not thrown
     
   Scenario: Retrieve test object type of Button by using index attribute
     Given I launch application "calculator" as "@app"
@@ -120,4 +114,17 @@ Feature: MobyBehaviour::TestObject#child
     Given I launch application "calculator" as "@app"
     When I execute "@app.Button(:__index=>0, :__timeout => 0).NonExistingChildTestObject(:__timeout => 0)"
     Then exception matching "The test object" is thrown
+
+  @nodoc
+  Scenario: Retrieving test object with empty attribute value (bugfix)
+    Given I launch application "testapp" as "@app"
+    When I execute "@app.Node(:emptyProp => '', :__timeout => 0)"
+    Then exception is not thrown
+
+  @nodoc
+  Scenario: Using :__xy_sorting or :__index does not cause exception if xml_data is called immediatelly (bugfix)
+    Given I launch application "calculator" as "@app"
+    Then I reset dynamic attribute whitelist
+    When I execute "@app.Button(:__index=>0).xml_data"
+    Then exception is not thrown
 
