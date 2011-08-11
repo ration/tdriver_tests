@@ -122,9 +122,9 @@ Feature: MobyBehaviour::TestObject#child
     Then exception is not thrown
 
   @nodoc
-  Scenario: Using :__xy_sorting or :__index does not cause exception if xml_data is called immediatelly (bugfix)
-    Given I launch application "calculator" as "@app"
+  Scenario: Using :__xy_sorting or :__index does not cause exception if xml_data is called immediatelly (bugfix)   
     Then I reset dynamic attribute whitelist
+    Given I launch application "calculator" as "@app"
     When I execute "@app.Button(:__index=>0).xml_data"
     Then exception is not thrown
 
