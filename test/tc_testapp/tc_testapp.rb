@@ -100,13 +100,15 @@ class TC_Testapp < Test::Unit::TestCase
   def test_move_item
     @tapp.Node( :name => 'Node1' ).set_attribute("visible", false)
     y = @tapp.Triangle( :name => 'Triangle1' ).attribute("y").to_i
-    @tapp.Triangle( :name => 'Triangle1' ).tap_down
+    
+
+#    @tapp.Triangle( :name => 'Triangle1' ).tap_down
     if (y < 100)
-      @tapp.Triangle( :name => 'Triangle1' ).move(:Down,100)
+      @tapp.Triangle( :name => 'Triangle1' ).drag(:Down,100)
     else
-      @tapp.Triangle( :name => 'Triangle1' ).move(:Up,100)
+      @tapp.Triangle( :name => 'Triangle1' ).drag(:Up,100)
     end
-    @tapp.Triangle( :name => 'Triangle1' ).tap_up
+#    @tapp.Triangle( :name => 'Triangle1' ).tap_up
 
     verify_equal(100, TIMEOUT, "Triangle did not move 100") {
       (@tapp.Triangle( :name => 'Triangle1' ).attribute("y").to_i - y).abs
