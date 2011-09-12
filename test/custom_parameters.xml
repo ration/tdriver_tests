@@ -5,6 +5,12 @@
     <parameter name="logging_level" value="2" />
     <parameter name="behaviour_logging" value="true" />
     <parameter name="realtime_status_page_update" value="true" />
-    <parameter name="report_results_per_page" value="30" />
+    <parameter name="report_results_per_page" value="100" />
     <parameter name="report_generate_duration_graph" value="true" />
+    <parameter name="report_file_monitor" value="true" />
+    <parameter name="report_file_monitored_sut_ids" value="sut_qt" />
+    <parameter name="report_file_locations" value="C:\logs,/logs/" />
+    <parameter name="report_file_names" value="*.log" />
+    <parameter name="report_clean_files_from_sut_after_capture" value="false" />
+    <parameter name="report_fail_test_if_files_found" value="false" />
 </parameters>
