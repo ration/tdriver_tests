@@ -7,30 +7,30 @@ Feature: MobyBehaviour::QT::Synchronization#ensure_event
 
   Scenario: Testing ensure_event with default parameters
     Given I launch application "calculator" as "@app"
-    When I execute "@app.Button(:name => 'oneButton').ensure_event() { @app.Button( :name => 'oneButton' ).tap }" 
+    When I execute "@app.Button(:name => 'oneButton').ensure_event{ @app.Button( :name => 'oneButton' ).tap }" 
     Then exception is not thrown
 
   Scenario: Testing ensure_event with long tap on from parameters
     Given I have default sut
     Given I launch application "calculator" as "@app"
-    And I test code "TDriver::Parameter[ @sut.id ][ :ensure_event ] = 'true'"
+    And I test code "@sut.parameter[ :ensure_event ] = true"
     When I execute "@app.Button(:name => 'oneButton').long_tap"
     Then exception is not thrown
-    Then I test code "TDriver::Parameter[ @sut.id ][ :ensure_event ] = 'false'"
+    Then I test code "@sut.parameter[ :ensure_event ] = false"
 
 
   Scenario: Testing ensure_event event not sent
     Given I launch application "calculator" as "@app"
-    When I execute "@app.Button(:name => 'oneButton').ensure_event(:retry_timeout => 3, :retry_interval => 0.1) { @app.Button( :name => 'twoButton' ).tap }" 
+    When I execute "@app.Button(:name => 'oneButton').ensure_event(:retry_timeout => 3, :retry_interval => 0.1){ @app.Button( :name => 'twoButton' ).tap }" 
     Then exception matching "No event received" is thrown
 
    Scenario: Testing tapping with ensure parameter
     Given I launch application "calculator" as "@app"
-    When I execute "@app.Button(:name => 'oneButton').tap(:ensure_event => 'true')"
+    When I execute "@app.Button(:name => 'oneButton').tap(:ensure_event => true)"
     Then exception is not thrown
 
    Scenario: Testing tapping with ensure parameter set false
     Given I launch application "calculator" as "@app"
-    When I execute "@app.Button(:name => 'oneButton').tap(:ensure_event => 'false')"
+    When I execute "@app.Button(:name => 'oneButton').tap(:ensure_event => false)"
     Then exception is not thrown
   

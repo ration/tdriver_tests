@@ -19,15 +19,15 @@
 
 Then /I set create xml state with (\d+) objects and store it in "([^\"]*)"$/ do | object_count, result_object |
   
-  value = "<object id=\"0\" name=\"root\" type=\"objects\"><objects>"
+  value = "<obj id=\"0\" name=\"root\" type=\"objects\">"
   
   (1..object_count.to_i).each do | iter |
   
-    value << "<object name=\"object_#{ iter }\" type=\"obj\" id=\"#{ iter }\"/>"
+    value << "<obj name=\"object_#{ iter }\" type=\"obj\" id=\"#{ iter }\"/>"
   
   end
   
-  value << "</objects></object>"
+  value << "</obj>"
 
   eval("#{ result_object }='#{ value }'")
 
