@@ -87,6 +87,13 @@ module MobyBase
       #         Key - String - Type of attribute used for blocking (see above for example)
       #         Value - String  - Blocked value
       @_invalid_targets = {}
+	  
+	  
+	  # Conditional triggers. These perform any user specified actions or code when the trigger condition is met
+	  @_triggers = {}
+	  
+	  
+	  
             
       puts "Initializing TDMonkey for SUT: " << @_sut_id.to_s
       
@@ -116,7 +123,7 @@ module MobyBase
     # Simple monkey: apply random control action to the SUT, eg. touch a random spot
     def gorilla   
     
-      #app = @sut.application
+      check_triggers
       
       random_control = controls.keys.random_element
       random_variant = rand( controls[ random_control ].size )
@@ -148,6 +155,8 @@ module MobyBase
       
       
       @sut.refresh # refresh before checking the sut for targets
+      
+      @sut.refresh if check_triggers # refresh again if a trigger aws activated
       
       target = random_target
       action = random_action(target.type)
@@ -295,10 +304,25 @@ module MobyBase
         end
       end
       
-       # load blocked objects   
+      # load blocked objects   
       data_object.invalid_targets_to_replace.each do | target_type,  target_args |      
         @_invalid_targets[target_type] = target_args
       end       
+      
+      # load triggers
+      data_object.triggers_to_add.each do | trigger_type,  trigger_args |      
+        if @_triggers.key?( trigger_type )
+          
+          @_triggers[trigger_type] = trigger_args.merge @_triggers[trigger_type]       
+         
+        else
+          @_triggers[trigger_type] = trigger_args
+        end
+      end
+      
+      data_object.triggers_to_replace.each do | trigger_type,  trigger_args |      
+        @_triggers[trigger_type] = trigger_args
+      end
      
     end
         
@@ -312,7 +336,7 @@ module MobyBase
     # chooses a random accessible test object from those available on the sut
     def random_target
 
-      targets_xpath = '*//object[@type="' << actions.keys.join("\" or @type=\"") << '"]'     
+      targets_xpath = '*//obj[@type="' << actions.keys.join("\" or @type=\"") << '"]'     
       target_node_set = @sut.xml_data.xpath(targets_xpath)
                 
       # retry once
@@ -337,14 +361,14 @@ module MobyBase
         begin
                       
           begin
-            if target_type = "application"
+            if target_type == "application"
               candidate = @sut.application({ :id => target_id, :name => target_node.attribute("name"), :__timeout => 0 })
             else
               candidate = @sut.application.child({ :type => target_type, :id => target_id, :__timeout => 0 })
             end
           rescue MultipleTestObjectsIdentifiedError
             write_log( "TDMonkey failed to get an object due to multiple matching objects ( Type : #{target_type}) Id: #{target_id} )" )            
-            if target_type = "application"
+            if target_type == "application"
               candidate = @sut.application({ :id => target_id, :name => target_node.attribute("name"), :__index => 0 })
             else
               candidate = @sut.application.child({ :type => target_type, :id => target_id, :__timeout => 0, :__index => 0 })
@@ -438,6 +462,70 @@ module MobyBase
       return true
       
     end
+	
+    def check_triggers    
+      
+      return false if @_triggers.empty? 
+      
+      @_triggers.each do | trigger_object_type, trigger_config |      
+        
+        # first priority: custom xpath
+        trigger_xpath = trigger_config[ :xpath ]
+        if trigger_xpath.nil? and !trigger_config[ :attributes ].nil?        
+          
+          raise TDMonkeyError.new( "The #{ trigger_object_type } has the :attributes config but no attributes were defined" ) if !trigger_config[ :attributes ].kind_of?( Array ) or trigger_config[ :attributes ].empty?
+          #if no xpath is defined, create on based on attributes
+          trigger_xpath = '*//obj[@type="' << trigger_object_type << '" and attr[('
+          attribute_xpath = ''
+          trigger_config[ :attributes ].each do | attribute_set |
+            
+            attribute_xpath << ') or (' unless attribute_xpath.empty?
+            
+            set_xpath = ''
+            
+            attribute_set.each do | attribute_name, attribute_value |
+            
+              set_xpath << ') and (' unless set_xpath.empty?
+
+              set_xpath << '@name="' << attribute_name << '" and text()="' << attribute_value << '"'
+                         
+            end # attribute_name, attribute_value
+            
+            attribute_xpath << '(' << set_xpath << ')'
+            
+          end # attribute_set
+          
+          trigger_xpath << attribute_xpath << ')]]'
+        
+        end # trigger_xpath.nil?
+        
+        raise TDMonkeyError.new( "No :xpath or :attributes defined for trigger type " + trigger_object_type.to_s ) if trigger_xpath.nil?
+
+        # check if this trigger applies        
+        if !@sut.xml_data.xpath( trigger_xpath ).empty?
+        
+          # execute trigger
+          puts( "Trigger matched for object type #{ trigger_object_type }, executing macro: " << trigger_config[ :macro ].to_s ) if @_verbose
+          begin
+            
+            eval(trigger_config[ :macro ].to_s)
+            
+          rescue Exception => e
+            raise TDMonkeyError.new("Error executing macro: " << trigger_config[ :macro ].to_s << ".\nDetails: " << e.inspect << "\n" << e.backtrace.join( "\n" ))
+          end
+          
+          # report trigger match, stop checking for further triggers
+          return true
+          
+        end 
+      
+      end # each trigger_object_type, trigger_config
+
+      # no matching trigger
+      return false      
+
+    end	
+	
     
     # width of the sut display
     def app_width
@@ -570,7 +658,9 @@ module MobyBase
       @_add_controls = {}
       @_replace_controls = {}
       @_add_invalid_targets = {}
-      @_replace_invalid_targets = {}  
+      @_replace_invalid_targets = {}
+      @_add_triggers = {}
+      @_replace_triggers = {}
       
     end         
   
@@ -608,6 +698,14 @@ module MobyBase
     
      def invalid_targets_to_replace
       @_replace_invalid_targets
+    end
+  
+    def triggers_to_add
+      @_add_triggers
+    end
+  
+    def triggers_to_replace
+      @_replace_triggers
     end
   
     # Loads control variable content from a XML file. Note that a single TDMonkeyData class can only contain data
