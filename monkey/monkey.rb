@@ -87,14 +87,11 @@ module MobyBase
       #         Key - String - Type of attribute used for blocking (see above for example)
       #         Value - String  - Blocked value
       @_invalid_targets = {}
-	  
-	  
-	  # Conditional triggers. These perform any user specified actions or code when the trigger condition is met
-	  @_triggers = {}
-	  
-	  
-	  
-            
+      
+      # Conditional triggers. These perform any user specified actions or code when the trigger condition is met
+      @_triggers = {}
+      
+      
       puts "Initializing TDMonkey for SUT: " << @_sut_id.to_s
       
       # These are used if execution data is to be collected in TDMonkey
@@ -509,6 +506,9 @@ module MobyBase
           begin
             
             eval(trigger_config[ :macro ].to_s)
+            write_log( "Executing trigger: " << trigger_config[ :macro ].to_s )
+            write_script( trigger_config[ :macro ].to_s )
+            
             
           rescue Exception => e
             raise TDMonkeyError.new("Error executing macro: " << trigger_config[ :macro ].to_s << ".\nDetails: " << e.inspect << "\n" << e.backtrace.join( "\n" ))
