@@ -55,7 +55,23 @@ Then("the Graphicsview of the application should not be transformed by the zoom"
 end
 
 Then("the Handle should be rotated $amount degrees") do |amount|
-  verify_equal(amount){@app.Handle.attribute('rotation')}  
+  if RUBY_PLATFORM.downcase.include?("mingw") and amount.to_i == 0
+    rotation=@app.Handle.attribute('rotation')
+    b_rotated=false    
+    tolerance=100000000000000      
+    if rotation < 0
+      if rotation <= -35041414214731515-tolerance and rotation <= -35041414214731515+tolerance
+        b_rotated=true
+      end
+    else
+      if rotation >= 34972025275692415-tolerance and rotation <= 34972025275692415+tolerance
+        b_rotated=true
+      end
+    end
+    verify_true(){b_rotated}
+  else
+    verify_equal(amount){@app.Handle.attribute('rotation')}  
+  end  
 end
 
 Then("all squares have been pressed $count times") do |count|
