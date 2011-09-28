@@ -59,7 +59,7 @@ Then("the Handle should be rotated $amount degrees") do |amount|
     rotation=@app.Handle.attribute('rotation')
     b_rotated=false    
     tolerance=100000000000000      
-    if rotation < 0
+    if rotation.to_i < 0
       if rotation <= -35041414214731515-tolerance and rotation <= -35041414214731515+tolerance
         b_rotated=true
       end
