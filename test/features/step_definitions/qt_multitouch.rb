@@ -56,18 +56,26 @@ end
 
 Then("the Handle should be rotated $amount degrees") do |amount|
   if RUBY_PLATFORM.downcase.include?("mingw") and amount.to_i == 0
-    rotation=@app.Handle.attribute('rotation').to_i
+    rotation=@app.Handle.attribute('rotation').to_f
     b_rotated=false    
     tolerance=100000000000000      
+    tdriver_report_log("Rotation #{rotation.to_f}")
     if rotation < 0
       if rotation >= -35041414214731515-tolerance and rotation <= -35041414214731515+tolerance
-        b_rotated=true
+        b_rotated=true        
+      end
+      if @app.Handle.attribute('rotation') == "3.50414142147315e-15"
+        b_rotated=true                  
       end
     else
       if rotation >= 34972025275692415-tolerance and rotation <= 34972025275692415+tolerance
         b_rotated=true
       end
-    end    
+      if @app.Handle.attribute('rotation') == "-3.49720252756924e-15"
+        b_rotated=true                  
+      end
+    end
+
     verify_true(){b_rotated}
   else
     verify_equal(amount){@app.Handle.attribute('rotation')}  
