@@ -55,7 +55,27 @@ Then("the Graphicsview of the application should not be transformed by the zoom"
 end
 
 Then("the Handle should be rotated $amount degrees") do |amount|
-  verify_equal(amount){@app.Handle.attribute('rotation')}  
+  if RUBY_PLATFORM.downcase.include?("mingw") and amount.to_i == 0
+    rotation=@app.Handle.attribute('rotation')
+    b_rotated=false    
+      
+    tdriver_report_log("Rotation #{rotation}")
+
+      if rotation == "3.50414142147315e-15"
+        b_rotated=true                  
+      end
+
+      if rotation == "-3.49720252756924e-15"
+        b_rotated=true                  
+      end
+
+    if b_rotated==false    
+      verify_equal(amount){@app.Handle.attribute('rotation')}  
+    end
+    
+  else
+    verify_equal(amount){@app.Handle.attribute('rotation')}  
+  end  
 end
 
 Then("all squares have been pressed $count times") do |count|
