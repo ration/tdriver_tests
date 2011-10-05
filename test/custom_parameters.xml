@@ -5,6 +5,7 @@
     <parameter name="logging_level" value="2" />
     <parameter name="behaviour_logging" value="true" />
     <parameter name="realtime_status_page_update" value="true" />
-    <parameter name="report_results_per_page" value="30" />
+    <parameter name="report_results_per_page" value="100" />
     <parameter name="report_generate_duration_graph" value="true" />
+
 </parameters>

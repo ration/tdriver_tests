@@ -17,12 +17,10 @@
 ##
 ############################################################################
 
-
 # Common step definitions to be used in feature testing of TDriver
 # Author: Petri Kiiskinen
 # Date: 05.10.2010
 # Purpose: Common steps to be used in feature testing
-
 
 require 'tdriver'
 include TDriverVerify
@@ -583,4 +581,10 @@ end
 
 Given /^I sleep "([^"]*)" second$/ do |arg1|
   sleep arg1.to_i
+end
+
+Then "I reset dynamic attribute whitelist" do 
+
+  TDriver::AttributeFilter.reset
+
 end
