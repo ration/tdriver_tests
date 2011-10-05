@@ -90,6 +90,9 @@ module MobyBase
       
       # Conditional triggers. These perform any user specified actions or code when the trigger condition is met
       @_triggers = {}
+
+      # Filter for object parents
+      @_limited_objects = {}
       
       
       puts "Initializing TDMonkey for SUT: " << @_sut_id.to_s
@@ -332,10 +335,40 @@ module MobyBase
     
     # chooses a random accessible test object from those available on the sut
     def random_target
+      
+      non_limited = actions.keys - @_limited_objects.keys
 
-      targets_xpath = '*//obj[@type="' << actions.keys.join("\" or @type=\"") << '"]'     
+      targets_xpath = '*//obj[@type="' << non_limited.join("\" or @type=\"")  << '"'
+      limited_targets = ""
+      
+      @_limited_objects.each do | limited_object, parent_types |
+            
+        limited_targets << ' or (@type="' + limited_object + '" and not('        
+        limiting_parents = ""
+        
+        parent_types.each do | parent_type, parent_attributes |
+          
+          parent_attributes.each do | parent_attribute, parent_values |
+          
+            parent_values.each do | parent_value |
+              limiting_parents << ' or ' unless limiting_parents.empty?
+              limiting_parents << 'ancestor::obj[@type="' + parent_type + '" and attr[@name="' + parent_attribute + '" and text()="' + parent_value + '"]]'
+            end
+          
+          end
+        
+        end
+        
+        limited_targets << limiting_parents
+        limited_targets << '))'
+      
+      end
+                 
+      targets_xpath << limited_targets
+      targets_xpath << ']'
+  
       target_node_set = @sut.xml_data.xpath(targets_xpath)
-                
+      
       # retry once
       if target_node_set.empty?
         @sut.refresh
