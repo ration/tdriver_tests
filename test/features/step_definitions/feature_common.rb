@@ -178,14 +178,17 @@ end
 
 Given "the $target_type is at absolute location $x, $y" do | object_type, x, y |
 
-  temp_object = @__current_app.child( :type => object_type )
-  temp_object.set_attribute('pos', "#{x},#{y}", 'QPoint')  
+  #temp_object = @__current_app.child( :type => object_type )
+  #temp_object.set_attribute('pos', "#{x},#{y}", 'QPoint')  
+
+  @__current_app.child(:type => object_type)['pos', 'QPoint'] = "#{x},#{y}"  
   
 end
 
 Given "I $method $object_type named \"$object_name\"" do | method, object_type, object_name |
 
   eval "@app.#{object_type}( :name => '#{object_name}' ).#{method}"
+  
 end
 
 Given "there is only $article $target_type on the testapp screen" do | article, target_type |
