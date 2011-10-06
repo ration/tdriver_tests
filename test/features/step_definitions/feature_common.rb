@@ -44,30 +44,29 @@ Before do
   @__sut = TDriver.sut(sut.to_sym) if sut != nil
   @__os_name = MobyUtil::EnvironmentHelper.platform.to_s
 
-#  @__sut.log_mem({:interval => 2, :filePath => '/tmp/'}) if RUBY_PLATFORM.downcase.include?("linux")
-#  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mswin")
-#  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mingw")
+  @__sut.log_mem({:interval => 2, :filePath => '/tmp/'}) if RUBY_PLATFORM.downcase.include?("linux")
+  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mswin")
+  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mingw")
 
 
 end
 
 After do | scenario |
+  mem_state=@__sut.state_object(@__sut.stop_mem_log)
+  count = mem_state.logData.attribute('entryCount').to_i
 
-#  $__sut_mem_data <<  [scenario.to_sexp[3],@__sut.state_object(@__sut.stop_mem_log)]
-#
-#  $__sut_mem_data.each do |data|
-#    log_data=data[1]   #@__sut.state_object(data[1])
-#    count = log_data.logData.attribute('entryCount').to_i
-#    i = 0
-#    if count > 0
-#      while i < count do
-#        mem=log_data.logEntry(:id => i.to_s).attribute('heapSize').to_i
-#        tdriver_log_data({"Scenario" => "#{data[0]}","Qttas mem usage"=> mem})
-#        i += 1
-#      end
-#    end
-#
-#  end
+  i = 0
+  if count > 0
+    while i < count do
+      mem=mem_state.logEntry(:id => i.to_s).attribute('heapSize').to_i        
+      $__sut_mem_data << [scenario.to_sexp[3],mem]
+      i += 1
+    end
+  end
+      
+  $__sut_mem_data.each do |data|        
+    tdriver_log_data({"Scenario" => "#{data[0]}","Qttas mem usage"=> data[1]})   
+  end
   
 
   @__sut.unfreeze if @__sut.frozen
@@ -128,6 +127,22 @@ end
 
 Given /^I create sut object "([^\"]*)"$/ do | arg1 |
   @sut = TDriver.sut( :Id => arg1.to_s)
+end
+
+Given /^I launch application "([^\"]*)" with listening events "([^\"]*)"$/ do | app_name, events |
+  app_ref = "@app"
+  raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
+  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :arguments => "-testability,-style,motif", :events_to_listen => events, :sleep_after_launch => 5)
+  eval(app_ref + " = @__apps[app_ref]")
+  @__current_app = @__apps[app_ref]
+end
+
+Given /^I launch application "([^\"]*)" with listening signals "([^\"]*)"$/ do | app_name, signals |
+  app_ref = "@app"
+  raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
+  @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :signals_to_listen => signals, :sleep_after_launch => 10)
+  eval(app_ref + " = @__apps[app_ref]")
+  @__current_app = @__apps[app_ref]
 end
 
 Given /^I launch application "([^\"]*)"$/ do | app_name |

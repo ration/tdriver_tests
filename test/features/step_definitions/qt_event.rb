@@ -42,6 +42,23 @@ Then("Tap button $name") do |name|
 
 end
 
+Then("the application should have $event_list events") do | event_list |
+
+
+  events = event_list.split(',')
+
+  events.each{ | event |
+
+    verify_equal( true, 1, "Event #{ event } not found" ){ 
+
+      @app.get_events.include?( event )
+
+    }
+
+  }
+
+end
+
 Then("the results of $name should contain $event_list events") do | name, event_list |
 
   # this doesn't work if too fast computer...

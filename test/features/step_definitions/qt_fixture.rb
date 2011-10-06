@@ -67,3 +67,20 @@ Then("I verify that fps results are collected") do
   verify_true(0){@data_array.size != 0}
   @data_array.each{|entry| verify_true(0){ entry[:value].kind_of?(Integer); entry[:time_stamp].kind_of?(String)} }
 end
+
+Then("the application should have $signal_list signals") do | signal_list |
+
+
+  signals = signal_list.split(',')
+  
+  signals.each{ | signal |
+
+    verify_equal( true, 1, "Signal #{ signal } not found" ){ 
+
+      @app_signals.include?( signal )
+
+    }
+
+  }
+
+end
