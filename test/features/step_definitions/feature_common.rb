@@ -44,29 +44,29 @@ Before do
   @__sut = TDriver.sut(sut.to_sym) if sut != nil
   @__os_name = MobyUtil::EnvironmentHelper.platform.to_s
 
-  @__sut.log_mem({:interval => 2, :filePath => '/tmp/'}) if RUBY_PLATFORM.downcase.include?("linux")
-  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mswin")
-  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mingw")
+#  @__sut.log_mem({:interval => 2, :filePath => '/tmp/'}) if RUBY_PLATFORM.downcase.include?("linux")
+#  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mswin")
+#  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mingw")
 
 
 end
 
 After do | scenario |
-  mem_state=@__sut.state_object(@__sut.stop_mem_log)
-  count = mem_state.logData.attribute('entryCount').to_i
-
-  i = 0
-  if count > 0
-    while i < count do
-      mem=mem_state.logEntry(:id => i.to_s).attribute('heapSize').to_i        
-      $__sut_mem_data << [scenario.to_sexp[3],mem]
-      i += 1
-    end
-  end
-      
-  $__sut_mem_data.each do |data|        
-    tdriver_log_data({"Scenario" => "#{data[0]}","Qttas mem usage"=> data[1]})   
-  end
+#  mem_state=@__sut.state_object(@__sut.stop_mem_log)
+#  count = mem_state.logData.attribute('entryCount').to_i
+#
+#  i = 0
+#  if count > 0
+#    while i < count do
+#      mem=mem_state.logEntry(:id => i.to_s).attribute('heapSize').to_i        
+#      $__sut_mem_data << [scenario.to_sexp[3],mem]
+#      i += 1
+#    end
+#  end
+#      
+#  $__sut_mem_data.each do |data|        
+#    tdriver_log_data({"Scenario" => "#{data[0]}","Qttas mem usage"=> data[1]})   
+#  end
   
 
   @__sut.unfreeze if @__sut.frozen
