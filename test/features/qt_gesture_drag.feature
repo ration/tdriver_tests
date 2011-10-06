@@ -8,23 +8,23 @@ Feature: MobyBehaviour::QT::Gesture#drag
   Scenario: Testing drag method with required arguments direction and distance
     Given I launch application "testapp"
     Then object named "Scramble" is not visible on screen
-    When I execute "@app.ControlTab( :name => 'ControlTab').drag(:Up, 10)"
+    When I execute "@app.ControlTab(:name => 'ControlTab').drag(:Up, 10)"
     Then object named "Scramble" is visible on screen
 
   Scenario: Testing drag method with optional argument button (left)
     Given I launch application "testapp"
     Then object named "Scramble" is not visible on screen
-    When I execute "@app.ControlTab( :name => 'ControlTab').drag(:Up, 10, :Left)"
+    When I execute "@app.ControlTab(:name => 'ControlTab').drag(:Up, 10, :Left)"
     Then object named "Scramble" is visible on screen
 
   Scenario: Testing drag method with optional argument button (right)
     Given I launch application "testapp"
     Then object named "Scramble" is not visible on screen
-    When I execute "@app.ControlTab( :name => 'ControlTab').drag(:Up, 10, :Right)"
+    When I execute "@app.ControlTab(:name => 'ControlTab').drag(:Up, 10, :Right)"
     Then object named "Scramble" is not visible on screen
 
   Scenario: Testing drag method with optional argument button and 'optional_params'
     Given I launch application "testapp"
     Then object named "Scramble" is not visible on screen
-    When I execute "@app.ControlTab( :name => 'ControlTab').drag(:Up, 10, :Left, { :use_tap_screen => 'true' })"
+    When I execute "@app.ControlTab(:name => 'ControlTab').drag(:Up, 10, :Left, {:use_tap_screen => 'true'})"
     Then object named "Scramble" is visible on screen

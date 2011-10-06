@@ -11,18 +11,18 @@ Feature: MobyBehaviour::QT::Widget#tap_object
     Then object named "Node2" does not exist
     When I execute 
       """
-        pos = @app.Control( :name => 'AddNode').attribute('pos').split(',').map { |str| str.to_i + 5 }
+        pos = @app.Control( :name => 'AddNode').attribute('pos').split(',').map { | str | str.to_i + 5 }
         @app.Menu.tap_object( pos[0], pos[1] )
       """
     Then object named "Node2" is visible
 
   Scenario: Testing tap_object method with optional argument 'button' (Rename this to be more descriptive)
     Given I launch application "calculator"
-    When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1, :Left )"
+    When I execute "@app.Button(:text => '1').tap_object(5, 5, 1, :Left)"
     Then exception is not thrown
 
   Scenario: Testing tap_object method with optional argument 'tap_params' (Rename this to be more descriptive)
     Given I launch application "calculator"
-    When I execute "@app.Button(:text=>'1').tap_object(5, 5, 1, :Left, {:use_tap_screen => 'true'})"
+    When I execute "@app.Button(:text => '1').tap_object(5, 5, 1, :Left, {:use_tap_screen => 'true'})"
     Then exception is not thrown
 

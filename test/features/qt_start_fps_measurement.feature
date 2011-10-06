@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Fps#start_fps_measurement
 
   Scenario: Start measuring fps for a view 
     Given I launch application "testapp" as "@app"
-    Then I execute "@app.MainView( :name => 'MainView' ).start_fps_measurement"
+    Then I execute "@app.MainView(:name => 'MainView').start_fps_measurement"
     And I create some activity 
-	Then I stop measuring fps data
-	And I verify that fps results are collected
+    Then I stop measuring fps data
+    And I verify that fps results are collected

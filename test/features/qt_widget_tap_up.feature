@@ -9,7 +9,7 @@ Feature: MobyBehaviour::QT::Widget#tap_up
     Given I launch application "testapp"
     And I tap down on Triangle1
     Then color of Triangle1 is "darkMagenta"
-    When I execute "@app.Triangle( :name => 'Triangle1' ).tap_up"
+    When I execute "@app.Triangle(:name => 'Triangle1').tap_up"
     Then color of Triangle1 is "magenta"
 
 #@nodoc

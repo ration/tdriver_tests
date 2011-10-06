@@ -60,7 +60,7 @@ Then("I create some activity") do
 end
 
 Then("I stop measuring fps data") do 
-  @data_array = @app.MainView( :name => 'MainView' ).stop_fps_measurement
+  @data_array = @app.MainView(:name => 'MainView').stop_fps_measurement
 end
 
 Then("I verify that fps results are collected") do 
