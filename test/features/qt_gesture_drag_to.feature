@@ -20,6 +20,6 @@ Feature: MobyBehaviour::QT::Gesture#drag_to
   Scenario: The 'optional_params' argument can be used to set :use_tap_screen
     Given I launch application "testapp" as "@app"
 	And the MainWindow is at absolute location 0, 0"
-    When I execute "@app.Node.drag_to(250, 200, :Left, { :use_tap_screen => true })"
+    When I execute "@app.Node.drag_to(250, 200, :Left, {:use_tap_screen => true})"
     Then the new absolute location of the Node is 250, 200
 

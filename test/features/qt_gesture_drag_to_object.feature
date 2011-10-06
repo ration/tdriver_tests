@@ -23,6 +23,6 @@ Feature: MobyBehaviour::QT::Gesture#drag_to_object
     Given I launch application "testapp" as "@app"
 	And the Triangle is at location 100, 300
 	And the Triangle is assigned to the @_triangle object
-    When I execute "@app.Node.drag_to_object(@_triangle, :Left, { :use_tap_screen => true })"
+    When I execute "@app.Node.drag_to_object(@_triangle, :Left, {:use_tap_screen => true})"
 	Then Node is on top of Triangle
 

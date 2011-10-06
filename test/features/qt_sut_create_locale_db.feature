@@ -20,7 +20,7 @@ Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
   Scenario: Create a new localisation table with the translation file provided on a mysql db
     Given I have default sut
     And I set localisation parameters for mysql table creation  
-    When I execute "@sut.create_locale_db( Dir.pwd + '/test_data/' , '*.ts', nil, {'en' => 'en_GB'})"
+    When I execute "@sut.create_locale_db(File.join(Dir.pwd, 'test_data'), '*.ts', nil, {'en' => 'en_GB'})"
     Then I set the language to "en_GB"
     And I can get the lengthvariant "1" with the translation "Settings" for the symbol "qtn_sett_main_title"
     And I can get the lengthvariant "2" with the translation "Sett." for the symbol "qtn_sett_main_title"
@@ -40,7 +40,7 @@ Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
   Scenario: Create a new localisation table with the translation file provided on a sqlite db
     Given I have default sut
     And I set localisation parameters for sqlite table creation
-    When I execute "@sut.create_locale_db( Dir.pwd + '/test_data/' , '*.ts', nil, {'en' => 'en_GB'})"
+    When I execute "@sut.create_locale_db(File.join(Dir.pwd, 'test_data'), '*.ts', nil, {'en' => 'en_GB'})"
     Then I set the language to "en_GB"
     And I can get the lengthvariant "1" with the translation "Settings" for the symbol "qtn_sett_main_title"
     And I can get the lengthvariant "2" with the translation "Sett." for the symbol "qtn_sett_main_title"
@@ -60,7 +60,7 @@ Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
   Scenario: Create a new localisation table with the .loc files on a mysql db using column name map
     Given I have default sut
     And I set localisation parameters for mysql table creation  
-    When I execute "@sut.create_locale_db( Dir.pwd + '/test_data/' , '*.loc', nil, {'01' => 'en_GB'})"
+    When I execute "@sut.create_locale_db(File.join(Dir.pwd, 'test_data'), '*.loc', nil, {'01' => 'en_GB'})"
     And I can get the translation "#accindicatorsettings" for the symbol "STRING_r_short_caption"
     And I can drop the new table
     
@@ -68,7 +68,7 @@ Feature: MobyBehaviour::QT::LocalisationDB#create_locale_db
   Scenario: Create a new localisation table with the .loc files on a mysql db
     Given I have default sut
     And I set localisation parameters for mysql table creation  
-    When I execute "@sut.create_locale_db( Dir.pwd + '/test_data/' , '*.loc')"
+    When I execute "@sut.create_locale_db(File.join(Dir.pwd, 'test_data'), '*.loc')"
     And I set the language to "en"
     And I can get the translation "#accindicatorsettings" for the symbol "STRING_r_short_caption"
     And I restore the language to default

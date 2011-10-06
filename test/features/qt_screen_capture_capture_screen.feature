@@ -22,21 +22,21 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
 @qt_windows
   Scenario: Capture screen from the test application with argument 'file_name'
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','C:/temp/screen.png')"
+    When I execute "@app.capture_screen('PNG', 'C:/temp/screen.png')"
     And exception is not thrown
     Then I can delete file "C:/temp/screen.png"
 
-@qt_windows
+@nodoc @qt_windows
   Scenario: Capture screen from the test application with argument 'draw' set to true
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','C:/temp/screen.png',true)"
+    When I execute "@app.capture_screen('PNG', 'C:/temp/screen.png', true)"
     And exception is not thrown
     Then I can delete file "C:/temp/screen.png"
 
 @qt_windows
   Scenario: Capture screen from the test application with argument 'draw' set to false
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','C:/temp/screen.png',true)"
+    When I execute "@app.capture_screen('PNG', 'C:/temp/screen.png', false)"
     And exception is not thrown
     Then I can delete file "C:/temp/screen.png"
 
@@ -59,21 +59,21 @@ Feature: MobyBehaviour::QT::ScreenCapture#capture_screen
 @qt_linux @qt_meego
   Scenario: Capture screen from the test application with argument 'file_name'
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','/tmp/screen.png')"
+    When I execute "@app.capture_screen('PNG', '/tmp/screen.png')"
     And exception is not thrown
     Then I can delete file "/tmp/screen.png"
 
 @qt_linux @qt_meego
   Scenario: Capture screen from the test application with argument 'draw' set to true
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','/tmp/screen.png',true)"
+    When I execute "@app.capture_screen('PNG', '/tmp/screen.png', true)"
     And exception is not thrown
     Then I can delete file "/tmp/screen.png"
 
-@qt_linux @qt_meego
+@nodoc @qt_linux @qt_meego
   Scenario: Capture screen from the test application with argument 'draw' set to false
     Given I launch application "calculator"
-    When I execute "@app.capture_screen('PNG','/tmp/screen.png',true)"
+    When I execute "@app.capture_screen('PNG', '/tmp/screen.png', false)"
     And exception is not thrown
     Then I can delete file "/tmp/screen.png"
 

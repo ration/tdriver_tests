@@ -11,10 +11,10 @@ Feature: MobyBehaviour::QT::Widget#tap_down_object
     When I execute 
       """
       # retrieve position
-      pos = @app.child( :name => 'Triangle1' ).attribute( 'pos' ).split( ',' ).map { | str | str.to_i + 5 }
+      pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ | str | str.to_i + 5 }
        
       # perform tap down object
-      @app.NodeView.tap_down_object( pos[ 0 ], pos[ 1 ] )
+      @app.NodeView.tap_down_object(pos[ 0 ], pos[ 1 ])
       """
     Then color of Triangle1 is "darkMagenta"
 
@@ -26,10 +26,10 @@ Feature: MobyBehaviour::QT::Widget#tap_down_object
     When I execute 
       """
       # retrieve position
-      pos = @app.child( :name => 'Triangle1' ).attribute( 'pos' ).split( ',' ).map { | str | str.to_i + 5 }
+      pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ | str | str.to_i + 5 }
        
       # perform tap down object
-      @app.NodeView.tap_down_object( pos[ 0 ], pos[ 1 ] ,:Right)
+      @app.NodeView.tap_down_object(pos[ 0 ], pos[ 1 ], :Right)
       """
     Then color of Triangle1 is "darkMagenta"
 
@@ -40,7 +40,7 @@ Feature: MobyBehaviour::QT::Widget#tap_down_object
     When I execute 
       """
       # retrieve position
-      pos = @app.child( :name => 'Triangle1' ).attribute( 'pos' ).split( ',' ).map { | str | str.to_i + 5 }
+      pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ | str | str.to_i + 5 }
        
       # perform tap down object
       @app.NodeView.tap_down_object( pos[ 0 ], pos[ 1 ] ,:Right, {:tap_count=>2})

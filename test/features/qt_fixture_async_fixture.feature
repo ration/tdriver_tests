@@ -6,7 +6,7 @@ Feature: MobyBehaviour::QT::Fixture#async_fixture
 
   Scenario: Set focus to a component using an async_fixture call
 	Given I launch application "calculator"
-    When I execute "@app.QLineEdit( :name => 'display' ).async_fixture('qt', 'setFocus')"
+    When I execute "@app.QLineEdit(:name => 'display').async_fixture('qt', 'setFocus')"
 	Then QLinedit has focus
 
 

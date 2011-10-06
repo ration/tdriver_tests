@@ -7,7 +7,7 @@ Feature: MobyBehaviour::QT::Fps#stop_fps_measurement
 
   Scenario: Stop measuring fps for a view. Results are returned in a hash
     Given I launch application "testapp" as "@app"
-	And I test code "@app.MainView( :name => 'MainView' ).start_fps_measurement"
+  	And I test code "@app.MainView(:name => 'MainView').start_fps_measurement"
     And I create some activity 
-    Then I execute "@data_array = @app.MainView( :name => 'MainView' ).collect_fps_data"
-	And I verify that fps results are collected
+    Then I execute "@data_array = @app.MainView(:name => 'MainView').collect_fps_data"
+  	And I verify that fps results are collected

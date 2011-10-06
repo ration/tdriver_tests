@@ -10,8 +10,8 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
-        @app.NodeView.tap_up_object( pos[0], pos[1] )
+        pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ |str| str.to_i + 5 }
+        @app.NodeView.tap_up_object( pos[0], pos[1])
       """
     Then color of Triangle1 is "magenta"
     
@@ -23,7 +23,7 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
+        pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ |str| str.to_i + 5 }
         @app.NodeView.tap_up_object( pos[0], pos[1],:Right )
       """
     Then color of Triangle1 is "magenta"
@@ -35,7 +35,7 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
+        pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ |str| str.to_i + 5 }
         @app.NodeView.tap_up_object( pos[0], pos[1],:Left,{:tap_count=>2} )
       """
     Then color of Triangle1 is "magenta"
@@ -46,12 +46,12 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
 @qt_symbian @nodoc
   Scenario: Tapping up at child QGraphicsItem coordinates after having done tap_down on it
     Given I launch application "testapp"
-    And I test code "@app.Triangle.tap_down_object(15,15, :Left, { :use_tap_screen => 'true' })"
+    And I test code "@app.Triangle.tap_down_object(15,15, :Left, {:use_tap_screen => 'true'})"
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
-        @app.NodeView.tap_up_object( pos[0], pos[1], { :use_tap_screen => 'true' })
+        pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ |str| str.to_i + 5 }
+        @app.NodeView.tap_up_object(pos[0], pos[1], {:use_tap_screen => 'true'})
       """
     Then color of Triangle1 is "magenta"
     
@@ -59,24 +59,24 @@ Feature: MobyBehaviour::QT::Widget#tap_up_object
 @qt_symbian @nodoc
   Scenario: Testing tap_up_object method with optional argument 'button' to use in press
     Given I launch application "testapp"
-    And I test code "@app.Triangle.tap_down_object(15,15, :Left,{ :use_tap_screen => 'true' })"
+    And I test code "@app.Triangle.tap_down_object(15, 15, :Left, {:use_tap_screen => 'true'})"
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
-        @app.NodeView.tap_up_object( pos[0], pos[1],:Left, { :use_tap_screen => 'true' } )
+        pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ |str| str.to_i + 5 }
+        @app.NodeView.tap_up_object(pos[0], pos[1], :Left, {:use_tap_screen => 'true'})
       """
     Then color of Triangle1 is "magenta"
 
 @qt_symbian @nodoc
   Scenario: Testing tap_up_object method with optional argument 'tap_params' 
     Given I launch application "testapp"
-    And I test code "@app.Triangle.tap_down_object(15,15, :Left, { :use_tap_screen => 'true' })"
+    And I test code "@app.Triangle.tap_down_object(15,15, :Left, {:use_tap_screen => 'true'})"
     Then color of Triangle1 is "darkMagenta"
     When I execute 
       """
-        pos = @app.child( :name => 'Triangle1').attribute('pos').split(',').map { |str| str.to_i + 5 }
-        @app.NodeView.tap_up_object( pos[0], pos[1],:Left,{:tap_count=>2, :use_tap_screen => 'true'} )
+        pos = @app.child(:name => 'Triangle1').attribute('pos').split(',').map{ |str| str.to_i + 5 }
+        @app.NodeView.tap_up_object(pos[0], pos[1], :Left, {:tap_count => 2, :use_tap_screen => 'true'})
       """
     Then color of Triangle1 is "magenta"
 
