@@ -16,7 +16,6 @@ Feature: MobyBehaviour::QT::Fixture#fixture
   Then I clear fixture qt from parameters
   When I execute 
     """
-    TDriver::Parameter[ @sut.id.to_sym ][:fixtures][ :qt ] = 'tasfixture'
     @sut.parameter[ :fixtures ][ :qt ] = 'tasfixture'
     @app.QLineEdit(:name => 'display').fixture('qt', 'setFocus')
     """
