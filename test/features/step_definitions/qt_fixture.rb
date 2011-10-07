@@ -72,12 +72,12 @@ Then("the application should have $signal_list signals") do | signal_list |
 
 
   signals = signal_list.split(',')
-  
+  tdriver_report_log("Emitted signals #{@app_signals}")
   signals.each{ | signal |
 
     verify_equal( true, 1, "Signal #{ signal } not found" ){ 
 
-      @app_signals.include?( signal )
+      @app.fixture('signal', 'get_signal').include?( signal )
 
     }
 
