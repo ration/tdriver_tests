@@ -89,6 +89,15 @@ module MobyBase
       @_invalid_targets = {}
       
       # Conditional triggers. These perform any user specified actions or code when the trigger condition is met
+      # 1st levl - Hash
+      #   Key - String - Triggering Object type
+      #   Value - Hash - Trigger configuration
+      #     Key - Symbol - Can be either 
+      #       :macro - Code to be executed if the trigger is applied
+      #       :xpath - The condition is detected using a custom xpath executed as provided, any match will trigger the condition
+      #       :attributes - Array - Contains Hashes whith attribute name and value combinations. The condition triggers if any of the Hash conditions is met.
+      #         Key - String - Name of the attribute
+      #         Value - String - Value of the attribute
       @_triggers = []
 
       # Filter for object parents
@@ -159,7 +168,6 @@ module MobyBase
     
     # Smart monkey: perfoms a random action on a random available UI object
     def chimp
-      
       
       @sut.refresh # refresh before checking the sut for targets
       
@@ -453,10 +461,10 @@ module MobyBase
     
     # Check if the test object is a valid target
     def valid_target? ( test_object, action = nil )
-      
+             
       # Check if the test object matches an entry on the list of invalid targets 
       @_invalid_targets.keys.each do | invalid_type |
-        
+                
       if test_object.type == invalid_type
         
         # Check if all attributes match         
@@ -859,7 +867,7 @@ module MobyBase
           
 
         end        
-        
+     
         # add blocking attributes
 
         blocking_set = []
@@ -868,9 +876,12 @@ module MobyBase
           block_arguments = {}
           arg_set.xpath("attribute").each do | attribute_node |
             attribute_name = attribute_node.attribute("name")           
+            attribute_operator = attribute_node.attribute("operator")
             attribute_value = attribute_node.attribute("value")
             raise TDMonkeyXmlDataParseError.new("The target '#{target_name}' has an a set of blocking attributes with a missing name-value attribute pair.") if (attribute_name.nil? || attribute_value.nil?)
-            block_arguments[attribute_name] = attribute_value 
+            attribute_key = [ attribute_name ]
+            attribute_key << attribute_operator unless attribute_operator.nil?
+            block_arguments[ attribute_key ] = attribute_value 
           end
           
           blocking_set << block_arguments
