@@ -165,13 +165,18 @@ module MobyBase
       digest
       
     end
+
     
     # Smart monkey: perfoms a random action on a random available UI object
     def chimp
       
       @sut.refresh # refresh before checking the sut for targets
       
-      @sut.refresh if check_triggers # refresh again if a trigger aws activated
+      5.times do
+        break unless check_triggers
+        @sut.refresh # refresh again if a trigger was activated        
+      end
+      
       
       target = random_target
       action = random_action(target.type)
@@ -876,11 +881,11 @@ module MobyBase
           block_arguments = {}
           arg_set.xpath("attribute").each do | attribute_node |
             attribute_name = attribute_node.attribute("name")           
-            attribute_operator = attribute_node.attribute("operator")
+            attribute_condition = attribute_node.attribute("condition")
             attribute_value = attribute_node.attribute("value")
             raise TDMonkeyXmlDataParseError.new("The target '#{target_name}' has an a set of blocking attributes with a missing name-value attribute pair.") if (attribute_name.nil? || attribute_value.nil?)
             attribute_key = [ attribute_name ]
-            attribute_key << attribute_operator unless attribute_operator.nil?
+            attribute_key << attribute_condition unless attribute_condition.nil?
             block_arguments[ attribute_key ] = attribute_value 
           end
           
