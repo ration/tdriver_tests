@@ -89,9 +89,25 @@ module MobyBase
       @_invalid_targets = {}
       
       # Conditional triggers. These perform any user specified actions or code when the trigger condition is met
-      @_triggers = {}
+      # 1st levl - Hash
+      #   Key - String - Triggering Object type
+      #   Value - Hash - Trigger configuration
+      #     Key - Symbol - Can be either 
+      #       :macro - Code to be executed if the trigger is applied
+      #       :xpath - The condition is detected using a custom xpath executed as provided, any match will trigger the condition
+      #       :attributes - Array - Contains Hashes whith attribute name and value combinations. The condition triggers if any of the Hash conditions is met.
+      #         Key - String - Name of the attribute
+      #         Value - String - Value of the attribute
+      @_triggers = []
 
       # Filter for object parents
+      # 1st level - Hash
+      #   Key - String - Object type that is limeted based on parents
+      #   Value - Hash 
+      #     Key - String - Type of limiting parent object
+      #     Value - Hash
+      #       Key - String - Type of parent attribute that is checked
+      #       Value - String Array - List of attribute values which block the object if any of them match
       @_limited_objects = {}
       
       
@@ -149,14 +165,18 @@ module MobyBase
       digest
       
     end
+
     
     # Smart monkey: perfoms a random action on a random available UI object
     def chimp
       
-      
       @sut.refresh # refresh before checking the sut for targets
       
-      @sut.refresh if check_triggers # refresh again if a trigger aws activated
+      5.times do
+        break unless check_triggers
+        @sut.refresh # refresh again if a trigger was activated        
+      end
+      
       
       target = random_target
       action = random_action(target.type)
@@ -310,18 +330,26 @@ module MobyBase
       end       
       
       # load triggers
-      data_object.triggers_to_add.each do | trigger_type,  trigger_args |      
-        if @_triggers.key?( trigger_type )
+      if data_object.triggers_to_replace.empty?
+        @_triggers += data_object.triggers_to_add
+      else
+        @_triggers = data_object.triggers_to_replace
+      end
           
-          @_triggers[trigger_type] = trigger_args.merge @_triggers[trigger_type]       
+      # load parent filter      
+      data_object.limited_objects_to_add.each do | limited_type, parent_type |      
+        if @_limited_objects.key?( limited_type )
+          
+          @_limited_objects[limited_type] = parent_type.merge @_limited_objects[limited_type]       
          
         else
-          @_triggers[trigger_type] = trigger_args
+
+          @_limited_objects[limited_type] = parent_type
         end
       end
       
-      data_object.triggers_to_replace.each do | trigger_type,  trigger_args |      
-        @_triggers[trigger_type] = trigger_args
+      data_object.limited_objects_to_replace.each do | limited_type,  parent_type |      
+        @_limited_objects[limited_type] = parent_type
       end
      
     end
@@ -438,10 +466,10 @@ module MobyBase
     
     # Check if the test object is a valid target
     def valid_target? ( test_object, action = nil )
-      
+             
       # Check if the test object matches an entry on the list of invalid targets 
       @_invalid_targets.keys.each do | invalid_type |
-        
+                
       if test_object.type == invalid_type
         
         # Check if all attributes match         
@@ -497,65 +525,68 @@ module MobyBase
       
       return false if @_triggers.empty? 
       
-      @_triggers.each do | trigger_object_type, trigger_config |      
-        
-        # first priority: custom xpath
-        trigger_xpath = trigger_config[ :xpath ]
-        if trigger_xpath.nil? and !trigger_config[ :attributes ].nil?        
-          
-          raise TDMonkeyError.new( "The #{ trigger_object_type } has the :attributes config but no attributes were defined" ) if !trigger_config[ :attributes ].kind_of?( Array ) or trigger_config[ :attributes ].empty?
-          #if no xpath is defined, create on based on attributes
-          trigger_xpath = '*//obj[@type="' << trigger_object_type << '" and attr[('
-          attribute_xpath = ''
-          trigger_config[ :attributes ].each do | attribute_set |
-            
-            attribute_xpath << ') or (' unless attribute_xpath.empty?
-            
-            set_xpath = ''
-            
-            attribute_set.each do | attribute_name, attribute_value |
-            
-              set_xpath << ') and (' unless set_xpath.empty?
+      @_triggers.each do | trigger |     
 
-              set_xpath << '@name="' << attribute_name << '" and text()="' << attribute_value << '"'
-                         
-            end # attribute_name, attribute_value
-            
-            attribute_xpath << '(' << set_xpath << ')'
-            
-          end # attribute_set
-          
-          trigger_xpath << attribute_xpath << ')]]'
+        xpaths = []
+        xpaths << trigger[ :condition ] if trigger[ :condition ].kind_of? String
+                
+        if xpaths.empty?
         
-        end # trigger_xpath.nil?
+          trigger[ :condition ].each do | trigger_object_type, trigger_object_attributes |
         
-        raise TDMonkeyError.new( "No :xpath or :attributes defined for trigger type " + trigger_object_type.to_s ) if trigger_xpath.nil?
+            objects_xpath = '*//obj['     
+            objects_xpath << '@type="' << trigger_object_type << '" and attr[('
+            attributes_xpath = ''
+            trigger_object_attributes.each do | attribute_type, attribute_values |
+              attributes_xpath << ') or (' unless attributes_xpath.empty?
+              attributes_xpath << '@name="' << attribute_type << '" and (('
 
-        # check if this trigger applies        
-        if !@sut.xml_data.xpath( trigger_xpath ).empty?
+              values_xpath = ''
+              attribute_values.each do | attribute_value |
+                values_xpath << ') or (' unless values_xpath.empty?
+                values_xpath << 'text()="' << attribute_value << '"'
+              end # each attribute_value
+              values_xpath << ')' unless values_xpath.empty?
+                
+              attributes_xpath << values_xpath << ')'              
+              
+            end # each attribute_type, attribute_values
+            objects_xpath << attributes_xpath << ")]]"            
+            xpaths << objects_xpath
+          end # each trigger_object_type, trigger_object_attributes
+
+        end # search_xpath.nil?
+
+        matching_xpaths = 0
+
+        xpaths.each do | trigger_xpath |
+          # check each xpath to see if this trigger applies      
+          matching_xpaths += 1 unless @sut.xml_data.xpath( trigger_xpath ).empty?                       
+        end # each trigger_xpath
+
+        if matching_xpaths >= xpaths.size and matching_xpaths > 0
         
-          # execute trigger
-          puts( "Trigger matched for object type #{ trigger_object_type }, executing macro: " << trigger_config[ :macro ].to_s ) if @_verbose
-          begin
+            # execute trigger
+            puts( "Trigger matched, executing macro: " << trigger[ :macro ].to_s ) if @_verbose
+
+            begin
+              
+              eval(trigger[ :macro ].to_s)
+              write_log( "Executing trigger: " << trigger[ :macro ].to_s )
+              write_script( trigger[ :macro ].to_s )
+                          
+            rescue Exception => e
+              raise TDMonkeyError.new("Error executing macro: " << trigger[ :macro ].to_s << ".\nDetails: " << e.inspect << "\n" << e.backtrace.join( "\n" ))
+            end
             
-            eval(trigger_config[ :macro ].to_s)
-            write_log( "Executing trigger: " << trigger_config[ :macro ].to_s )
-            write_script( trigger_config[ :macro ].to_s )
-            
-            
-          rescue Exception => e
-            raise TDMonkeyError.new("Error executing macro: " << trigger_config[ :macro ].to_s << ".\nDetails: " << e.inspect << "\n" << e.backtrace.join( "\n" ))
-          end
-          
-          # report trigger match, stop checking for further triggers
-          return true
-          
-        end 
+            # report trigger match, stop checking for further triggers
+            return true
+
+        end # if matching_xpaths >= xpaths.size
+
+      end # each trigger
       
-      end # each trigger_object_type, trigger_config
-
-      # no matching trigger
-      return false      
+      return false # no matching trigger      
 
     end	
 	
@@ -694,6 +725,8 @@ module MobyBase
       @_replace_invalid_targets = {}
       @_add_triggers = {}
       @_replace_triggers = {}
+      @_add_limited_objects = {}
+      @_replace_limited_objects = {}
       
     end         
   
@@ -741,6 +774,22 @@ module MobyBase
       @_replace_triggers
     end
   
+    def limited_objects_to_add
+      @_add_limited_objects
+    end
+    
+    def limited_objects_to_replace
+      @_replace_limited_objects
+    end
+  
+    def triggers_to_add
+      @_add_triggers
+    end
+    
+    def triggers_to_replace
+      @_replace_triggers
+    end
+    
     # Loads control variable content from a XML file. Note that a single TDMonkeyData class can only contain data
     # from one source.
     def load_from_xml( file_path )
@@ -755,6 +804,12 @@ module MobyBase
       @_replace_controls = {}
       @_add_invalid_targets = {}
       @_replace_invalid_targets = {}  
+      @_add_triggers = {}
+      @_replace_triggers = {}
+      @_add_limited_objects = {}
+      @_replace_limited_objects = {}
+      @_add_triggers = []
+      @_replace_triggers = []
       
       doc = MobyUtil::XML.parse_file( file_path )
 
@@ -817,7 +872,7 @@ module MobyBase
           
 
         end        
-        
+     
         # add blocking attributes
 
         blocking_set = []
@@ -826,9 +881,12 @@ module MobyBase
           block_arguments = {}
           arg_set.xpath("attribute").each do | attribute_node |
             attribute_name = attribute_node.attribute("name")           
+            attribute_condition = attribute_node.attribute("condition")
             attribute_value = attribute_node.attribute("value")
-            raise TDMonkeyXmlDataParseError.new("The target '#{target_name}' has an a set of blockin attributes with a missing name-value attribute pair.") if (attribute_name.nil? || attribute_value.nil?)
-            block_arguments[attribute_name] = attribute_value 
+            raise TDMonkeyXmlDataParseError.new("The target '#{target_name}' has an a set of blocking attributes with a missing name-value attribute pair.") if (attribute_name.nil? || attribute_value.nil?)
+            attribute_key = [ attribute_name ]
+            attribute_key << attribute_condition unless attribute_condition.nil?
+            block_arguments[ attribute_key ] = attribute_value 
           end
           
           blocking_set << block_arguments
@@ -849,7 +907,97 @@ module MobyBase
           target_hash[target_name] = blocking_set
         end
                 
+        # add blocking parents
+        blocking_parents = {}
+        target_node.xpath("blocking-parents/blocking-parent").each do | blocking_parent |
+                  
+          parent_name = blocking_parent.attribute("name")           
+         
+          blocking_attributes = {}
+          blocking_parent.xpath("attribute").each do | attribute_node |
+            attribute_name = attribute_node.attribute("name")           
+            attribute_value = attribute_node.attribute("value")
+            raise TDMonkeyXmlDataParseError.new("The target '#{target_name}' has an a blocking parent (#{parent_name}) with a missing name-value attribute pair.") if (attribute_name.nil? || attribute_value.nil?)
+            if blocking_attributes[attribute_name].nil?
+              blocking_attributes[attribute_name] = [ attribute_value ]
+            else          
+              blocking_attributes[attribute_name] << attribute_value
+            end
+          end     
+          
+          blocking_parents[ parent_name ] = blocking_attributes
+          
+        end # blocking-parents/blocking-parent
+        
+        unless blocking_parents.empty?
+          # merge loaded blocking parents into data structure
+          target_hash = nil
+          if replace_target
+            target_hash = @_replace_limited_objects
+          else
+            target_hash = @_add_limited_objects
+          end
+          
+          if target_hash.key?(target_name)
+            target_hash[target_name] << blocking_parents
+          else
+            target_hash[target_name] = blocking_parents
+          end
+        end
+        
       end # targets/target
+      
+# add triggers
+      found_triggers = []
+      doc.root.xpath( "triggers/trigger" ).each do | trigger |
+      
+        trigger_macro = trigger.attribute("macro")           
+       
+        trigger_objects = {}
+        trigger.xpath("object").each do | trigger_object |
+        
+          object_name = trigger_object.attribute("name")
+          object_attributes = {}
+          
+          trigger_object.xpath( "attribute" ).each do | attribute_node |
+          
+            attribute_name = attribute_node.attribute("name")
+            attribute_values = []
+            
+            attribute_node.xpath( "value" ).each do | value_node |
+            
+              attribute_values <<  value_node.text
+            
+            end # each value_node
+            
+            object_attributes[ attribute_name ] = attribute_values
+            
+          end # each attribute_node
+          
+          trigger_objects[ object_name ] = object_attributes
+          
+        end # each trigger_object
+        
+        found_triggers << { :macro => trigger_macro, :condition => trigger_objects }
+                    
+      end # each trigger
+      
+      doc.root.xpath( "triggers/custom-trigger" ).each do | custom_trigger |
+      
+        trigger_xpath = custom_trigger.attribute( "xpath" )
+        trigger_macro = custom_trigger.attribute( "macro" )
+        found_triggers  << { :macro => trigger_macro, :condition => trigger_xpath }
+        
+      end # each custom_trigger
+       
+     replace_target = (doc.root.xpath("triggers").first.attribute("replace").to_s.downcase == "true") unless doc.root.xpath("triggers").empty?
+                    
+      # add loaded triggers into data structure
+      if replace_target
+        @_replace_triggers = found_triggers
+      else
+        @_add_triggers = found_triggers
+      end
       
       # add controls
       doc.root.xpath("controls/control").each do | control_node |
