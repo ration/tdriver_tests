@@ -145,10 +145,10 @@ Given /^I launch application "([^\"]*)" with listening signals "([^\"]*)"$/ do |
   @__current_app = @__apps[app_ref]
 end
 
-Given /^I launch browser$/ do | app_name, signals |
+Given /^I launch browser$/ do
   app_ref = "@app"
   raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
-  @__apps[app_ref] = @__sut.run( :name => app_name.to_s )
+  @__apps[app_ref] = @__sut.run( :name => 'browser' )
   eval(app_ref + " = @__apps[app_ref]")
   @__current_app = @__apps[app_ref]
 end
