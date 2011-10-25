@@ -6,7 +6,7 @@ Feature: Testing WebKit gesture features
   so that I can test the MobyBehaviour::QT::Webkit behaviour
 
   Scenario: After loading gesture page blue element should be draggable
-    Given I launch application "browser"
+    Given I launch browser
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
     When I execute 
@@ -20,7 +20,7 @@ Feature: Testing WebKit gesture features
     Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+320"
     
   Scenario: After loading gesture page blue element should be draggable
-    Given I launch application "browser"
+    Given I launch browser
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
     When I execute 
@@ -34,7 +34,7 @@ Feature: Testing WebKit gesture features
     Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+320"
 
   Scenario: After loading gesture page blue element should gesture to target coordinates
-    Given I launch application "browser"
+    Given I launch browser
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
     When I execute "@app.div(:id => 'blue').gesture_to(100,100,3)"
@@ -42,7 +42,7 @@ Feature: Testing WebKit gesture features
     Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+100"
 
   Scenario: After loading gesture page blue element should drag to target coordinates
-    Given I launch application "browser"
+    Given I launch browser
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
     When I execute "@app.div(:id => 'blue').drag_to(100,100)"
@@ -50,7 +50,7 @@ Feature: Testing WebKit gesture features
     Then I verify that "div" is having "y" with evaluated value "@app.html(:name=>'html').attribute('y').to_i+100"
 
   Scenario: After loading gesture page, blue element should be dragable to red box
-    Given I launch application "browser"
+    Given I launch browser
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
     When I execute "@app.div(:id => 'blue').gesture_to_object(@app.div(:id=>'red'),2,{:button => :Left, :isDrag=>true})"
@@ -58,7 +58,7 @@ Feature: Testing WebKit gesture features
     Then I verify that "div" is having "y" with evaluated value "@app.div(:id=>'red').attribute('y').to_i+10"
 
   Scenario: After loading gesture page blue element should be usable trough custom gestures
-    Given I launch application "browser"
+    Given I launch browser
     Then I move to page "../html/drag.html"
     Then I verify that the page is loaded
     When I execute

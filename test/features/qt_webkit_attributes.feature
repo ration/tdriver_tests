@@ -6,7 +6,7 @@ Feature: Testing retrieving WebKit objects with attributes
   so that I can test the MobyBehaviour::QT::Webkit behaviour
 
   Scenario: After loading web element following elements should be available
-    Given I launch application "browser"
+    Given I launch browser
     Then I verify evaluate string "@app.input(:type => 'radio', :checked => 'false')"
     Then I verify evaluate string "@app.input(:type => 'radio', :checked => 'true')"
     Then I verify evaluate string "@app.p(:elementText => 'sample element text')"

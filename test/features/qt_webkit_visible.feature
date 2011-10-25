@@ -6,7 +6,7 @@ Feature: MobyBehaviour::QT::Webkit
   so that I can test the MobyBehaviour::QT::Webkit behaviour
 
   Scenario: Check element with property display:none or visibility:hidden has visible attribute set to false
-    Given I launch application "browser"
+    Given I launch browser
 		Then I move to page "../html/html_css.html"
 		Then I verify that the page is loaded
 		Then verify "@app.h1( :name => 'h1' ).attribute('visible')=='true'"
@@ -17,7 +17,7 @@ Feature: MobyBehaviour::QT::Webkit
 		Then verify "@app.h6( :name => 'h6' ).attribute('visible')=='false'"
 		
 	Scenario: Check frames with style property has visible attribute set to correctly
-    Given I launch application "browser"
+    Given I launch browser
 		Then I move to page "../html/html_nested_frames.html"
 		Then I verify that the page is loaded
 		Then verify "@app.QWebFrame( :name => '<!--framePath //<!--frame0-->-->' ).attribute('visibility')=='true'"
