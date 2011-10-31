@@ -111,6 +111,13 @@ module MobyBase
       @_limited_objects = {}
       
       
+      @_custom_states = []
+      
+      # Test object types can be weighted to make them more likely to be selected when objects are randomly chosen by the monkey.
+      # The default value of this Hash is also the default weight of objects and should be 1.0 unless circumstances require otherwise.
+      # Example: { "softkey" => 0.5, "list_item" => 2 }
+      @_object_weights = Hash.new( 1.0 )
+      
       puts "Initializing TDMonkey for SUT: " << @_sut_id.to_s
       
       # These are used if execution data is to be collected in TDMonkey
@@ -119,7 +126,7 @@ module MobyBase
       
       # Testing can be limited to an application using this variable
       @_app = target_app
-      
+      @_app = [ target_app ] if target_app.kind_of? String
       # setting this to true will cause TDMonkey to print all performed actions
       @_verbose = false
       write_log( "Initializing TDMonkey, sut id: " << @_sut_id.to_s ) 
@@ -169,7 +176,7 @@ module MobyBase
     
     # Smart monkey: perfoms a random action on a random available UI object
     def chimp
-      
+     
       @sut.refresh # refresh before checking the sut for targets
       
       5.times do
@@ -177,6 +184,16 @@ module MobyBase
         @sut.refresh # refresh again if a trigger was activated        
       end
       
+      # check custom states      
+      default_state = nil
+      default_lo = nil
+      custom_state = check_states
+      unless custom_state == false
+        default_state = @_actions
+        default_lo = @_limited_objects
+        @_actions = custom_state
+        @_limited_objects = {}
+      end      
       
       target = random_target
       action = random_action(target.type)
@@ -213,12 +230,17 @@ module MobyBase
         write_log( "Encountered chimp error: " << e.class.to_s )
         write_script( "@sut.application.#{target.type}#{script_id}.#{action} # This action failed due to a #{e.class.to_s}" )
         raise e
+      ensure
+        unless default_state.nil?
+          @_actions = default_state
+          @_limited_objects = default_lo
+        end
       end
         
       digest
       
       # TODO: call oracle here
-      
+     
     end
     
     # Use a TDMonkeyData object to populate the control variables of this object.
@@ -230,7 +252,7 @@ module MobyBase
     # data_object:: TDMonkeyData object containing control data for populating the control variables of 
     #               this object
     def load_data( data_object )
-      
+     
       raise ArgumentError.new( "The TDMonkey data object was not of class TDMonkeyData, it was of class \"#{data_object.class.to_s}\"" ) unless data_object.kind_of?( TDMonkeyData )
       
       # load definitions, merge if definition set already exists  
@@ -351,7 +373,41 @@ module MobyBase
       data_object.limited_objects_to_replace.each do | limited_type,  parent_type |      
         @_limited_objects[limited_type] = parent_type
       end
-     
+      
+      # load custom states
+      @_custom_states = data_object.custom_states_to_add
+      
+      # populate custom states using templates
+      @_custom_states.each do | custom_state |
+        templates_found = false
+        begin
+          templates_found = false
+          custom_state[ :actions ].each do | target_type, target_actions |
+            
+            target_actions.each do | action_type, action_args |
+              if action_type.kind_of? Symbol
+                templates_found = true
+                template_actions = data_object.templates[action_type]
+            
+                if template_actions.kind_of? Hash
+                  
+                  template_actions.each do | template_action, template_args |
+                    if @_actions[ target_type ].key?(template_action) && template_action.kind_of?(Symbol)
+                      @_actions[ target_type ][ template_action ] |= template_args
+                    else
+                      @_actions[target_type][template_action] = template_args  
+                    end               
+                  end
+                  
+                  target_actions.delete( action_type )
+                  
+                end              
+              end          
+            end
+          end
+        end while templates_found # continue while some templates are found
+      end # each custom_state
+    
     end
         
     private
@@ -363,7 +419,7 @@ module MobyBase
     
     # chooses a random accessible test object from those available on the sut
     def random_target
-      
+     
       non_limited = actions.keys - @_limited_objects.keys
 
       targets_xpath = '*//obj[@type="' << non_limited.join("\" or @type=\"")  << '"'
@@ -407,17 +463,43 @@ module MobyBase
  
       target_nodes = target_node_set.to_a
       target_node_set = nil
+      
+      weighted_nodes = {}
+
+      weight_total = 0
+
+      target_nodes.each do | target_node |
+      
+        #change to add on target_node type
+        weight_total += weighted_nodes[ target_node ] = @_object_weights[ target_node.attribute( "type" ) ]
+
+      end
+              
+      while !weighted_nodes.empty? do
         
-      while !target_nodes.empty? do
-        
-        target_node = target_nodes.delete_at(rand(target_nodes.length.to_i))
+        weighted_rand = rand*weight_total
+
+        weighted_nodes_keys = weighted_nodes.keys
+ 
+        weighted_nodes_index = 0
+        weight_sum = weighted_nodes[ weighted_nodes_keys[ weighted_nodes_index ] ]
+
+        while weighted_rand > weight_sum and weighted_nodes_index+1 < weighted_nodes_keys.length
+
+          weighted_nodes_index += 1  
+          weight_sum += weighted_nodes[ weighted_nodes_keys[ weighted_nodes_index ] ]
+
+        end
+   
+        #target_node = target_nodes.delete_at(rand(target_nodes.length.to_i))
+        target_node = weighted_nodes_keys[ weighted_nodes_index ]
         target_type = target_node.attribute( "type" )
-        target_id = target_node.attribute( "id" )
+        target_id = target_node.attribute( "id" )      
         
         candidate = nil
-            
+       
         begin
-                      
+        
           begin
             if target_type == "application"
               candidate = @sut.application({ :id => target_id, :name => target_node.attribute("name"), :__timeout => 0 })
@@ -442,7 +524,7 @@ module MobyBase
       end # while
       
       Kernel::raise(TDMonkeyNoTargetsError.new("No test object could be created matching allowed target types."))
-      
+     
     end
     
     # chooses a random action that can be performed on a test object of the given type
@@ -466,7 +548,7 @@ module MobyBase
     
     # Check if the test object is a valid target
     def valid_target? ( test_object, action = nil )
-             
+            
       # Check if the test object matches an entry on the list of invalid targets 
       @_invalid_targets.keys.each do | invalid_type |
                 
@@ -518,7 +600,7 @@ module MobyBase
       end
 
       return true
-      
+    
     end
 	
     def check_triggers    
@@ -535,11 +617,11 @@ module MobyBase
           trigger[ :condition ].each do | trigger_object_type, trigger_object_attributes |
         
             objects_xpath = '*//obj['     
-            objects_xpath << '@type="' << trigger_object_type << '" and attr[('
+            objects_xpath << '@type="' << trigger_object_type << '"'
             attributes_xpath = ''
             trigger_object_attributes.each do | attribute_type, attribute_values |
-              attributes_xpath << ') or (' unless attributes_xpath.empty?
-              attributes_xpath << '@name="' << attribute_type << '" and (('
+            
+              attributes_xpath << ' and attr[@name="' << attribute_type << '" and (('
 
               values_xpath = ''
               attribute_values.each do | attribute_value |
@@ -548,17 +630,17 @@ module MobyBase
               end # each attribute_value
               values_xpath << ')' unless values_xpath.empty?
                 
-              attributes_xpath << values_xpath << ')'              
+              attributes_xpath << values_xpath << ')]'
               
             end # each attribute_type, attribute_values
-            objects_xpath << attributes_xpath << ")]]"            
+            objects_xpath << attributes_xpath << "]"            
             xpaths << objects_xpath
           end # each trigger_object_type, trigger_object_attributes
 
         end # search_xpath.nil?
 
         matching_xpaths = 0
-
+        
         xpaths.each do | trigger_xpath |
           # check each xpath to see if this trigger applies      
           matching_xpaths += 1 unless @sut.xml_data.xpath( trigger_xpath ).empty?                       
@@ -589,8 +671,63 @@ module MobyBase
       return false # no matching trigger      
 
     end	
-	
     
+    def check_states 
+     
+      return false if @_custom_states.empty? 
+      
+      @_custom_states.each do | state |     
+
+        xpaths = []
+                      
+        if xpaths.empty?
+        
+          state[ :condition ].each do | state_object_type, state_object_attributes |
+        
+            objects_xpath = '*//obj['     
+            objects_xpath << '@type="' << state_object_type << '"'
+            attributes_xpath = ''
+            state_object_attributes.each do | attribute_type, attribute_values |
+           
+              attributes_xpath << ' and attr[@name="' << attribute_type << '" and (('
+
+              values_xpath = ''
+              attribute_values.each do | attribute_value |
+                values_xpath << ') or (' unless values_xpath.empty?
+                values_xpath << 'text()="' << attribute_value << '"'
+              end # each attribute_value
+              values_xpath << ')' unless values_xpath.empty?
+                
+              attributes_xpath << values_xpath << ')]'              
+              
+            end # each attribute_type, attribute_values
+            objects_xpath << attributes_xpath << "]"            
+            xpaths << objects_xpath
+          end # each state_object_type, state_object_attributes
+
+        end # search_xpath.nil?
+
+        matching_xpaths = 0
+
+        xpaths.each do | state_xpath |
+          # check each xpath to see if this state applies      
+          matching_xpaths += 1 unless @sut.xml_data.xpath( state_xpath ).empty?                       
+        end # each trigger_xpath
+
+        if matching_xpaths >= xpaths.size and matching_xpaths > 0
+        
+            # state matched
+            puts( "Custom state matched" ) if @_verbose
+            return state[ :actions ]
+        
+        end # if matching_xpaths >= xpaths.size
+
+      end # each state
+      
+      return false # no matching state
+
+    end	
+        
     # width of the sut display
     def app_width
       Kernel::raise RuntimeError.new "TDMonkey#app_width is a pure virtual method, no implementation was defined."
@@ -604,27 +741,42 @@ module MobyBase
     # finishes the action, satisfying synchronization requirements and checking that target application limits are maintained
     def digest  
 
-      
       # Check if the target application must be restarted 
       if @_app != nil
+              
+        app_found = false
         
-        begin        
-          @sut.application(:FullName => @_app)
-        rescue TestObjectNotFoundError
-          
+        @_app.each do | app_name |
           begin
-            write_log( "Restarting target application: " << @_app )
-            write_script( "@sut.run(:name => '#{@_app}', :arguments => '-testability')" )
-            @sut.run(:name => @_app, :arguments => '-testability')
-          rescue
-              write_log( "Failed to restart target application." )
-              raise TDMonkeyNoApplicationError.new("Failed to start application #{@_app}.")
+            
+            @sut.application(:FullName => app_name, :__timeout => 0 )
+            app_found = true
+            break
+            
+          rescue TestObjectNotFoundError        
           end
-          
-        end       
+        end
         
-      end
-      
+        if !app_found
+        
+          begin
+            @sut.application(:FullName => @_app[ 0 ], :__timeout => 0 ).bring_to_foreground
+
+          rescue
+          
+            begin
+              write_log( "Restarting target application: " << @_app[ 0 ] )
+              write_script( "@sut.run(:name => '#{@_app[ 0 ]}', :arguments => '-testability')" )
+        
+              @_fg_app = @sut.run(:name => @_app[ 0 ], :arguments => '-testability')
+            rescue
+              write_log( "Failed to restart target application." )
+              raise TDMonkeyNoApplicationError.new("Failed to start application #{ @_app[ 0 ] }.")
+            end # rescue run          
+          end # rescue bring_to_foreground     
+        end # if !app_found
+      end  # if @_app != nil
+
     end
     
     # Adds a message to the (human readable, timestamped) log
@@ -727,6 +879,7 @@ module MobyBase
       @_replace_triggers = {}
       @_add_limited_objects = {}
       @_replace_limited_objects = {}
+      @_add_custom_states = []
       
     end         
   
@@ -790,6 +943,10 @@ module MobyBase
       @_replace_triggers
     end
     
+    def custom_states_to_add
+      @_add_custom_states
+    end
+    
     # Loads control variable content from a XML file. Note that a single TDMonkeyData class can only contain data
     # from one source.
     def load_from_xml( file_path )
@@ -810,6 +967,7 @@ module MobyBase
       @_replace_limited_objects = {}
       @_add_triggers = []
       @_replace_triggers = []
+      @_add_custom_states = []
       
       doc = MobyUtil::XML.parse_file( file_path )
 
@@ -947,7 +1105,7 @@ module MobyBase
         
       end # targets/target
       
-# add triggers
+      # add triggers
       found_triggers = []
       doc.root.xpath( "triggers/trigger" ).each do | trigger |
       
@@ -990,7 +1148,7 @@ module MobyBase
         
       end # each custom_trigger
        
-     replace_target = (doc.root.xpath("triggers").first.attribute("replace").to_s.downcase == "true") unless doc.root.xpath("triggers").empty?
+      replace_target = (doc.root.xpath("triggers").first.attribute("replace").to_s.downcase == "true") unless doc.root.xpath("triggers").empty?
                     
       # add loaded triggers into data structure
       if replace_target
@@ -998,6 +1156,106 @@ module MobyBase
       else
         @_add_triggers = found_triggers
       end
+      
+      
+      # add custom states
+      @_add_custom_states = []
+      doc.root.xpath( "states/state" ).each do | state |
+       
+        # collect defining objects
+        state_objects = {}
+        state.xpath("object").each do | state_object |
+        
+          object_name = state_object.attribute("name")
+          object_attributes = {}
+          
+          state_object.xpath( "attribute" ).each do | attribute_node |
+          
+            attribute_name = attribute_node.attribute("name")
+            attribute_values = []
+            
+            attribute_node.xpath( "value" ).each do | value_node |
+            
+              attribute_values <<  value_node.text
+            
+            end # each value_node
+            
+            object_attributes[ attribute_name ] = attribute_values
+            
+          end # each attribute_node
+          
+          state_objects[ object_name ] = object_attributes
+          
+        end # each state_object
+        
+        # create custom actions
+        custom_actions = {}
+        target_nodes = state.xpath("targets/target")
+        target_nodes.each do | target_node |
+          
+          target_name = target_node.attribute("name")
+          raise TDMonkeyXmlDataParseError.new("Target node with no name encountered.") if target_name.nil?
+        
+          replace_target = (target_node.attribute("replace").to_s.downcase == "true")
+                
+          # add actions
+          target_node.xpath("actions/action").each do | action_node |
+            action_name = action_node.attribute("name")
+            raise TDMonkeyXmlDataParseError.new("The node '#{target_name}' has an action with a missing name attribute.") if action_name.nil?
+        
+            action_node.xpath("argument").each do | argument_node |
+        
+              argument_string = argument_node.attribute("value")
+=begin              
+              target_hash = nil
+              if replace_target
+                target_hash = @_replace_actions
+              else
+                target_hash = @_add_actions
+              end
+=end              
+              target_hash = custom_actions
+              if target_hash.key?(target_name)
+                if target_hash[target_name].key?(action_name)
+                  target_hash[target_name][action_name] |= [argument_string]
+                else
+                  target_hash[target_name][action_name] = [argument_string]
+                end
+              else
+                target_hash[target_name] = {action_name => [argument_string]}
+              end  
+
+            end # 
+          end  # each actions/action      
+        
+          # add templates to target object
+          target_node.xpath("actions/include").each do | template_node |
+            
+            template_name = template_node.attribute("name") 
+            raise TDMonkeyXmlDataParseError.new("The node '#{target_name}' has an include with a missing name attribute.") if template_name.nil?
+=begin                      
+            target_hash = nil
+            if replace_target
+              target_hash = @_replace_actions
+            else
+              target_hash = @_add_actions
+            end
+=end
+            target_hash = custom_actions
+            
+            if target_hash.key? target_name
+              target_hash[target_name].merge!({template_name.to_sym => nil})
+            else
+              target_hash[target_name] = {template_name.to_sym => nil}
+            end         
+
+          end # each actions/include
+        end # targets/target
+        
+        puts "added: " << { :actions => custom_actions, :condition => state_objects }.inspect
+        @_add_custom_states << { :actions => custom_actions, :condition => state_objects }
+                    
+      end # each state
       
       # add controls
       doc.root.xpath("controls/control").each do | control_node |
