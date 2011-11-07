@@ -46,7 +46,7 @@ module MobyBase
     def initialize(target_app = nil)
       
       Kernel::raise ArgumentError.new "A sut type must be defined (non empty String)" unless @_sut_id.kind_of? String and !@_sut_id.empty?
-      Kernel::raise ArgumentError.new "The provided target application was not a non empty String." unless target_app.nil? or (target_app.kind_of? String and !target_app.nil?)
+      #Kernel::raise ArgumentError.new "The provided target application was not a non empty String." unless target_app.nil? or (target_app.kind_of? String and !target_app.nil?)
    
       # Control instance variables. 
       # These must be populated by subclasses of TDMonkey
@@ -117,7 +117,7 @@ module MobyBase
       # The default value of this Hash is also the default weight of objects and should be 1.0 unless circumstances require otherwise.
       # Example: { "softkey" => 0.5, "list_item" => 2 }
       @_object_weights = Hash.new( 1.0 )
-      
+            
       puts "Initializing TDMonkey for SUT: " << @_sut_id.to_s
       
       # These are used if execution data is to be collected in TDMonkey
@@ -135,10 +135,10 @@ module MobyBase
 	    write_script( "require 'tdriver'")
       write_script( "@sut = TDriver.sut(:Id => '#{@_sut_id}')")
       
-      if !target_app.nil?
-        write_log( "TDMonkey target application: " << target_app ) 
-        @sut.run( :name => target_app, :arguments => '-testability' )
-        write_script( "@sut.run(:name => '#{target_app}', :arguments => '-testability')")
+      if !@_app.nil?
+        write_log( "TDMonkey target application: " << @_app[ 0 ] ) 
+        @sut.run( :name => @_app[ 0 ], :arguments => '-testability' )
+        write_script( "@sut.run(:name => '#{@_app[ 0 ]}', :arguments => '-testability')")
       end
 
     end
@@ -177,6 +177,7 @@ module MobyBase
     # Smart monkey: perfoms a random action on a random available UI object
     def chimp
      
+      digest
       @sut.refresh # refresh before checking the sut for targets
       
       5.times do
@@ -237,7 +238,7 @@ module MobyBase
         end
       end
         
-      digest
+      #digest
       
       # TODO: call oracle here
      
@@ -374,6 +375,11 @@ module MobyBase
         @_limited_objects[limited_type] = parent_type
       end
       
+      # load weights
+      data_object.weights_to_add.each do | object_type, object_weight |
+         @_object_weights[ object_type ] = object_weight       
+      end
+      
       # load custom states
       @_custom_states = data_object.custom_states_to_add
       
@@ -466,10 +472,11 @@ module MobyBase
       
       weighted_nodes = {}
 
-      weight_total = 0
+      weight_total = 0.0
 
       target_nodes.each do | target_node |
       
+        
         #change to add on target_node type
         weight_total += weighted_nodes[ target_node ] = @_object_weights[ target_node.attribute( "type" ) ]
 
@@ -521,6 +528,9 @@ module MobyBase
           # retry if array has nodes left
         end
       
+        # delete the node        
+        weight_total -= weighted_nodes.delete( weighted_nodes_keys[ weighted_nodes_index ] )         
+        
       end # while
       
       Kernel::raise(TDMonkeyNoTargetsError.new("No test object could be created matching allowed target types."))
@@ -743,23 +753,33 @@ module MobyBase
 
       # Check if the target application must be restarted 
       if @_app != nil
+      
+        @sut.refresh
+        @sut.freeze
               
         app_found = false
         
-        @_app.each do | app_name |
-          begin
-            
-            @sut.application(:FullName => app_name, :__timeout => 0 )
-            app_found = true
-            break
-            
-          rescue TestObjectNotFoundError        
+        begin
+          @_app.each do | app_name |
+            begin
+              
+              @sut.application(:FullName => app_name, :__timeout => 0 )
+              app_found = true
+              break
+              
+            rescue TestObjectNotFoundError        
+            end
           end
+        rescue Exceptino => e
+          raise e
+        ensure
+          @sut.unfreeze
         end
         
         if !app_found
         
           begin
+          
             @sut.application(:FullName => @_app[ 0 ], :__timeout => 0 ).bring_to_foreground
 
           rescue
@@ -880,6 +900,7 @@ module MobyBase
       @_add_limited_objects = {}
       @_replace_limited_objects = {}
       @_add_custom_states = []
+      @_add_weights = {}
       
     end         
   
@@ -947,6 +968,10 @@ module MobyBase
       @_add_custom_states
     end
     
+    def weights_to_add
+      @_add_weights
+    end
+    
     # Loads control variable content from a XML file. Note that a single TDMonkeyData class can only contain data
     # from one source.
     def load_from_xml( file_path )
@@ -968,6 +993,7 @@ module MobyBase
       @_add_triggers = []
       @_replace_triggers = []
       @_add_custom_states = []
+      @_add_weights = {}
       
       doc = MobyUtil::XML.parse_file( file_path )
 
@@ -978,6 +1004,12 @@ module MobyBase
         target_name = target_node.attribute("name")
         raise TDMonkeyXmlDataParseError.new("Target node with no name encountered.") if target_name.nil?
       
+        target_weight = target_node.attribute("weight")
+        
+        unless target_weight.nil?          
+          @_add_weights[ target_name ] = target_weight.to_f          
+        end
+        
         replace_target = (target_node.attribute("replace").to_s.downcase == "true")
               
         # add actions
@@ -1193,9 +1225,9 @@ module MobyBase
         target_nodes = state.xpath("targets/target")
         target_nodes.each do | target_node |
           
-          target_name = target_node.attribute("name")
+          target_name = target_node.attribute("name")     
           raise TDMonkeyXmlDataParseError.new("Target node with no name encountered.") if target_name.nil?
-        
+                   
           replace_target = (target_node.attribute("replace").to_s.downcase == "true")
                 
           # add actions
@@ -1251,8 +1283,7 @@ module MobyBase
 
           end # each actions/include
         end # targets/target
-        
-        puts "added: " << { :actions => custom_actions, :condition => state_objects }.inspect
+       
         @_add_custom_states << { :actions => custom_actions, :condition => state_objects }
                     
       end # each state
