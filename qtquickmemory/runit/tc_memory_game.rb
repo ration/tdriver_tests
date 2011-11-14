@@ -1,6 +1,8 @@
 # Require ruby unit test framework: This enables execution of test cases and also includes assertions (Test::Unit::Assertions).
 # The test methods starting with test_ found in TC_MemoryGame (or any Test::Unit::TestCase derived class)
 # can be executed by running this file.
+# QtQuickMemory: http://www.developer.nokia.com/Community/Wiki/A_QML_Memory_Game_Tutorial
+
 require 'test/unit'
 
 #Require QtQuickMemory test library
