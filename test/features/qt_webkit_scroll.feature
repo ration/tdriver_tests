@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows @qt_symbian
 
 Feature: MobyBehaviour::QT::Webkit#scroll
   As a test scripter writer

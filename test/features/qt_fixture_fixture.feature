@@ -9,7 +9,7 @@ Feature: MobyBehaviour::QT::Fixture#fixture
   When I execute "@__sut.application(:name => 'calculator').QLineEdit(:name => 'display').fixture('qt', 'setFocus')"
   Then QLinedit has focus
 
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_windows @qt_symbian
   Scenario: Get appligation signals using a fixture call
   Given I launch application "testapp" with listening signals "applicationReady()"
   When I execute "@app_signals=@app.fixture('signal', 'get_signal')"
