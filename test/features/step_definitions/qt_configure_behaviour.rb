@@ -106,7 +106,7 @@ end
 
 Then("file size of $name is smaller than $size") do |name, size|
   @sut.freeze
-  verify_true(2, "File must be smaller than " + name.to_s){File.size(name) <= size.to_i}
+  verify_true(2, "File must be smaller than #{size}, #{name.to_s} file size was #{File.size(name)}"){File.size(name) <= size.to_i}
   @sut.unfreeze
 end
 
