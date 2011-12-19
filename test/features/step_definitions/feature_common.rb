@@ -111,7 +111,7 @@ After do | scenario |
   end
 
   @__sut.clear_verify_blocks
-
+  @__sut.parameter[:tap_y_offset]='0'
   #Raising exception if it hasn't been handled
   raise @__exception if @__exception != nil
 
