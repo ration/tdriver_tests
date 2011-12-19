@@ -7,8 +7,10 @@ Feature: MobyBehaviour::QT::ConfigureBehaviour#set_log_size
 
   Scenario: Log set the log file size of qttasserver
     Given I have default sut
+    And I delete file /logs/testability/qttasserver.log 
     Then I execute "@sut.set_log_size(500)"
+    Given I launch application "calculator"
     And I get current application
     And file /logs/testability/qttasserver.log should exist
-	And file size of /logs/testability/qttasserver.log is smaller than 500
+    And file size of /logs/testability/qttasserver.log is smaller than 500
 
