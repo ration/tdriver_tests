@@ -1,4 +1,4 @@
-@qt_linux @qt_symbian @qt_meego
+@qt_symbian @qt_meego
 
 Feature: Testing retrieving WebKit objects with attributes
   As a test scripter writer
