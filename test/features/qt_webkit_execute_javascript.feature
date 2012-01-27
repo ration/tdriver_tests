@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian @qt_meego
+@qt_linux @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::QT::Webkit#execute_javascript
   As a test scripter writer
