@@ -134,7 +134,7 @@ task :doc_linux do
   # verify that testability-driver-runner is installed
   require_gem( 'testability-driver-runner', true )
 
-  run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
+  run_tests( "linux", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
 
 end
 
@@ -143,7 +143,7 @@ task :doc_meego do
   # verify that testability-driver-runner is installed
   require_gem( 'testability-driver-runner', true )
 
-  run_tests( "meego", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_meego --tdriver_parameters custom_parameters.xml" )
+  run_tests( "meego", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_meego --tdriver_parameters custom_parameters.xml" )
 
 end
 
@@ -152,7 +152,7 @@ task :doc_windows do
   # verify that testability-driver-runner is installed
   require_gem( 'testability-driver-runner', true )
 
-  run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
+  run_tests( "windows", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
 
 end
 
@@ -171,10 +171,10 @@ task :doc_symbian do
       "
     end
 
-    result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml report_path.xml" )
+    result=run_tests( "symbian", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml report_path.xml" )
   else
 
-    result=run_tests( "symbian", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
+    result=run_tests( "symbian", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_symbian --tdriver_parameters custom_parameters.xml" )
 
   end
 
@@ -271,17 +271,17 @@ task :cruise => ['build_testapps','execute_smoke'] do
     end
 
     if /win/ =~ RUBY_PLATFORM || /mingw32/ =~ RUBY_PLATFORM
-      result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml report_path.xml" )
+      result=run_tests( "windows", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml report_path.xml" )
     else
-      result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml report_path.xml" )
+      result=run_tests( "linux", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml report_path.xml" )
     end
 
   else
 
     if /win/ =~ RUBY_PLATFORM || /mingw32/ =~ RUBY_PLATFORM
-      result=run_tests( "windows", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
+      result=run_tests( "windows", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_windows --tdriver_parameters custom_parameters.xml" )
     else
-      result=run_tests( "linux", "tdrunner cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
+      result=run_tests( "linux", "tdrunner --ordered cucumber features -f TDriverDocument::CucumberReport -f TDriverReport::CucumberReporter --out log.log --tags @qt_linux --tdriver_parameters custom_parameters.xml" )
     end
 
   end
