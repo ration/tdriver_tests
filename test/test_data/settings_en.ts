@@ -17,14 +17,14 @@
             <lengthvariant>Sett.</lengthvariant>
         </translation>
     </message>
-    <message>
-        <source>qtn_sett_main_other</source>
-        <translation>
-          <numerus> </numerus>
-          <numerusform>Setting</numerusform>
-          <numerusform>%L1 Settings</numerusform>
-          <numerusform>All Settings</numerusform>
-        </translation>
+	<message numerus="yes" id="qtn_sett_main_other">
+      <source>qtn_sett_main_other</source>
+      <translation>
+	    <numerus> </numerus>
+		<numerusform plurality="1">Setting</numerusform>
+        <numerusform plurality="2">%L1 Settings</numerusform>
+        <numerusform plurality="3">All Settings</numerusform>
+      </translation>
     </message>
     <message>
         <source>qtn_sett_main_utilities</source>

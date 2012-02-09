@@ -1,4 +1,4 @@
-@qt_linux @qt_windows @qt_symbian 
+@qt_symbian 
 
 Feature: MobyBehaviour::QT::Webkit
   As a test scripter writer
