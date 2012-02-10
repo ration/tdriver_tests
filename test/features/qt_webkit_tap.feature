@@ -1,4 +1,4 @@
-@qt_symbian 
+@qt_windows @qt_linux @qt_symbian @qt_meego
 
 Feature: MobyBehaviour::QT::Webkit#tap
   As a test scripter writer

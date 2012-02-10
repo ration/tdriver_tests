@@ -1,4 +1,4 @@
-@qt_symbian @qt_meego
+@qt_windows @qt_linux @qt_symbian @qt_meego
 
 Feature: Testing retrieving WebKit objects with attributes
   As a test scripter writer
@@ -14,5 +14,5 @@ Feature: Testing retrieving WebKit objects with attributes
     Then I verify evaluate string "@app.img(:id => '2')"
     Then I verify evaluate string "@app.input(:id => 'textfield')"
     Then I verify evaluate string "@app.select(:value => 'Please Choose')"
-    Then I verify evaluate string "@app.option(:value => '1', :selected => 'false')"
+    Then I verify evaluate string "@app.input(:value => '1', :checked => 'false')"
     Then I verify evaluate string "@app.button(:value => 'submit')"

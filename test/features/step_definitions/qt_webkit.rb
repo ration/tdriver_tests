@@ -31,32 +31,12 @@ Then ("I should see \"$webelem\" having \"$attrib\" with value \"$value\"") do |
   elem_u = elem.attribute("y").to_i 
   elem_d = elem_u + elem.attribute("height").to_i
   
-  frame = @app.QWebFrame(:__index=>2)
+  frame = @app.frame(:src => './js_test.html')
   frame_l = frame.attribute("x").to_i 
   frame_r = frame_l + frame.attribute("width").to_i
   frame_u = frame.attribute("y").to_i 
   frame_d = frame_u + frame.attribute("height").to_i
-
-
-  verify_true(1) {(
-                   (#fully inside
-                    (elem_r <= frame_r) && 
-                    (elem_l >= frame_l) &&
-                    (elem_u >= frame_u) &&
-                    (elem_d <= frame_d)
-                   ) ||
-                   (#partially inside
-                    (
-                     (elem_l >= frame_l && elem_l < frame_r) || 
-                     (elem_r <= frame_r && elem_r > frame_l)
-                    )&&
-                    (
-                     (elem_u >= frame_u && elem_u < frame_d) ||
-                     (elem_d <= frame_d && elem_d > frame_u)
-                    )
-                   )
-                  )
-                  }
+  verify_true(1) {     elem_u < frame_d         }
 end
 
 Then ("I should not see \"$webelem\" having \"$attrib\" with value \"$value\"") do |webelem, attrib, value|
