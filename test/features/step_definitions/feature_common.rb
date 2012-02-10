@@ -26,7 +26,7 @@ require 'tdriver'
 include TDriverVerify
 include TDriverReportAPI
 
-Before do
+Before do |scenario|
 
   $ErrorMessage=""
 
@@ -47,7 +47,10 @@ Before do
 #  @__sut.log_mem({:interval => 2, :filePath => '/tmp/'}) if RUBY_PLATFORM.downcase.include?("linux")
 #  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mswin")
 #  @__sut.log_mem({:interval => 2, :filePath => 'C:/temp'}) if RUBY_PLATFORM.downcase.include?("mingw")
-
+  @current_scenario = scenario
+  @feature_name = @current_scenario.feature.name
+  @tag_names = @current_scenario.instance_variable_get("@tags").tag_names
+  @feature_tag_names = @current_scenario.feature.instance_variable_get("@tags").tag_names
 
 end
 
@@ -82,23 +85,23 @@ After do | scenario |
   if scenario.failed?
 
     close_counter=0
-      if @fail_counter==nil
-        @fail_counter=0
+      if $fail_counter==nil
+        $fail_counter=0
       end
-      @fail_counter+1
+      $fail_counter+1
 
       #Try to recover and check running apps
       app_list=@__sut.list_apps
       tdriver_report_log("Running applications: <div>#{app_list.to_s.gsub(/[<>]/,' ')}</div>")
 
-      if @fail_counter>10
+      if $fail_counter>10
         puts "Tests failing termitating execution"
         Kernel::exit(1)
       end
 
   else
 
-    @fail_counter=0
+    $fail_counter=0
 
   end
 
@@ -148,8 +151,8 @@ end
 Given /^I launch browser$/ do
   app_ref = "@app"
   raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
-  @__apps[app_ref] = @__sut.run( :name => 'browser' )
-  #@__sut.parameter[:tap_y_offset]='-25'
+  @__apps[app_ref] = @__sut.run( :name => 'browser' )  
+  @__sut.parameter[:tap_y_offset]='-25' if @__sut.ui_type != 'Symbian'
   eval(app_ref + " = @__apps[app_ref]")
   @__current_app = @__apps[app_ref]
 end
