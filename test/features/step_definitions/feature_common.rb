@@ -142,7 +142,8 @@ end
 
 Given /^I launch application "([^\"]*)" with listening signals "([^\"]*)"$/ do | app_name, signals |
   app_ref = "@app"
-  raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
+  raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil  
+  @__sut.parameter[:application_start_arguments] = '' #testability cannot be there
   @__apps[app_ref] = @__sut.run( :name => app_name.to_s , :signals_to_listen => signals, :sleep_after_launch => 10)
   eval(app_ref + " = @__apps[app_ref]")
   @__current_app = @__apps[app_ref]
