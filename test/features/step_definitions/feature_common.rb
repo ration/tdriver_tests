@@ -149,7 +149,7 @@ Given /^I launch browser$/ do
   app_ref = "@app"
   raise "No default sut given! Please set env variable TDRIVER_DEFAULT_SUT!" if @__sut == nil
   @__apps[app_ref] = @__sut.run( :name => 'browser' )
-  @__sut.parameter[:tap_y_offset]='-25'
+  #@__sut.parameter[:tap_y_offset]='-25'
   eval(app_ref + " = @__apps[app_ref]")
   @__current_app = @__apps[app_ref]
 end
