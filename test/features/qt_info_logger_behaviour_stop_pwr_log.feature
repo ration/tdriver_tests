@@ -20,6 +20,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_pwr_log
   Scenario: Stop logging the pwrory usage of the started application
     Given I have default sut
     And I launch application "testapp"
+    And I test code "@sut.fixture('file','mk_dir',{:file_name=>'E:/Data'})"
     And I test code "@app.log_pwr( :interval => 1, :filePath => 'E:\Data' )"
     And exception is not thrown
     And I test code "@app.Node.flick( :Left )"
@@ -27,6 +28,7 @@ Feature: MobyBehaviour::QT::InfoLoggerBehaviour#stop_pwr_log
     And exception is not thrown
     Then I can read the pwr log data
     And I execute "@app.stop_pwr_log"
+    And I test code "@sut.fixture('file','rm_dir',{:file_name=>'E:/Data'})"
     And exception is not thrown
 
 @qt_linux @qt_meego
