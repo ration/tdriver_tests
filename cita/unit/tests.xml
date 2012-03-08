@@ -3,6 +3,16 @@
   <suite name="matti-unit-tests" domain="Matti" timeout="3600">
     <description>Matti Framework</description>
     <set name="matti-unit-tests" feature="Smoke set">
+	<pre_steps>
+	  <step expected_result="0"> mcetool --set-inhibit-mode=stay-on </step>
+	  <step expected_result="0"> mcetool --set-tklock-mode=unlocked </step>
+	  <step expected_result="0"> mcetool --unblank-screen </step>
+	</pre_steps>
+	<post_steps>
+	  <step expected_result="0"> mcetool --set-inhibit-mode=disabled </step>
+	  <step expected_result="0"> mcetool --set-tklock-mode=locked </step>
+	  <step expected_result="0"> mcetool --blank-screen </step>
+	</post_steps>
       <environments>
       <environment>
         <scratchbox>true</scratchbox>
