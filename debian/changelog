@@ -10,7 +10,13 @@ matti-tests (1.5.2-1) unstable; urgency=low
 
  -- Testability Driver Team <testabilitydriver@nokia.com>  Thu, 08 Mar 2012 09:49:31 +0200
       
- matti-tests (1.5.0-1) unstable; urgency=low
+matti-tests (1.5.0-2) unstable; urgency=low
+
+  * bumb up version
+
+ -- Testability Driver Team <testabilitydriver@nokia.com>  Thu, 15 Mar 2012 14:12:59 +0200
+
+matti-tests (1.5.0-1) unstable; urgency=low
 
   * removed XB-Maemo-CI-Packages tag from control file, tests not run in this version
 
